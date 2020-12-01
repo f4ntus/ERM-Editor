@@ -19,7 +19,7 @@ class ERM
     }
 
     /**
-     * Diese Funktion fügt eine Relation hinzu
+     * Diese Funktion fügt eine Relationship hinzu
      */
     public function addRelationship()
     {
@@ -43,7 +43,7 @@ class ERM
     }
 
     /**
-     * Diese Funktion entfernt eine Relation
+     * Diese Funktion entfernt eine Relationship
      */
     public function removeRelationship()
     {
@@ -66,7 +66,7 @@ class ERM
     }
 
     /**
-     * Diese Funktion ändert eine Relation
+     * Diese Funktion ändert eine Relationship
      */
     public function changeRelationship()
     {
