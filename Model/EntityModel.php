@@ -1,10 +1,10 @@
 <?php
 /**
- * Class Entity
+ * Class EntityModel
  * Das Modell eines Erstellung
  */
 
-class Entity
+class EntityModel
 {
     /**
      * @var $name

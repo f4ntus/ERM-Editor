@@ -7,7 +7,7 @@
 class ERMController
 {
     /**
-     * @ERM erm
+     * @ERMModel erm
      */
     public $erm;
     /**
@@ -15,7 +15,7 @@ class ERMController
      */
     public function createModel()
     {
-        $erm = new ERM();
+        $erm = new ERMModel();
     }
 
     /**
@@ -27,7 +27,7 @@ class ERMController
     }
 
     /**
-     * Diese Funktion fügt eine Relationship hinzu
+     * Diese Funktion fügt eine RelationshipModel hinzu
      */
     public function addRelationship()
     {
@@ -51,7 +51,7 @@ class ERMController
     }
 
     /**
-     * Diese Funktion entfernt eine Relationship
+     * Diese Funktion entfernt eine RelationshipModel
      */
     public function removeRelationship()
     {
@@ -74,7 +74,7 @@ class ERMController
     }
 
     /**
-     * Diese Funktion ändert eine Relationship
+     * Diese Funktion ändert eine RelationshipModel
      */
     public function changeRelationship()
     {

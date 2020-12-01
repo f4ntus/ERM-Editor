@@ -1,9 +1,9 @@
 <?php
 /**
- * Class ERM
+ * Class ERMModel
  */
 
-class ERM
+class ERMModel
 {
     public $entitys;
     public $relations;
@@ -19,7 +19,7 @@ class ERM
     }
 
     /**
-     * Diese Funktion fügt eine Relationship hinzu
+     * Diese Funktion fügt eine RelationshipModel hinzu
      */
     public function addRelationship()
     {
@@ -43,7 +43,7 @@ class ERM
     }
 
     /**
-     * Diese Funktion entfernt eine Relationship
+     * Diese Funktion entfernt eine RelationshipModel
      */
     public function removeRelationship()
     {
@@ -66,7 +66,7 @@ class ERM
     }
 
     /**
-     * Diese Funktion ändert eine Relationship
+     * Diese Funktion ändert eine RelationshipModel
      */
     public function changeRelationship()
     {

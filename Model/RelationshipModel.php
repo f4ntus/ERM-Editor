@@ -2,9 +2,9 @@
 
 
 /**
- * Class Relationship
+ * Class RelationshipModel
  */
-class Relationship
+class RelationshipModel
 {
     /**
      * @var $name
@@ -19,7 +19,7 @@ class Relationship
     private $attributes;
 
     /**
-     * @var $ Enities 2 Demensionale Liste/Array oder was auch immer 1 Dim Kardinalität 2. Dim Entity
+     * @var $ Enities 2 Demensionale Liste/Array oder was auch immer 1 Dim Kardinalität 2. Dim EntityModel
      */
     private $entities;
 

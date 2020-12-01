@@ -1,7 +1,7 @@
 <?php
 
 
-class relatetedAttribute extends Attribute
+class relatetedAttributeModel extends AttributeModel
 {
     private  $attributes;
 

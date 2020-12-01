@@ -1,10 +1,10 @@
 <?php
 /**
- * Class Attribute
- * Merkmale von Attribute
+ * Class AttributeModel
+ * Merkmale von AttributeModel
  */
 
-class Attribute
+class AttributeModel
 {
     /**
      * @var $name
