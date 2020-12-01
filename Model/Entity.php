@@ -90,4 +90,8 @@ class Entity
     public function addattribute($attribute){
 
     }
+
+    public function changepostion($x, $y){
+
+    }
 }
