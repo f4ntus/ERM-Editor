@@ -14,7 +14,10 @@ class AttributeModel
      * @var $type
      */
     private $type;
-
+    /**
+     * @var $primary
+     */
+    private $primary;
     /**
      * @return mixed
      */
