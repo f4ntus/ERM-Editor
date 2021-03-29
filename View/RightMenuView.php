@@ -55,15 +55,15 @@
             margin-bottom: 15px;
         }
         .button2 {
-            background-color blue;
+            background: blue;
             color: white;
-            padding: 5px;
-            margin: 4px 2px;
+
+
             border-radius: 12px;
             text-align center;
             height:60px;
             width:100px;
-            margin: 2px;
+
 
         }
     </style>
@@ -115,23 +115,21 @@
 
         <hr class="hr">
 
-        <button class="button">Einfaches<br>Attribut<br>hinzufügen</button>
-        <button class="button">Mehrwertiges<br>Attribut<br>hinzufügen</button>
-        <button class="button">Zusammengesetztes<br>Attribut<br>hinzufügen</button>
+        <button onclick="onClickButtonAddSimpleAttribute()" class="button">Einfaches<br>Attribut<br>hinzufügen</button>
+        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen</button>
+        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen</button>
 
         <hr class="hr">
 
-        <h4>Einfaches Attribut hinzufügen</h4>
-        <div class="row">
-            <div class="column" style="width: 30%;">
-                <button class="button2">Attribut<br>hinzufügen</button>
-            </div>
-            <div class="column2" style="width: auto;">
-                <h2>Column 2</h2>
-                <p>Some text..</p>
-            </div>
+        <h4>Mehrwertiges Attribut hinzufügen:</h4>
+        <div class="row" id="idDivAddAttribute">
+
+
+
         </div>
 </div>
+
+    <script src="../Controller/RightMenuController.js"></script>
 
 </body>
 </html>
