@@ -14,9 +14,9 @@
             padding: 10px;
 
         }
+
         .column2 {
             float: left;
-
 
 
         }
@@ -32,7 +32,8 @@
             border: 1px solid black;
             border-collapse: collapse;
         }
-        table{
+
+        table {
             margin-bottom: 20px;
         }
 
@@ -43,17 +44,19 @@
             margin: 4px 2px;
             border-radius: 12px;
             text-align center;
-            height:80px;
-            width:140px;
+            height: 80px;
+            width: 140px;
             margin: 2px;
 
         }
+
         .hr {
             border: 1px solid black;
             border-radius: 2px;
             margin-top: 15px;
             margin-bottom: 15px;
         }
+
         .button2 {
             background: blue;
             color: white;
@@ -61,8 +64,8 @@
 
             border-radius: 12px;
             text-align center;
-            height:60px;
-            width:100px;
+            height: 60px;
+            width: 100px;
 
 
         }
@@ -116,20 +119,23 @@
         <hr class="hr">
 
         <button onclick="onClickButtonAddSimpleAttribute()" class="button">Einfaches<br>Attribut<br>hinzufügen</button>
-        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen</button>
-        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen</button>
+        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen
+        </button>
+        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen
+        </button>
 
         <hr class="hr">
 
-        <h4>Mehrwertiges Attribut hinzufügen:</h4>
+
         <div class="row" id="idDivAddAttribute">
-
-
 
         </div>
 </div>
 
-    <script src="../Controller/RightMenuController.js"></script>
+<script type="text/javascript" src="RightMenuController.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
 </body>
 </html>
