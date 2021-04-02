@@ -16,16 +16,78 @@ class EntityModel
      */
     private $attributes;
     /**
-     * @var $x
+     * @var $x Standort der Variable
      */
     public $x;
     /**
-     * @var $y
+     * @var $y Standort der Variable
      */
     public $y;
     /**
      * @return mixed
      */
+
+    /**
+     * EntityModel constructor.
+     * @param $name
+     * @param $x Standort
+     * @param $y Standort
+     */
+    public function __construct($name, $x, $y)
+    {
+        $this->name = $name;
+        $this->x = $x;
+        $this->y = $y;
+        $this->attributes = array();
+    }
+
+    /**
+     * Attribu wird hinzugefügt
+     * @param AttributeModel $attribute
+     */
+
+    public function addAttribute(AttributeModel $attribute){
+        $this->attributes[] = $attribute;
+    }
+
+    /**
+     * Attribut wird entfernt
+     * @param AttributeModel $attribute
+     */
+    public function deleteAttribute(AttributeModel $attribute){
+        foreach ($this->attributes as  $key=>$a){
+             if($attribute==$a){
+                 unset($this->attributes[$key]);
+             }
+        }
+
+    }
+
+    public function printEntity(){
+        echo $this->name.'</br>';
+        echo $this->x.'</br>';
+        echo $this->y.'</br>';
+        foreach ($this->attributes as  $attribute){
+            switch($attribute->getType()){
+                case 1:
+                    echo $attribute->getName().'</br>';
+                    break;
+                case 2:
+                    echo '{'.$attribute->getName().'}'.'</br>';
+                    break;
+                case 3:
+                   // $relatedAttribute = new RelatetedAttributeModel();
+                    $relatedAttribute = $attribute;
+                    echo $relatedAttribute->getName().'(';
+                    foreach ($relatedAttribute->getSubnames() as $subname){
+                        echo $subname .' ,';
+                    }
+                    break;
+
+            }
+        }
+    }
+
     public function getName()
     {
         return $this->name;
@@ -87,11 +149,4 @@ class EntityModel
         $this->y = $y;
     }
 
-    public function addattribute($attribute){
-
-    }
-
-    public function changepostion($x, $y){
-
-    }
 }

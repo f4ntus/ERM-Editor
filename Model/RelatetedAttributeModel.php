@@ -3,34 +3,36 @@
 
 class RelatetedAttributeModel extends AttributeModel
 {
-    /*Liste*/
-    /**
-     * @var
-     */
-    private  $subAttributes;
+   private $subnames;
 
     /**
-     * @param $attribute
+     * RelatetedAttributeModel constructor.
+     * @param $name
+     * @param $type
+     * @param $primary
+     * @param $subnames Array_mitNamen
      */
-    private function addSubAttribute($attribute)
+   public function __construct($name, $type, $primary, $subnames)
+   {
+       parent::__construct($name, $type, $primary);
+       $this->subnames = $subnames;
+   }
+
+    /**
+     * @return mixed
+     */
+    public function getSubnames()
     {
-
+        return $this->subnames;
     }
 
     /**
-     * @param $attribute
+     * @param mixed $subnames
      */
-    private function deleteSubAttribute($attribute)
+    public function setSubnames($subnames)
     {
-
+        $this->subnames = $subnames;
     }
 
-    /**
-     * @param $attribute
-     */
-    private function changeSubAttribute($attribute)
-    {
-
-    }
 
 }
