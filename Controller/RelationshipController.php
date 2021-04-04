@@ -9,8 +9,8 @@ class RelationshipController
         return new RelationshipModel($name, $x, $y);
     }
 
-    public function addRelation(RelationshipModel $relationship, EntityModel $entity, $kardmin, $kardmax){
-        $relation = new RelationModel($entity, $kardmin, $kardmax);
+    public function addRelation(RelationshipModel $relationship, EntityModel $entity, $kardmin, $kardmax, $weak){
+        $relation = new RelationModel($entity, $kardmin, $kardmax, $weak);
         $relationship->addRelation($relation);
         return $relation;
     }

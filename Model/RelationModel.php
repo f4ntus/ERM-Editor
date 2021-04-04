@@ -18,6 +18,10 @@ class RelationModel
      * @var Maximaler Wert der Kardinalität
      */
     private $kardmax;
+    /**
+     * @var SchwachesENtit
+     */
+    private $weak;
 
     /**
      * RelationModel constructor.
@@ -25,11 +29,12 @@ class RelationModel
      * @param minminaler $kardmin
      * @param Maximaler $kardmax
      */
-    public function __construct(EntityModel $entity, minminaler $kardmin, Maximaler $kardmax)
+    public function __construct(EntityModel $entity,  $kardmin, $kardmax, $weak)
     {
         $this->entity = $entity;
         $this->kardmin = $kardmin;
         $this->kardmax = $kardmax;
+        $this->weak = $this->weak;
     }
 
 
