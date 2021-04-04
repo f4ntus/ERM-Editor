@@ -25,3 +25,34 @@ li a {
 li a:hover {
     background-color: #111;
 }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+      'header header header header header header'
+      'menu main main main right right'
+      'menu footer footer footer footer footer';
+    grid-gap: 10px;
+    background-color: #2196F3;
+    padding: 10px;
+}
+.headline {
+    grid-area: header;
+    background-color: aqua;
+}
+.leftMenue {
+    grid-area: menu;
+    background-color: blue;
+}
+.editor {
+    grid-area: main;
+    background-color: red;
+}
+.forightMenue {
+    grid-area: right;
+    background-color: green;
+}
+.outputBelow {
+    grid-area: footer;
+    background-color: hotpink;
+}
