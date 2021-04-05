@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
+    <script language="javascript" type="text/javascript" src="frontendScript.js"></script>
     <title>ERM-Editor</title>
 </head>
 <body>
@@ -36,12 +37,13 @@
                 <div class="dropdown">
                     <button class="dropbtn">Generalisierung</button>
                     <div class="dropdown-content">
-                        <a href="#">Hausklassenmodell</a>
-                        <a href="#">Partionierungs-Modell</a>
-                        <a href="#">Volle Redundanz</a>
-                        <a href="#">Überrelation</a>
+                        <a href="#" onclick="generalizationMode('Hausklassenmodell')">Hausklassenmodell</a>
+                        <a href="#" onclick="generalizationMode('Partionierungs-Modell')">Partionierungs-Modell</a>
+                        <a href="#" onclick="generalizationMode('Volle Redundanz')">Volle Redundanz</a>
+                        <a href="#" onclick="generalizationMode('Überrelation')">Überrelation</a>
                     </div>
                 </div>
+                <p id="showGeneralizationMode"></p>
                 <button>ERM umwandeln</button>
             </div>
         </div>

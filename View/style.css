@@ -40,6 +40,7 @@ input {
 .dropdown {
     position: relative;
     display: inline-block;
+    float: left;
 }
 .dropdown-content {
     display: none;
@@ -132,4 +133,7 @@ input {
     height: 55px;
     width: 68px;
     border: white;
+}
+#showGeneralizationMode{
+    float: left;
 }
