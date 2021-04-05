@@ -1,6 +1,7 @@
 body{
     font-family: Arial;
 }
+/*----- for the navbar -----*/
 ul {
     list-style-type: none;
     margin: 0;
@@ -21,11 +22,56 @@ li a {
     text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: #111;
+    background-color: black;
 }
 
+input {
+    margin: 10px;
+}
+/* ----- For the Dropdown ----- */
+.dropbtn {
+    background-color: lightblue;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    /* Change color of dropdown links on hover */
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    /* Show the dropdown menu on hover */
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    background-color: darkblue;
+}
+
+/* ----- for the left menu ----- */
 .grid-container {
     display: grid;
     grid-template-areas:
@@ -42,7 +88,7 @@ li a:hover {
 }
 .leftMenue {
     grid-area: menu;
-    background-color: blue;
+    background-color: white;
 }
 .editor {
     grid-area: main;
@@ -55,4 +101,35 @@ li a:hover {
 .outputBelow {
     grid-area: footer;
     background-color: hotpink;
+}
+.menuGroup{
+    border-width: 2px;
+    border-color: gray;
+    border-radius: 10px;
+    border-style: solid;
+    margin: 10px;
+    padding: 20px;
+}
+.shape{
+    margin: 20px;
+}
+#entity{
+    background-image: url("images/entity.png");
+    background-size: contain;
+    height: 44px;
+    width: 100px;
+}
+#relationship{
+    background-image: url("images/relationship.png");
+    background-size: contain;
+    height: 55px;
+    width: 95px;
+    border: white;
+}
+#isA{
+    background-image: url("images/isA.png");
+    background-size: contain;
+    height: 55px;
+    width: 68px;
+    border: white;
 }
