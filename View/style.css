@@ -1,6 +1,8 @@
-body{
+body {
     font-family: Arial;
+
 }
+
 /*----- for the navbar -----*/
 ul {
     list-style-type: none;
@@ -29,6 +31,7 @@ li a:hover {
 input {
     margin: 10px;
 }
+
 /* ----- For the Dropdown ----- */
 .dropbtn {
     background-color: lightblue;
@@ -39,20 +42,23 @@ input {
     height: 40px;
     border: none;
 }
+
 .dropdown {
     position: center;
-    display: inline-block ;
+    display: inline-block;
     float: left;
     margin-bottom: 20px;
 }
+
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
+
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -87,31 +93,37 @@ input {
     padding: 10px;
     height: 100%;
 }
+
 .headline {
     grid-area: header;
     background-color: aqua;
 }
+
 .leftMenue {
     grid-area: menu;
     background-color: white;
 }
+
 .editor {
     grid-area: main;
     background-color: gray;
     min-width: 1000px;
     min-height: 600px;
 }
+
 .rightMenue {
     grid-area: right;
-    background-color: green;
+    background-color: white;
     min-width: 300px;
 }
+
 .outputBelow {
     grid-area: footer;
     background-color: hotpink;
     min-height: 250px;
 }
-.menuGroup{
+
+.menuGroup {
     border-width: 2px;
     border-color: gray;
     border-radius: 10px;
@@ -119,31 +131,92 @@ input {
     margin: 10px;
     padding: 20px;
 }
-.shape{
+
+.shape {
     margin: 20px;
 }
-#entity{
+
+#entity {
     background-image: url("images/entity.png");
     background-size: contain;
     height: 44px;
     width: 100px;
 }
-#relationship{
+
+#relationship {
     background-image: url("images/relationship.png");
     background-size: contain;
     height: 55px;
     width: 95px;
     border: white;
 }
-#isA{
+
+#isA {
     background-image: url("images/isA.png");
     background-size: contain;
     height: 55px;
     width: 68px;
     border: white;
 }
-#showGeneralizationMode{
+
+#showGeneralizationMode {
     float: left;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+/*------ For right menue -----*/
+/* Create four equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 25%;
+    padding: 10px;
+}
+
+.column2 {
+    float: left;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    margin-bottom: 20px;
+}
+
+.button {
+    background-color: gray;
+    color: black;
+    padding: 5px;
+    margin: 4px 2px;
+    border-radius: 12px;
+    text-align: center;
+    height: 80px;
+    width: 140px;
+    margin: 2px;
+}
+
+.hr {
+    border: 1px solid black;
+    border-radius: 2px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.button2 {
+    background: blue;
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    height: 60px;
+    width: 100px;
 }

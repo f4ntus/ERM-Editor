@@ -1,11 +1,10 @@
-
-function onClickButtonAddSimpleAttribute(){
+function onClickButtonAddSimpleAttribute() {
 
     document.getElementById("idDivAddAttribute").innerHTML =
 
         document.getElementById("idDivAddAttribute").innerHTML =
 
-           '            <h4>Einfaches Attribut hinzufügen:</h4>\n' +
+            '            <h4>Einfaches Attribut hinzufügen:</h4>\n' +
             '            <div class="column" style="width: 30%;">\n' +
             '                <button class="button2">Einfaches<br>Attribut<br>hinzufügen</button>\n' +
             '            </div>\n' +
@@ -23,7 +22,8 @@ function onClickButtonAddSimpleAttribute(){
             '            </div>';
 
 }
-function onClickButtonAddMultiValueAttribute(){
+
+function onClickButtonAddMultiValueAttribute() {
 
     document.getElementById("idDivAddAttribute").innerHTML =
 
@@ -51,12 +51,9 @@ function onClickButtonAddMultiValueAttribute(){
         '            </div>';
 
 
-
-
-
-
 }
-function onClickButtonAddCompoundAttribute(){
+
+function onClickButtonAddCompoundAttribute() {
 
 
 }

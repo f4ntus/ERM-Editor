@@ -12,13 +12,9 @@
             float: left;
             width: 25%;
             padding: 10px;
-
         }
-
         .column2 {
             float: left;
-
-
         }
 
         /* Clear floats after the columns */
@@ -47,7 +43,6 @@
             height: 80px;
             width: 140px;
             margin: 2px;
-
         }
 
         .hr {
@@ -60,14 +55,10 @@
         .button2 {
             background: blue;
             color: white;
-
-
             border-radius: 12px;
             text-align center;
             height: 60px;
             width: 100px;
-
-
         }
     </style>
 </head>
