@@ -33,14 +33,17 @@ input {
 .dropbtn {
     background-color: lightblue;
     color: white;
-    padding: 16px;
+    /*padding: 16px;*/
     font-size: 16px;
+    width: 150px;
+    height: 40px;
     border: none;
 }
 .dropdown {
-    position: relative;
-    display: inline-block;
+    position: center;
+    display: inline-block ;
     float: left;
+    margin-bottom: 20px;
 }
 .dropdown-content {
     display: none;
@@ -76,12 +79,13 @@ input {
 .grid-container {
     display: grid;
     grid-template-areas:
-      'header header header header header header'
-      'menu main main main right right'
-      'menu footer footer footer footer footer';
+      'header header header header header header header header'
+      'menu main main main main main right right'
+      'menu footer footer footer footer footer footer footer';
     grid-gap: 10px;
     background-color: #2196F3;
     padding: 10px;
+    height: 100%;
 }
 .headline {
     grid-area: header;
@@ -93,15 +97,19 @@ input {
 }
 .editor {
     grid-area: main;
-    background-color: red;
+    background-color: gray;
+    min-width: 1000px;
+    min-height: 600px;
 }
-.forightMenue {
+.rightMenue {
     grid-area: right;
     background-color: green;
+    min-width: 300px;
 }
 .outputBelow {
     grid-area: footer;
     background-color: hotpink;
+    min-height: 250px;
 }
 .menuGroup{
     border-width: 2px;
@@ -136,4 +144,6 @@ input {
 }
 #showGeneralizationMode{
     float: left;
+    margin-left: 20px;
+    margin-right: 20px;
 }
