@@ -87,7 +87,42 @@
 
         <div class="row" id="idDivAddAttribute">
 
+            <h4>Zusammengesetztes Attribut Attribut hinzufügen:</h4>
+            <div class="column" style="width: 30%;">
+                <button class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen</button>
+            </div>
+
+            <div class="column2" style="width: 65%;">
+                <table id="idTableCompoundAttribute" style="width:70%">
+                    <tr>
+                        <th style="text-align: center;">Oberattribut</th>
+                        <th><input placeholder="" type="text" id="idUpperAttributeName"
+                               name="idUpperAttributeName"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Unterattribut</td>
+                        <td>
+                            <input placeholder="" type="text" id="idSubValueAttribute1" name="idSubValueAttribute1"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Unterattribut</td>
+                        <td>
+                            <input placeholder="" type="text" id="idSubValueAttribute2" name="idSubValueAttribute2"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;" colspan="2">
+                            <button onclick="onClickAddSubAttributeRow()" class="buttonPlus">&#43;</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
         </div>
+        <hr class="hr">
+        <button style="margin:0 auto; display:block; margin-bottom: 1%; background: blue; color: white;" class="button">Fertigstellen</button>
     </div>
     <div class="outputBelow">Five</div>
 </div>

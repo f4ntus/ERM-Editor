@@ -220,3 +220,6 @@ table {
     height: 60px;
     width: 100px;
 }
+buttonPlus {
+    content: "\002B";
+}
