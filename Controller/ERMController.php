@@ -1,4 +1,6 @@
 <?php
+include_once '../Model/ERMModel.php';
+include_once '../Model/EntityModel.php';
 /**
  * Class ERMController
  * Diese Klasse ist der Controller bei der Erstellung eines ERMs.
@@ -6,26 +8,28 @@
 
 class ERMController
 {
-    /**
-     * @ERMModel erm
-     */
-    public $erm;
+
     /**
      * Diese Funktion erstelllt ein Modell
      */
     public function createModel()
     {
-        $erm = new ERMModel();
+        return new ERMModel();
     }
 
-    /**
-     * Diese Funktion fügt eine Entität hinzu
-     */
-    public function addEntity()
+
+    public function addEntity(ERMModel $erm, EntityModel $entity )
     {
-
+        $erm->addEntity($entity);
     }
 
+    public function deleteEntity(ERMModel $erm, EntityModel $entity){
+        $erm->deleteEntity($entity);
+    }
+
+    public function printEntities(ERMModel $erm){
+        $erm->printEntities();
+    }
     /**
      * Diese Funktion fügt eine RelationshipModel hinzu
      */
@@ -42,18 +46,11 @@ class ERMController
 
     }
 
-    /**
-     * Diese Funktion entfernt eine Entität
-     */
-    public function removeEntity()
-    {
-
-    }
 
     /**
      * Diese Funktion entfernt eine RelationshipModel
      */
-    public function removeRelationship()
+    public function deleteRelationship()
     {
 
     }
@@ -61,30 +58,7 @@ class ERMController
     /**
      * Diese Funktion entfernt eine Generalisierung
      */
-    public function removeGeneralisation()
-    {
-
-    }
-    /**
-     * Diese Funktion ändert eine Entität
-     */
-    public function changeEntity()
-    {
-
-    }
-
-    /**
-     * Diese Funktion ändert eine RelationshipModel
-     */
-    public function changeRelationship()
-    {
-
-    }
-
-    /**
-     * Diese Funktion ändert eine Generalisierung
-     */
-    public function changeGeneralisation()
+    public function deleteGeneralisation()
     {
 
     }

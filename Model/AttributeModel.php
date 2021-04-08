@@ -3,21 +3,34 @@
  * Class AttributeModel
  * Merkmale von AttributeModel
  */
-
 class AttributeModel
 {
     /**
      * @var $name
      */
-    private $name;
+    protected $name;
     /**
      * @var $type
      */
-    private $type;
+    protected $type;
     /**
      * @var $primary
      */
-    private $primary;
+    protected $primary;
+
+    /**
+     * AttributeModel constructor.
+     * @param $name
+     * @param $type
+     * @param $primary
+     */
+    public function __construct($name, $type, $primary)
+    {
+        $this->name = $name;
+        $this->type = $type;
+        $this->primary = $primary;
+    }
+
     /**
      * @return mixed
      */
@@ -49,4 +62,30 @@ class AttributeModel
     {
         $this->type = $type;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimary()
+    {
+        return $this->primary;
+    }
+
+    /**
+     * @param mixed $primary
+     */
+    public function setPrimary($primary)
+    {
+        $this->primary = $primary;
+    }
+
+    public function getInformations(){
+        $information = array();
+        $information['Name'] = $this->name;
+        $information['Type'] = $this->type;
+        $information['Primary'] = $this->primary;
+        return $information;
+    }
+
+
 }

@@ -1,83 +1,100 @@
 <?php
+
 /**
  * Class ERMModel
  */
 
 class ERMModel
 {
-    public $entitys;
-    public $relations;
-    public $genaralistions;
-
+    private $entities;
+    private $relationships;
+    private $generalistions;
+    private $id;
 
     /**
-     * Diese Funktion fügt eine Entität hinzu
+     * Konstrukter
      */
-    public function addEntity()
-    {
 
+    public function __construct()
+    {
+        $this->id = 1;
+        // Check relevants
+        $this->entities = array();
+        $this->relationships = array();
+        $this->generalistions = array();
     }
 
-    /**
-     * Diese Funktion fügt eine RelationshipModel hinzu
-     */
-    public function addRelationship()
-    {
-
-    }
 
     /**
-     * Diese Funktion fügt eine Generalisierung hinzu
+     * @param EntityModel $Entity
      */
-    public function addGeneralisation()
+    public function addEntity(EntityModel $entity)
     {
-
+        $this->entities[] = $entity;
     }
 
     /**
      * Diese Funktion entfernt eine Entität
      */
-    public function removeEntity()
+    public function deleteEntity(EntityModel $entity)
+    {
+        foreach ($this->entities as $key => $a) {
+            if ($entity == $a) {
+                unset($this->entities[$key]);
+            }
+        }
+    }
+
+
+    public function printEntities()
     {
 
+        foreach ($this->entities as $entity) {
+            echo $entity->getName();
+            $entity->printEntity($entity);
+            echo '</br>';
+        }
     }
+
+    /**
+     * Diese Funktion fügt eine RelationshipModel hinzu
+     */
+    public function addRelationship(RelationshipModel $relationship)
+    {
+        $this->relationships[] = $relationship;
+    }
+
+    /**
+     * Diese Funktion fügt eine Generalisierung hinzu
+     */
+    public function addGeneralisation(GeneralisationModel $generalisation)
+    {
+        $this->generalistions[] = $generalisation;
+    }
+
 
     /**
      * Diese Funktion entfernt eine RelationshipModel
      */
-    public function removeRelationship()
+    public function deleteRelationship(RelationshipModel $relationship)
     {
+        foreach ($this->relationships as $key => $r) {
+            if ($relationship == $r) {
+                unset($this->relationships[$key]);
+            }
+        }
 
     }
 
     /**
      * Diese Funktion entfernt eine Generalisierung
      */
-    public function removeGeneralisation()
+    public function deleteGeneralisation(GeneralisationModel $generalisation)
     {
-
-    }
-    /**
-     * Diese Funktion ändert eine Entität
-     */
-    public function changeEntity()
-    {
-
-    }
-
-    /**
-     * Diese Funktion ändert eine RelationshipModel
-     */
-    public function changeRelationship()
-    {
-
-    }
-
-    /**
-     * Diese Funktion ändert eine Generalisierung
-     */
-    public function changeGeneralisation()
-    {
-
+        foreach ($this->generalistions as $key => $g) {
+            if ($generalisation == $g) {
+                unset($this->generalistions[$key]);
+            }
+        }
     }
 }
