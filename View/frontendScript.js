@@ -6,14 +6,16 @@ function generalizationMode(mode) {
 
 function onClickButtonAddSimpleAttribute() {
 
-        document.getElementById("idDivAddAttribute").innerHTML =
+    alert("clicked");
+
+    document.getElementById("idDivAddAttribute").innerHTML =
 
             '            <h4>Einfaches Attribut hinzufügen:</h4>\n' +
             '            <div class="column" style="width: 30%;">\n' +
-            '                <button id="idAddSimpleAttributeToTable" class="button2">Einfaches<br>Attribut<br>hinzufügen</button>\n' +
+            '                <button onclick="onClickAddSimpleAttributeToTable" class="button2">Einfaches<br>Attribut<br>hinzufügen</button>\n' +
             '            </div>\n' +
             '            <div class="column2" style="width: 60%;">\n' +
-            '                <table style="" >\n' +
+            '                <table id="idTableSingleValueAttribute" style="" >\n' +
             '                    <tr>\n' +
             '                        <th>Attributname</th>\n' +
             '                        <th>PK</th>\n' +
@@ -24,7 +26,6 @@ function onClickButtonAddSimpleAttribute() {
             '                    </tr>\n' +
             '                </table>\n' +
             '            </div>';
-
 }
 
 function onClickButtonAddMultiValueAttribute() {
@@ -33,10 +34,10 @@ function onClickButtonAddMultiValueAttribute() {
 
         '<h4>Mehrwertiges Attribut hinzufügen:</h4>\n' +
         '            <div class="column" style="width: 30%;">\n' +
-        '                <button id="idMultiValueAttributeToTable" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen</button>\n' +
+        '                <button onclick="onClickAddMultiValueAttributeToTable" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen</button>\n' +
         '            </div>\n' +
         '            <div class="column2" style="width: 65%;">\n' +
-        '                <table style="width:70%">\n' +
+        '                <table id="idAddMultiValueAttributeToTable" style="width:70%">\n' +
         '                    <tr>\n' +
         '                        <th style="text-align: center;" >Mehrwertiges Attribut</th>\n' +
         '                    </tr>\n' +
@@ -53,8 +54,6 @@ function onClickButtonAddMultiValueAttribute() {
         '                    </tr>\n' +
         '                </table>\n' +
         '            </div>';
-
-
 }
 
 function onClickButtonAddCompoundAttribute() {
@@ -63,7 +62,7 @@ function onClickButtonAddCompoundAttribute() {
 
     '<h4>Zusammengesetztes Attribut Attribut hinzufügen:</h4>\n' +
         '            <div class="column" style="width: 30%;">\n' +
-        '                <button id="idCompoundAttributeToTable" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen</button>\n' +
+        '                <button onclick="onClickButtonAddSimpleAttribute" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen</button>\n' +
         '            </div>\n' +
         '\n' +
         '            <div class="column2" style="width: 65%;">\n' +
@@ -114,12 +113,18 @@ function onClickAddSubAttributeRow(){
 
 }
 
-function idAddSimpleAttributeToTable() {
+function onClickAddSimpleAttributeToTable() {
+
+    idTableSingleValueAttribute
+
+}
+function onClickAddMultiValueAttributeToTable() {
+
+    idAddMultiValueAttributeToTable
 
 }
 function onClickButtonAddSimpleAttribute() {
 
-}
-function onClickButtonAddSimpleAttribute() {
+    idTableCompoundAttribute
 
 }
