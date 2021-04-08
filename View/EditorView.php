@@ -78,10 +78,8 @@
         <hr class="hr">
 
         <button onclick="onClickButtonAddSimpleAttribute()" class="button">Einfaches<br>Attribut<br>hinzufügen</button>
-        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen
-        </button>
-        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen
-        </button>
+        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen</button>
+        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen</button>
 
         <hr class="hr">
 
@@ -89,7 +87,7 @@
 
             <h4>Zusammengesetztes Attribut Attribut hinzufügen:</h4>
             <div class="column" style="width: 30%;">
-                <button class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen</button>
+                <button id="idCompoundAttributeToTable" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen</button>
             </div>
 
             <div class="column2" style="width: 65%;">
