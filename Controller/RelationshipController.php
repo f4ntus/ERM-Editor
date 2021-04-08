@@ -9,8 +9,8 @@ class RelationshipController
         return new RelationshipModel($name, $x, $y);
     }
 
-    public function addRelation(RelationshipModel $relationship, EntityModel $entity, $kardmin, $kardmax, $weak){
-        $relation = new RelationModel($entity, $kardmin, $kardmax, $weak);
+    public function addRelation(RelationshipModel $relationship, EntityModel $entity, $kard, $weak){
+        $relation = new RelationModel($entity, $kard, $weak);
         $relationship->addRelation($relation);
         return $relation;
     }
@@ -43,9 +43,33 @@ class RelationshipController
      * @param int $x
      * @param int $y
      */
-    public function changePosition(RelationshipModel $relation, int $x, int $y){
-        $relation->setX($x);
-        $relation->setY($y);
+    public function changePosition(RelationshipModel $relationship, int $x, int $y){
+        $relationship->setX($x);
+        $relationship->setY($y);
+    }
+
+    /**
+     * Ausgabe der Position
+     * @param RelationshipModel $relationship
+     * @return array
+     */
+    public function getPosition(RelationshipModel $relationship){
+        $position = array();
+        $position['X'] = $relationship->getX();
+        $position['Y'] = $relationship->getY();
+        return $position;
+    }
+
+    public function getAttributes(RelationshipModel $relationship){
+        $attributes = array();
+
+        foreach ($relationship->getAttributes() as  $a){
+
+                $attributes[] = $a->getInformations();
+                   }
+
+        return $attributes;
+
     }
 
 

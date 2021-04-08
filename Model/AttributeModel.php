@@ -8,15 +8,15 @@ class AttributeModel
     /**
      * @var $name
      */
-    private $name;
+    protected $name;
     /**
      * @var $type
      */
-    private $type;
+    protected $type;
     /**
      * @var $primary
      */
-    private $primary;
+    protected $primary;
 
     /**
      * AttributeModel constructor.
@@ -78,5 +78,14 @@ class AttributeModel
     {
         $this->primary = $primary;
     }
+
+    public function getInformations(){
+        $information = array();
+        $information['Name'] = $this->name;
+        $information['Type'] = $this->type;
+        $information['Primary'] = $this->primary;
+        return $information;
+    }
+
 
 }

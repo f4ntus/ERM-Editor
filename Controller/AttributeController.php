@@ -49,4 +49,28 @@ class AttributeController
     public function changeName(AttributeModel $attribute, String $name){
         $attribute->setName($name);
     }
+
+    public function getInformations(AttributeModel $attribute){
+        $information = array();
+        if($attribute->getType() == 1 OR $attribute->getType() == 2){
+            $information['Name'] = $attribute->getName();
+        } else {
+            $information['Name'] = $this->getNamefromrelatedAttribute($attribute);
+        }
+        $information['Type'] = $attribute->getType();
+        $information['Primary'] = $attribute->getPrimary();
+        return $information;
+
+    }
+
+    public function getNamefromRelatedAttribute(RelatetedAttributeModel $attribute){
+        $name = $attribute->getName() . ' (';
+        foreach ($attribute->getSubnames() as $s) {
+            $name = $name . ' ' . $s;
+        }
+        $name = $name . ')';
+        return $name;
+    }
+
+
 }

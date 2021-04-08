@@ -1,5 +1,5 @@
 <?php
-
+include_once 'EntityModel.php';
 /**
  * Class RelationModel
  * Zeigt eine Relation auf welche ein Teil einer Relationship sind
@@ -9,17 +9,13 @@ class RelationModel
     /**
      * @var EntityModel Entität
      */
-    private EntityModel $entity;
+    private $entity;
     /**
-     * @var integer minminaler Betrag der Kardinaltiät
+     * @var integer Kardinalität der Beziehung
      */
-    private $kardmin;
+    private $kard;
     /**
-     * @var integer Maximaler Wert der Kardinalität
-     */
-    private $kardmax;
-    /**
-     * @var SchwachesENtit
+     * @var Boolean
      */
     private $weak;
 
@@ -29,11 +25,10 @@ class RelationModel
      * @param  $kardmin string minimale Kardinalität
      * @param  $kardmax string maximale Kardinalität
      */
-    public function __construct(EntityModel $entity,  $kardmin, $kardmax, $weak)
+    public function __construct(EntityModel $entity,  $kard, $weak)
     {
         $this->entity = $entity;
-        $this->kardmin = $kardmin;
-        $this->kardmax = $kardmax;
+        $this->kard = $kard;
         $this->weak = $weak;
     }
 

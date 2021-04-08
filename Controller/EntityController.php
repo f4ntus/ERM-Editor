@@ -33,6 +33,7 @@ class EntityController
     }
 
     /**
+     * Anpassung der Position
      * @param EntityModel $entity Entity
      * @param int $x Standort
      * @param int $y Standort
@@ -44,6 +45,30 @@ class EntityController
     public function printEntity(EntityModel $entity){
         $entity->printEntity();
     }
+
+    /**
+     * Ausgabe der Position
+     * @param EntityModel $entity
+     * @return array
+     */
+    public function getPosition(EntityModel $entity){
+        $position = array();
+        $position['X'] = $entity->getX();
+        $position['Y'] = $entity->getY();
+    return $position;
+    }
+
+    public function getAttributes(EntityModel $entity){
+        $attributes = array();
+
+        foreach ($entity->getAttributes() as  $a) {
+            $attributes[] = $a->getInformations();
+        }
+
+        return $attributes;
+
+    }
+
 
 
 }

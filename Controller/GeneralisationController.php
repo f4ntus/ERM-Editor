@@ -1,5 +1,6 @@
 <?php
-
+include_once '../Model/GeneralisationModel.php';
+include_once '../Model/EntityModel.php';
 
 class GeneralisationController
 {
@@ -25,7 +26,7 @@ class GeneralisationController
      * @param GeneralisationModel $generalisation
      * @param EntityModel $subtyp
      */
-    public function addsubtyp(GeneralisationModel $generalisation, EntityModel $subtyp){
+    public function addSubtyp(GeneralisationModel $generalisation, EntityModel $subtyp){
         $generalisation->addSubtyp($subtyp);
     }
 
@@ -42,8 +43,20 @@ class GeneralisationController
      * @param int $x
      * @param int $y
      */
-    public function changePosition(RelationshipModel $relation, int $x, int $y){
-        $relation->setX($x);
-        $relation->setY($y);
+    public function changePosition(GeneralisationModel $generalisation, int $x, int $y){
+        $generalisation->setX($x);
+        $generalisation->setY($y);
+    }
+
+    /**
+     * Ausgabe der Position
+     * @param GeneralisationModel $generalisation
+     * @return array
+     */
+    public function getPosition(GeneralisationModel $generalisation){
+        $position = array();
+        $position['X'] = $generalisation->getX();
+        $position['Y'] = $generalisation->getY();
+        return $position;
     }
 }
