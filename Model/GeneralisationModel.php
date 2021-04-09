@@ -19,9 +19,8 @@ class GeneralisationModel
      * @param $x
      * @param $y
      */
-    public function __construct($supertyp, $x, $y)
+    public function __construct( $x, $y)
     {
-        $this->supertyp = $supertyp;
         $this->x = $x;
         $this->y = $y;
         $this->subtypes = array();

@@ -9,26 +9,49 @@ class EntityController
      * @param $y Standort
      * @return EntityModel
      */
-    public function createEntity($name, $x, $y)
+    public static function createEntity($name, $x, $y)
     {
         return new EntityModel($name, $x, $y);
+
+    }
+
+
+    /**
+     * Hinzufügen eines Attributes
+     * @param EntityModel $entity
+     * @param String $name
+     * @param int $type
+     * @param $primary
+     * @return AttributeModel
+     */
+    public static function addAttribute(EntityModel $entity, String $name, int $type, $primary){
+        $attribute = AttributeController::createAttribute($name, $type, $primary)   ;
+        $entity->addAttribute($attribute);
+        return $attribute;
+
+
     }
 
     /**
-     * @param EntityModel $entity Entity
-     * @param AttributeModel $attribute Attribut
+     * Hinzufügen eines Zusammenhängenden Attributes
+     * @param EntityModel $entity
+     * @param String $name
+     * @param $primary
+     * @param array $subnames
+     * @return RelatetedAttributeModel
      */
-    public function addAttribute(EntityModel $entity, AttributeModel $attribute){
-            $entity->addAttribute($attribute);
 
-
+    public static function addRelatedAttribute(EntityModel $entity, String $name, $primary, array $subnames){
+        $attribute = AttributeController::createRelatedAttribute($name, $primary, $subnames);
+        $entity->addAttribute($attribute);
+        return $attribute;
     }
 
     /**
      * @param EntityModel $entity Entity
      * @param AttributeModel $attribute Attribute
      */
-    public function deleteAttribute(EntityModel $entity, AttributeModel $attribute){
+    public static function deleteAttribute(EntityModel $entity, AttributeModel $attribute){
         $entity->deleteAttribute($attribute);
     }
 
@@ -38,11 +61,11 @@ class EntityController
      * @param int $x Standort
      * @param int $y Standort
      */
-    public function changePosition(EntityModel $entity, int $x, int $y){
+    public static function changePosition(EntityModel $entity, int $x, int $y){
         $entity->setX($x);
         $entity->setY($y);
     }
-    public function printEntity(EntityModel $entity){
+    public static function printEntity(EntityModel $entity){
         $entity->printEntity();
     }
 
@@ -51,14 +74,19 @@ class EntityController
      * @param EntityModel $entity
      * @return array
      */
-    public function getPosition(EntityModel $entity){
+    public static function getPosition(EntityModel $entity){
         $position = array();
         $position['X'] = $entity->getX();
         $position['Y'] = $entity->getY();
     return $position;
     }
 
-    public function getAttributes(EntityModel $entity){
+    /**
+     * Relevante Information aller Attribute erhalten
+     * @param EntityModel $entity
+     * @return array
+     */
+    public static function getAttributes(EntityModel $entity){
         $attributes = array();
 
         foreach ($entity->getAttributes() as  $a) {

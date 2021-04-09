@@ -12,55 +12,87 @@ class ERMController
     /**
      * Diese Funktion erstelllt ein Modell
      */
-    public function createModel()
+    public static function createModel()
     {
         return new ERMModel();
     }
 
-
-    public function addEntity(ERMModel $erm, EntityModel $entity )
+    /**
+     * Entity wird einem ERM hinzugefügt
+     * @param ERMModel $erm
+     * @param String $name
+     * @param int $x
+     * @param int $y
+     * @return EntityModel
+     */
+    public static function addEntity(ERMModel $erm, String $name, int $x, int $y)
     {
+        $entity = EntityController::createEntity($name, $x, $y);
         $erm->addEntity($entity);
+        return $entity;
     }
 
-    public function deleteEntity(ERMModel $erm, EntityModel $entity){
+    /**
+     * Entity wird aus einem ERM entfernt
+     * @param ERMModel $erm
+     * @param EntityModel $entity
+     */
+    public static function deleteEntity(ERMModel $erm, EntityModel $entity){
         $erm->deleteEntity($entity);
     }
 
-    public function printEntities(ERMModel $erm){
+    public static function printEntities(ERMModel $erm){
         $erm->printEntities();
     }
-    /**
-     * Diese Funktion fügt eine RelationshipModel hinzu
-     */
-    public function addRelationship()
-    {
 
+    /**
+     * Hinzufpgen einer Relationship zu einem ERM
+     * @param ERMModel $erm
+     * @param String $name
+     * @param int $x
+     * @param int $y
+     * @return RelationshipModel
+     */
+    public static function addRelationship(ERMModel $erm, String $name, int $x, int $y)
+    {
+        $relationship = RelationshipController::createRelationship($name, $x, $y);
+        $erm->addRelationship($relationship);
+        return $relationship;
     }
 
     /**
-     * Diese Funktion fügt eine Generalisierung hinzu
+     * Hinzufügen einer Generaliserung
+     * @param ERMModel $erm
+     * @param int $x
+     * @param int $y
+     * @return GeneralisationModel
      */
-    public function addGeneralisation()
+    public static function addGeneralisation(ERMModel $erm, int $x, int $y)
     {
-
+        $generalisation = GeneralisationController::createGeneralisation($x, $y);
+        $erm->addGeneralisation($generalisation);
+        return $generalisation;
     }
 
 
     /**
-     * Diese Funktion entfernt eine RelationshipModel
+     * Löschen einer Entität
+     * @param ERMModel $erm
+     * @param RelationshipModel $relation
      */
-    public function deleteRelationship()
+    public static function deleteRelationship(ERMModel $erm, RelationshipModel $relation)
     {
-
+        $erm->deleteRelationship($relation);
     }
 
     /**
-     * Diese Funktion entfernt eine Generalisierung
+     * Löschen einer Relationship
+     * @param ERMModel $erm
+     * @param GeneralisationModel $generalisation
      */
-    public function deleteGeneralisation()
+    public function deleteGeneralisation(ERMModel $erm, GeneralisationModel $generalisation)
     {
-
+        $erm->deleteGeneralisation($generalisation);
     }
 
 }

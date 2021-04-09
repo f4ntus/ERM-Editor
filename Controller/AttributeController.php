@@ -12,7 +12,7 @@ class AttributeController
      * @return AttributeModel
      */
 
-    public function createAttribute(String $name, int $type, $primary){
+    public static function createAttribute(String $name, int $type, $primary){
         return New AttributeModel($name, $type, $primary);
     }
 
@@ -23,14 +23,14 @@ class AttributeController
      * @param array $subnames
      * @return RelatetedAttributeModel
      */
-    public function createRelatedAttribute(String $name, $primary, array $subnames){
+    public static function createRelatedAttribute(String $name, $primary, array $subnames){
         return New RelatetedAttributeModel($name,3, $primary, $subnames);
     }
 
     /**Änderung des Primärschlüssels auf aktiv
      * @param AttributeModel $attribute
      */
-    public function setPKon(AttributeModel $attribute){
+    public static function setPKon(AttributeModel $attribute){
         $attribute->setPrimary(true);
     }
 
@@ -38,7 +38,7 @@ class AttributeController
      * Änderung des Primärschlüssels auf inaktiv
      * @param AttributeModel $attribute
      */
-    public function setPKoff(AttributeModel $attribute){
+    public static function setPKoff(AttributeModel $attribute){
         $attribute->setPrimary(false);
     }
 
@@ -46,31 +46,10 @@ class AttributeController
      * @param AttributeModel $attribute
      * @param String $name Name
      */
-    public function changeName(AttributeModel $attribute, String $name){
+    public static function changeName(AttributeModel $attribute, String $name){
         $attribute->setName($name);
     }
 
-    public function getInformations(AttributeModel $attribute){
-        $information = array();
-        if($attribute->getType() == 1 OR $attribute->getType() == 2){
-            $information['Name'] = $attribute->getName();
-        } else {
-            $information['Name'] = $this->getNamefromrelatedAttribute($attribute);
-        }
-        $information['Type'] = $attribute->getType();
-        $information['Primary'] = $attribute->getPrimary();
-        return $information;
-
-    }
-
-    public function getNamefromRelatedAttribute(RelatetedAttributeModel $attribute){
-        $name = $attribute->getName() . ' (';
-        foreach ($attribute->getSubnames() as $s) {
-            $name = $name . ' ' . $s;
-        }
-        $name = $name . ')';
-        return $name;
-    }
 
 
 }
