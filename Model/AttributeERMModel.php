@@ -1,9 +1,9 @@
 <?php
 /**
- * Class AttributeModel
- * Merkmale von AttributeModel
+ * Class AttributeERMModel
+ * Merkmale von AttributeERMModel
  */
-class AttributeModel
+class AttributeERMModel
 {
     /**
      * @var $name
@@ -19,7 +19,7 @@ class AttributeModel
     protected $primary;
 
     /**
-     * AttributeModel constructor.
+     * AttributeERMModel constructor.
      * @param $name
      * @param $type
      * @param $primary

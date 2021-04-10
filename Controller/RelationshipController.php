@@ -1,5 +1,5 @@
 <?php
-include_once '../Model/RelationModel.php';
+include_once '../Model/RelationERMModel.php';
 include_once '../Model/RelationshipModel.php';
 
 class RelationshipController
@@ -10,7 +10,7 @@ class RelationshipController
     }
 
     public static function addRelation(RelationshipModel $relationship, EntityModel $entity, $kard, $weak){
-        $relation = new RelationModel($entity, $kard, $weak);
+        $relation = new RelationERMModel($entity, $kard, $weak);
         $relationship->addRelation($relation);
         return $relation;
     }
@@ -22,10 +22,10 @@ class RelationshipController
      * @param String $name
      * @param int $type
      * @param $primary
-     * @return AttributeModel
+     * @return AttributeERMModel
      */
     public static function addAttribute(RelationshipModel $relationship, String $name, int $type, $primary){
-        $attribute = AttributeController::createAttribute($name, $type, $primary)   ;
+        $attribute = AttributeERMController::createAttribute($name, $type, $primary)   ;
         $relationship->addAttribute($attribute);
         return $attribute;
 
@@ -38,11 +38,11 @@ class RelationshipController
      * @param String $name
      * @param $primary
      * @param array $subnames
-     * @return RelatetedAttributeModel
+     * @return RelatetedAttributeERMModel
      */
 
     public static function addRelatedAttribute(RelationshipModel $relationship, String $name, $primary, array $subnames){
-        $attribute = AttributeController::createRelatedAttribute($name, $primary, $subnames);
+        $attribute = AttributeERMController::createRelatedAttribute($name, $primary, $subnames);
         $relationship->addAttribute($attribute);
         return $attribute;
     }
@@ -50,13 +50,13 @@ class RelationshipController
 
     /**
      * @param RelationshipModel $relationship
-     * @param AttributeModel $attribute
+     * @param AttributeERMModel $attribute
      */
-    public static function deleteAttribute(RelationshipModel $relationship, AttributeModel $attribute){
+    public static function deleteAttribute(RelationshipModel $relationship, AttributeERMModel $attribute){
         $relationship->deleteAttribute($attribute);
     }
 
-    public static function deleteRelation(RelationshipModel $relationship, RelationModel $relation){
+    public static function deleteRelation(RelationshipModel $relationship, RelationERMModel $relation){
         $relationship->deleteRelation($relation);
     }
 

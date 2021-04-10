@@ -22,10 +22,10 @@ class EntityController
      * @param String $name
      * @param int $type
      * @param $primary
-     * @return AttributeModel
+     * @return AttributeERMModel
      */
     public static function addAttribute(EntityModel $entity, String $name, int $type, $primary){
-        $attribute = AttributeController::createAttribute($name, $type, $primary)   ;
+        $attribute = AttributeERMController::createAttribute($name, $type, $primary)   ;
         $entity->addAttribute($attribute);
         return $attribute;
 
@@ -38,20 +38,20 @@ class EntityController
      * @param String $name
      * @param $primary
      * @param array $subnames
-     * @return RelatetedAttributeModel
+     * @return RelatetedAttributeERMModel
      */
 
     public static function addRelatedAttribute(EntityModel $entity, String $name, $primary, array $subnames){
-        $attribute = AttributeController::createRelatedAttribute($name, $primary, $subnames);
+        $attribute = AttributeERMController::createRelatedAttribute($name, $primary, $subnames);
         $entity->addAttribute($attribute);
         return $attribute;
     }
 
     /**
      * @param EntityModel $entity Entity
-     * @param AttributeModel $attribute Attribute
+     * @param AttributeERMModel $attribute Attribute
      */
-    public static function deleteAttribute(EntityModel $entity, AttributeModel $attribute){
+    public static function deleteAttribute(EntityModel $entity, AttributeERMModel $attribute){
         $entity->deleteAttribute($attribute);
     }
 

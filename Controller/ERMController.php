@@ -69,7 +69,7 @@ class ERMController
      */
     public static function addGeneralisation(ERMModel $erm, int $x, int $y)
     {
-        $generalisation = GeneralisationController::createGeneralisation($x, $y);
+        $generalisation = GeneralisationERMController::createGeneralisation($x, $y);
         $erm->addGeneralisation($generalisation);
         return $generalisation;
     }

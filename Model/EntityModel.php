@@ -43,18 +43,18 @@ class EntityModel
 
     /**
      * Attribu wird hinzugefügt
-     * @param AttributeModel $attribute
+     * @param AttributeERMModel $attribute
      */
 
-    public function addAttribute(AttributeModel $attribute){
+    public function addAttribute(AttributeERMModel $attribute){
         $this->attributes[] = $attribute;
     }
 
     /**
      * Attribut wird entfernt
-     * @param AttributeModel $attribute
+     * @param AttributeERMModel $attribute
      */
-    public function deleteAttribute(AttributeModel $attribute){
+    public function deleteAttribute(AttributeERMModel $attribute){
         foreach ($this->attributes as  $key=>$a){
              if($attribute==$a){
                  unset($this->attributes[$key]);
@@ -76,7 +76,7 @@ class EntityModel
                     echo '{'.$attribute->getName().'}'.'</br>';
                     break;
                 case 3:
-                   // $relatedAttribute = new RelatetedAttributeModel();
+                   // $relatedAttribute = new RelatetedAttributeERMModel();
                     $relatedAttribute = $attribute;
                     echo $relatedAttribute->getName().'(';
                     foreach ($relatedAttribute->getSubnames() as $subname){

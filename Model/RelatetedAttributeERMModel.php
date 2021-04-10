@@ -1,12 +1,12 @@
 <?php
 
 
-class RelatetedAttributeModel extends AttributeModel
+class RelatetedAttributeERMModel extends AttributeERMModel
 {
    private $subnames;
 
     /**
-     * RelatetedAttributeModel constructor.
+     * RelatetedAttributeERMModel constructor.
      * @param $name
      * @param $type
      * @param $primary

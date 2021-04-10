@@ -43,18 +43,18 @@ class RelationshipModel
 
     /**
      * Attribu wird hinzugefügt
-     * @param AttributeModel $attribute
+     * @param AttributeERMModel $attribute
      */
 
-    public function addAttribute(AttributeModel $attribute){
+    public function addAttribute(AttributeERMModel $attribute){
         $this->attributes[] = $attribute;
     }
 
     /**
      * Attribut wird entfernt
-     * @param AttributeModel $attribute
+     * @param AttributeERMModel $attribute
      */
-    public function deleteAttribute(AttributeModel $attribute){
+    public function deleteAttribute(AttributeERMModel $attribute){
         foreach ($this->attributes as  $key=>$a){
             if($attribute==$a){
                 unset($this->attributes[$key]);
@@ -65,17 +65,17 @@ class RelationshipModel
 
     /**
      * Hinzufügen einer Relation
-     * @param RelationModel $relation
+     * @param RelationERMModel $relation
      */
-    public function addRelation(RelationModel $relation){
+    public function addRelation(RelationERMModel $relation){
         $this->relations[] = $relation;
     }
 
     /**
      * Attribut wird entfernt
-     * @param AttributeModel $attribute
+     * @param AttributeERMModel $attribute
      */
-    public function deleteRelation(RelationModel $relation){
+    public function deleteRelation(RelationERMModel $relation){
         foreach ($this->relations as  $key=>$r){
             if($relation==$r){
                 unset($this->relations[$key]);
