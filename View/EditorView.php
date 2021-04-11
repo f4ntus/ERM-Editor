@@ -89,7 +89,72 @@
 
         </div>
     </div>
-    <div class="outputBelow">Five</div>
+    <div class="outputBelow">
+        <h1> Relationship bearbeiten</h1>
+        <table>
+            <tr>
+                <th colspan="4">gehört zu</th>
+            </tr>
+            <tr>
+                <td>Beziehungsnummer</td>
+                <td>Entity</td>
+                <td>Notation</td>
+                <td>schwaches Entity?</td>
+            </tr>
+            <!-- First row -->
+            <tr>
+                <td>1</td>
+                <td>
+                    <div class="dropdown">
+                        <p class="dorpdowntext" id="dropdownEntityText01">Entity</p>
+                        <button class="dropbtnArrow"></button>
+                        <div class="dropdown-content" id="entityContent">
+                            <a href="#" onclick="selectEntityDropdown('Gebäude','01')">Gebäude</a>
+                            <a href="#" onclick="selectEntityDropdown('Raum','01')">Raum</a>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <p class="dorpdowntext" id="dropdownNotationText01">n</p>
+                        <button class="dropbtnArrow"></button>
+                        <div class="dropdown-content" id="entityContent">
+                            <a href="#" onclick="selectNotationDropdown('1','01')">1</a>
+                            <a href="#" onclick="selectNotationDropdown('n','01')">n</a>
+                            <a href="#" onclick="selectNotationDropdown('m','01')">m</a>
+                        </div>
+                    </div>
+                </td>
+                <td> <input type="checkbox" name="weakEntity01"></td>
+            </tr>
+            <!-- Second row -->
+            <tr>
+                <td>2</td>
+                <td>
+                    <div class="dropdown">
+                        <p class="dorpdowntext" id="dropdownEntityText02">Entity</p>
+                        <button class="dropbtnArrow"></button>
+                        <div class="dropdown-content" id="entityContent">
+                            <a href="#" onclick="selectEntityDropdown('Gebäude','02')">Gebäude</a>
+                            <a href="#" onclick="selectEntityDropdown('Raum','02')">Raum</a>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <p class="dorpdowntext" id="dropdownNotationText02">n</p>
+                        <button class="dropbtnArrow"></button>
+                        <div class="dropdown-content" id="entityContent">
+                            <a href="#" onclick="selectNotationDropdown('1','02')">1</a>
+                            <a href="#" onclick="selectNotationDropdown('n','02')">n</a>
+                            <a href="#" onclick="selectNotationDropdown('m','02')">m</a>
+                        </div>
+                    </div>
+                </td>
+                <td> <input type="checkbox" name="weakEntity01"></td>
+            </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>

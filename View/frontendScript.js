@@ -3,6 +3,16 @@ function generalizationMode(mode) {
     outputText.innerText = mode;
 }
 
+function selectEntityDropdown(entity, number){
+    let element = "dropdownEntityText" + number;
+    let outputText = document.getElementById(element);
+    outputText.innerText = entity;
+}
+function selectNotationDropdown(notation, number){
+    let element = "dropdownNotationText" + number;
+    let outputText = document.getElementById(element);
+    outputText.innerText = notation;
+}
 
 function onClickButtonAddSimpleAttribute() {
 
