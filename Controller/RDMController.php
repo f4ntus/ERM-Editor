@@ -11,10 +11,11 @@ class RDMController
     /**
      * @param ERMModel $erm
      */
-    public static function generateRDM(ERMModel $erm){
+    public static function generateRDM(ERMModel $erm, $generalisierungsform){
         $rdm = new RDMModel();
         self::createRelationsfromEntity($erm, $rdm);
         self::createRelationsfromRelationships($erm, $rdm);
+        self::createGeneralisierungsmodells($rdm, $erm);
         return $rdm;
     }
 
@@ -81,6 +82,11 @@ class RDMController
         }
     }
 
+    /**
+     * Verwalten von Relationsships des ERM in das RDM
+     * @param ERMModel $erm
+     * @param RDMModel $rdm
+     */
     private static function createRelationsfromRelationships(ERMModel $erm, RDMModel $rdm){
 
         //Alle Relationen durch gehen
@@ -100,16 +106,43 @@ class RDMController
 
             switch ($i){
                 case 0:
-                    self::relationshipwithonetoone($relationship, $erm, $rdm);
+                    self::relationshipwithonetoone($relationship,  $rdm);
                     break;
                 case 1:
-                    self::relationshipwithoneton($relationship, $erm, $rdm);
+                    self::relationshipwithoneton($relationship, $rdm);
                     break;
             }
 
 
         } else { //Es wird eine eigene Relation benötigt
-            $RDMRelation = new RelationRDMModel();
+            $RDMRelation = new RelationRDMModel($relationship->getName());
+
+            //Attribute der Relationship in RDM aufnehmen
+            foreach ($relationship->getAttributes() as $ERMAttribute){
+                $RDMAttribute = new AttributeRDMModel();
+                $RDMAttribute->setPrimary(false);
+                $RDMAttribute->setName($ERMAttribute->getName());
+                $RDMRelation->addAttribute($RDMAttribute);
+            }
+
+            //Primärschlüssel der Relations hinzufügem
+            foreach ($relationship->getRelations() as $ERMRelation) {
+                $Entity = $ERMRelation->getEntity();
+                foreach ($Entity->getAttributes() as $ERMAttribute) {
+                    if($ERMAttribute->getPrimary()){
+                        $RDMAttribute = new AttributeRDMModel();
+                        $RDMAttribute->setPrimary(true);
+                        $RDMAttribute->setName($ERMAttribute->getName());
+                        $RDMAttribute->setReferences($Entity->getName());
+                        $RDMRelation->addAttribute($RDMAttribute);
+                    }
+
+                }
+            }
+            $rdm->addRelation($RDMRelation);
+
+
+
 
         }
     }
@@ -122,7 +155,7 @@ class RDMController
      * @param ERMModel $erm
      * @param RDMModel $rdm
      */
-    private static function relationshipwithonetoone(RelationshipModel $relationship, ERMModel $erm, RDMModel $rdm){
+    private static function relationshipwithonetoone(RelationshipModel $relationship, RDMModel $rdm){
         //Die relevanten Beziehungen werden raussgesucht
         $ERMrelations = $relationship->getRelations();
         //Entitys werden zugewisene
@@ -148,7 +181,7 @@ class RDMController
 
     }
 
-    private static function relationshipwithoneton(RelationshipModel $relationship, ERMModel $erm, RDMModel $rdm)
+    private static function relationshipwithoneton(RelationshipModel $relationship, RDMModel $rdm)
     {
         $relations = $relationship->getRelations();
         //Die relevanten Beziehungen werden raussgesucht
@@ -182,8 +215,13 @@ class RDMController
         }
     }
 
+    public static function createGeneralisierungsmodells(){
+
+    }
+
     public static function getRelations(RDMModel $rdm){
         return $rdm->getRelations();
+
     }
 
 }
