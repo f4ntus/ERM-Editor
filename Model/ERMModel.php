@@ -97,4 +97,70 @@ class ERMModel
             }
         }
     }
+
+    /**
+     * @return array
+     */
+    public function getEntities(): array
+    {
+        return $this->entities;
+    }
+
+    /**
+     * @param array $entities
+     */
+    public function setEntities(array $entities): void
+    {
+        $this->entities = $entities;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRelationships(): array
+    {
+        return $this->relationships;
+    }
+
+    /**
+     * @param array $relationships
+     */
+    public function setRelationships(array $relationships): void
+    {
+        $this->relationships = $relationships;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGeneralistions(): array
+    {
+        return $this->generalistions;
+    }
+
+    /**
+     * @param array $generalistions
+     */
+    public function setGeneralistions(array $generalistions): void
+    {
+        $this->generalistions = $generalistions;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+
 }

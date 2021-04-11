@@ -1,29 +1,29 @@
 <?php
 include_once 'EntityModel.php';
 /**
- * Class RelationModel
+ * Class RelationERMModel
  * Zeigt eine Relation auf welche ein Teil einer Relationship sind
  */
-class RelationModel
+class RelationERMModel
 {
     /**
      * @var EntityModel Entität
      */
     private $entity;
     /**
-     * @var integer Kardinalität der Beziehung
+     * @var String  Kardinalität der Beziehung
      */
     private $kard;
     /**
-     * @var Boolean
+     * @var
      */
     private $weak;
 
     /**
-     * RelationModel constructor.
+     * RelationERMModel constructor.
      * @param EntityModel $entity
-     * @param  $kardmin string minimale Kardinalität
-     * @param  $kardmax string maximale Kardinalität
+     * @param $kard
+     * @param $weak
      */
     public function __construct(EntityModel $entity,  $kard, $weak)
     {
@@ -50,36 +50,43 @@ class RelationModel
     }
 
     /**
+     * @return int
+     */
+    public function getKard(): string
+    {
+        return $this->kard;
+    }
+
+    /**
+     * @param int $kard
+     */
+    public function setKard(int $kard): void
+    {
+        $this->kard = $kard;
+    }
+
+    /**
      * @return mixed
      */
-    public function getKardmin()
+    public function getWeak()
     {
-        return $this->kardmin;
+        return $this->weak;
     }
 
     /**
-     * @param mixed $kardmin
+     * @param mixed $weak
      */
-    public function setKardmin($kardmin)
+    public function setWeak($weak): void
     {
-        $this->kardmin = $kardmin;
+        $this->weak = $weak;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getKardmax()
-    {
-        return $this->kardmax;
-    }
 
-    /**
-     * @param mixed $kardmax
-     */
-    public function setKardmax($kardmax)
-    {
-        $this->kardmax = $kardmax;
-    }
+
+
+
+
+
 
 
 }

@@ -2,7 +2,7 @@
 include_once '../Model/GeneralisationModel.php';
 include_once '../Model/EntityModel.php';
 
-class GeneralisationController
+class GeneralisationERMController
 {
     /**
      * @param EntityModel $supertyp
