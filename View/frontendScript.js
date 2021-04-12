@@ -4,95 +4,27 @@ function generalizationMode(mode) {
 }
 
 
-function onClickButtonAddSimpleAttribute() {
+function onClickButtonAddSingleValueAttribute() {
 
-    alert("clicked");
+    document.getElementById("idDivAddSimpleAttribute").style.display = "block";
+    document.getElementById("idDivAddMultiValueAttribute").style.display = "none";
+    document.getElementById("idDivAddCompoundAttribute").style.display = "none";
 
-    document.getElementById("idDivAddAttribute").innerHTML =
-
-            '            <h4>Einfaches Attribut hinzufügen:</h4>\n' +
-            '            <div class="column" style="width: 30%;">\n' +
-            '                <button onclick="onClickAddSimpleAttributeToTable" class="button2">Einfaches<br>Attribut<br>hinzufügen</button>\n' +
-            '            </div>\n' +
-            '            <div class="column2" style="width: 60%;">\n' +
-            '                <table id="idTableSingleValueAttribute" style="" >\n' +
-            '                    <tr>\n' +
-            '                        <th>Attributname</th>\n' +
-            '                        <th>PK</th>\n' +
-            '                    </tr>\n' +
-            '                    <tr>\n' +
-            '                        <td><input placeholder="" type="text" id="idSimpleAttributeName" name="idSimpleAttributeName"/></td>\n' +
-            '                        <td><input type="checkbox" id="idCheckboxPK" name="idCheckboxPK"/></td>\n' +
-            '                    </tr>\n' +
-            '                </table>\n' +
-            '            </div>';
 }
 
 function onClickButtonAddMultiValueAttribute() {
 
-    document.getElementById("idDivAddAttribute").innerHTML =
+    document.getElementById("idDivAddSimpleAttribute").style.display = "none";
+    document.getElementById("idDivAddMultiValueAttribute").style.display = "block";
+    document.getElementById("idDivAddCompoundAttribute").style.display = "none";
 
-        '<h4>Mehrwertiges Attribut hinzufügen:</h4>\n' +
-        '            <div class="column" style="width: 30%;">\n' +
-        '                <button onclick="onClickAddMultiValueAttributeToTable" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen</button>\n' +
-        '            </div>\n' +
-        '            <div class="column2" style="width: 65%;">\n' +
-        '                <table id="idAddMultiValueAttributeToTable" style="width:70%">\n' +
-        '                    <tr>\n' +
-        '                        <th style="text-align: center;" >Mehrwertiges Attribut</th>\n' +
-        '                    </tr>\n' +
-        '                    <tr>\n' +
-        '                        <td>\n' +
-        '                            <div class="row">\n' +
-        '\n' +
-        '                                { <input placeholder=""   type="text" id="idMultiValueAttributeName"\n' +
-        '                                       name="idMultiValueAttributeName"/> }\n' +
-        '\n' +
-        '                            </div>\n' +
-        '                        </td>\n' +
-        '\n' +
-        '                    </tr>\n' +
-        '                </table>\n' +
-        '            </div>';
 }
 
 function onClickButtonAddCompoundAttribute() {
 
-    document.getElementById("idDivAddAttribute").innerHTML =
-
-    '<h4>Zusammengesetztes Attribut Attribut hinzufügen:</h4>\n' +
-        '            <div class="column" style="width: 30%;">\n' +
-        '                <button onclick="onClickButtonAddSimpleAttribute" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen</button>\n' +
-        '            </div>\n' +
-        '\n' +
-        '            <div class="column2" style="width: 65%;">\n' +
-        '                <table id="idTableCompoundAttribute" style="width:70%">\n' +
-        '                    <tr>\n' +
-        '                        <th style="text-align: center;">Oberattribut</th>\n' +
-        '                        <th><input placeholder="" type="text" id="idUpperAttributeName"\n' +
-        '                               name="idUpperAttributeName"/>\n' +
-        '                        </th>\n' +
-        '                    </tr>\n' +
-        '                    <tr>\n' +
-        '                        <td>Unterattribut</td>\n' +
-        '                        <td>\n' +
-        '                            <input placeholder="" type="text" id="idSubValueAttribute1" name="idSubValueAttribute1"/>\n' +
-        '                        </td>\n' +
-        '                    </tr>\n' +
-        '                    <tr>\n' +
-        '                        <td>Unterattribut</td>\n' +
-        '                        <td>\n' +
-        '                            <input placeholder="" type="text" id="idSubValueAttribute2" name="idSubValueAttribute2"/>\n' +
-        '                        </td>\n' +
-        '                    </tr>\n' +
-        '                    <tr>\n' +
-        '                        <td style="text-align: center;" colspan="2">\n' +
-        '                            <button onclick="onClickAddSubAttributeRow()" class="buttonPlus">&#43;</button>\n' +
-        '                        </td>\n' +
-        '                    </tr>\n' +
-        '                </table>\n' +
-        '            </div>';
-
+    document.getElementById("idDivAddSimpleAttribute").style.display = "none";
+    document.getElementById("idDivAddMultiValueAttribute").style.display = "none";
+    document.getElementById("idDivAddCompoundAttribute").style.display = "block";
 
 }
 
