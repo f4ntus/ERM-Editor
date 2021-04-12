@@ -44,19 +44,61 @@ function onClickAddSubAttributeRow(){
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 
 }
+var sAttributeName;
+var iType;
+var bPrimary;
+
+var iAttributeCount = 0;
+
+
 
 function onClickAddSimpleAttributeToTable() {
 
-    idTableSingleValueAttribute
+
+
+    sAttributeName = document.getElementById("idSimpleAttributeName").value;
+    iType = 1;
+    bPrimary = document.getElementById("idCheckboxPK").checked;
+
+
+    var table = document.getElementById("idTableEntityAttributes");
+    var numberRows = table.rows.length;
+    if(numberRows === 20){
+        //Maximale Anzahl an Attributen erreicht Fehlermeldung
+        return;
+    }
+    var row = table.insertRow(1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    cell1.innerHTML = "<button id=\"idRemoveAttribute\">X</button>";
+    cell2.innerHTML = "Test";
+
+
 
 }
 function onClickAddMultiValueAttributeToTable() {
 
-    idAddMultiValueAttributeToTable
+    var sAttributeName;
+    var iType;
+    var bPrimary;
+
+    sAttributeName = document.getElementById("idMultiValueAttributeName").value;
+
+    idMultiValueAttributeName
+    idMultiValueAttributeName
 
 }
-function onClickButtonAddSimpleAttribute() {
+function onClickAddCompoundAttributeToTable() {
 
-    idTableCompoundAttribute
+    var sAttributeName;
+    var iType;
+    var bPrimary;
+
+    sAttributeName = document.getElementById("idUpperAttributeName").value;
+
+    idUpperAttributeName
+    idSubValueAttribute1
+    idSubValueAttribute1
 
 }

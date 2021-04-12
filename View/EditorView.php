@@ -50,7 +50,7 @@
     <div class="editor">Three</div>
     <div class="rightMenue">
         <h3>Entity bearbeiten:</h3>
-        <table style="width:100%">
+        <table id="idTableEntityAttributes" style="width:100%">
             <tr>
                 <th colspan="2">
                     <input placeholder="Entity name" type="text" id="idEntityName" name="idEntityName">
@@ -59,7 +59,7 @@
                 <th>PK</th>
             </tr>
             <tr>
-                <td>X</td>
+                <td><button id="idRemoveAttribute">X</button></td>
                 <td>Id</td>
                 <td>
                     <label class="switch">
@@ -88,7 +88,7 @@
 
             <h4>Einfaches Attribut hinzufügen:</h4>
             <div class="column" style="width: 30%;">
-                <button id="idAddSimpleAttributeToTable" class="button2">Einfaches<br>Attribut<br>hinzufügen</button>
+                <button onclick="onClickAddSimpleAttributeToTable()" class="button2">Einfaches<br>Attribut<br>hinzufügen</button>
             </div>
             <div class="column2" style="width: 60%; ">
                 <table style="">
@@ -97,8 +97,7 @@
                         <th>PK</th>
                     </tr>
                     <tr>
-                        <td><input placeholder="" type="text" id="idSimpleAttributeName" name="idSimpleAttributeName"/>
-                        </td>
+                        <td><input placeholder="" type="text" id="idSimpleAttributeName" name="idSimpleAttributeName"/></td>
                         <td><input type="checkbox" id="idCheckboxPK" name="idCheckboxPK"/></td>
                     </tr>
                 </table>
@@ -108,7 +107,7 @@
 
             <h4>Mehrwertiges Attribut hinzufügen:</h4>
             <div class="column" style="width: 30%;">
-                <button onclick="onClickAddMultiValueAttributeToTable" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen
+                <button onclick="onClickAddMultiValueAttributeToTable()" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen
                 </button>
             </div>
             <div class="column2" style="width: 65%;">
@@ -131,7 +130,7 @@
         <div class="row" style="display:none" id="idDivAddCompoundAttribute">
             <h4>Zusammengesetztes Attribut Attribut hinzufügen:</h4>
             <div class="column" style="width: 30%;">
-                <button onclick="onClickButtonAddSimpleAttribute" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen
+                <button onclick="onClickAddCompoundAttributeToTable()" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen
                 </button>
             </div>
             <div class="column2" style="width: 65%;">
