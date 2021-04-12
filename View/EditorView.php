@@ -59,11 +59,11 @@
                 <th>PK</th>
             </tr>
             <tr>
-                <td><button id="idRemoveAttribute">X</button></td>
+                <td><button onclick="onClickDeleteAttribute(this.value)">X</button></td>
                 <td>Id</td>
                 <td>
                     <label class="switch">
-                        <input type="checkbox">
+                        <input id="idCheckboxPrimaryKeyMainTable" type="checkbox">
                         <span class="slider round"></span>
                     </label>
                 </td>
