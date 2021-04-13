@@ -13,9 +13,10 @@ class RDMController
      */
     public static function generateRDM(ERMModel $erm, $generalisierungsform){
         $rdm = new RDMModel();
+
         self::createRelationsfromEntity($erm, $rdm);
+        self::createGeneralisierungsmodells($rdm, $erm, $generalisierungsform);
         self::createRelationsfromRelationships($erm, $rdm);
-        self::createGeneralisierungsmodells($rdm, $erm);
         return $rdm;
     }
 
@@ -215,7 +216,37 @@ class RDMController
         }
     }
 
-    public static function createGeneralisierungsmodells(){
+    private static function createGeneralisierungsmodells(RDMModel $rdm, ERMModel $erm, int $generaliserungstyp){
+        switch ($generaliserungstyp){
+            case 1:
+                self::generalisoerungbyHausklassenmodell($rdm, $erm);
+                break;
+            case 2;
+                self::generalisoerungbyPartionierungsmodell($rdm, $erm);
+                break;
+            case 3:
+                self::generalisoerungbyVolleRedundanz($rdm, $erm);
+                break;
+            case 4:
+                self::generalisoerungbyUeberrelation($rdm, $erm);
+                break;
+         }
+
+    }
+
+    private static function generalisoerungbyHausklassenmodell (RDMModel $rdm, ERMModel $erm){
+
+    }
+
+    private static function generalisoerungbyPartionierungsmodell (RDMModel $rdm, ERMModel $erm){
+
+    }
+
+    private static function generalisoerungbyVolleRedundanz (RDMModel $rdm, ERMModel $erm){
+
+    }
+
+    private static function generalisoerungbyUeberrelation (RDMModel $rdm, ERMModel $erm){
 
     }
 
