@@ -28,6 +28,7 @@ class GeneralisationERMController
      * @param EntityModel $subtyp
      */
     public static function addSubtyp(GeneralisationModel $generalisation, EntityModel $subtyp){
+        $subtyp->setIsSubtyp(true);
         $generalisation->addSubtyp($subtyp);
     }
     /**

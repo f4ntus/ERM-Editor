@@ -74,7 +74,7 @@ class GeneralisationModel
     /**
      * @param mixed $supertyp
      */
-    public function setSupertyp($supertyp)
+    public function setSupertyp(EntityModel $supertyp)
     {
         $this->supertyp = $supertyp;
     }
