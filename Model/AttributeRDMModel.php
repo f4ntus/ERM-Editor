@@ -10,6 +10,14 @@ class AttributeRDMModel
     private $references;
 
     /**
+     * AttributeRDMModel constructor
+     */
+    public function __construct()
+    {
+        $this->references = ' ';
+    }
+
+    /**
      * @return string
      */
     public function getName(): string

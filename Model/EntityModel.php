@@ -18,14 +18,16 @@ class EntityModel
     /**
      * @var $x Standort der Variable
      */
-    public $x;
+    private $x;
     /**
      * @var $y Standort der Variable
      */
-    public $y;
+    private $y;
     /**
      * @return mixed
      */
+
+    private $isSubtyp;
 
     /**
      * EntityModel constructor.
@@ -39,6 +41,7 @@ class EntityModel
         $this->x = $x;
         $this->y = $y;
         $this->attributes = array();
+        $this->isSubtyp = false;
     }
 
     /**
@@ -63,6 +66,9 @@ class EntityModel
 
     }
 
+    /**
+     * Ausgeben der Attrobute
+     */
     public function printEntity(){
         echo $this->name.'</br>';
         echo $this->x.'</br>';
@@ -88,6 +94,9 @@ class EntityModel
         }
     }
 
+    /**
+     * @return mixed $name
+     */
     public function getName()
     {
         return $this->name;
@@ -148,5 +157,23 @@ class EntityModel
     {
         $this->y = $y;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsSubtyp()
+    {
+        return $this->isSubtyp;
+    }
+
+    /**
+     * @param mixed $isSubtyp
+     */
+    public function setIsSubtyp($isSubtyp): void
+    {
+        $this->isSubtyp = $isSubtyp;
+    }
+
+
 
 }

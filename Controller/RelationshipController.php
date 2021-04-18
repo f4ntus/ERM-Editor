@@ -48,7 +48,7 @@ class RelationshipController
     }
 
 
-    /**
+    /** Attribute wird gelöscht
      * @param RelationshipModel $relationship
      * @param AttributeERMModel $attribute
      */
@@ -56,6 +56,10 @@ class RelationshipController
         $relationship->deleteAttribute($attribute);
     }
 
+    /**Relation wird gelöscht
+     * @param RelationshipModel $relationship
+     * @param RelationERMModel $relation
+     */
     public static function deleteRelation(RelationshipModel $relationship, RelationERMModel $relation){
         $relationship->deleteRelation($relation);
     }
