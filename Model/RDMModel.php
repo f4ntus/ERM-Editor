@@ -33,7 +33,10 @@ class RDMModel
         $this->relations = $relations;
     }
 
-
+    /**
+     * Hinzufügen einer Relation
+     * @param RelationRDMModel $relation
+     */
     public function addRelation(RelationRDMModel $relation)
     {
         $this->relations[] = $relation;

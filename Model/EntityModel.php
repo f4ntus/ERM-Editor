@@ -66,6 +66,9 @@ class EntityModel
 
     }
 
+    /**
+     * Ausgeben der Attrobute
+     */
     public function printEntity(){
         echo $this->name.'</br>';
         echo $this->x.'</br>';
@@ -91,6 +94,9 @@ class EntityModel
         }
     }
 
+    /**
+     * @return mixed $name
+     */
     public function getName()
     {
         return $this->name;

@@ -69,7 +69,7 @@ class RelationRDMModel
      */
     public function addERMobject($ermobject)
     {
-        $this->ermobjects = $ermobject;
+        $this->ermobjects[] = $ermobject;
     }
 
     /**
