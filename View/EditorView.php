@@ -91,7 +91,7 @@
     </div>
     <div class="outputBelow">
         <h1> Relationship bearbeiten</h1>
-        <table>
+        <table id="tblRelationship">
             <tr>
                 <th colspan="4">gehört zu</th>
             </tr>
@@ -104,28 +104,28 @@
             <!-- First row -->
             <tr>
                 <td>1</td>
-                <td>
+                <td id="colRelEntity">
                     <div class="dropdown">
                         <p class="dorpdowntext" id="dropdownEntityText01">Entity</p>
                         <button class="dropbtnArrow"></button>
-                        <div class="dropdown-content" id="entityContent">
+                        <div class="dropdown-content" >
                             <a href="#" onclick="selectEntityDropdown('Gebäude','01')">Gebäude</a>
                             <a href="#" onclick="selectEntityDropdown('Raum','01')">Raum</a>
                         </div>
                     </div>
                 </td>
-                <td>
+                <td id="colRelNotation">
                     <div class="dropdown">
                         <p class="dorpdowntext" id="dropdownNotationText01">n</p>
                         <button class="dropbtnArrow"></button>
                         <div class="dropdown-content" id="entityContent">
-                            <a href="#" onclick="selectNotationDropdown('1','01')">1</a>
-                            <a href="#" onclick="selectNotationDropdown('n','01')">n</a>
-                            <a href="#" onclick="selectNotationDropdown('m','01')">m</a>
+                            <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">1</a>
+                            <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">n</a>
+                            <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','01')">m</a>
                         </div>
                     </div>
-                </td>
-                <td> <input type="checkbox" name="weakEntity01"></td>
+                </td >
+                <td id="colRelWeakEntity"> <input type="checkbox" name="weakEntity01"></td>
             </tr>
             <!-- Second row -->
             <tr>
@@ -134,7 +134,7 @@
                     <div class="dropdown">
                         <p class="dorpdowntext" id="dropdownEntityText02">Entity</p>
                         <button class="dropbtnArrow"></button>
-                        <div class="dropdown-content" id="entityContent">
+                        <div class="dropdown-content">
                             <a href="#" onclick="selectEntityDropdown('Gebäude','02')">Gebäude</a>
                             <a href="#" onclick="selectEntityDropdown('Raum','02')">Raum</a>
                         </div>
@@ -144,16 +144,17 @@
                     <div class="dropdown">
                         <p class="dorpdowntext" id="dropdownNotationText02">n</p>
                         <button class="dropbtnArrow"></button>
-                        <div class="dropdown-content" id="entityContent">
-                            <a href="#" onclick="selectNotationDropdown('1','02')">1</a>
-                            <a href="#" onclick="selectNotationDropdown('n','02')">n</a>
-                            <a href="#" onclick="selectNotationDropdown('m','02')">m</a>
+                        <div class="dropdown-content">
+                            <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','02')">1</a>
+                            <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','02')">n</a>
+                            <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','02')">m</a>
                         </div>
                     </div>
                 </td>
                 <td> <input type="checkbox" name="weakEntity01"></td>
             </tr>
         </table>
+        <button id="btnAddRelationship" onclick="onClickButtonAddRelationship()">Relationship hinzufügen</button>
     </div>
 </div>
 </body>

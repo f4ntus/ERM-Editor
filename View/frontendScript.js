@@ -13,6 +13,27 @@ function selectNotationDropdown(notation, number){
     let outputText = document.getElementById(element);
     outputText.innerText = notation;
 }
+function onClickButtonAddRelationship(){
+    // insert new row in Table
+    var table = document.getElementById("tblRelationship");
+    var row = table.insertRow(-1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    // get HTML code from the first row of the Table
+    var colEntity = document.getElementById("colRelEntity");
+    var colNotation = document.getElementById("colRelNotation");
+    var colWeakEntity = document.getElementById("colRelWeakEntity");
+    // insert the HTML Code in the new Row
+    cell1.innerHTML = "4";
+    cell2.innerHTML = colEntity.innerHTML;
+    cell3.innerHTML = colNotation.innerHTML;
+    cell4.innerHTML = colWeakEntity.innerHTML;
+    // change the ID's and attributes
+    var dropdowntext = colEntity.getElementsByClassName(dorpdowntext);
+    var
+}
 
 function onClickButtonAddSimpleAttribute() {
 
