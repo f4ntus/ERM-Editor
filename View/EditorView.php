@@ -154,7 +154,7 @@
                 <td> <input type="checkbox" name="weakEntity01"></td>
             </tr>
         </table>
-        <button id="btnAddRelationship" onclick="onClickButtonAddRelationship()">Relationship hinzufügen</button>
+        <button id="btnAddRelationship" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen</button>
     </div>
 </div>
 </body>

@@ -13,7 +13,7 @@ function selectNotationDropdown(notation, number){
     let outputText = document.getElementById(element);
     outputText.innerText = notation;
 }
-function onClickButtonAddRelationship(){
+function onClickButtonAddRelationship(rowNuber){
     // insert new row in Table
     var table = document.getElementById("tblRelationship");
     var row = table.insertRow(-1);
@@ -22,17 +22,36 @@ function onClickButtonAddRelationship(){
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
     // get HTML code from the first row of the Table
-    var colEntity = document.getElementById("colRelEntity");
-    var colNotation = document.getElementById("colRelNotation");
-    var colWeakEntity = document.getElementById("colRelWeakEntity");
+    var colEntity = '<td id="colRelEntity">\n' +
+        '                    <div class="dropdown">\n' +
+        '                        <p class="dorpdowntext" id="dropdownEntityText'+rowNuber+'">Entity</p>\n' +
+        '                        <button class="dropbtnArrow"></button>\n' +
+        '                        <div class="dropdown-content" >\n' +
+        '                            <a href="#" onclick="selectEntityDropdown(\'Gebäude\',\''+rowNuber+'\')">Gebäude</a>\n' +
+        '                            <a href="#" onclick="selectEntityDropdown(\'Raum\',\''+rowNuber+'\')">Raum</a>\n' +
+        '                        </div>\n' +
+        '                    </div>\n' +
+        '                </td>'
+    var colNotation = '<div class="dropdown">\n' +
+        '                        <p class="dorpdowntext" id="dropdownNotationText'+rowNuber+'">n</p>\n' +
+        '                        <button class="dropbtnArrow"></button>\n' +
+        '                        <div class="dropdown-content" id="entityContent">\n' +
+        '                            <a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\''+rowNuber+'\')">1</a>\n' +
+        '                            <a href="#" class="selNotDorp02" onclick="selectNotationDropdown(\'n\',\''+rowNuber+'\')">n</a>\n' +
+        '                            <a href="#" class="selNotDorp03" onclick="selectNotationDropdown(\'m\',\''+rowNuber+'\')">m</a>\n' +
+        '                        </div>\n' +
+        '                    </div>'
+    var colWeakEntity = '<td id="colRelWeakEntity"> <input type="checkbox" name="weakEntity'+rowNuber+'"></td>'
     // insert the HTML Code in the new Row
-    cell1.innerHTML = "4";
-    cell2.innerHTML = colEntity.innerHTML;
-    cell3.innerHTML = colNotation.innerHTML;
-    cell4.innerHTML = colWeakEntity.innerHTML;
-    // change the ID's and attributes
-    var dropdowntext = colEntity.getElementsByClassName(dorpdowntext);
-    var
+    cell1.innerHTML = rowNuber;
+    cell2.innerHTML = colEntity;
+    cell3.innerHTML = colNotation;
+    cell4.innerHTML = colWeakEntity;
+    // change button Attribute for the next higher rowNumber
+    var btnAddRelationship = document.getElementById("btnAddRelationship");
+    var newRowNumber = rowNuber+1;
+    var onClickFunktionString = "onClickButtonAddRelationship("+rowNuber+1+")"
+    btnAddRelationship.setAttribute("onClick", "onClickButtonAddRelationship("+newRowNumber+")" )
 }
 
 function onClickButtonAddSimpleAttribute() {
