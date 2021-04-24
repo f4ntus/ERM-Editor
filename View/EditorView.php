@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <script language="javascript" type="text/javascript" src="frontendScript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Also include jQueryUI -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <title>ERM-Editor</title>
 </head>
 <body>
@@ -19,10 +22,12 @@
     <div class="leftMenue">
         <div class="menuGroup">
             <p>Formen</p>
-            <button class="shape" id="entity"></button>
+            <button class="shape" id="entity" onclick="create()"></button>
+            <img id="dragThis" src="images/entity.png">
             <button class="shape" id="relationship"></button>
             <button class="shape" id="isA"></button>
         </div>
+
         <div class="menuGroup">
             <from action="">
                 <p>Kardinalitätsrestriktionen</p>
@@ -47,7 +52,7 @@
             <button>ERM umwandeln</button>
         </div>
     </div>
-    <div class="editor">Three</div>
+    <div class="editor" id="dropHere">Three </div>
     <div class="rightMenue">
         <h3>Entity bearbeiten:</h3>
         <table style="width:100%">
@@ -91,5 +96,43 @@
     </div>
     <div class="outputBelow">Five</div>
 </div>
+
+
+
+<script>
+
+    $('#dragThis').draggable(
+        {
+            containment: $('body'),
+            drag: function(){
+                var offset = $(this).offset();
+                var xPos = offset.left;
+                var yPos = offset.top;
+                $('#posX > span').text(xPos);
+                $('#posY > span').text(yPos);
+            },
+            stop: function(){
+                var finalOffset = $(this).offset();
+                var finalxPos = finalOffset.left;
+                var finalyPos = finalOffset.top;
+
+                $('#finalX > span').text(finalxPos);
+                $('#finalY > span').text(finalyPos);
+                $('#width > span').text($(this).width());
+                $('#height > span').text($(this).height());
+            },
+            revert: 'invalid'
+        });
+
+    $('#dropHere').droppable(
+        {
+            accept: '#dragThis',
+            over : function(){
+                $('#dragThis').draggable('option','containment',$(this));
+            }
+        });
+
+</script>
+
 </body>
 </html>

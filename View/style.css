@@ -220,3 +220,18 @@ table {
     height: 60px;
     width: 100px;
 }
+
+#dragThis {
+    width: 8em;
+    height: 8em;
+    padding: 0.5em;
+}
+
+#dropHere {
+    width: 12em;
+    height: 12em;
+    padding: 0.5em;
+    border: 3px solid #f90;
+    border-radius: 1em;
+    margin: 0 auto;
+}
