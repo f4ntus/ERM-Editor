@@ -23,11 +23,11 @@
         <div class="menuGroup">
             <p>Formen</p>
             <button class="shape" id="entity" onclick="create()"></button>
-            <img id="dragThis" src="images/entity.png">
             <button class="shape" id="relationship"></button>
             <button class="shape" id="isA"></button>
         </div>
-
+        <div id="draggableInput" class="draggableInput">
+        </div>
         <div class="menuGroup">
             <from action="">
                 <p>Kardinalitätsrestriktionen</p>
@@ -98,39 +98,63 @@
 </div>
 
 
-
 <script>
 
-    $('#dragThis').draggable(
-        {
-            containment: $('body'),
-            drag: function(){
-                var offset = $(this).offset();
-                var xPos = offset.left;
-                var yPos = offset.top;
-                $('#posX > span').text(xPos);
-                $('#posY > span').text(yPos);
-            },
-            stop: function(){
-                var finalOffset = $(this).offset();
-                var finalxPos = finalOffset.left;
-                var finalyPos = finalOffset.top;
+    draggableInputNo = 0;
 
-                $('#finalX > span').text(finalxPos);
-                $('#finalY > span').text(finalyPos);
-                $('#width > span').text($(this).width());
-                $('#height > span').text($(this).height());
-            },
-            revert: 'invalid'
-        });
+    $(function() {
+        //set droppable as a droppable container
+        $(".editor").droppable({
+            drop: function(event, ui) {
 
-    $('#dropHere').droppable(
-        {
-            accept: '#dragThis',
-            over : function(){
-                $('#dragThis').draggable('option','containment',$(this));
+                $element = ui.helper.clone();
+                $element.draggable({containment: $('.editor'), cursor: 'move'});
+                $element.selectable();
+
+                // position of the draggable minus position of the droppable
+                // relative to the document
+                var $newPosX = ui.offset.left - $(this).offset().left;
+                var $newPosY = ui.offset.top - $(this).offset().top;
+                console.info($newPosX,$newPosY);
+
+                if (ui.draggable.attr('id') == 'draggableInput') {
+                    draggableInputNo++;
+                    $element.attr("id", 'draggableInput' + draggableInputNo);
+                    $newID = 'draggableInput' + draggableInputNo;
+                    console.info($element);
+                    console.info($newID)
+                    $element.appendTo(this);
+
+                    var $newPosX = ui.offset.left - $(this).offset().left;
+                    var $newPosY = ui.offset.top - $(this).offset().top;
+                    console.info($newPosX,$newPosY);
+
+                    var myEl = document.getElementById('draggableInput' + draggableInputNo);
+
+                    myEl.addEventListener('click', function() {
+                        console.info("draufgeklickt!")
+                        console.info(myEl)
+                    }, false);
+
+                }
+
             }
         });
+
+        //Set draggableInput as a draggable layer
+        $(".draggableInput").draggable({
+            containment: '#editor',
+            cursor: 'move',
+            helper: draggableInputHelper,
+        });
+
+
+    });
+
+    function draggableInputHelper(event) {
+        return '<div id="draggableInput' + draggableInputNo + '" class="draggableInputHelper" ></div>'
+
+    }
 
 </script>
 

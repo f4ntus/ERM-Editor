@@ -71,6 +71,11 @@
                 $element.draggable({containment: $('.droppable'), cursor: 'move'});
                 $element.selectable();
 
+                // position of the draggable minus position of the droppable
+                // relative to the document
+                var $newPosX = ui.offset.left - $(this).offset().left;
+                var $newPosY = ui.offset.top - $(this).offset().top;
+                console.info($newPosX,$newPosY);
 
                 if (ui.draggable.attr('id') == 'draggableInput') {
                     draggableInputNo++;
@@ -79,6 +84,10 @@
                     console.info($element);
                     console.info($newID)
                     $element.appendTo(this);
+
+                    var $newPosX = ui.offset.left - $(this).offset().left;
+                    var $newPosY = ui.offset.top - $(this).offset().top;
+                    console.info($newPosX,$newPosY);
 
                     var myEl = document.getElementById('draggableInput' + draggableInputNo);
 
