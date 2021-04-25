@@ -22,8 +22,7 @@
     <div class="leftMenue">
         <div class="menuGroup">
             <p>Formen</p>
-            <button class="shape" id="entity">hallo ich bin ein button</button>
-            <button>hallo</button>
+            <button class="shape" id="entity"></button>
             <button class="shape" id="relationship"></button>
             <button class="shape" id="isA"></button>
         </div>
@@ -103,14 +102,14 @@
 
     draggableInputNo = 0;
 
-    $(function() {
+   // $(function() {
         //set droppable as a droppable container
         $(".editor").droppable({
             drop: function(event, ui) {
 
                 $element = ui.helper.clone();
                 $element.draggable({containment: $('.editor'), cursor: 'move'});
-                $element.selectable();
+                //$element.selectable();
 
                 // position of the draggable minus position of the droppable
                 // relative to the document
@@ -154,9 +153,9 @@
         });
 
 
-    });
+ //   });
 
-    function draggableInputHelper(event) {
+    function draggableInputHelper() {
         return '<div id="draggableInput' + draggableInputNo + '" class="draggableInputHelper" ></div>'
 
     }
