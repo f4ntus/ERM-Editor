@@ -22,8 +22,8 @@
     <div class="leftMenue">
         <div class="menuGroup">
             <p>Formen</p>
-            <button class="shape" id="entity" onclick="create()"></button>
-            <button class="shape" id="relationship"></button>
+            <button class="shape" id="entity" onclick="create()">Entityasdfa asdfasdf </button>
+            <button class="shape" id="relationship">Relationship asdfasdf asdfas dfasdfasf asdfasdf asd</button>
             <button class="shape" id="isA"></button>
         </div>
         <div id="draggableInput" class="draggableInput">
