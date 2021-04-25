@@ -137,17 +137,21 @@ input {
 }
 
 #entity {
-    background-image: url("images/entity.png");
+    background-image: url("images/entityEmpty.png");
     background-size: 100% 100%;
-    width: 100%;
+    padding: 10%;
+    height: auto;
+    width: auto;
 }
 
 #relationship {
-    background-image: url("images/relationship.png");
-    background-size: contain;
-    height: 55px;
-    width: 95px;
-    border: white;
+    background-image: url("images/relationshipEmpty.png");
+    background-size: 100% 100%;
+    padding: 20%;
+    height: auto;
+    width: auto;
+    border-style: none;
+    background-color: transparent;
 }
 
 #isA {
