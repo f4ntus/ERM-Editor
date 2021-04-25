@@ -22,8 +22,10 @@
     <div class="leftMenue">
         <div class="menuGroup">
             <p>Formen</p>
+
             <button class="shape" id="entity" onclick="create()">Entityasdfa asdfasdf </button>
             <button class="shape" id="relationship">Relationship asdfasdf asdfas dfasdfasf asdfasdf asd</button>
+
             <button class="shape" id="isA"></button>
         </div>
         <div id="draggableInput" class="draggableInput">
@@ -102,14 +104,14 @@
 
     draggableInputNo = 0;
 
-    $(function() {
+   // $(function() {
         //set droppable as a droppable container
         $(".editor").droppable({
             drop: function(event, ui) {
 
                 $element = ui.helper.clone();
                 $element.draggable({containment: $('.editor'), cursor: 'move'});
-                $element.selectable();
+                //$element.selectable();
 
                 // position of the draggable minus position of the droppable
                 // relative to the document
@@ -120,11 +122,15 @@
                 if (ui.draggable.attr('id') == 'draggableInput') {
                     draggableInputNo++;
                     $element.attr("id", 'draggableInput' + draggableInputNo);
+
                     $newID = 'draggableInput' + draggableInputNo;
                     console.info($element);
                     console.info($newID)
+
                     $element.appendTo(this);
 
+                    // position of the draggable minus position of the droppable
+                    // relative to the document
                     var $newPosX = ui.offset.left - $(this).offset().left;
                     var $newPosY = ui.offset.top - $(this).offset().top;
                     console.info($newPosX,$newPosY);
@@ -149,9 +155,9 @@
         });
 
 
-    });
+ //   });
 
-    function draggableInputHelper(event) {
+    function draggableInputHelper() {
         return '<div id="draggableInput' + draggableInputNo + '" class="draggableInputHelper" ></div>'
 
     }
