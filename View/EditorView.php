@@ -22,13 +22,9 @@
     <div class="leftMenue">
         <div class="menuGroup">
             <p>Formen</p>
-
-            <button class="shape" id="entity" onclick="create()">Entityasdfa asdfasdf </button>
-            <button class="shape" id="relationship">Relationship asdfasdf asdfas dfasdfasf asdfasdf asd</button>
-
-            <button class="shape" id="isA"></button>
-        </div>
-        <div id="draggableInput" class="draggableInput">
+            <button class="entity" id="entity">Entity</button>
+            <button class="relationship" id="relationship">Relationship</button>
+            <button class="isA" id="isA"></button>
         </div>
         <div class="menuGroup">
             <from action="">
@@ -54,7 +50,7 @@
             <button>ERM umwandeln</button>
         </div>
     </div>
-    <div class="editor" id="dropHere">Three </div>
+    <div class="editor">Three </div>
     <div class="rightMenue">
         <h3>Entity bearbeiten:</h3>
         <table style="width:100%">
@@ -102,64 +98,117 @@
 
 <script>
 
-    draggableInputNo = 0;
+    entityInputNo = 0;
+    relationshipInputNo = 0;
+    isAInputNo = 0;
+    onClick = '';
 
-   // $(function() {
-        //set droppable as a droppable container
-        $(".editor").droppable({
-            drop: function(event, ui) {
 
-                $element = ui.helper.clone();
-                $element.draggable({containment: $('.editor'), cursor: 'move'});
-                //$element.selectable();
+    //set droppable as a droppable container
+    $(".editor").droppable({
+        drop: function(event, ui) {
 
-                // position of the draggable minus position of the droppable
-                // relative to the document
+            $element = ui.helper.clone();
+            $element.draggable({cancel: false, containment: $('.editor'), cursor: 'move'});
+            $element.selectable();
+
+            // position of the draggable minus position of the droppable
+            // relative to the document
+            var $newPosX = ui.offset.left - $(this).offset().left;
+            var $newPosY = ui.offset.top - $(this).offset().top;
+            console.info($newPosX,$newPosY);
+
+            if (ui.draggable.attr('id') == 'entity') {
+                entityInputNo++;
+                $element.attr("id", 'entity' + entityInputNo);
+                $newIDEntity = 'entity' + entityInputNo;
+                console.info($element);
+                console.info($newIDEntity)
+                $element.appendTo(this);
+
                 var $newPosX = ui.offset.left - $(this).offset().left;
                 var $newPosY = ui.offset.top - $(this).offset().top;
                 console.info($newPosX,$newPosY);
 
-                if (ui.draggable.attr('id') == 'draggableInput') {
-                    draggableInputNo++;
-                    $element.attr("id", 'draggableInput' + draggableInputNo);
+            }
 
-                    $newID = 'draggableInput' + draggableInputNo;
-                    console.info($element);
-                    console.info($newID)
+            if (ui.draggable.attr('id') == 'relationship') {
+                relationshipInputNo++;
+                $element.attr("id", 'relationship' + relationshipInputNo);
+                $newIDRelationship = 'relationship' + relationshipInputNo;
+                console.info($element);
+                console.info($newIDRelationship)
+                $element.appendTo(this);
 
-                    $element.appendTo(this);
-
-                    // position of the draggable minus position of the droppable
-                    // relative to the document
-                    var $newPosX = ui.offset.left - $(this).offset().left;
-                    var $newPosY = ui.offset.top - $(this).offset().top;
-                    console.info($newPosX,$newPosY);
-
-                    var myEl = document.getElementById('draggableInput' + draggableInputNo);
-
-                    myEl.addEventListener('click', function() {
-                        console.info("draufgeklickt!")
-                        console.info(myEl)
-                    }, false);
-
-                }
+                var $newPosX = ui.offset.left - $(this).offset().left;
+                var $newPosY = ui.offset.top - $(this).offset().top;
+                console.info($newPosX,$newPosY);
 
             }
-        });
 
-        //Set draggableInput as a draggable layer
-        $(".draggableInput").draggable({
-            containment: '#editor',
-            cursor: 'move',
-            helper: draggableInputHelper,
-        });
+            if (ui.draggable.attr('id') == 'isA') {
+                isAInputNo++;
+                $element.attr("id", 'isA' + isAInputNo);
+                $newIDIsA = 'isA' + isAInputNo;
+                console.info($element);
+                console.info($newIDIsA)
+                $element.appendTo(this);
+
+                var $newPosX = ui.offset.left - $(this).offset().left;
+                var $newPosY = ui.offset.top - $(this).offset().top;
+                console.info($newPosX,$newPosY);
+
+            }
+
+        }
+    });
+
+    //Set draggableInput as a draggable layer
+    $(".entity").draggable({
+        cancel: false,
+        containment: '#editor',
+        cursor: 'move',
+        helper: entityClone,
+
+    });
+
+    //Set draggableInput as a draggable layer
+    $(".relationship").draggable({
+        cancel: false,
+        containment: '#editor',
+        cursor: 'move',
+        helper: relationshipClone,
+
+    });
+
+    //Set draggableInput as a draggable layer
+    $(".isA").draggable({
+        cancel: false,
+        containment: '#editor',
+        cursor: 'move',
+        helper: isAClone,
+
+    });
 
 
- //   });
+    function entityClone() {
+        return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu()"></button>'
+    }
 
-    function draggableInputHelper() {
-        return '<div id="draggableInput' + draggableInputNo + '" class="draggableInputHelper" ></div>'
+    function relationshipClone() {
+        return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu()"></button>'
+    }
 
+    function isAClone() {
+        return '<button id="isA' + isAInputNo + '" class="isA" ></button>'
+    }
+
+    function openEntityMenu(){
+        console.info("öffnet Entity-Menü")
+    }
+
+    function openRelationshipMenu(){
+        console.info("öffnet Relationship-Menü")
     }
 
 </script>

@@ -132,19 +132,17 @@ input {
     padding: 20px;
 }
 
-.shape {
-    margin: 20px;
-}
 
-#entity {
+.entity {
     background-image: url("images/entityEmpty.png");
     background-size: 100% 100%;
     padding: 10%;
     height: auto;
     width: auto;
+    margin: 20px;
 }
 
-#relationship {
+.relationship {
     background-image: url("images/relationshipEmpty.png");
     background-size: 100% 100%;
     padding: 20%;
@@ -152,14 +150,16 @@ input {
     width: auto;
     border-style: none;
     background-color: transparent;
+    margin: 20px;
 }
 
-#isA {
+.isA {
     background-image: url("images/isA.png");
     background-size: contain;
     height: 55px;
     width: 68px;
     border: white;
+    margin: 20px;
 }
 
 #showGeneralizationMode {
@@ -222,26 +222,4 @@ table {
     text-align: center;
     height: 60px;
     width: 100px;
-}
-
-.draggableInput {
-    width: 50px;
-    height: 30px;
-    padding: 1em;
-    float: left;
-    margin: 10px 10px 10px 0;
-    background-color: #9933ff;
-    border-radius: 10px;
-    border: 1px solid #9933ff;
-    writing-mode: tb-rl;
-}
-
-.draggableInputHelper {
-    width: 50px;
-    height: 30px;
-    padding: 0.5em;
-    margin: 10px 10px 10px 0;
-    background-color: #006699;
-    border-radius: 10px;
-    border: 1px solid #006699;
 }
