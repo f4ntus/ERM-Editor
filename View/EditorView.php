@@ -22,7 +22,8 @@
     <div class="leftMenue">
         <div class="menuGroup">
             <p>Formen</p>
-            <button class="shape" id="entity" onclick="create()"></button>
+            <button class="shape" id="entity">hallo ich bin ein button</button>
+            <button>hallo</button>
             <button class="shape" id="relationship"></button>
             <button class="shape" id="isA"></button>
         </div>
@@ -120,11 +121,15 @@
                 if (ui.draggable.attr('id') == 'draggableInput') {
                     draggableInputNo++;
                     $element.attr("id", 'draggableInput' + draggableInputNo);
+
                     $newID = 'draggableInput' + draggableInputNo;
                     console.info($element);
                     console.info($newID)
+
                     $element.appendTo(this);
 
+                    // position of the draggable minus position of the droppable
+                    // relative to the document
                     var $newPosX = ui.offset.left - $(this).offset().left;
                     var $newPosY = ui.offset.top - $(this).offset().top;
                     console.info($newPosX,$newPosY);
