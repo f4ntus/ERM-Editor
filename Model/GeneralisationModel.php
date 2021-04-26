@@ -12,6 +12,7 @@ class GeneralisationModel
     private $subtypes;
     private $x;
     private $y;
+    private $level;
 
     /**
      * GeneralisationModel constructor.
@@ -126,5 +127,22 @@ class GeneralisationModel
     {
         $this->y = $y;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * @param mixed $level
+     */
+    public function setLevel($level): void
+    {
+        $this->level = $level;
+    }
+
 
 }

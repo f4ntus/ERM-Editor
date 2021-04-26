@@ -14,8 +14,8 @@ class RDMController
     public static function generateRDM(ERMModel $erm, $generalisierungsform){
         $rdm = new RDMModel();
 
+        ERMController::GeneralisationERM($erm, $generalisierungsform);
         self::createRelationsfromEntity($erm, $rdm);
-        self::createGeneralisierungsmodells($rdm, $erm, $generalisierungsform);
         self::createRelationsfromRelationships($erm, $rdm);
         return $rdm;
     }
@@ -27,12 +27,9 @@ class RDMController
      * @return RDMModel
      */
     private static function createRelationsfromEntity(ERMModel $erm, RDMModel $rdm){
-        foreach ($erm->getEntities() as $entity){
-            if(!$entity->getIsSubtyp()) {
-                $relation = new RelationRDMModel($entity->getName(), $entity);
-                self::addRelationfromEntity($entity, $relation, $rdm);
-
-            }
+        foreach ($erm->getEntities() as $entity) {
+            $relation = new RelationRDMModel($entity->getName(), $entity);
+            self::addRelationfromEntity($entity, $relation, $rdm);
         }
     }
 
