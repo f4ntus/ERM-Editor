@@ -167,7 +167,6 @@ function onClickAddCompoundAttributeToTable() {
     if(bPrimary){
         var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + iAttributeCount;
         document.getElementById(sCheckboxId).checked = true;
-
     }
 
 }
