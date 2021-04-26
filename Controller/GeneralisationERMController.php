@@ -36,6 +36,7 @@ class GeneralisationERMController
      * @param EntityModel $subtyp
      */
     public static function deleteSubtyp(GeneralisationModel $generalisation, EntityModel $subtyp){
+        $subtyp->setIsSubtyp(false);
         $generalisation->deleteSubtyp($subtyp);
     }
 
@@ -59,5 +60,9 @@ class GeneralisationERMController
         $position['X'] = $generalisation->getX();
         $position['Y'] = $generalisation->getY();
         return $position;
+    }
+
+    public static function setLevel(GeneralisationModel $generalisation, int $level){
+        $generalisation->setLevel($level);
     }
 }

@@ -45,11 +45,11 @@ class RDMModel
     public function printRDM(){
         $ausgabe = 'RDM: ';
         foreach ($this->relations as $relation){
-            $ausgabe = $ausgabe.$relation->getName().'( ';
+            $ausgabe = $ausgabe.$relation->getName().' ( ';
             foreach ($relation->getAttributes() as $attribute){
                 $ausgabe = $ausgabe.$attribute->getName().' '.$attribute->getReferences(). ' ';
             }
-            $ausgabe = $ausgabe. ' )';
+            $ausgabe = $ausgabe. ' )'.'</br>';
         }
     return $ausgabe;
     }

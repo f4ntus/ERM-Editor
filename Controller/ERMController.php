@@ -90,9 +90,108 @@ class ERMController
      * @param ERMModel $erm
      * @param GeneralisationModel $generalisation
      */
-    public function deleteGeneralisation(ERMModel $erm, GeneralisationModel $generalisation)
+    public static function deleteGeneralisation(ERMModel $erm, GeneralisationModel $generalisation)
     {
         $erm->deleteGeneralisation($generalisation);
+    }
+
+    /**
+     * ERM an ausgewählten Generaliserungstyp anpassen
+     * Auswahl des Generaliserungsmodells
+     * @param ERMModel $erm
+     * @param int $generalisierungstyp
+     */
+    public static function GeneralisationERM(ERMModel $erm, int $generalisierungstyp){
+        switch ($generalisierungstyp){
+            case 1:
+                self::generalisierungbyHausklassenmodell($erm);
+                break;
+            case 2;
+                self::generalisierungbyPartionierungsmodell($erm);
+                break;
+            case 3:
+                self::generalisierungbyHausklassenmodell($erm);
+                break;
+            case 4:
+                self::generalisierungbyUeberrelation($erm);
+                break;
+        }
+    }
+
+    /**Generaliserung nach Hausklassenmodell
+     * @param ERMModel $erm
+     */
+
+
+
+    private static function generalisierungbyHausklassenmodell (ERMModel $erm){
+        foreach ($erm->getGeneralistions() as $generalisation){
+            $supertyp = $generalisation->getSupertyp();
+            foreach ($generalisation->getSubtypes() as $subtype){
+                foreach ($supertyp->getAttributes() as $attribute){
+                    $subtype->addAttribute($attribute);
+                }
+
+            }
+        }
+
+    }
+
+    /**
+     * Generaliserung nach Partionierung
+     * @param ERMModel $erm
+     */
+    private static function generalisierungbyPartionierungsmodell (ERMModel $erm){
+        foreach ($erm->getGeneralistions() as $generalisation){
+            $supertyp = $generalisation->getSupertyp();
+            foreach ($generalisation->getSubtypes() as $subtype){
+                foreach ($supertyp->getAttributes() as $attribute){
+                    if($attribute->getPrimary()){
+                        $subtype->addAttribute($attribute);
+                    }
+                }
+
+            }
+        }
+
+
+
+
+
+    }
+
+    /**
+     * Generaliserung nach Überrealtion
+     * @param ERMModel $erm
+     */
+    private static function generalisierungbyUeberrelation (ERMModel $erm){
+        foreach ($erm->getGeneralistions() as $generalisation){
+            $supertyp = $generalisation->getSupertyp();
+            if($supertyp->getIsSubtyp()) {
+                foreach ($generalisation->getSubtypes() as $subtype) {
+
+                    //Die Attribute der Relation hinzufügen
+                    foreach ($subtype->getAttributes() as $attribute) {
+                        $supertyp->addAttribute($attribute);
+                    }
+                self::deleteEntity($erm, $subtype);
+                }
+            }else{
+                $supertyp->addAttribute(new AttributeERMModel("Typ", 1, false));
+            }
+        }
+        foreach ($erm->getGeneralistions() as $generalisation) {
+            $supertyp = $generalisation->getSupertyp();
+            if(!$supertyp->getIsSubtyp()) {
+                foreach ($generalisation->getSubtypes() as $subtype) {
+                    //Die Attribute der Relation hinzufügen
+                    foreach ($subtype->getAttributes() as $attribute) {
+                        $supertyp->addAttribute($attribute);
+                    }
+                self::deleteEntity($erm, $subtype);
+                }
+            }
+        }
     }
 
 }
