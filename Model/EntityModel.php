@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class EntityModel
  * Das Modell eines Erstellung
@@ -35,9 +36,8 @@ class EntityModel
      * @param $x Standort
      * @param $y Standort
      */
-    public function __construct($name, $x, $y)
+    public function __construct($x, $y)
     {
-        $this->name = $name;
         $this->x = $x;
         $this->y = $y;
         $this->attributes = array();

@@ -9,11 +9,31 @@ class EntityController
      * @param $y Standort
      * @return EntityModel
      */
-    public static function createEntity($name, $x, $y)
+    public static function createEntity($x, $y)
     {
-        return new EntityModel($name, $x, $y);
+        return new EntityModel($x, $y);
 
     }
+
+    /**
+     * Name setzen
+     * @param EntityModel $entity
+     * @param String $name
+     */
+    public static function setName(EntityModel $entity, String $name){
+        $entity->setName($name);
+
+    }
+
+    /**Name ausgeben
+     * @param EntityModel $entity
+     * @return mixed
+     */
+    public static function getName(EntityModel $entity){
+        return $entity->getName();
+
+    }
+
 
 
     /**

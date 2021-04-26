@@ -3,7 +3,6 @@
 /**
  * Class ERMModel
  */
-
 class ERMModel
 {
     private $entities;

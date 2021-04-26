@@ -25,9 +25,9 @@ class ERMController
      * @param int $y
      * @return EntityModel
      */
-    public static function addEntity(ERMModel $erm, String $name, int $x, int $y)
+    public static function addEntity(ERMModel $erm, int $x, int $y)
     {
-        $entity = EntityController::createEntity($name, $x, $y);
+        $entity = EntityController::createEntity($x, $y);
         $erm->addEntity($entity);
         return $entity;
     }
@@ -53,9 +53,9 @@ class ERMController
      * @param int $y
      * @return RelationshipModel
      */
-    public static function addRelationship(ERMModel $erm, String $name, int $x, int $y)
+    public static function addRelationship(ERMModel $erm, int $x, int $y)
     {
-        $relationship = RelationshipController::createRelationship($name, $x, $y);
+        $relationship = RelationshipController::createRelationship($x, $y);
         $erm->addRelationship($relationship);
         return $relationship;
     }

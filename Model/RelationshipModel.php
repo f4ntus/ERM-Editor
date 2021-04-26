@@ -32,9 +32,8 @@ class RelationshipModel
     private $y;
 
 
-    public function __construct($name, $x, $y)
+    public function __construct($x, $y)
     {
-        $this->name = $name;
         $this->x = $x;
         $this->y = $y;
         $this->attributes = array();
