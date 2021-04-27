@@ -156,14 +156,14 @@
 
         });
 
-    //Set draggableInput as a draggable layer
-    $(".isA").draggable({
-        cancel: false,
-        containment: '#droppable',
-        cursor: 'move',
-        helper: isAClone,
+        //Set draggableInput as a draggable layer
+        $(".isA").draggable({
+            cancel: false,
+            containment: '#droppable',
+            cursor: 'move',
+            helper: isAClone,
 
-    });
+        });
 
 
     function entityClone() {
