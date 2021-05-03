@@ -126,7 +126,8 @@ class GeneralisationModel
     public function setY($y)
     {
         $this->y = $y;
-    }
+
+       }
 
     /**
      * @return mixed
