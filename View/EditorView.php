@@ -51,7 +51,7 @@
             <button>ERM umwandeln</button>
         </div>
     </div>
-    <div class="editor">Three </div>
+    <div id="editorID" class="editor">Three </div>
     <div class="rightMenue">
         <h3>Entity bearbeiten:</h3>
         <table style="width:100%">
@@ -95,6 +95,10 @@
     </div>
     <div class="outputBelow">Five</div>
 </div>
+
+<ul id="menu">
+    <li id = "deleteButton" class="menu-item">Element löschen</li>
+</ul>
 
 
 </body>

@@ -117,7 +117,7 @@ function relationshipClone() {
 }
 //create clone from isA-button with new ID
 function isAClone() {
-    return '<button id="isA' + isAInputNo + '" class="isA" ></button>';
+    return '<button id="isA' + isAInputNo + '" class="isA" oncontextmenu="openContextMenu(this.id)"></button>';
 }
 
 function openEntityMenu(){
@@ -127,3 +127,39 @@ function openEntityMenu(){
 function openRelationshipMenu(){
     console.info("öffnet Relationship-Menü");
 }
+
+function openContextMenu(id){
+
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    }, false);
+
+    const deleteElement = document.getElementById(id)
+    const menu = document.getElementById('menu')
+    const outClick = document.getElementById('editorID')
+
+    deleteElement.addEventListener('contextmenu', e => {
+        e.preventDefault()
+
+        menu.style.left = e.pageX + 'px';
+        menu.style.top = e.pageY + 'px';
+        menu.classList.add('show');
+
+        outClick.style.display = "block";
+    })
+
+    outClick.addEventListener('click', () => {
+        menu.classList.remove('show')
+    })
+
+    const deleteButton = document.getElementById('deleteButton')
+
+    deleteButton.addEventListener('click', () => {
+        //Remove the selected element from the document
+        deleteElement.remove();
+        menu.classList.remove('show')
+    })
+
+
+}
+
