@@ -55,11 +55,9 @@ var iAttributeCount = 0;
 function onClickAddSimpleAttributeToTable() {
 
 
-
     sAttributeName = document.getElementById("idSimpleAttributeName").value;
     iType = 1;
     bPrimary = document.getElementById("idCheckboxPK").checked;
-
 
     var table = document.getElementById("idTableEntityAttributes");
     var numberRows = table.rows.length;
@@ -79,17 +77,12 @@ function onClickAddSimpleAttributeToTable() {
         "                        <span class=\"slider round\"></span>\n" +
         "                    </label>";
 
-
     if(bPrimary){
         var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + iAttributeCount;
         document.getElementById(sCheckboxId).checked = true;
-
     }
-
 }
 function onClickAddMultiValueAttributeToTable() {
-
-
 
     sAttributeName = document.getElementById("idMultiValueAttributeName").value;
     iType = 2;
@@ -105,12 +98,9 @@ function onClickAddMultiValueAttributeToTable() {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
 
-
-
     cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this.value)\">X</button>";
     cell2.innerHTML = "{"+sAttributeName+"}";
     cell3.innerHTML = ""; //not possible to set multi value attribute as pk
-
 
 }
 function onClickAddCompoundAttributeToTable() {
@@ -140,10 +130,8 @@ function onClickAddCompoundAttributeToTable() {
         }
     }
 
-
     iType = 1;
     bPrimary = document.getElementById("idCheckboxPK").checked;
-
 
     var table = document.getElementById("idTableEntityAttributes");
     var numberRows = table.rows.length;
