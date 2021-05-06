@@ -162,3 +162,4 @@ function onClickAddCompoundAttributeToTable() {
 function onClickDeleteAttribute(oSelectedButton) {
 
 }
+

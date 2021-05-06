@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script language="javascript" type="text/javascript" src="DragAndDropScript.js"></script>
     <script language="javascript" type="text/javascript" src="frontendScript.js"></script>
+
     <title>ERM-Editor</title>
 </head>
 <body>
@@ -19,9 +23,9 @@
     <div class="leftMenue">
         <div class="menuGroup">
             <p>Formen</p>
-            <button class="shape" id="entity"></button>
-            <button class="shape" id="relationship"></button>
-            <button class="shape" id="isA"></button>
+            <button class="entity" id="entity" onclick="openEntityMenu()">Entity</button>
+            <button class="relationship" id="relationship">Relationship</button>
+            <button class="isA" id="isA"></button>
         </div>
         <div class="menuGroup">
             <from action="">
@@ -47,7 +51,7 @@
             <button>ERM umwandeln</button>
         </div>
     </div>
-    <div class="editor">Three</div>
+    <div class="editor">Three </div>
     <div class="rightMenue">
         <h3>Entity bearbeiten:</h3>
         <table id="idTableEntityAttributes" style="width:100%">
@@ -166,5 +170,7 @@
     </div>
     <div class="outputBelow">Five</div>
 </div>
+
+
 </body>
 </html>
