@@ -51,7 +51,7 @@
             <button>ERM umwandeln</button>
         </div>
     </div>
-    <div class="editor">Three </div>
+    <div id="editorID" class="editor">Three </div>
     <div class="rightMenue">
         <h3>Entity bearbeiten:</h3>
         <table id="idTableEntityAttributes" style="width:100%">
@@ -236,6 +236,10 @@
         <button id="btnAddRelationship" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen</button>
     </div>
 </div>
+
+<ul id="menu">
+    <li id = "deleteButton" class="menu-item">Element löschen</li>
+</ul>
 
 
 </body>
