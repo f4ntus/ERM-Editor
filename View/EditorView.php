@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script language="javascript" type="text/javascript" src="DragAndDropScript.js"></script>
     <script language="javascript" type="text/javascript" src="frontendScript.js"></script>
 
@@ -51,7 +52,7 @@
             <button>ERM umwandeln</button>
         </div>
     </div>
-    <div class="editor">Three </div>
+    <div class="editor">Three</div>
     <div class="rightMenue">
         <h3>Entity bearbeiten:</h3>
         <table id="idTableEntityAttributes" style="width:100%">
@@ -63,7 +64,9 @@
                 <th>PK</th>
             </tr>
             <tr>
-                <td><button onclick="onClickDeleteAttribute(this.value)">X</button></td>
+                <td>
+                    <button onclick="onClickDeleteAttribute(this.value)">X</button>
+                </td>
                 <td>Id</td>
                 <td>
                     <label class="switch">
@@ -84,15 +87,19 @@
             </tr>
         </table>
         <hr class="hr">
-        <button onclick="onClickButtonAddSingleValueAttribute()" class="button">Einfaches<br>Attribut<br>hinzufügen</button>
-        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen</button>
-        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen</button>
+        <button onclick="onClickButtonAddSingleValueAttribute()" class="button">Einfaches<br>Attribut<br>hinzufügen
+        </button>
+        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen
+        </button>
+        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen
+        </button>
         <hr class="hr">
         <div class="row" style="display:block" id="idDivAddSimpleAttribute">
 
             <h4>Einfaches Attribut hinzufügen:</h4>
             <div class="column" style="width: 30%;">
-                <button onclick="onClickAddSimpleAttributeToTable()" class="button2">Einfaches<br>Attribut<br>hinzufügen</button>
+                <button onclick="onClickAddSimpleAttributeToTable()" class="button2">Einfaches<br>Attribut<br>hinzufügen
+                </button>
             </div>
             <div class="column2" style="width: 60%; ">
                 <table style="">
@@ -101,7 +108,8 @@
                         <th>PK</th>
                     </tr>
                     <tr>
-                        <td><input placeholder="" type="text" id="idSimpleAttributeName" name="idSimpleAttributeName"/></td>
+                        <td><input placeholder="" type="text" id="idSimpleAttributeName" name="idSimpleAttributeName"/>
+                        </td>
                         <td><input type="checkbox" id="idCheckboxPK" name="idCheckboxPK"/></td>
                     </tr>
                 </table>
@@ -141,7 +149,8 @@
                 <table id="idTableCompoundAttribute" style="width:70%">
                     <tr>
                         <th style="text-align: center;">Oberattribut</th>
-                        <th><input placeholder="" type="text" id="idUpperAttributeName" name="idUpperAttributeName"/></th>
+                        <th><input placeholder="" type="text" id="idUpperAttributeName" name="idUpperAttributeName"/>
+                        </th>
                     </tr>
                     <tr>
                         <td>Unterattribut</td>
@@ -169,71 +178,80 @@
         </button>
     </div>
     <div class="outputBelow">
-        <h1> Relationship bearbeiten</h1>
-        <table id="tblRelationship">
-            <tr>
-                <th colspan="4">gehört zu</th>
-            </tr>
-            <tr>
-                <td>Beziehungsnummer</td>
-                <td>Entity</td>
-                <td>Notation</td>
-                <td>schwaches Entity?</td>
-            </tr>
-            <!-- First row -->
-            <tr>
-                <td>1</td>
-                <td id="colRelEntity">
-                    <div class="dropdown">
-                        <p class="dorpdowntext" id="dropdownEntityText01">Entity</p>
-                        <button class="dropbtnArrow"></button>
-                        <div class="dropdown-content" >
-                            <a href="#" onclick="selectEntityDropdown('Gebäude','01')">Gebäude</a>
-                            <a href="#" onclick="selectEntityDropdown('Raum','01')">Raum</a>
+        <div id="editRelationship" Style="float: left">
+            <h1> Relationship bearbeiten</h1>
+            <table id="tblRelationship">
+                <tr>
+                    <th colspan="4">gehört zu</th>
+                </tr>
+                <tr>
+                    <td>Beziehungsnummer</td>
+                    <td>Entity</td>
+                    <td>Notation</td>
+                    <td>schwaches Entity?</td>
+                </tr>
+                <!-- First row -->
+                <tr>
+                    <td>1</td>
+                    <td id="colRelEntity">
+                        <div class="dropdown">
+                            <p class="dorpdowntext" id="dropdownEntityText01">Entity</p>
+                            <button class="dropbtnArrow"></button>
+                            <div class="dropdown-content">
+                                <a href="#" onclick="selectEntityDropdown('Gebäude','01')">Gebäude</a>
+                                <a href="#" onclick="selectEntityDropdown('Raum','01')">Raum</a>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td id="colRelNotation">
-                    <div class="dropdown">
-                        <p class="dorpdowntext" id="dropdownNotationText01">n</p>
-                        <button class="dropbtnArrow"></button>
-                        <div class="dropdown-content" id="entityContent">
-                            <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">1</a>
-                            <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">n</a>
-                            <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','01')">m</a>
+                    </td>
+                    <td id="colRelNotation">
+                        <div class="dropdown">
+                            <p class="dorpdowntext" id="dropdownNotationText01">n</p>
+                            <button class="dropbtnArrow"></button>
+                            <div class="dropdown-content" id="entityContent">
+                                <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">1</a>
+                                <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">n</a>
+                                <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','01')">m</a>
+                            </div>
                         </div>
-                    </div>
-                </td >
-                <td id="colRelWeakEntity"> <input type="checkbox" name="weakEntity01"></td>
-            </tr>
-            <!-- Second row -->
-            <tr>
-                <td>2</td>
-                <td>
-                    <div class="dropdown">
-                        <p class="dorpdowntext" id="dropdownEntityText02">Entity</p>
-                        <button class="dropbtnArrow"></button>
-                        <div class="dropdown-content">
-                            <a href="#" onclick="selectEntityDropdown('Gebäude','02')">Gebäude</a>
-                            <a href="#" onclick="selectEntityDropdown('Raum','02')">Raum</a>
+                    </td>
+                    <td id="colRelWeakEntity"><input type="checkbox" name="weakEntity01"></td>
+                </tr>
+                <!-- Second row -->
+                <tr>
+                    <td>2</td>
+                    <td>
+                        <div class="dropdown">
+                            <p class="dorpdowntext" id="dropdownEntityText02">Entity</p>
+                            <button class="dropbtnArrow"></button>
+                            <div class="dropdown-content">
+                                <a href="#" onclick="selectEntityDropdown('Gebäude','02')">Gebäude</a>
+                                <a href="#" onclick="selectEntityDropdown('Raum','02')">Raum</a>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="dropdown">
-                        <p class="dorpdowntext" id="dropdownNotationText02">n</p>
-                        <button class="dropbtnArrow"></button>
-                        <div class="dropdown-content">
-                            <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','02')">1</a>
-                            <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','02')">n</a>
-                            <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','02')">m</a>
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <p class="dorpdowntext" id="dropdownNotationText02">n</p>
+                            <button class="dropbtnArrow"></button>
+                            <div class="dropdown-content">
+                                <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','02')">1</a>
+                                <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','02')">n</a>
+                                <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','02')">m</a>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td> <input type="checkbox" name="weakEntity01"></td>
-            </tr>
-        </table>
-        <button id="btnAddRelationship" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen</button>
+                    </td>
+                    <td><input type="checkbox" name="weakEntity01"></td>
+                </tr>
+            </table>
+            <button id="btnAddRelationship" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen</button>
+        </div>
+        <div id="editRelationshipAttribute" Style="float: left; margin-left: 10px">
+            <h3>Entity bearbeiten:</h3>
+            <table id="idTableRelationshipAttributes" style="width:100%">
+            </table>
+            <button onclick="onClickAddSimpleAttributeToRelationship">Einfaches Attribut Hinzfügen</button>
+
+        </div>
     </div>
 </div>
 
