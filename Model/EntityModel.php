@@ -27,8 +27,10 @@ class EntityModel
     /**
      * @return mixed
      */
-
-    private $isSubtyp;
+    /**
+     * @var ist es ein Subtype?
+     */
+    private $superEntity;
 
     /**
      * EntityModel constructor.
