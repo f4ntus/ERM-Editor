@@ -92,6 +92,11 @@ class ERMController
      */
     public static function deleteGeneralisation(ERMModel $erm, GeneralisationModel $generalisation)
     {
+        //Alle Subtypes verlieren ihr SuperEntity
+        foreach ($generalisation->getSubtypes() as $subtype)
+            {
+            $subtype->setSuperEntity(NULL);
+            }
         $erm->deleteGeneralisation($generalisation);
     }
 
@@ -165,33 +170,35 @@ class ERMController
      * @param ERMModel $erm
      */
     private static function generalisierungbyUeberrelation (ERMModel $erm){
-        foreach ($erm->getGeneralistions() as $generalisation){
-            $supertyp = $generalisation->getSupertyp();
-            if($supertyp->getIsSubtyp()) {
-                foreach ($generalisation->getSubtypes() as $subtype) {
-
-                    //Die Attribute der Relation hinzufügen
-                    foreach ($subtype->getAttributes() as $attribute) {
-                        $supertyp->addAttribute($attribute);
-                    }
-                self::deleteEntity($erm, $subtype);
-                }
-            }else{
-                $supertyp->addAttribute(new AttributeERMModel("Typ", 1, false));
-            }
-        }
+        $typ = new AttributeERMModel("__Hierarchietyp", 1, false);
         foreach ($erm->getGeneralistions() as $generalisation) {
             $supertyp = $generalisation->getSupertyp();
-            if(!$supertyp->getIsSubtyp()) {
-                foreach ($generalisation->getSubtypes() as $subtype) {
-                    //Die Attribute der Relation hinzufügen
-                    foreach ($subtype->getAttributes() as $attribute) {
-                        $supertyp->addAttribute($attribute);
-                    }
-                self::deleteEntity($erm, $subtype);
+            do {
+                if (null !== $supertyp->getSuperEntity()) {
+                    $supertyp = $supertyp->getSuperEntity();
+                    $isntTop = true;
+                } else {
+                    $isntTop = false;
                 }
+
+            } while ($isntTop);
+
+            foreach ($generalisation->getSubtypes() as $subtype) {
+
+                //Die Attribute der Relation hinzufügen
+                foreach ($subtype->getAttributes() as $attribute) {
+                    $supertyp->addAttribute($attribute);
+                }
+                self::deleteEntity($erm, $subtype);
+            }
+            if (!in_array($typ, $supertyp->getAttributes())) {
+                $supertyp->addAttribute($typ);
+            }
+
+
+
             }
         }
-    }
+
 
 }
