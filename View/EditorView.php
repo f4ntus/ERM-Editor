@@ -58,26 +58,7 @@
 
                 <th>PK</th>
             </tr>
-            <tr>
-                <td><button onclick="onClickDeleteAttribute(this.value)">X</button></td>
-                <td>Id</td>
-                <td>
-                    <label class="switch">
-                        <input id="idCheckboxPrimaryKeyMainTable" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>X</td>
-                <td>{Raum}</td>
-                <td>X</td>
-            </tr>
-            <tr>
-                <td>X</td>
-                <td>Adresse(Straße,PLZ)</td>
-                <td>X</td>
-            </tr>
+
         </table>
         <hr class="hr">
         <button onclick="onClickButtonAddSingleValueAttribute()" class="button">Einfaches<br>Attribut<br>hinzufügen</button>
