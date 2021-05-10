@@ -51,7 +51,10 @@
             <button>ERM umwandeln</button>
         </div>
     </div>
-    <div id="editorID" class="editor">Three </div>
+
+    <div class="editor">
+    </div>
+
     <div class="rightMenue">
         <h3>Entity bearbeiten:</h3>
         <table id="idTableEntityAttributes" style="width:100%">
