@@ -1,5 +1,6 @@
 body {
     font-family: Arial;
+    width: 1920px;
 
 }
 
@@ -122,9 +123,10 @@ input {
 
 .editor {
     grid-area: main;
-    background-color: gray;
+    background-color: white;
     min-width: 1000px;
     min-height: 600px;
+    border-style: solid;
 }
 
 #rightMenue {
@@ -153,7 +155,9 @@ input {
 .entity {
     background-image: url("images/entityEmpty.png");
     background-size: 100% 100%;
-    padding: 10%;
+    padding: 10px;
+    min-height: 50px;
+    min-width: 100px;
     height: auto;
     width: auto;
     margin: 20px;
@@ -162,7 +166,9 @@ input {
 .relationship {
     background-image: url("images/relationshipEmpty.png");
     background-size: 100% 100%;
-    padding: 20%;
+    padding: 20px;
+    min-height: 50px;
+    min-width: 50px;
     height: auto;
     width: auto;
     border-style: none;
