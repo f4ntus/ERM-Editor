@@ -70,7 +70,7 @@ function onClickAddSimpleAttributeToTable() {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
 
-    cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this.value)\">X</button>";
+    cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
     cell2.innerHTML = sAttributeName;
     cell3.innerHTML = "<label class=\"switch\">\n" +
         "                        <input id='idCheckboxPrimaryKeyMainTable" + iAttributeCount + "' type=\"checkbox\">\n" +
@@ -98,7 +98,7 @@ function onClickAddMultiValueAttributeToTable() {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
 
-    cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this.value)\">X</button>";
+    cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
     cell2.innerHTML = "{"+sAttributeName+"}";
     cell3.innerHTML = ""; //not possible to set multi value attribute as pk
 
@@ -144,7 +144,7 @@ function onClickAddCompoundAttributeToTable() {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
 
-    cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this.value)\">X</button>";
+    cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
     cell2.innerHTML = sCompoundAttribute;
     cell3.innerHTML = "<label class=\"switch\">\n" +
         "                        <input id='idCheckboxPrimaryKeyMainTable" + iAttributeCount + "' type=\"checkbox\">\n" +
@@ -160,5 +160,8 @@ function onClickAddCompoundAttributeToTable() {
 }
 
 function onClickDeleteAttribute(oSelectedButton) {
+    var table = document.getElementById("idTableEntityAttributes");
+    var rowIndex = oSelectedButton.parentNode.parentNode.rowIndex;
+    table.deleteRow(rowIndex);
 
 }
