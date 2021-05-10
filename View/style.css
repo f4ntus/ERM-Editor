@@ -129,10 +129,11 @@ input {
     border-style: solid;
 }
 
-.rightMenue {
+#rightMenue {
     grid-area: right;
     background-color: white;
     min-width: 300px;
+    visibility: hidden;
 }
 
 .outputBelow {

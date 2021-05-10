@@ -255,5 +255,11 @@ function sortTable() {
     }
 }
 
-
-
+function onClickFinishEntityMenue() {
+    newEntityName = document.getElementById("idEntityName").value;
+    oldEntityName = document.getElementById("displayEntityName").innerText;
+    entity = document.getElementById(oldEntityName);
+    entity.innerText = newEntityName;
+    entity.id = newEntityName;
+    document.getElementById("rightMenue").style.visibility = "hidden";
+}
