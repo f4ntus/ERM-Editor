@@ -86,6 +86,7 @@ function onClickAddSimpleAttributeToTable() {
     //Metadata for simple/multivalue/compound attribute
     cell4.innerHTML="0";
     cell4.style.display = "none";
+    sortTable();
 }
 function onClickAddMultiValueAttributeToTable() {
 
@@ -112,7 +113,7 @@ function onClickAddMultiValueAttributeToTable() {
     //Metadata for simple/multivalue/compound attribute
     cell4.innerHTML="1";
     cell4.style.display = "none";
-
+    sortTable();
 }
 function onClickAddCompoundAttributeToTable() {
 
@@ -171,6 +172,7 @@ function onClickAddCompoundAttributeToTable() {
     //Metadata for simple/multivalue/compound attribute
     cell4.innerHTML="2";
     cell4.style.display = "none";
+    sortTable();
 }
 
 function onClickDeleteAttribute(oSelectedButton) {
@@ -178,4 +180,28 @@ function onClickDeleteAttribute(oSelectedButton) {
     var rowIndex = oSelectedButton.parentNode.parentNode.rowIndex;
     table.deleteRow(rowIndex);
 
+}
+
+function sortTable(){
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = document.getElementById("idTableEntityAttributes");
+    switching = true;
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 1; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            compareAttributeIndex1 = parseInt(rows[i].cells[3].innerHTML);
+            compareAttributeIndex2 = parseInt(rows[i + 1].cells[3].innerHTML);
+
+            if(compareAttributeIndex1>compareAttributeIndex2){
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
 }
