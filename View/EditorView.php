@@ -52,7 +52,8 @@
         </div>
     </div>
     <div id="editorID" class="editor">Three </div>
-    <div class="rightMenue">
+    <div id="rightMenue">
+        <h2 id="displayEntityName"></h2>
         <h3>Entity bearbeiten:</h3>
         <table id="idTableEntityAttributes" style="width:100%">
             <tr>
@@ -164,7 +165,7 @@
             </div>
         </div>
         <hr class="hr">
-        <button style="margin:0 auto; display:block; margin-bottom: 1%; background: blue; color: white;" class="button">
+        <button style="margin:0 auto; display:block; margin-bottom: 1%; background: blue; color: white;" class="button" onclick="onClickFinishEntityMenue()">
             Fertigstellen
         </button>
     </div>

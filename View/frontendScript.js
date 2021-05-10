@@ -212,4 +212,11 @@ function onClickAddCompoundAttributeToTable() {
 function onClickDeleteAttribute(oSelectedButton) {
 
 }
+function onClickFinishEntityMenue() {
+    newEntityName = document.getElementById("idEntityName").value;
+    oldEntityName = document.getElementById("displayEntityName").innerText;
+    entity = document.getElementById(oldEntityName);
+    entity.innerText = newEntityName;
+    entity.id = newEntityName;
 
+}

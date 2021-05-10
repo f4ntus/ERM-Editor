@@ -121,7 +121,9 @@ function isAClone() {
 }
 
 function openEntityMenu(){
-    console.info("öffnet Entity-Menü");
+    document.getElementById("rightMenue").style.visibility = "visible";
+    document.getElementById("displayEntityName").innerText = 'entity' + entityInputNo;
+
 }
 
 function openRelationshipMenu(){

@@ -127,10 +127,11 @@ input {
     min-height: 600px;
 }
 
-.rightMenue {
+#rightMenue {
     grid-area: right;
     background-color: white;
     min-width: 300px;
+    visibility: hidden;
 }
 
 .outputBelow {
