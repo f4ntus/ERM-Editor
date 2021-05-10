@@ -62,37 +62,22 @@
 
                 <th>PK</th>
             </tr>
-            <tr>
-                <td><button onclick="onClickDeleteAttribute(this.value)">X</button></td>
-                <td>Id</td>
-                <td>
-                    <label class="switch">
-                        <input id="idCheckboxPrimaryKeyMainTable" type="checkbox">
-                        <span class="slider round"></span>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>X</td>
-                <td>{Raum}</td>
-                <td>X</td>
-            </tr>
-            <tr>
-                <td>X</td>
-                <td>Adresse(Straße,PLZ)</td>
-                <td>X</td>
-            </tr>
+
         </table>
         <hr class="hr">
-        <button onclick="onClickButtonAddSingleValueAttribute()" class="button">Einfaches<br>Attribut<br>hinzufügen</button>
-        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen</button>
-        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen</button>
+        <button onclick="onClickButtonAddSingleValueAttribute()" class="button">Einfaches<br>Attribut<br>hinzufügen
+        </button>
+        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen
+        </button>
+        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen
+        </button>
         <hr class="hr">
         <div class="row" style="display:block" id="idDivAddSimpleAttribute">
 
             <h4>Einfaches Attribut hinzufügen:</h4>
             <div class="column" style="width: 30%;">
-                <button onclick="onClickAddSimpleAttributeToTable()" class="button2">Einfaches<br>Attribut<br>hinzufügen</button>
+                <button onclick="onClickAddSimpleAttributeToTable()" class="button2">Einfaches<br>Attribut<br>hinzufügen
+                </button>
             </div>
             <div class="column2" style="width: 60%; ">
                 <table style="">
@@ -101,7 +86,8 @@
                         <th>PK</th>
                     </tr>
                     <tr>
-                        <td><input placeholder="" type="text" id="idSimpleAttributeName" name="idSimpleAttributeName"/></td>
+                        <td><input placeholder="" type="text" id="idSimpleAttributeName" name="idSimpleAttributeName"/>
+                        </td>
                         <td><input type="checkbox" id="idCheckboxPK" name="idCheckboxPK"/></td>
                     </tr>
                 </table>
@@ -141,7 +127,8 @@
                 <table id="idTableCompoundAttribute" style="width:70%">
                     <tr>
                         <th style="text-align: center;">Oberattribut</th>
-                        <th><input placeholder="" type="text" id="idUpperAttributeName" name="idUpperAttributeName"/></th>
+                        <th><input placeholder="" type="text" id="idUpperAttributeName" name="idUpperAttributeName"/>
+                        </th>
                     </tr>
                     <tr>
                         <td>Unterattribut</td>
@@ -156,7 +143,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: center;" colspan="2">
+                        <td>PK<input type="checkbox" id="idCheckboxPK2" name="idCheckboxPK2"/></td>
+                        <td style="text-align: center;">
                             <button onclick="onClickAddSubAttributeRow()" class="buttonPlus">&#43;</button>
                         </td>
                     </tr>
