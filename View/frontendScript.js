@@ -70,6 +70,8 @@ function onClickAddSimpleAttributeToTable() {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
 
+    var cell4 = row.insertCell(3);
+
     cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
     cell2.innerHTML = sAttributeName;
     cell3.innerHTML = "<label class=\"switch\">\n" +
@@ -81,6 +83,9 @@ function onClickAddSimpleAttributeToTable() {
         var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + iAttributeCount;
         document.getElementById(sCheckboxId).checked = true;
     }
+    //Metadata for simple/multivalue/compound attribute
+    cell4.innerHTML="0";
+    cell4.style.display = "none";
 }
 function onClickAddMultiValueAttributeToTable() {
 
@@ -98,9 +103,15 @@ function onClickAddMultiValueAttributeToTable() {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
 
+    var cell4 = row.insertCell(3);
+
     cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
     cell2.innerHTML = "{"+sAttributeName+"}";
     cell3.innerHTML = ""; //not possible to set multi value attribute as pk
+
+    //Metadata for simple/multivalue/compound attribute
+    cell4.innerHTML="1";
+    cell4.style.display = "none";
 
 }
 function onClickAddCompoundAttributeToTable() {
@@ -143,6 +154,8 @@ function onClickAddCompoundAttributeToTable() {
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
 
+    var cell4 = row.insertCell(3);
+
     cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
     cell2.innerHTML = sCompoundAttribute;
     cell3.innerHTML = "<label class=\"switch\">\n" +
@@ -155,7 +168,9 @@ function onClickAddCompoundAttributeToTable() {
         var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + iAttributeCount;
         document.getElementById(sCheckboxId).checked = true;
     }
-
+    //Metadata for simple/multivalue/compound attribute
+    cell4.innerHTML="2";
+    cell4.style.display = "none";
 }
 
 function onClickDeleteAttribute(oSelectedButton) {
