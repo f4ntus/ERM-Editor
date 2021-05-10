@@ -133,7 +133,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: center;" colspan="2">
+                        <td>PK<input type="checkbox" id="idCheckboxPK2" name="idCheckboxPK2"/></td>
+                        <td style="text-align: center;" >
                             <button onclick="onClickAddSubAttributeRow()" class="buttonPlus">&#43;</button>
                         </td>
                     </tr>

@@ -105,7 +105,6 @@ function onClickAddMultiValueAttributeToTable() {
 }
 function onClickAddCompoundAttributeToTable() {
 
-
     sUpperAttributeName = document.getElementById("idUpperAttributeName").value;
     var aSubValues =[];
     var oTable = document.getElementById("idTableCompoundAttribute");
@@ -131,7 +130,7 @@ function onClickAddCompoundAttributeToTable() {
     }
 
     iType = 1;
-    bPrimary = document.getElementById("idCheckboxPK").checked;
+    bPrimary = document.getElementById("idCheckboxPK2").checked;
 
     var table = document.getElementById("idTableEntityAttributes");
     var numberRows = table.rows.length;
