@@ -47,9 +47,25 @@ input {
     position: center;
     display: inline-block;
     float: left;
-    margin-bottom: 20px;
+    border-style: solid;
+    border-width: 2px;
 }
-
+.dropbtnArrow{
+    align-items: center;
+    background-image: url("images/arrow.png");
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    margin-top: 0px;
+    float: left;
+}
+.dorpdowntext{
+    float: left;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 20px;
+    padding-right: 20px
+}
 .dropdown-content {
     display: none;
     position: absolute;
@@ -132,31 +148,34 @@ input {
     padding: 20px;
 }
 
-.shape {
+
+.entity {
+    background-image: url("images/entityEmpty.png");
+    background-size: 100% 100%;
+    padding: 10%;
+    height: auto;
+    width: auto;
     margin: 20px;
 }
 
-#entity {
-    background-image: url("images/entity.png");
-    background-size: contain;
-    height: 44px;
-    width: 100px;
+.relationship {
+    background-image: url("images/relationshipEmpty.png");
+    background-size: 100% 100%;
+    padding: 20%;
+    height: auto;
+    width: auto;
+    border-style: none;
+    background-color: transparent;
+    margin: 20px;
 }
 
-#relationship {
-    background-image: url("images/relationship.png");
-    background-size: contain;
-    height: 55px;
-    width: 95px;
-    border: white;
-}
-
-#isA {
+.isA {
     background-image: url("images/isA.png");
     background-size: contain;
     height: 55px;
     width: 68px;
     border: white;
+    margin: 20px;
 }
 
 #showGeneralizationMode {
@@ -220,6 +239,39 @@ table {
     height: 60px;
     width: 100px;
 }
+
+
+#menu {
+    display: block;
+    background-color: white;
+    padding: 10px 0px;
+    border-radius: 5px;
+    position: absolute;
+    transform-origin: center;
+    z-index: 2;
+    opacity: 0;
+    transform: scale(0);
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+#menu.show {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: top left;
+}
+
+.menu-item {
+    display: block;
+    padding: 10px 30px;
+    transition: 0.1s;
+    color: #666;
+}
+
+.menu-item:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+
 buttonPlus {
     content: "\002B";
 }
@@ -288,5 +340,4 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-
 
