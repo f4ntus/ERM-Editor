@@ -221,9 +221,7 @@ function onClickAddCompoundAttributeToTable() {
     sortTable();
 }
 
-function addRowAttributeToTable(idAttributeName,idCheckboxPK,primaryKeyNeeded, attributeType){
-
-
+function addRowAttributeToTable(idAttributeName, idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeValue){
     sAttributeName = document.getElementById(idAttributeName).value;
     bPrimary = document.getElementById(idCheckboxPK).checked;
 
@@ -237,42 +235,23 @@ function addRowAttributeToTable(idAttributeName,idCheckboxPK,primaryKeyNeeded, a
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
-
     var cell4 = row.insertCell(3);
 
     cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
-
-    var stringAttribute;
-
-    if(attributeType==="0"){
-        cell2.innerHTML = sAttributeName;
-    }
-    if(attributeType==="1"){
-        cell2.innerHTML = "{" + sAttributeName + "}";
-    }
-
-    cell2.innerHTML = stringAttribute
-
-
-
+    cell2.innerHTML = sAttributeValue;
 
     if(primaryKeyNeeded===true){
-
     cell3.innerHTML = "<label class=\"switch\">\n" +
         "                        <input id='idCheckboxPrimaryKeyMainTable" + iAttributeCount + "' type=\"checkbox\">\n" +
         "                        <span class=\"slider round\"></span>\n" +
         "                    </label>";
-
         if (bPrimary) {
             var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + iAttributeCount;
             document.getElementById(sCheckboxId).checked = true;
         }
-
     }else{
         cell3.innerHTML = "";
     }
-
-
     //Metadata for simple/multivalue/compound attribute
     cell4.innerHTML = attributeType;
     cell4.style.display = "none";
