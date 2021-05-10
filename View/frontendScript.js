@@ -262,4 +262,26 @@ function onClickFinishEntityMenue() {
     entity.innerText = newEntityName;
     entity.id = newEntityName;
     document.getElementById("rightMenue").style.visibility = "hidden";
+    // Daten an Server senden
+   /* $.ajax({
+        // pfad zur PHP Datei (ab HTML Datei)
+        url: "../Controller/EntityController.php",
+        // Daten, die an Server gesendet werden soll in JSON Notation
+        data: {
+                name: "AxxG",
+                id: newEntityName
+        },
+        datatype: "json",
+        // Methode POST oder GET
+        type: "POST",
+        // Callback-Funktion, die nach der Antwort des Servers ausgefuehrt wird
+        success: function(data) { callbackFromPHP(data); }
+    });*/
+    $.post("../Controller/EntityController.php", {EntityName: newEntityName}, function(result){
+        alert(result);
+    });
+}
+function callbackFromPHP(data) {
+    var response = $.parseJSON(data);
+    alert("Mein Ergebnis bei AxxG-AJAX: " + response);
 }
