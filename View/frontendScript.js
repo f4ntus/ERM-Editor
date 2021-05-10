@@ -97,14 +97,12 @@ function onClickAddSubAttributeRow() {
 }
 
 var sAttributeName;
-var iType;
 var bPrimary;
 var iAttributeCount = 0;
 
 function onClickAddSimpleAttributeToTable() {
 
     sAttributeName = document.getElementById("idSimpleAttributeName").value;
-    iType = 1;
     bPrimary = document.getElementById("idCheckboxPK").checked;
 
     var table = document.getElementById("idTableEntityAttributes");
@@ -140,7 +138,6 @@ function onClickAddSimpleAttributeToTable() {
 function onClickAddMultiValueAttributeToTable() {
 
     sAttributeName = document.getElementById("idMultiValueAttributeName").value;
-    iType = 2;
 
     var table = document.getElementById("idTableEntityAttributes");
     var numberRows = table.rows.length;
@@ -190,7 +187,7 @@ function onClickAddCompoundAttributeToTable() {
         }
     }
 
-    iType = 1;
+
     bPrimary = document.getElementById("idCheckboxPK2").checked;
 
     var table = document.getElementById("idTableEntityAttributes");
@@ -220,6 +217,64 @@ function onClickAddCompoundAttributeToTable() {
     }
     //Metadata for simple/multivalue/compound attribute
     cell4.innerHTML = "2";
+    cell4.style.display = "none";
+    sortTable();
+}
+
+function addRowAttributeToTable(idAttributeName,idCheckboxPK,primaryKeyNeeded, attributeType){
+
+
+    sAttributeName = document.getElementById(idAttributeName).value;
+    bPrimary = document.getElementById(idCheckboxPK).checked;
+
+    var table = document.getElementById("idTableEntityAttributes");
+    var numberRows = table.rows.length;
+    if (numberRows === 20) {
+        //Maximale Anzahl an Attributen erreicht Fehlermeldung
+        return;
+    }
+    var row = table.insertRow(1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+
+    var cell4 = row.insertCell(3);
+
+    cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
+
+    var stringAttribute;
+
+    if(attributeType==="0"){
+        cell2.innerHTML = sAttributeName;
+    }
+    if(attributeType==="1"){
+        cell2.innerHTML = "{" + sAttributeName + "}";
+    }
+
+    cell2.innerHTML = stringAttribute
+
+
+
+
+    if(primaryKeyNeeded===true){
+
+    cell3.innerHTML = "<label class=\"switch\">\n" +
+        "                        <input id='idCheckboxPrimaryKeyMainTable" + iAttributeCount + "' type=\"checkbox\">\n" +
+        "                        <span class=\"slider round\"></span>\n" +
+        "                    </label>";
+
+        if (bPrimary) {
+            var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + iAttributeCount;
+            document.getElementById(sCheckboxId).checked = true;
+        }
+
+    }else{
+        cell3.innerHTML = "";
+    }
+
+
+    //Metadata for simple/multivalue/compound attribute
+    cell4.innerHTML = attributeType;
     cell4.style.display = "none";
     sortTable();
 }
