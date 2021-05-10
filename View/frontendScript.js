@@ -218,5 +218,5 @@ function onClickFinishEntityMenue() {
     entity = document.getElementById(oldEntityName);
     entity.innerText = newEntityName;
     entity.id = newEntityName;
-
+    document.getElementById("rightMenue").style.visibility = "hidden";
 }

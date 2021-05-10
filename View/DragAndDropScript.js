@@ -109,7 +109,7 @@ $(function() {
 
 //create clone from entity-button with new ID
 function entityClone() {
-    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu()" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
 }
 //create clone from relationship-button with new ID
 function relationshipClone() {
@@ -120,9 +120,9 @@ function isAClone() {
     return '<button id="isA' + isAInputNo + '" class="isA" oncontextmenu="openContextMenu(this.id)"></button>';
 }
 
-function openEntityMenu(){
+function openEntityMenu(entity){
     document.getElementById("rightMenue").style.visibility = "visible";
-    document.getElementById("displayEntityName").innerText = 'entity' + entityInputNo;
+    document.getElementById("displayEntityName").innerText = entity.id;
 
 }
 
