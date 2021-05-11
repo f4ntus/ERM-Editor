@@ -277,11 +277,26 @@ function onClickFinishEntityMenue() {
         // Callback-Funktion, die nach der Antwort des Servers ausgefuehrt wird
         success: function(data) { callbackFromPHP(data); }
     });*/
-    $.post("../Controller/EntityController.php", {EntityName: newEntityName}, function(result){
+    $.post(
+        "../Controller/Connector.php",
+        {
+            function: "createEntity",
+            xaxis: "521635",
+            yaxis: "252545",
+            name: "TestEntity",
+        },
+        function(result){
         alert(result);
     });
 }
-function callbackFromPHP(data) {
-    var response = $.parseJSON(data);
-    alert("Mein Ergebnis bei AxxG-AJAX: " + response);
+function onClickGetEntities(){
+    $.get(
+        "../Controller/Connector.php",
+        {
+            function: "getEntities"
+        },
+        function(result){
+            alert(result);
+        });
 }
+

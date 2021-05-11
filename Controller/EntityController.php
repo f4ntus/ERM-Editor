@@ -1,8 +1,8 @@
 <?php
 include_once '../Model/EntityModel.php';
 
-$valueFromJS = $_POST["EntityName"];
-echo(strtoupper($valueFromJS));
+/*$valueFromJS = $_POST["EntityName"];
+echo(strtoupper($valueFromJS));*/
 
 
 class EntityController

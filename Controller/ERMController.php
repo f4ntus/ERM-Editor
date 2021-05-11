@@ -27,6 +27,7 @@ class ERMController
      */
     public static function addEntity(ERMModel $erm, int $x, int $y)
     {
+        /* JOSC: Warum wird hier nicht einfach das Entity als objekt übergeben? So kann der Name nicht gesetzt werden... */
         $entity = EntityController::createEntity($x, $y);
         $erm->addEntity($entity);
         return $entity;
