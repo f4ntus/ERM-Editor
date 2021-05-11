@@ -4,7 +4,7 @@
 /**
  * Class RelationshipModel
  */
-class RelationshipModel
+class RelationshipModel extends ERMObjectModel
 {
     /**
      * @var $name
@@ -31,9 +31,17 @@ class RelationshipModel
      */
     private $y;
 
-
-    public function __construct($x, $y)
+    /**
+     * RelationshipModel constructor.
+     * @param $id
+     * @param $name
+     * @param $x
+     * @param $y
+     */
+    public function __construct($id, $name, $x, $y)
     {
+        $this->id = $id;
+        $this->name = $name;
         $this->x = $x;
         $this->y = $y;
         $this->attributes = array();

@@ -1,11 +1,11 @@
 <?php
-
+include_once 'ERMObjectModel.php';
 /**
  * Class EntityModel
  * Das Modell eines Erstellung
  */
 
-class EntityModel
+class EntityModel extends ERMObjectModel
 {
     /**
      * @var $name
@@ -35,12 +35,15 @@ class EntityModel
 
     /**
      * EntityModel constructor.
+     * @param $id
      * @param $name
-     * @param $x Standort
-     * @param $y Standort
+     * @param $x
+     * @param $y
      */
-    public function __construct($x, $y)
+    public function __construct($id, $name , $x, $y)
     {
+        $this->id = $id;
+        $this->name = $name;
         $this->x = $x;
         $this->y = $y;
         $this->attributes = array();

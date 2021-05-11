@@ -9,9 +9,9 @@ class EntityController
      * @param $y Standort
      * @return EntityModel
      */
-    public static function createEntity($x, $y)
+    public static function createEntity(String $id, String $name, int $x, int $y)
     {
-        return new EntityModel($x, $y);
+        return new EntityModel($id, $name, $x, $y);
 
     }
 

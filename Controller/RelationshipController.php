@@ -4,11 +4,27 @@ include_once '../Model/RelationshipModel.php';
 
 class RelationshipController
 {
-    public static function createRelationship($x, $y)
+    /**
+     * Erstellen einer Relationship
+     * @param $id
+     * @param $name
+     * @param $x
+     * @param $y
+     * @return RelationshipModel
+     */
+    public static function createRelationship($id, $name, $x, $y)
     {
-        return new RelationshipModel($x, $y);
+        return new RelationshipModel($id, $name, $x, $y);
     }
 
+    /**
+     * Hinzufügen einer Relation
+     * @param RelationshipModel $relationship
+     * @param EntityModel $entity
+     * @param $kard
+     * @param $weak
+     * @return RelationERMModel
+     */
     public static function addRelation(RelationshipModel $relationship, EntityModel $entity, $kard, $weak){
         $relation = new RelationERMModel($entity, $kard, $weak);
         $relationship->addRelation($relation);

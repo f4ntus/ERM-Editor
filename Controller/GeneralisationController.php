@@ -10,8 +10,8 @@ class GeneralisationController
      * @param $y
      * @return GeneralisationModel
      */
-    public static function createGeneralisation($x, $y){
-        return new GeneralisationModel($x,$y);
+    public static function createGeneralisation(String $id, int $x, int $y){
+        return new GeneralisationModel($id, $x,$y);
 
     }
 
@@ -62,7 +62,5 @@ class GeneralisationController
         return $position;
     }
 
-    public static function setLevel(GeneralisationModel $generalisation, int $level){
-        $generalisation->setLevel($level);
-    }
+
 }

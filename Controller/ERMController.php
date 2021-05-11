@@ -1,6 +1,7 @@
 <?php
 include_once '../Model/ERMModel.php';
 include_once '../Model/EntityModel.php';
+include_once '../Model/ERMObjectModel.php';
 /**
  * Class ERMController
  * Diese Klasse ist der Controller bei der Erstellung eines ERMs.
@@ -25,9 +26,9 @@ class ERMController
      * @param int $y
      * @return EntityModel
      */
-    public static function addEntity(ERMModel $erm, int $x, int $y)
+    public static function addEntity(ERMModel $erm, String $id, String $name, int $x, int $y)
     {
-        $entity = EntityController::createEntity($x, $y);
+        $entity = EntityController::createEntity($id, $name, $x, $y);
         $erm->addEntity($entity);
         return $entity;
     }
@@ -46,6 +47,25 @@ class ERMController
     }
 
     /**
+     * Rückgabe eines Entity nach deren Name
+     * @param ERMModel $erm
+     * @param String $name
+     * @return EntityModel
+     */
+    public static function getEntitybyName(ERMModel $erm, String $name){
+        return $erm->getEntitybyName($name);
+    }
+
+    /**
+     * Rückgabe eines Entity nach deren ID
+     * @param ERMModel $erm
+     * @param String $name
+     * @return EntityModel
+     */
+    public static function getEntitybyID(ERMModel $erm, String $name){
+        return $erm->getEntitybyID($name);
+    }
+    /**
      * Hinzufpgen einer Relationship zu einem ERM
      * @param ERMModel $erm
      * @param String $name
@@ -53,13 +73,22 @@ class ERMController
      * @param int $y
      * @return RelationshipModel
      */
-    public static function addRelationship(ERMModel $erm, int $x, int $y)
+    public static function addRelationship(ERMModel $erm, $id, String $name, int $x, int $y)
     {
-        $relationship = RelationshipController::createRelationship($x, $y);
+        $relationship = RelationshipController::createRelationship($id, $name, $x, $y);
         $erm->addRelationship($relationship);
         return $relationship;
     }
 
+    /**
+     * Rückgabe einer Relation nach deren ID
+     * @param ERMModel $erm
+     * @param String $id
+     * @return RelationshipModel
+     */
+    public static function getRelationship(ERMModel $erm, String $id){
+        return $erm->getRelationship($id);
+    }
     /**
      * Hinzufügen einer Generaliserung
      * @param ERMModel $erm
@@ -67,16 +96,25 @@ class ERMController
      * @param int $y
      * @return GeneralisationModel
      */
-    public static function addGeneralisation(ERMModel $erm, int $x, int $y)
+    public static function addGeneralisation(ERMModel $erm, $id, int $x, int $y)
     {
-        $generalisation = GeneralisationController::createGeneralisation($x, $y);
+        $generalisation = GeneralisationController::createGeneralisation($id, $x, $y);
         $erm->addGeneralisation($generalisation);
         return $generalisation;
     }
 
+    /**
+     * Ausgeben einer Generaliserung
+     * @param ERMModel $erm
+     * @param String $id
+     * @return mixed
+     */
+    public static function getGeneralisation(ERMModel $erm, String $id){
+        return $erm->getGeneralisation($id);
+    }
 
     /**
-     * Löschen einer Entität
+     * Löschen einer Relationship
      * @param ERMModel $erm
      * @param RelationshipModel $relation
      */
@@ -86,7 +124,7 @@ class ERMController
     }
 
     /**
-     * Löschen einer Relationship
+     * Löschen einer Generalisierung
      * @param ERMModel $erm
      * @param GeneralisationModel $generalisation
      */
@@ -199,6 +237,7 @@ class ERMController
 
             }
         }
+
 
 
 }

@@ -51,7 +51,6 @@ class RDMController
                 $i = $i +1;
                 }
             }
-            echo $i;
         //Es wird keine eigene Relation benötigt.
         if(count($relationship->getRelations())==2 and count($relationship->getAttributes()) == 0 and $i <=1){
 
@@ -142,7 +141,6 @@ class RDMController
         //Die relevanten Beziehungen werden raussgesucht
         foreach ($relations as $key => $ERMRelation) {
             $kard = $ERMRelation->getKard();
-            echo $kard;
             switch ($kard) {
                 case '[1,*]':
                     $entity1 = $relations[$key]->getEntity();

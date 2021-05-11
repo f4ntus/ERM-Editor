@@ -3,7 +3,7 @@
  * Class GeneralisationModel
  */
 
-class GeneralisationModel
+class GeneralisationModel extends ERMObjectModel
 {
     /**
      * @var $name
@@ -12,7 +12,6 @@ class GeneralisationModel
     private $subtypes;
     private $x;
     private $y;
-    private $level;
 
     /**
      * GeneralisationModel constructor.
@@ -20,8 +19,9 @@ class GeneralisationModel
      * @param $x
      * @param $y
      */
-    public function __construct( $x, $y)
+    public function __construct($id, $x, $y)
     {
+        $this->id = $id;
         $this->x = $x;
         $this->y = $y;
         $this->subtypes = array();
@@ -129,21 +129,7 @@ class GeneralisationModel
 
        }
 
-    /**
-     * @return mixed
-     */
-    public function getLevel()
-    {
-        return $this->level;
-    }
 
-    /**
-     * @param mixed $level
-     */
-    public function setLevel($level): void
-    {
-        $this->level = $level;
-    }
 
 
 }

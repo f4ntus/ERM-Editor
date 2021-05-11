@@ -49,7 +49,6 @@ class ERMModel
     {
 
         foreach ($this->entities as $entity) {
-            echo $entity->getName();
             $entity->printEntity($entity);
             echo '</br>';
         }
@@ -161,6 +160,50 @@ class ERMModel
         $this->id = $id;
     }
 
+    /**
+     * Ausgeben eines Entities
+     * @param $name
+     * @return EntityModel
+     */
+    public function getEntitybyName($name): EntityModel
+    {
+        foreach ($this->entities as $entity){
+            if ($entity->getName() == $name){
+                $e = $entity;
+            }
+        }
+        return $e;
+    }
+
+    public function getEntitybyID($id): EntityModel
+    {
+        foreach ($this->entities as $entity){
+            if ($entity->getID() == $id){
+                $e = $entity;
+            }
+        }
+        return $e;
+    }
+
+    public function getRelationship($id): RelationshipModel
+    {
+        foreach ($this->relationships as $relationship){
+            if ($relationship->getID() == $id){
+                $r = $relationship;
+            }
+        }
+        return $r;
+    }
+
+    public function getGeneralisation($id): GeneralisationModel
+    {
+        foreach ($this->generalistions as $generalisation){
+            if ($generalisation->getID() == $id){
+               $g = $this->generalistion;
+            }
+        }
+        return $g;
+    }
 
 
 
