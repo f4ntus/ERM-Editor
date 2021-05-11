@@ -239,19 +239,19 @@
 
                 <h4>Einfaches Attribut hinzufügen:</h4>
                 <div class="column" style="width: 30%;">
-                    <button onclick="onClickAddSimpleAttributeToTable()" class="button2">Einfaches<br>Attribut<br>hinzufügen
+                    <button onclick="onClickAddSimpleAttributeToTableRel()" class="button2">Einfaches<br>Attribut<br>hinzufügen
                     </button>
                 </div>
                 <div class="column2" style="width: 60%; ">
                     <table style="">
                         <tr>
                             <th>Attributname</th>
-                            <th>PK</th>
+
                         </tr>
                         <tr>
                             <td><input placeholder="" type="text" id="idSimpleAttributeNameRel" name="idSimpleAttributeName"/>
                             </td>
-                            <td><input type="checkbox" id="idCheckboxPKRel" name="idCheckboxPK"/></td>
+
                         </tr>
                     </table>
                 </div>
@@ -260,7 +260,7 @@
 
                 <h4>Mehrwertiges Attribut hinzufügen:</h4>
                 <div class="column" style="width: 30%;">
-                    <button onclick="onClickAddMultiValueAttributeToTable()" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen
+                    <button onclick="onClickAddMultiValueAttributeToTableRel()" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen
                     </button>
                 </div>
                 <div class="column2" style="width: 65%;">
@@ -283,11 +283,11 @@
             <div class="row" style="display:none" id="idDivAddCompoundAttributeRel">
                 <h4>Zusammengesetztes Attribut Attribut hinzufügen:</h4>
                 <div class="column" style="width: 30%;">
-                    <button onclick="onClickAddCompoundAttributeToTable()" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen
+                    <button onclick="onClickAddCompoundAttributeToTableRel()" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen
                     </button>
                 </div>
                 <div class="column2" style="width: 65%;">
-                    <table id="idTableCompoundAttributerRel" style="width:70%">
+                    <table id="idTableCompoundAttributeRel" style="width:70%">
                         <tr>
                             <th style="text-align: center;">Oberattribut</th>
                             <th><input placeholder="" type="text" id="idUpperAttributeNameRel" name="idUpperAttributeName"/>
@@ -306,9 +306,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>PK<input type="checkbox" id="idCheckboxPK2Rel" name="idCheckboxPK2"/></td>
+
                             <td style="text-align: center;">
-                                <button onclick="onClickAddSubAttributeRow()" class="buttonPlus">&#43;</button>
+                                <button onclick="onClickAddSubAttributeRowRel()" class="buttonPlus">&#43;</button>
                             </td>
                         </tr>
                     </table>

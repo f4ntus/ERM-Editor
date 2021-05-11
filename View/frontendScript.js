@@ -96,23 +96,21 @@ function onClickAddSubAttributeRow() {
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
 
-var sAttributeName;
-var bPrimary;
-var iAttributeCount = 0;
+
 
 function onClickAddSimpleAttributeToTable() {
-    sAttributeName = document.getElementById("idSimpleAttributeName").value;
-    addRowAttributeToTable("idCheckboxPK",true,0,sAttributeName);
+    var sAttributeName = document.getElementById("idSimpleAttributeName").value;
+    addRowAttributeToTable("idCheckboxPK",true,0,sAttributeName,'entityAttribute');
 }
 
 function onClickAddMultiValueAttributeToTable() {
-    sAttributeName = document.getElementById("idMultiValueAttributeName").value;
-    sAttributeValue = "{" + sAttributeName + "}";
-    addRowAttributeToTable("",false,1,sAttributeValue);
+   var sAttributeName = document.getElementById("idMultiValueAttributeName").value;
+   var sAttributeValue = "{" + sAttributeName + "}";
+    addRowAttributeToTable("",false,1,sAttributeValue, 'entityAttribute');
 }
 
 function onClickAddCompoundAttributeToTable() {
-    sUpperAttributeName = document.getElementById("idUpperAttributeName").value;
+    var sUpperAttributeName = document.getElementById("idUpperAttributeName").value;
     var aSubValues = [];
     var oTable = document.getElementById("idTableCompoundAttribute");
 
@@ -130,42 +128,51 @@ function onClickAddCompoundAttributeToTable() {
             sCompoundAttribute = sCompoundAttribute + aSubValues[i] + ",";
         }
     }
-    addRowAttributeToTable("idCheckboxPK2", true, 2, sCompoundAttribute);
+    addRowAttributeToTable("idCheckboxPK2", true, 2, sCompoundAttribute, 'entityAttribute');
 }
 
-function addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeValue){
-    var table = document.getElementById("idTableEntityAttributes");
+function addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeValue,tableType){
+    if (tableType === 'entityAttribute'){
+        var table = document.getElementById("idTableEntityAttributes");
+    } else { // tableType = relationshipAttribute
+        var table = document.getElementById("idTableRelationshipAttributes");
+    }
     var numberRows = table.rows.length;
     if (numberRows === 20) {
         //Maximale Anzahl an Attributen erreicht Fehlermeldung
         return;
     }
-    var row = table.insertRow(1);
+    var row = table.insertRow(numberRows - 1);
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
     var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
+    if (tableType === 'entityAttribute') {
+        var cell4 = row.insertCell(3);
+    }
 
-    cell1.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
-    cell2.innerHTML = sAttributeValue;
+
+    cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
+    cell3.innerHTML = sAttributeValue;
 
     if(primaryKeyNeeded===true){
         bPrimary = document.getElementById(idCheckboxPK).checked;
-        cell3.innerHTML = "<label class=\"switch\">\n" +
-        "                        <input id='idCheckboxPrimaryKeyMainTable" + iAttributeCount + "' type=\"checkbox\">\n" +
+        cell4.innerHTML = "<label class=\"switch\">\n" +
+        "                        <input id='idCheckboxPrimaryKeyMainTable" + table.rows.length + "' type=\"checkbox\">\n" +
         "                        <span class=\"slider round\"></span>\n" +
         "                    </label>";
         if (bPrimary) {
-            var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + iAttributeCount;
+            var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + table.rows.length;
             document.getElementById(sCheckboxId).checked = true;
         }
     }else{
-        cell3.innerHTML = "";
+        if (tableType === 'entityAttribute') {
+            cell4.innerHTML = "";
+        }
     }
     //Metadata for simple/multivalue/compound attribute
-    cell4.innerHTML = attributeType;
-    cell4.style.display = "none";
-    sortTable();
+    cell1.innerHTML = attributeType;
+    cell1.style.display = "none";
+    //sortTable();
 }
 
 function onClickDeleteAttribute(oSelectedButton) {
@@ -206,4 +213,67 @@ function onClickFinishEntityMenue() {
     entity.innerText = newEntityName;
     entity.id = newEntityName;
     document.getElementById("rightMenue").style.visibility = "hidden";
+}
+// for Releationship Menu
+function onClickAddSimpleAttributeToRelationship() {
+    document.getElementById("idDivAddSimpleAttributeRel").style.display = "block";
+    document.getElementById("idDivAddMultiValueAttributeRel").style.display = "none";
+    document.getElementById("idDivAddCompoundAttributeRel").style.display = "none";
+}
+
+function onClickAddMultiValueAttributeToRelationship() {
+    document.getElementById("idDivAddSimpleAttributeRel").style.display = "none";
+    document.getElementById("idDivAddMultiValueAttributeRel").style.display = "block";
+    document.getElementById("idDivAddCompoundAttributeRel").style.display = "none";
+}
+
+function onClickAddCompoundAttributeToRelationship () {
+    document.getElementById("idDivAddSimpleAttributeRel").style.display = "none";
+    document.getElementById("idDivAddMultiValueAttributeRel").style.display = "none";
+    document.getElementById("idDivAddCompoundAttributeRel").style.display = "block";
+}
+function onClickAddSimpleAttributeToTableRel(){
+    var sAttributeName = document.getElementById("idSimpleAttributeNameRel").value;
+    addRowAttributeToTable("idCheckboxPK",false,0,sAttributeName, 'relationshipAttribute');
+}
+function onClickAddMultiValueAttributeToTableRel(){
+    var sAttributeName = document.getElementById("idMultiValueAttributeNameRel").value;
+    var sAttributeValue = "{" + sAttributeName + "}";
+    addRowAttributeToTable("",false,1,sAttributeValue,'relationshipAttribute');
+}
+function onClickAddCompoundAttributeToTableRel(){
+    var sUpperAttributeName = document.getElementById("idUpperAttributeNameRel").value;
+    var aSubValues = [];
+    var oTable = document.getElementById("idTableCompoundAttributeRel");
+
+    //prepare array for sub attributes
+    for (var i = 1; i < oTable.rows.length - 1; i++) {
+        aSubValues[i - 1] = oTable.rows[i].cells[1].children[0].value;
+    }
+
+    //prepare compount attributre string for ui output
+    var sCompoundAttribute = sUpperAttributeName + "(";
+    for (var i = 0; i < aSubValues.length; i++) {
+        if (i == aSubValues.length - 1) {
+            sCompoundAttribute = sCompoundAttribute + aSubValues[i] + ")";
+        } else {
+            sCompoundAttribute = sCompoundAttribute + aSubValues[i] + ",";
+        }
+    }
+    addRowAttributeToTable("idCheckboxPK2", false, 2, sCompoundAttribute, 'relationshipAttribute');
+}
+function onClickAddSubAttributeRowRel(){
+    // diese Funktion auslagern da fast gleich wie onClickAddSubAttributeRow()
+    var table = document.getElementById("idTableCompoundAttributeRel");
+    var numberRows = table.rows.length;
+    if (numberRows === 7) {
+        //Maximale Anzahl an Unterattributen erreicht Fehlermeldung
+        return;
+    }
+    var row = table.insertRow(numberRows - 1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    cell1.innerHTML = "Unterattribut";
+    cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
