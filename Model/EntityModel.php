@@ -28,7 +28,8 @@ class EntityModel
      * @return mixed
      */
     /**
-     * @var ist es ein Subtype?
+     * Referenz zu OberEnitity
+     * @var
      */
     private $superEntity;
 
@@ -43,7 +44,7 @@ class EntityModel
         $this->x = $x;
         $this->y = $y;
         $this->attributes = array();
-        $this->isSubtyp = false;
+
     }
 
     /**
@@ -163,18 +164,23 @@ class EntityModel
     /**
      * @return mixed
      */
-    public function getIsSubtyp()
+    public function getSuperEntity()
     {
-        return $this->isSubtyp;
+        return $this->superEntity;
     }
 
     /**
-     * @param mixed $isSubtyp
+     * @param mixed $superEntity
      */
-    public function setIsSubtyp($isSubtyp): void
+    public function setSuperEntity($superEntity): void
     {
-        $this->isSubtyp = $isSubtyp;
+        $this->superEntity = $superEntity;
     }
+
+
+
+
+
 
 
 

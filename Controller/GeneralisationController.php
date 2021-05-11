@@ -28,7 +28,7 @@ class GeneralisationController
      * @param EntityModel $subtyp
      */
     public static function addSubtyp(GeneralisationModel $generalisation, EntityModel $subtyp){
-        $subtyp->setIsSubtyp(true);
+        $subtyp->setSuperEntity($generalisation->getSupertyp());
         $generalisation->addSubtyp($subtyp);
     }
     /**
@@ -36,7 +36,7 @@ class GeneralisationController
      * @param EntityModel $subtyp
      */
     public static function deleteSubtyp(GeneralisationModel $generalisation, EntityModel $subtyp){
-        $subtyp->setIsSubtyp(false);
+        $subtyp->setSuperEntity(NULL);
         $generalisation->deleteSubtyp($subtyp);
     }
 

@@ -109,21 +109,59 @@ $(function() {
 
 //create clone from entity-button with new ID
 function entityClone() {
-    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu()"></button>';
+    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
 }
 //create clone from relationship-button with new ID
 function relationshipClone() {
-    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu()"></button>';
+    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu()" oncontextmenu="openContextMenu(this.id)"></button>';
 }
 //create clone from isA-button with new ID
 function isAClone() {
-    return '<button id="isA' + isAInputNo + '" class="isA" ></button>';
+    return '<button id="isA' + isAInputNo + '" class="isA" oncontextmenu="openContextMenu(this.id)"></button>';
 }
 
-function openEntityMenu(){
-    console.info("öffnet Entity-Menü");
+function openEntityMenu(entity){
+    document.getElementById("rightMenue").style.visibility = "visible";
+    document.getElementById("displayEntityName").innerText = entity.id;
+
 }
 
 function openRelationshipMenu(){
     console.info("öffnet Relationship-Menü");
 }
+
+function openContextMenu(id){
+
+    document.addEventListener('contextmenu', function (e) {
+        e.preventDefault();
+    }, false);
+
+    const deleteElement = document.getElementById(id)
+    const menu = document.getElementById('menu')
+    const outClick = document.getElementById('editorID')
+
+    deleteElement.addEventListener('contextmenu', e => {
+        e.preventDefault()
+
+        menu.style.left = e.pageX + 'px';
+        menu.style.top = e.pageY + 'px';
+        menu.classList.add('show');
+
+        outClick.style.display = "block";
+    })
+
+    outClick.addEventListener('click', () => {
+        menu.classList.remove('show')
+    })
+
+    const deleteButton = document.getElementById('deleteButton')
+
+    deleteButton.addEventListener('click', () => {
+        //Remove the selected element from the document
+        deleteElement.remove();
+        menu.classList.remove('show')
+    })
+
+
+}
+
