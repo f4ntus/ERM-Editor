@@ -280,7 +280,7 @@ function onClickFinishEntityMenue() {
     $.post(
         "../Controller/Connector.php",
         {
-            function: "createEntity",
+            function2: "createEntity",
             xaxis: "521635",
             yaxis: "252545",
             name: "TestEntity",
@@ -289,11 +289,22 @@ function onClickFinishEntityMenue() {
         alert(result);
     });
 }
+
 function onClickGetEntities(){
     $.get(
         "../Controller/Connector.php",
         {
             function: "getEntities"
+        },
+        function(result){
+            alert(result);
+        });
+}
+function onClickSessionStart(){
+    $.get(
+        "../Controller/Connector.php",
+        {
+            function: "sessionStart"
         },
         function(result){
             alert(result);

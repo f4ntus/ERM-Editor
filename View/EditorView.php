@@ -227,6 +227,7 @@
         </table>
         <button id="btnAddRelationship" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen</button>
         <button onclick="onClickGetEntities()">Get Entities</button>
+        <button onclick="onClickSessionStart()">Session Starten</button>
     </div>
 </div>
 
