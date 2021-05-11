@@ -1,7 +1,7 @@
 <?php
 
-include_once 'EntityController.php';
-include_once 'ERMController.php';
+include_once '../Controller/EntityController.php';
+include_once '../Controller/ERMController.php';
 session_start();
 
 if (!isset($_SESSION['ERM-Model'])) {
@@ -13,10 +13,8 @@ if (isset($_POST['function'])) {
     if ($_POST['function'] == 'createEntity') {
         // diese Funktion muss natürlich noch angepasst werden
         $ERMModel = $_SESSION['ERM-Model'];
-        $entity = ERMController::addEntity($ERMModel, $_POST['xaxis'], $_POST['yaxis']);
-        EntityController::setName($entity, $_POST['name']);
+        $entity = ERMController::addEntity($ERMModel, $_POST['name'], $_POST['name'], $_POST['xaxis'], $_POST['yaxis']);
         $_SESSION['ERM-Model'] = $ERMModel;
-        var_dump($ERMModel);
         var_dump($entity);
     }
 }

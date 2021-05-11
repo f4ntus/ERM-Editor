@@ -200,10 +200,80 @@ function sortTable() {
 }
 
 function onClickFinishEntityMenue() {
+
+    //get entity object
+    //for testing purpose create entity to get entity object
+    $.post(
+        "../Interface/Connector.php",
+        {
+            function: "createEntity",
+            xaxis: "521635",
+            yaxis: "252545",
+            name: "TestEntity",
+        },
+        function(result){
+            alert(result);
+        }
+     );
+
+    //set name of entity in editor
     newEntityName = document.getElementById("idEntityName").value;
     oldEntityName = document.getElementById("displayEntityName").innerText;
     entity = document.getElementById(oldEntityName);
     entity.innerText = newEntityName;
     entity.id = newEntityName;
     document.getElementById("rightMenue").style.visibility = "hidden";
+
+    //Persist entityname in backend
+    if(newEntityName=!oldEntityName){
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function2: "createEntity",
+                xaxis: "521635",
+                yaxis: "252545",
+                name: "TestEntity",
+            },
+            function(result){
+                alert(result);
+            }
+        );
+
+    }
+
+    //Persist table in backend
+    table = document.getElementById("idTableEntityAttributes");
+
+    for (i = 1; i < table.rows.length; i++) {
+
+        var type = table.rows[i].cells[3].innerText;
+
+        switch(type) {
+            case "0":
+
+                break;
+            case "1":
+                // code block
+                break;
+            case "2":
+                // code block
+                break;
+            default:
+            // No type in table for attribute set
+        }
+
+
+    }
+
+
+    //public static function setName(EntityModel $entity, String $name)
+    //public static function addAttribute(EntityModel $entity, String $name, int $type, $primary)
 }
+function fillEntityMenuWithData(entity){
+
+    //public static function getAttributes(EntityModel $entity)
+
+}
+
+
+
