@@ -62,8 +62,8 @@ class ERMController
      * @param String $name
      * @return EntityModel
      */
-    public static function getEntitybyID(ERMModel $erm, String $name){
-        return $erm->getEntitybyID($name);
+    public static function getEntitybyID(ERMModel $erm, String $id){
+        return $erm->getEntitybyID($id);
     }
     /**
      * Hinzufpgen einer Relationship zu einem ERM

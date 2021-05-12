@@ -199,7 +199,7 @@ function sortTable() {
     }
 }
 
-function onClickFinishEntityMenue() {
+function onClickFinishEntityMenue(buttonObject) {
 
     //get entity object
     //for testing purpose create entity to get entity object
@@ -207,41 +207,36 @@ function onClickFinishEntityMenue() {
         "../Interface/Connector.php",
         {
             function: "createEntity",
-            xaxis: "521635",
-            yaxis: "252545",
+            id: this.currentEntityId,
             name: "TestEntity",
+            xaxis: "521635",
+            yaxis: "252545"
         },
         function(result){
-            alert(result);
         }
      );
 
-    //set name of entity in editor
-    newEntityName = document.getElementById("idEntityName").value;
-    oldEntityName = document.getElementById("displayEntityName").innerText;
-    entity = document.getElementById(oldEntityName);
-    entity.innerText = newEntityName;
-    entity.id = newEntityName;
-    document.getElementById("rightMenue").style.visibility = "hidden";
+    var entityNameInput = document.getElementById("idEntityName").value;
+    var displayEntityName = document.getElementById("displayEntityName").innerText;
+
 
     //Persist entityname in backend
-    if(newEntityName=!oldEntityName){
+    if(!(entityNameInput===displayEntityName)){
         $.post(
             "../Interface/Connector.php",
             {
-                function2: "createEntity",
-                xaxis: "521635",
-                yaxis: "252545",
-                name: "TestEntity",
+                function2: "setName",
+                id: this.currentEntityId,
+                name: entityNameInput
             },
-            function(result){
-                alert(result);
+            function(newEntityName){
+                //after succesfull namechange set frontend entity name
+                document.getElementById(this.currentEntityId).innerText = newEntityName;
             }
         );
-
     }
-
-    //Persist table in backend
+    //Prepare json for connector
+    var attributes = {};
     table = document.getElementById("idTableEntityAttributes");
 
     for (i = 1; i < table.rows.length; i++) {
@@ -261,9 +256,22 @@ function onClickFinishEntityMenue() {
             default:
             // No type in table for attribute set
         }
-
-
     }
+    //persisat array in backend
+    $.post(
+        "../Interface/Connector.php",
+        {
+            function2: "addAttributesToEntity",
+            id: this.currentEntityId,
+            attributes: attributes,
+        },
+        function(result){
+
+        }
+    );
+
+    //colapse right menu
+    document.getElementById("rightMenue").style.visibility = "hidden";
 
 
     //public static function setName(EntityModel $entity, String $name)
@@ -272,6 +280,14 @@ function onClickFinishEntityMenue() {
 function fillEntityMenuWithData(entity){
 
     //public static function getAttributes(EntityModel $entity)
+
+}
+
+function openEntityMenu(entity){
+
+    this.currentEntityId = entity.id;
+    document.getElementById("rightMenue").style.visibility = "visible";
+    document.getElementById("displayEntityName").innerText = entity.id;
 
 }
 

@@ -120,12 +120,6 @@ function isAClone() {
     return '<button id="isA' + isAInputNo + '" class="isA" oncontextmenu="openContextMenu(this.id)"></button>';
 }
 
-function openEntityMenu(entity){
-    document.getElementById("rightMenue").style.visibility = "visible";
-    document.getElementById("displayEntityName").innerText = entity.id;
-
-}
-
 function openRelationshipMenu(){
     console.info("öffnet Relationship-Menü");
 }
