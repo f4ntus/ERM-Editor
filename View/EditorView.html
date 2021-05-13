@@ -41,7 +41,7 @@
         <div class="menuGroup">
             <div class="dropdown">
                 <button class="dropbtn">Generalisierung</button>
-                <div class="dropdown-content">
+                <div class="dropdown-content hoverContent">
                     <a href="#" onclick="generalizationMode('Hausklassenmodell')">Hausklassenmodell</a>
                     <a href="#" onclick="generalizationMode('Partionierungs-Modell')">Partionierungs-Modell</a>
                     <a href="#" onclick="generalizationMode('Volle Redundanz')">Volle Redundanz</a>
@@ -185,10 +185,10 @@
                         <td id="colRelEntity">
                             <div class="dropdown">
                                 <p class="dorpdowntext" id="dropdownEntityText01">Entity</p>
-                                <button class="dropbtnArrow"></button>
-                                <div class="dropdown-content">
-                                    <a href="#" onclick="selectEntityDropdown('Gebäude','01')">Gebäude</a>
-                                    <a href="#" onclick="selectEntityDropdown('Raum','01')">Raum</a>
+                                <button class="dropbtnArrow" onClick="onClickEntitySelection('01')"></button>
+                                <div class="dropdown-content" id="EntitySelectionDropDownContent01">
+                                  <!--  <a href="#" onclick="selectEntityDropdown('Gebäude','01')">Gebäude</a>
+                                    <a href="#" onclick="selectEntityDropdown('Raum','01')">Raum</a> -->
                                 </div>
                             </div>
                         </td>
@@ -196,7 +196,7 @@
                             <div class="dropdown">
                                 <p class="dorpdowntext" id="dropdownNotationText01">n</p>
                                 <button class="dropbtnArrow"></button>
-                                <div class="dropdown-content" id="entityContent">
+                                <div class="dropdown-content hoverContent" id="entityContent">
                                     <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">1</a>
                                     <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">n</a>
                                     <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','01')">m</a>
@@ -211,10 +211,9 @@
                         <td>
                             <div class="dropdown">
                                 <p class="dorpdowntext" id="dropdownEntityText02">Entity</p>
-                                <button class="dropbtnArrow"></button>
-                                <div class="dropdown-content">
-                                    <a href="#" onclick="selectEntityDropdown('Gebäude','02')">Gebäude</a>
-                                    <a href="#" onclick="selectEntityDropdown('Raum','02')">Raum</a>
+                                <button class="dropbtnArrow" onClick="onClickEntitySelection('02')"></button>
+                                <div class="dropdown-content" id="EntitySelectionDropDownContent02">
+
                                 </div>
                             </div>
                         </td>
@@ -222,7 +221,7 @@
                             <div class="dropdown">
                                 <p class="dorpdowntext" id="dropdownNotationText02">n</p>
                                 <button class="dropbtnArrow"></button>
-                                <div class="dropdown-content">
+                                <div class="dropdown-content hoverContent">
                                     <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','02')">1</a>
                                     <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','02')">n</a>
                                     <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','02')">m</a>
