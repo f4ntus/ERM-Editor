@@ -236,21 +236,76 @@ function onClickFinishEntityMenue(buttonObject) {
         );
     }
     //Prepare json for connector
-    var attributes = {};
+
     table = document.getElementById("idTableEntityAttributes");
 
-    for (i = 1; i < table.rows.length; i++) {
+    var attributes = Array(table.rows.length-1); //Länge 1 bei 1 attribut
+    for (i = 0; i < (table.rows.length-1); i++) {
 
-        var type = table.rows[i].cells[3].innerText;
+        var type = table.rows[i+1].cells[3].innerText;
+        var name = table.rows[i+1].cells[1].innerHTML;
+        var checked = table.rows[1].cells[2].childNodes[0].childNodes[1].checked;
 
         switch(type) {
             case "0":
+                $.post(
+                    "../Interface/Connector.php",
+                    {
+                        function3: "addSingleValueAttributeToEntity",
+                        id: this.currentEntityId,
+                        name: name,
+                        checked: checked
+                    },
+                    function(result){
 
+                    }
+                );
+                //attributes[i] = [type, name, checked];
                 break;
             case "1":
-                // code block
+                var nameWithoutBrackets = name.slice(1,-1);
+                $.post(
+                    "../Interface/Connector.php",
+                    {
+                        function3: "addMultiValueAttributeToEntity",
+                        id: this.currentEntityId,
+                        name: nameWithoutBrackets
+                    },
+                    function(result){
+
+                    }
+                );
+                //attributes[i] = [type, nameWithoutBrackets];
                 break;
             case "2":
+                //prepare mainName and subNames array
+                var splitstring = name.split(',')
+                var mainName;
+                var subNames = [];
+                for(var j=0; j<splitstring.length; j++){
+                    if(j===0){
+                        mainName = splitstring[0].substring(0, splitstring[0].indexOf("("));
+                        subNames[j] = splitstring[0].split('(')[1];
+                    }
+                    if( !(j===0) && !(j===(splitstring.length-1)) ){
+                        subNames[j] = splitstring[j];
+                    }
+                    if(j===(splitstring.length-1)){
+                        subNames[j] = splitstring[j].substring(0, splitstring[j].indexOf(")"));
+                    }
+                }
+                $.post(
+                    "../Interface/Connector.php",
+                    {
+                        function3: "addRelatedAttribute",
+                        id: this.currentEntityId,
+                        name: mainName,
+                        checked: checked,
+                        subNames: subNames,
+                    },
+                    function(result){
+                    }
+                );
                 // code block
                 break;
             default:

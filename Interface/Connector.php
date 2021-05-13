@@ -25,10 +25,20 @@ if (isset($_POST['function2'])) {
     }
 }
 if (isset($_POST['function3'])) {
-    if ($_POST['function3'] == 'addAttributesToEntity') {
+    if ($_POST['function3'] == 'addSingleValueAttributeToEntity') {
         $ERMModel = $_SESSION['ERM-Model'];
         $entity = ERMController::getEntitybyID($ERMModel, $_POST['id']);
-
+        $attribute = EntityController::addAttribute($entity, $_POST['name'], 1, $_POST['checked']);
+    }
+    if ($_POST['function3'] == 'addMultiValueAttributeToEntity') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $entity = ERMController::getEntitybyID($ERMModel, $_POST['id']);
+        $attribute = EntityController::addAttribute($entity, $_POST['name'], 2, false);
+    }
+    if ($_POST['function3'] == 'addRelatedAttribute') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $entity = ERMController::getEntitybyID($ERMModel, $_POST['id']);
+        $attribute = EntityController::addRelatedAttribute($entity, $_POST['name'], $_POST['checked'], $_POST['subNames']);
     }
 }
 
