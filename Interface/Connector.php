@@ -1,7 +1,8 @@
 <?php
 
-include_once 'EntityController.php';
-include_once 'ERMController.php';
+include_once '..\Controller\EntityController.php';
+include_once '..\Controller\ERMController.php';
+include_once '..\Controller\RelationshipController.php';
 session_start();
 
 if (!isset($_SESSION['ERM-Model'])) {
@@ -18,6 +19,14 @@ if (isset($_POST['function'])) {
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
         var_dump($entity);
+    }
+    if ($_POST['function']== 'createRelationship') {
+        $relationship = RelationshipController::createRelationship($_POST['id'],$_POST['name'],$_POST['xaxis'],$_POST['yaxis']);
+        $attributes = $_POST['attributes'];
+        foreach ($attributes as $attribute){
+            RelationshipController::addAttribute($relationship, $attribute['name'], $attribute['typ'], false);
+        }
+        var_dump($relationship);
     }
 }
 

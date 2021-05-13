@@ -303,3 +303,38 @@ function onClickAddSubAttributeRowRel(){
     cell1.innerHTML = "Unterattribut";
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
+function onClickButtonSubmitRelationship(){
+    // Informations about the Relationship
+    let sRelationshipID = document.getElementById("pRelationshipID").innerHTML;
+    let oRelationship = document.getElementById(sRelationshipID);
+    let sXaxis = oRelationship.style.left;
+    let sYaxis = oRelationship.style.top;
+    let sRelationshipName = oRelationship.innerHTML;
+
+    // Informations about the Attributes
+    let oTable = document.getElementById("idTableRelationshipAttributes");
+    let aAttributes = new Array();
+    for (let iRow = 0; iRow < oTable.rows.length; iRow ++){
+        let sName =  oTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
+        let sType =  oTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
+        aAttributes[iRow] = {
+            name: sName,
+            typ: sType
+        }
+    }
+
+    $.post(
+        "../Interface/Connector.php",
+        {
+            function: "createRelationship",
+            id: sRelationshipID,
+            name: sRelationshipName,
+            xaxis: sXaxis,
+            yaxis: sYaxis,
+            attributes: aAttributes
+        },
+        function(result){
+           console.log(result);
+        }
+    );
+}
