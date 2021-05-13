@@ -21,11 +21,13 @@ if (isset($_POST['function'])) {
         var_dump($entity);
     }
     if ($_POST['function']== 'createRelationship') {
-        $relationship = RelationshipController::createRelationship($_POST['id'],$_POST['name'],$_POST['xaxis'],$_POST['yaxis']);
+        $ERMModel = $_SESSION['ERM-Model'];
+        $relationship = ERMController::addRelationship($ERMModel,$_POST['id'],$_POST['name'],$_POST['xaxis'],$_POST['yaxis']);
         $attributes = $_POST['attributes'];
         foreach ($attributes as $attribute){
             RelationshipController::addAttribute($relationship, $attribute['name'], $attribute['typ'], false);
         }
+        $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($relationship);
     }
 }
