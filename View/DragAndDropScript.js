@@ -129,7 +129,8 @@ function openEntityMenu(entity){
 function openRelationshipMenu(relationship){
     document.getElementById("relationshipMenu").style.visibility = "visible";
     document.getElementById("pRelationshipID").innerText = relationship.id;
-    document.getElementById("inputRelationshipName").textContent = relationship.innerText;
+    document.getElementById("inputRelationshipName").value = relationship.innerText;
+    FrontendController.updateRelationship(relationship.id);
     console.info("öffnet Relationship-Menü");
 }
 

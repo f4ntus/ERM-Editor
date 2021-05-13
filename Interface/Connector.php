@@ -3,6 +3,7 @@
 include_once '..\Controller\EntityController.php';
 include_once '..\Controller\ERMController.php';
 include_once '..\Controller\RelationshipController.php';
+include_once '..\Controller\AttributeERMController.php';
 session_start();
 
 if (!isset($_SESSION['ERM-Model'])) {
@@ -29,6 +30,25 @@ if (isset($_POST['function'])) {
         }
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($relationship);
+    }
+    if ($_POST['function'] == 'getRelationship'){
+        $relationship = ERMController::getRelationship($_SESSION['ERM-Model'],$_POST['id']);
+        $attributes = RelationshipController::getAttributes($relationship);
+        //var_dump($attributes);
+        $i = 0;
+        $attributeArray = null;
+        foreach ($attributes as $attribute){
+            $attributeArray[$i] = [
+                'name' => $attribute["Name"],
+                'typ' => $attribute["Type"]
+            ];
+            $i++;
+        }
+        $relarray = [
+            'name' => RelationshipController::getName($relationship),
+            'attributes' => $attributeArray
+        ];
+        echo json_encode($relarray, JSON_FORCE_OBJECT);
     }
 }
 
