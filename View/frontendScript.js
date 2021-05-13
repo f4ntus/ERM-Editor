@@ -101,8 +101,12 @@ function addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, s
         var cell4 = row.insertCell(3);
     }
 
+    if (tableType === 'entityAttribute'){
+        cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableEntityAttributes\')\">X</button>";
+    } else { // tableType = relationshipAttribute
+        cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
+    }
 
-    cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this)\">X</button>";
     cell3.innerHTML = sAttributeValue;
 
     if(primaryKeyNeeded===true){
@@ -126,9 +130,9 @@ function addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, s
     //sortTable();
 }
 
-function onClickDeleteAttribute(oSelectedButton) {
-    var table = document.getElementById("idTableEntityAttributes");
-    var rowIndex = oSelectedButton.parentNode.parentNode.rowIndex;
+function onClickDeleteAttribute(oSelectedButton, tableId) {
+    let table = document.getElementById(tableId);
+    let rowIndex = oSelectedButton.parentNode.parentNode.rowIndex;
     table.deleteRow(rowIndex);
 }
 
