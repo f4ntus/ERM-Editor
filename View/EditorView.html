@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script language="javascript" type="text/javascript" src="DragAndDropScript.js"></script>
     <script language="javascript" type="text/javascript" src="frontendScript.js"></script>
 
@@ -156,171 +157,183 @@
             </div>
         </div>
         <hr class="hr">
-        <button style="margin:0 auto; display:block; margin-bottom: 1%; background: blue; color: white;" class="button" onclick="onClickFinishEntityMenue()">
+        <button style="margin:0 auto; display:block; margin-bottom: 1%; background: blue; color: white;" class="button"
+                onclick="onClickFinishEntityMenue()">
             Fertigstellen
         </button>
     </div>
     <div class="outputBelow" >
-        <div Style="float: left">
-            <h1> Relationship bearbeiten</h1>
-            <table id="tblRelationship">
-                <tr>
-                    <th colspan="4">gehört zu</th>
-                </tr>
-                <tr>
-                    <td>Beziehungsnummer</td>
-                    <td>Entity</td>
-                    <td>Notation</td>
-                    <td>schwaches Entity?</td>
-                </tr>
-                <!-- First row -->
-                <tr>
-                    <td>1</td>
-                    <td id="colRelEntity">
-                        <div class="dropdown">
-                            <p class="dorpdowntext" id="dropdownEntityText01">Entity</p>
-                            <button class="dropbtnArrow"></button>
-                            <div class="dropdown-content" >
-                                <a href="#" onclick="selectEntityDropdown('Gebäude','01')">Gebäude</a>
-                                <a href="#" onclick="selectEntityDropdown('Raum','01')">Raum</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td id="colRelNotation">
-                        <div class="dropdown">
-                            <p class="dorpdowntext" id="dropdownNotationText01">n</p>
-                            <button class="dropbtnArrow"></button>
-                            <div class="dropdown-content" id="entityContent">
-                                <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">1</a>
-                                <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">n</a>
-                                <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','01')">m</a>
-                            </div>
-                        </div>
-                    </td >
-                    <td id="colRelWeakEntity"> <input type="checkbox" name="weakEntity01"></td>
-                </tr>
-                <!-- Second row -->
-                <tr>
-                    <td>2</td>
-                    <td>
-                        <div class="dropdown">
-                            <p class="dorpdowntext" id="dropdownEntityText02">Entity</p>
-                            <button class="dropbtnArrow"></button>
-                            <div class="dropdown-content">
-                                <a href="#" onclick="selectEntityDropdown('Gebäude','02')">Gebäude</a>
-                                <a href="#" onclick="selectEntityDropdown('Raum','02')">Raum</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="dropdown">
-                            <p class="dorpdowntext" id="dropdownNotationText02">n</p>
-                            <button class="dropbtnArrow"></button>
-                            <div class="dropdown-content">
-                                <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','02')">1</a>
-                                <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','02')">n</a>
-                                <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','02')">m</a>
-                            </div>
-                        </div>
-                    </td>
-                    <td> <input type="checkbox" name="weakEntity01"></td>
-                </tr>
-            </table>
-            <button id="btnAddRelationship" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen</button>
-        </div>
-        <div id="editRelationshipAttribute" Style="float: left; margin-left: 10px">
-            <h3>Entity bearbeiten:</h3>
-            <table id="idTableRelationshipAttributes" style="width:100%">
-            </table>
-            <button onclick="onClickAddSimpleAttributeToRelationship()">Einfaches Attribut Hinzfügen</button>
-            <button onclick="onClickAddMultiValueAttributeToRelationship()">Mehrwertiges Attribut Hinzfügen</button>
-            <button onclick="onClickAddCompoundAttributeToRelationship()">Zusammengesetzes Attribut Hinzfügen</button>
-            <div class="row" style="display:block" id="idDivAddSimpleAttributeRel">
-
-                <h4>Einfaches Attribut hinzufügen:</h4>
-                <div class="column" style="width: 30%;">
-                    <button onclick="onClickAddSimpleAttributeToTableRel()" class="button2">Einfaches<br>Attribut<br>hinzufügen
-                    </button>
-                </div>
-                <div class="column2" style="width: 60%; ">
-                    <table style="">
-                        <tr>
-                            <th>Attributname</th>
-
-                        </tr>
-                        <tr>
-                            <td><input placeholder="" type="text" id="idSimpleAttributeNameRel" name="idSimpleAttributeName"/>
-                            </td>
-
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="row" style="display:none" id="idDivAddMultiValueAttributeRel">
-
-                <h4>Mehrwertiges Attribut hinzufügen:</h4>
-                <div class="column" style="width: 30%;">
-                    <button onclick="onClickAddMultiValueAttributeToTableRel()" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen
-                    </button>
-                </div>
-                <div class="column2" style="width: 65%;">
-                    <table id="idAddMultiValueAttributeToTableRel" style="width:70%">
-                        <tr>
-                            <th style="text-align: center;">Mehrwertiges Attribut</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="row">
-
-                                    { <input placeholder="" type="text" id="idMultiValueAttributeNameRel"
-                                             name="idMultiValueAttributeName"/> }
+        <div id="relationshipMenu" style="visibility: hidden">
+            <p style="visibility: hidden" id="pRelationshipID"></p>
+            <div Style="float: left">
+                <label for="RelationshipName">RelationshipName</label>
+                <input id="inputRelationshipName" oninput="onInputRelationshipName(this)" type="text" name="RelationshipName"/>
+                <h1> Relationship bearbeiten</h1>
+                <table id="tblRelationship">
+                    <tr>
+                        <th colspan="4">gehört zu</th>
+                    </tr>
+                    <tr>
+                        <td>Beziehungsnummer</td>
+                        <td>Entity</td>
+                        <td>Notation</td>
+                        <td>schwaches Entity?</td>
+                    </tr>
+                    <!-- First row -->
+                    <tr>
+                        <td>1</td>
+                        <td id="colRelEntity">
+                            <div class="dropdown">
+                                <p class="dorpdowntext" id="dropdownEntityText01">Entity</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content">
+                                    <a href="#" onclick="selectEntityDropdown('Gebäude','01')">Gebäude</a>
+                                    <a href="#" onclick="selectEntityDropdown('Raum','01')">Raum</a>
                                 </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+                            </div>
+                        </td>
+                        <td id="colRelNotation">
+                            <div class="dropdown">
+                                <p class="dorpdowntext" id="dropdownNotationText01">n</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content" id="entityContent">
+                                    <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">1</a>
+                                    <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">n</a>
+                                    <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','01')">m</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td id="colRelWeakEntity"><input type="checkbox" name="weakEntity01"></td>
+                    </tr>
+                    <!-- Second row -->
+                    <tr>
+                        <td>2</td>
+                        <td>
+                            <div class="dropdown">
+                                <p class="dorpdowntext" id="dropdownEntityText02">Entity</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content">
+                                    <a href="#" onclick="selectEntityDropdown('Gebäude','02')">Gebäude</a>
+                                    <a href="#" onclick="selectEntityDropdown('Raum','02')">Raum</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <p class="dorpdowntext" id="dropdownNotationText02">n</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content">
+                                    <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','02')">1</a>
+                                    <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','02')">n</a>
+                                    <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','02')">m</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td><input type="checkbox" name="weakEntity01"></td>
+                    </tr>
+                </table>
+                <button id="btnAddRelationship" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen
+                </button>
             </div>
-            <div class="row" style="display:none" id="idDivAddCompoundAttributeRel">
-                <h4>Zusammengesetztes Attribut Attribut hinzufügen:</h4>
-                <div class="column" style="width: 30%;">
-                    <button onclick="onClickAddCompoundAttributeToTableRel()" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen
-                    </button>
-                </div>
-                <div class="column2" style="width: 65%;">
-                    <table id="idTableCompoundAttributeRel" style="width:70%">
-                        <tr>
-                            <th style="text-align: center;">Oberattribut</th>
-                            <th><input placeholder="" type="text" id="idUpperAttributeNameRel" name="idUpperAttributeName"/>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>Unterattribut</td>
-                            <td>
-                                <input placeholder="" type="text" id="idSubValueAttribute1Rel" name="idSubValueAttribute1"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Unterattribut</td>
-                            <td>
-                                <input placeholder="" type="text" id="idSubValueAttribute2Rel" name="idSubValueAttribute2"/>
-                            </td>
-                        </tr>
-                        <tr>
+            <div id="editRelationshipAttribute" Style="float: left; margin-left: 10px">
+                <h3>Entity bearbeiten:</h3>
+                <table id="idTableRelationshipAttributes" style="width:100%">
+                </table>
+                <button onclick="onClickAddSimpleAttributeToRelationship()">Einfaches Attribut Hinzfügen</button>
+                <button onclick="onClickAddMultiValueAttributeToRelationship()">Mehrwertiges Attribut Hinzfügen</button>
+                <button onclick="onClickAddCompoundAttributeToRelationship()">Zusammengesetzes Attribut Hinzfügen
+                </button>
+                <div class="row" style="display:block" id="idDivAddSimpleAttributeRel">
 
-                            <td style="text-align: center;">
-                                <button onclick="onClickAddSubAttributeRowRel()" class="buttonPlus">&#43;</button>
-                            </td>
-                        </tr>
-                    </table>
+                    <h4>Einfaches Attribut hinzufügen:</h4>
+                    <div class="column" style="width: 30%;">
+                        <button onclick="onClickAddSimpleAttributeToTableRel()" class="button2">
+                            Einfaches<br>Attribut<br>hinzufügen
+                        </button>
+                    </div>
+                    <div class="column2" style="width: 60%; ">
+                        <table style="">
+                            <tr>
+                                <th>Attributname</th>
+
+                            </tr>
+                            <tr>
+                                <td><input placeholder="" type="text" id="idSimpleAttributeNameRel"
+                                           name="idSimpleAttributeName"/>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" style="display:none" id="idDivAddMultiValueAttributeRel">
+
+                    <h4>Mehrwertiges Attribut hinzufügen:</h4>
+                    <div class="column" style="width: 30%;">
+                        <button onclick="onClickAddMultiValueAttributeToTableRel()" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen
+                        </button>
+                    </div>
+                    <div class="column2" style="width: 65%;">
+                        <table id="idAddMultiValueAttributeToTableRel" style="width:70%">
+                            <tr>
+                                <th style="text-align: center;">Mehrwertiges Attribut</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="row">
+
+                                        { <input placeholder="" type="text" id="idMultiValueAttributeNameRel"
+                                                 name="idMultiValueAttributeName"/> }
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" style="display:none" id="idDivAddCompoundAttributeRel">
+                    <h4>Zusammengesetztes Attribut Attribut hinzufügen:</h4>
+                    <div class="column" style="width: 30%;">
+                        <button onclick="onClickAddCompoundAttributeToTableRel()" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen
+                        </button>
+                    </div>
+                    <div class="column2" style="width: 65%;">
+                        <table id="idTableCompoundAttributeRel" style="width:70%">
+                            <tr>
+                                <th style="text-align: center;">Oberattribut</th>
+                                <th><input placeholder="" type="text" id="idUpperAttributeNameRel"
+                                           name="idUpperAttributeName"/>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Unterattribut</td>
+                                <td>
+                                    <input placeholder="" type="text" id="idSubValueAttribute1Rel"
+                                           name="idSubValueAttribute1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Unterattribut</td>
+                                <td>
+                                    <input placeholder="" type="text" id="idSubValueAttribute2Rel"
+                                           name="idSubValueAttribute2"/>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td style="text-align: center;">
+                                    <button onclick="onClickAddSubAttributeRowRel()" class="buttonPlus">&#43;</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
 <ul id="menu">
-    <li id = "deleteButton" class="menu-item">Element löschen</li>
+    <li id="deleteButton" class="menu-item">Element löschen</li>
 </ul>
 
 

@@ -214,7 +214,13 @@ function onClickFinishEntityMenue() {
     entity.id = newEntityName;
     document.getElementById("rightMenue").style.visibility = "hidden";
 }
-// for Releationship Menu
+// ----------------------------------------------- for Releationship Menu ------------------------------------
+// -----------------------------------------------------------------------------------------------------------
+
+function onInputRelationshipName(texbox){
+    var id = document.getElementById("pRelationshipID").innerHTML;
+    document.getElementById(id).innerText = texbox.value;
+}
 function onClickAddSimpleAttributeToRelationship() {
     document.getElementById("idDivAddSimpleAttributeRel").style.display = "block";
     document.getElementById("idDivAddMultiValueAttributeRel").style.display = "none";
