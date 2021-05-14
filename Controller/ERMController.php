@@ -87,6 +87,8 @@ class ERMController
      * @return RelationshipModel
      */
     public static function getRelationship(ERMModel $erm, String $id){
+
+
         return $erm->getRelationship($id);
     }
     /**
