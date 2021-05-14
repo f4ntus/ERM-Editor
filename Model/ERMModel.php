@@ -187,12 +187,13 @@ class ERMModel
 
     public function getRelationship($id): RelationshipModel
     {
+        $r = NULL;
         foreach ($this->relationships as $relationship){
             if ($relationship->getID() == $id){
                 $r = $relationship;
             }
         }
-        return $r;
+       return $r;
     }
 
     public function getGeneralisation($id): GeneralisationModel
