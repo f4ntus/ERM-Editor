@@ -1,6 +1,7 @@
 <?php
 include_once '../Model/RelationERMModel.php';
 include_once '../Model/RelationshipModel.php';
+include_once '../Controller/AttributeERMController.php';
 
 class RelationshipController
 {
