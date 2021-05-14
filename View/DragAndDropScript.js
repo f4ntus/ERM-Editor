@@ -46,6 +46,9 @@ $(function() {
                         alert(result);
                     });
 
+
+            } else if (ui.draggable.attr('id') != 'entity'){
+                $element.attr("value", 'dropped');
             }
 
             if (ui.draggable.attr('id') == 'relationship') {
@@ -71,6 +74,8 @@ $(function() {
                     function(result){
                         alert(result);
                     });
+            } else if (ui.draggable.attr('id') != 'relationship'){
+                $element.attr("value", 'dropped');
             }
 
             if (ui.draggable.attr('id') == 'isA') {
@@ -96,21 +101,29 @@ $(function() {
                         alert(result);
                     });
 
+            } else if (ui.draggable.attr('id') != 'isA'){
+                $element.attr("value", 'dropped');
             }
 
-            if(ui.draggable.attr('id') !== 'entity' && 'relationship' && 'isA') {
-
+            if ($element.attr("value") == 'dropped') {
                 // position of the draggable-element minus position of the droppable-element
                 // relative to the document
                 var newPosX = ui.offset.left - $(this).offset().left;
                 var newPosY = ui.offset.top - $(this).offset().top;
                 console.info($element.attr("id"));
                 console.info("new Position X: ", newPosX, "new Position Y: ", newPosY);
+                if ($element.attr("id").includes("entity")) {
+                    $function = 'changePositionEntity'
+                }else if ($element.attr("id").includes("relationship")){
+                    $function = 'changePositionRelationship'
+                }else if ($element.attr("id").includes("isA")){
+                    $function = 'changePositionIsA'
+                }
 
                 $.post(
                     "../Interface/Connector.php",
                     {
-                        function: "changePosition",
+                        function: $function,
                         id: $element.attr("id"),
                         xaxis: newPosX,
                         yaxis: newPosY,

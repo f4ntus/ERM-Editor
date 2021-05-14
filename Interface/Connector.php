@@ -33,7 +33,7 @@ if (isset($_POST['function'])) {
 }
 
 if (isset($_POST['function'])) {
-    if ($_POST['function'] == 'addRelationship') {
+    if ($_POST['function'] == 'addGeneralisation') {
         $ERMModel = $_SESSION['ERM-Model'];
         $entity = ERMController::addGeneralisation($ERMModel, $_POST['id'], $_POST['xaxis'], $_POST['yaxis']);
         $_SESSION['ERM-Model'] = $ERMModel;
@@ -43,13 +43,35 @@ if (isset($_POST['function'])) {
 }
 
 if (isset($_POST['function'])) {
-    if ($_POST['function'] == 'changePosition') {
+    if ($_POST['function'] == 'changePositionEntity') {
         $ERMModel = $_SESSION['ERM-Model'];
         $entity = ERMController::getEntitybyID($ERMModel, $_POST['id']);
         EntityController::changePosition($entity, $_POST['xaxis'], $_POST['yaxis']);
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
         var_dump($entity);
+    }
+}
+
+if (isset($_POST['function'])) {
+    if ($_POST['function'] == 'changePositionRelationship') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
+        RelationshipController::changePosition($relationship, $_POST['xaxis'], $_POST['yaxis']);
+        $_SESSION['ERM-Model'] = $ERMModel;
+        var_dump($ERMModel);
+        var_dump($relationship);
+    }
+}
+
+if (isset($_POST['function'])) {
+    if ($_POST['function'] == 'changePositionIsA') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $isA = ERMController::getGeneralisation($ERMModel, $_POST['id']);
+        GeneralisationController::changePosition($isA, $_POST['xaxis'], $_POST['yaxis']);
+        $_SESSION['ERM-Model'] = $ERMModel;
+        var_dump($ERMModel);
+        var_dump($isA);
     }
 }
 
