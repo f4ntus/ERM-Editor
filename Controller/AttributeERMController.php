@@ -24,7 +24,7 @@ class AttributeERMController
      * @return RelatetedAttributeERMModel
      */
     public static function createRelatedAttribute(String $name, $primary, array $subnames){
-        return New RelatetedAttributeERMModel($name,3, $primary, $subnames);
+        return New RelatetedAttributeERMModel($name,2, $primary, $subnames);
     }
 
     /**Änderung des Primärschlüssels auf aktiv
