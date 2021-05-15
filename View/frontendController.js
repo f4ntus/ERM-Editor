@@ -35,7 +35,11 @@ class FrontendController{
                 cell1.innerHTML = aAttributes[i].typ;
                 cell1.style.display = "none";
                 cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
-                cell3.innerHTML = aAttributes[i].name;
+                if (aAttributes[i].typ == 1){
+                    cell3.innerHTML = '{' + aAttributes[i].name + '}';
+                } else {
+                    cell3.innerHTML = aAttributes[i].name;
+                }
                 console.log(aAttributes[i].name);
             }
 

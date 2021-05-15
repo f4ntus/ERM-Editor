@@ -375,6 +375,9 @@ function onClickButtonSubmitRelationship(){
     for (let iRow = 0; iRow < oTable.rows.length; iRow ++){
         let sName =  oTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
         let sType =  oTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
+        if (sType == 1){
+            sName = sName.slice(1,-1);
+        }
         aAttributes[iRow] = {
             name: sName,
             typ: sType,
