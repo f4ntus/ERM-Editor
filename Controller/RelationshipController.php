@@ -64,6 +64,7 @@ class RelationshipController
      */
     public static function addOrUpdateAttributes(RelationshipModel $relationship, array $attributes){
         // delete existing Attributes
+        var_dump($attributes);
         foreach ($relationship->getAttributes() as $attribute){
             RelationshipController::deleteAttribute($relationship, $attribute);
         }
@@ -71,6 +72,10 @@ class RelationshipController
             if (($attributeArray['typ'] == '0')|($attributeArray['typ'] == '1')){
                 $attribute = AttributeERMController::createAttribute($attributeArray['name'],$attributeArray['typ'],$attributeArray['primary']);
                 $relationship->addAttribute($attribute);
+            }
+            if ($attributeArray['typ']=='2'){ //for relatedAttributes
+                $relatedAttribute = AttributeERMController::createRelatedAttribute($attributeArray['name'], $attributeArray['primary'], $attributeArray['subattributes']);
+                $relationship->addAttribute($relatedAttribute);
             }
         }
     }
