@@ -46,7 +46,7 @@ class ERMObjectModel
     /**
      * @param X $y
      */
-    public function setY(X $y): void
+    public function setY($y): void
     {
         $this->y = $y;
     }
@@ -62,7 +62,7 @@ class ERMObjectModel
     /**
      * @param Y $x
      */
-    public function setX(Y $x): void
+    public function setX($x): void
     {
         $this->x = $x;
     }
