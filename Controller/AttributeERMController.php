@@ -50,6 +50,13 @@ class AttributeERMController
         $attribute->setName($name);
     }
 
+    public static function getAttributeInformation(AttributeERMModel $attribute){
+        $information = array();
+        $information['name'] = $attribute->getName();
+        $information['typ'] = $attribute->getType();
+        $information['primary'] = $attribute->getPrimary();
+        return $information;
+    }
 
 
 }

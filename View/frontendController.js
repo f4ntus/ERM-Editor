@@ -8,11 +8,12 @@ class FrontendController{
                 id: sRelationshipID,
             },
             function(result){
+                console.log(result);
                 FrontendController.getRelationshipCallback(result);
             }
         );
     }
-    static getRelationshipCallback(result, sRelationshipID){
+    static getRelationshipCallback(result){
         let oAttributeTable = document.getElementById("idTableRelationshipAttributes");
 
         // clear table before refill

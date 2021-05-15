@@ -80,6 +80,7 @@ class AttributeERMModel
     }
 
     public function getInformations(){
+        // diese Funktion muss gelöscht werden
         $information = array();
         $information['Name'] = $this->name;
         $information['Type'] = $this->type;
