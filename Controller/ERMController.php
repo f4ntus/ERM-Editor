@@ -107,19 +107,18 @@ class ERMController
      * @return RelationshipModel
      */
     public static function getRelationship(ERMModel $erm, String $id){
+        // find relationship
         foreach ($erm->getRelationships() as $relationship)
         {
             if($relationship->getID()==$id){
-                $r=$relationship;
+                $selectedRelationship=$relationship;
             }
         }
-        if(isset($r)){
-            return $r;
+        if(isset($selectedRelationship)){
+            return $selectedRelationship;
         } else {
             return NULL;
         }
-
-
     }
     /**
      * Hinzufügen einer Generaliserung

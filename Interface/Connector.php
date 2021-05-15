@@ -39,23 +39,8 @@ if (isset($_POST['function'])) {
     if ($_POST['function'] == 'getRelationship'){
         $relationship = ERMController::getRelationship($_SESSION['ERM-Model'], $_POST['id']);
         if ($relationship != NULL) {
-            $attributes = RelationshipController::getAttributes($relationship);
-            //var_dump($attributes);
-            $i = 0;
-            $attributeArray = null;
-            foreach ($attributes as $attribute) {
-                $attributeArray[$i] = [
-                    'name' => $attribute["Name"],
-                    'typ' => $attribute["Type"]
-                ];
-                $i++;
-            }
-            $relarray = [
-                'name' => RelationshipController::getName($relationship),
-                'id' => $relationship->getId(),
-                'attributes' => $attributeArray
-            ];
-            echo json_encode($relarray, JSON_FORCE_OBJECT);
+            $relationshipArray = RelationshipController::getRelationshipAsArray($relationship);
+            echo json_encode($relationshipArray, JSON_FORCE_OBJECT);
         } else {
             echo 'false';
         }
