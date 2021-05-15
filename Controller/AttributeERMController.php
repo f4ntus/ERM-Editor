@@ -5,7 +5,7 @@ include_once '../Model/RelatetedAttributeERMModel.php';
 class AttributeERMController
 {
     /**
-     * Erstellung einees normalen(1) oder mehrwertigen Attributes (2)
+     * Erstellung einees normalen(0) oder mehrwertigen Attributes (1)
      * @param String $name
      * @param int $type 1normale_2mehrwertig
      * @param $primary
@@ -17,7 +17,7 @@ class AttributeERMController
     }
 
     /**
-     * Erstellung enes zusammengesetzen Attributes (3)
+     * Erstellung enes zusammengesetzen Attributes (2)
      * @param String $name
      * @param $primary
      * @param array $subnames
