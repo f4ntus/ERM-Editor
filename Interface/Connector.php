@@ -4,6 +4,7 @@ include_once '../Controller/EntityController.php';
 include_once '../Controller/ERMController.php';
 include_once '../Controller/RelationshipController.php';
 include_once '../Controller/GeneralisationController.php';
+include_once '..\Controller\AttributeERMController.php';
 
 session_start();
 
@@ -13,7 +14,12 @@ if (!isset($_SESSION['ERM-Model'])) {
 }
 
 if (isset($_POST['function'])) {
-
+    if ($_POST['function'] == 'resetERM'){
+        $ERMModel = ERMController::createModel();
+        $_SESSION['ERM-Model'] = $ERMModel;
+        echo 'Das ERM Model wurde reseted';
+    }
+  
     if ($_POST['function'] == 'addEntity') {
         $ERMModel = $_SESSION['ERM-Model'];
         $entity = ERMController::addEntity($ERMModel, $_POST['id'], $_POST['name'], $_POST['xaxis'], $_POST['yaxis']);
@@ -63,6 +69,41 @@ if (isset($_POST['function'])) {
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
         var_dump($isA);
+    }
+    
+    if ($_POST['function']== 'createRelationship') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $relationship = ERMController::addRelationship($ERMModel,$_POST['id'],$_POST['name'],$_POST['xaxis'],$_POST['yaxis']);
+        $attributes = $_POST['attributes'];
+        foreach ($attributes as $attribute){
+            RelationshipController::addAttribute($relationship, $attribute['name'], $attribute['typ'], false);
+        }
+        $_SESSION['ERM-Model'] = $ERMModel;
+        var_dump($relationship);
+    }
+    if ($_POST['function'] == 'getRelationship'){
+        $relationship = ERMController::getRelationship($_SESSION['ERM-Model'], $_POST['id']);
+        if ($relationship != NULL) {
+            $attributes = RelationshipController::getAttributes($relationship);
+            //var_dump($attributes);
+            $i = 0;
+            $attributeArray = null;
+            foreach ($attributes as $attribute) {
+                $attributeArray[$i] = [
+                    'name' => $attribute["Name"],
+                    'typ' => $attribute["Type"]
+                ];
+                $i++;
+            }
+            $relarray = [
+                'name' => RelationshipController::getName($relationship),
+                'id' => $relationship->getId(),
+                'attributes' => $attributeArray
+            ];
+            echo json_encode($relarray, JSON_FORCE_OBJECT);
+        } else {
+            echo 'false';
+        }
     }
 }
 

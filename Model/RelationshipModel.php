@@ -22,14 +22,6 @@ class RelationshipModel extends ERMObjectModel
      * @var $ Enities 2 Demensionale Liste/Array oder was auch immer 1 Dim Kardinalität 2. Dim EntityModel
      */
     private $relations;
-    /**
-     * @var  Standort
-     */
-    private $x;
-    /**
-     * @var  Standort
-     */
-    private $y;
 
     /**
      * RelationshipModel constructor.
@@ -160,34 +152,6 @@ class RelationshipModel extends ERMObjectModel
     /**
      * @return int
      */
-    public function getX()
-    {
-        return $this->x;
-    }
-
-    /**
-     * @param int $x
-     */
-    public function setX($x)
-    {
-        $this->x = $x;
-    }
-
-    /**
-     * @return int
-     */
-    public function getY()
-    {
-        return $this->y;
-    }
-
-    /**
-     * @param int $y
-     */
-    public function setY($y)
-    {
-        $this->y = $y;
-    }
 
 
 

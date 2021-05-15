@@ -53,7 +53,17 @@ class ERMController
      * @return EntityModel
      */
     public static function getEntitybyName(ERMModel $erm, String $name){
-        return $erm->getEntitybyName($name);
+        foreach ($erm->getEntities() as $entity)
+        {
+            if($entity->getName()==$name){
+                $e=$entity;
+            }
+        }
+        if(isset($e)){
+            return $e;
+        } else {
+            return NULL;
+        }
     }
 
     /**
@@ -62,8 +72,18 @@ class ERMController
      * @param String $name
      * @return EntityModel
      */
-    public static function getEntitybyID(ERMModel $erm, String $name){
-        return $erm->getEntitybyID($name);
+    public static function getEntitybyID(ERMModel $erm, String $id){
+        foreach ($erm->getEntities() as $entity)
+        {
+            if($entity->getID()==$id){
+                $e=$entity;
+            }
+        }
+        if(isset($e)){
+            return $e;
+        } else {
+            return NULL;
+        }
     }
     /**
      * Hinzufpgen einer Relationship zu einem ERM
@@ -87,7 +107,19 @@ class ERMController
      * @return RelationshipModel
      */
     public static function getRelationship(ERMModel $erm, String $id){
-        return $erm->getRelationship($id);
+        foreach ($erm->getRelationships() as $relationship)
+        {
+            if($relationship->getID()==$id){
+                $r=$relationship;
+            }
+        }
+        if(isset($r)){
+            return $r;
+        } else {
+            return NULL;
+        }
+
+
     }
     /**
      * Hinzufügen einer Generaliserung
@@ -110,7 +142,17 @@ class ERMController
      * @return mixed
      */
     public static function getGeneralisation(ERMModel $erm, String $id){
-        return $erm->getGeneralisation($id);
+        foreach ($erm->getGeneralistions() as $generalistion)
+        {
+            if($generalistion->getID()==$id){
+                $g=$generalistion;
+            }
+        }
+        if(isset($g)){
+            return $g;
+        } else {
+            return NULL;
+        }
     }
 
     /**

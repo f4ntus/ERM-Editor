@@ -88,7 +88,7 @@ input {
     background-color: #ddd;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .hoverContent {
     /* Show the dropdown menu on hover */
     display: block;
 }

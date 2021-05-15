@@ -174,7 +174,7 @@ function entityClone() {
 }
 //create clone from relationship-button with new ID
 function relationshipClone() {
-    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu()" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
 }
 //create clone from isA-button with new ID
 function isAClone() {
@@ -187,7 +187,11 @@ function openEntityMenu(entity){
 
 }
 
-function openRelationshipMenu(){
+function openRelationshipMenu(relationship){
+    document.getElementById("relationshipMenu").style.visibility = "visible";
+    document.getElementById("pRelationshipID").innerText = relationship.id;
+    document.getElementById("inputRelationshipName").value = relationship.innerText;
+    FrontendController.updateRelationship(relationship.id);
     console.info("öffnet Relationship-Menü");
 }
 
