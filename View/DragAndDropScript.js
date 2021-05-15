@@ -72,7 +72,7 @@ $(function() {
                         yaxis: firstPosY,
                     },
                     function(result){
-                        alert(result);
+                        console.log(result);
                     });
             } else if (ui.draggable.attr('id') != 'relationship'){
                 $element.attr("value", 'dropped');
@@ -98,7 +98,7 @@ $(function() {
                         yaxis: firstPosY,
                     },
                     function(result){
-                        alert(result);
+                        console.log(result);
                     });
 
             } else if (ui.draggable.attr('id') != 'isA'){
