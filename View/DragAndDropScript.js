@@ -195,15 +195,15 @@ function openRelationshipMenu(relationship){
 
 function openContextMenu(id){
 
-    document.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-    }, false);
-
     const deleteElement = document.getElementById(id)
     const menu = document.getElementById('menu')
     const outClick = document.getElementById('editorID')
 
-    deleteElement.addEventListener('contextmenu', e => {
+    // document.addEventListener('contextmenu', function (e) {
+    //     e.preventDefault();
+    // }, false);
+    deleteElement.oncontextmenu = (e) => {
+    //deleteElement.addEventListener('contextmenu', e => {
         e.preventDefault()
 
         menu.style.left = e.pageX + 'px';
@@ -211,7 +211,8 @@ function openContextMenu(id){
         menu.classList.add('show');
 
         outClick.style.display = "block";
-    })
+    //})
+    }
 
     outClick.addEventListener('click', () => {
         menu.classList.remove('show')
@@ -223,6 +224,27 @@ function openContextMenu(id){
         //Remove the selected element from the document
         deleteElement.remove();
         menu.classList.remove('show')
+
+        console.info(deleteElement.id);
+
+/*        if (deleteElement.id.includes("entity")) {
+            $function = 'deleteEntity'
+        }else if (deleteElement.id.includes("relationship")){
+            $function = 'deleteRelationship'
+        }else if (deleteElement.id.includes("isA")){
+            $function = 'deleteIsA'
+        }
+
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: $function,
+                id: deleteElement,
+            },
+            function(result){
+                console.log(result);
+            });*/
+
     })
 
 
