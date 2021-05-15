@@ -2,8 +2,6 @@ function generalizationMode(mode) {
     let outputText = document.getElementById("showGeneralizationMode");
     outputText.innerText = mode;
 }
-
-
 function selectEntityDropdown(entity, number){
     let element = "dropdownEntityText" + number;
     let outputText = document.getElementById(element);
