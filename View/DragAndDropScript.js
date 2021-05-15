@@ -120,7 +120,7 @@ $(function() {
                     $function = 'changePositionIsA'
                 }
 
-                $.post(
+/*                $.post(
                     "../Interface/Connector.php",
                     {
                         function: $function,
@@ -130,7 +130,7 @@ $(function() {
                     },
                     function(result){
                         console.log(result);
-                    });
+                    });*/
             }
 
         }
