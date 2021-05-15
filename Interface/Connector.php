@@ -87,6 +87,13 @@ if (isset($_POST['function'])) {
             echo 'false';
         }
     }
+
+    if ($_POST['function'] == 'deleteEntity') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        ERMController::deleteEntity($ERMModel, $_POST['id']);
+        $_SESSION['ERM-Model'] = $ERMModel;
+        var_dump($ERMModel);
+    }
 }
 
 
