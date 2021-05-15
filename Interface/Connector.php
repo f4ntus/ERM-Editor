@@ -52,6 +52,7 @@ if (isset($_POST['function'])) {
             }
             $relarray = [
                 'name' => RelationshipController::getName($relationship),
+                'id' => $relationship->getId(),
                 'attributes' => $attributeArray
             ];
             echo json_encode($relarray, JSON_FORCE_OBJECT);
