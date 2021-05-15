@@ -4,18 +4,18 @@
  * Die Oberklasse aller ERM Objekte
  * Class ERMObjectModel
  */
-class ERMObjectModel
+abstract class ERMObjectModel
 {
     /**
      * @var ID
      */
     protected $id;
     /**
-     * @var X Standort
+     * @var
      */
     protected $y;
     /**
-     * @var Y Standort
+     * @var
      */
     protected $x;
 
@@ -36,15 +36,15 @@ class ERMObjectModel
     }
 
     /**
-     * @return X
+     * @return mixed
      */
-    public function getY(): X
+    public function getY()
     {
         return $this->y;
     }
 
     /**
-     * @param X $y
+     * @param mixed $y
      */
     public function setY($y): void
     {
@@ -52,15 +52,15 @@ class ERMObjectModel
     }
 
     /**
-     * @return Y
+     * @return mixed
      */
-    public function getX(): Y
+    public function getX()
     {
         return $this->x;
     }
 
     /**
-     * @param Y $x
+     * @param mixed $x
      */
     public function setX($x): void
     {

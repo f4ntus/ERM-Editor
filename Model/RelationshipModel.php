@@ -4,19 +4,9 @@
 /**
  * Class RelationshipModel
  */
-class RelationshipModel extends ERMObjectModel
+class RelationshipModel extends ERMObjectwithAttributes
 {
-    /**
-     * @var $name
-     */
-    private $name;
 
-    /**
-     * @var$attributes
-     * Das ist eine  Liste/Array oder was auch immer
-     */
-
-    private $attributes;
 
     /**
      * @var $ Enities 2 Demensionale Liste/Array oder was auch immer 1 Dim Kardinalität 2. Dim EntityModel
@@ -40,27 +30,11 @@ class RelationshipModel extends ERMObjectModel
         $this->relations = array();
     }
 
-    /**
-     * Attribu wird hinzugefügt
-     * @param AttributeERMModel $attribute
-     */
 
-    public function addAttribute(AttributeERMModel $attribute){
-        $this->attributes[] = $attribute;
-    }
 
-    /**
-     * Attribut wird entfernt
-     * @param AttributeERMModel $attribute
-     */
-    public function deleteAttribute(AttributeERMModel $attribute){
-        foreach ($this->attributes as  $key=>$a){
-            if($attribute==$a){
-                unset($this->attributes[$key]);
-            }
-        }
 
-    }
+
+
 
     /**
      * Hinzufügen einer Relation
@@ -71,8 +45,8 @@ class RelationshipModel extends ERMObjectModel
     }
 
     /**
-     * Attribut wird entfernt
-     * @param AttributeERMModel $attribute
+     * Relation wird entfernt
+     * @param RelationERMModel $attribute
      */
     public function deleteRelation(RelationERMModel $relation){
         foreach ($this->relations as  $key=>$r){
@@ -84,22 +58,7 @@ class RelationshipModel extends ERMObjectModel
     }
 
 
-    /**
-    * @return mixed
-    */
 
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
 
     /**
      * @return mixed
@@ -109,29 +68,7 @@ class RelationshipModel extends ERMObjectModel
         return $this->attributes;
     }
 
-    /**
-     * @param mixed $attributes
-     */
-    public function setAttributes($attributes)
-    {
-        $this->attributes = $attributes;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getEntities()
-    {
-        return $this->entities;
-    }
-
-    /**
-     * @param mixed $entities
-     */
-    public function setEntities($entities)
-    {
-        $this->entities = $entities;
-    }
 
     /**
      * @return mixed
@@ -148,10 +85,6 @@ class RelationshipModel extends ERMObjectModel
     {
         $this->relations = $relations;
     }
-
-    /**
-     * @return int
-     */
 
 
 

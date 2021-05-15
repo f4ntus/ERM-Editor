@@ -5,20 +5,9 @@ include_once 'ERMObjectModel.php';
  * Das Modell eines Erstellung
  */
 
-class EntityModel extends ERMObjectModel
+class EntityModel extends ERMObjectwithAttributes
 {
-    /**
-     * @var $name
-     */
-    private $name;
-    /**
-     * @var$attributes
-     * Das ist eine Liste/Array oder was auch immer
-     */
-    private $attributes;
-    /**
-     * @return mixed
-     */
+
     /**
      * Referenz zu OberEnitity
      * @var
@@ -47,22 +36,7 @@ class EntityModel extends ERMObjectModel
      * @param AttributeERMModel $attribute
      */
 
-    public function addAttribute(AttributeERMModel $attribute){
-        $this->attributes[] = $attribute;
-    }
 
-    /**
-     * Attribut wird entfernt
-     * @param AttributeERMModel $attribute
-     */
-    public function deleteAttribute(AttributeERMModel $attribute){
-        foreach ($this->attributes as  $key=>$a){
-             if($attribute==$a){
-                 unset($this->attributes[$key]);
-             }
-        }
-
-    }
 
     /**
      * Ausgeben der Attrobute
@@ -91,39 +65,6 @@ class EntityModel extends ERMObjectModel
             }
         }
     }
-
-    /**
-     * @return mixed $name
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttributes()
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * @param mixed $attributes
-     */
-    public function setAttributes($attributes)
-    {
-        $this->attributes = $attributes;
-    }
-
 
 
     /**
