@@ -24,18 +24,18 @@ if (isset($_POST['function'])) {
 
     if ($_POST['function'] == 'addRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $entity = ERMController::addRelationship($ERMModel, $_POST['id'], $_POST['name'], $_POST['xaxis'], $_POST['yaxis']);
+        $relationship = ERMController::addRelationship($ERMModel, $_POST['id'], $_POST['name'], $_POST['xaxis'], $_POST['yaxis']);
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
-        var_dump($entity);
+        var_dump($relationship);
     }
 
     if ($_POST['function'] == 'addGeneralisation') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $entity = ERMController::addGeneralisation($ERMModel, $_POST['id'], $_POST['xaxis'], $_POST['yaxis']);
+        $isA = ERMController::addGeneralisation($ERMModel, $_POST['id'], $_POST['xaxis'], $_POST['yaxis']);
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
-        var_dump($entity);
+        var_dump($isA);
     }
 
     if ($_POST['function'] == 'changePositionEntity') {
