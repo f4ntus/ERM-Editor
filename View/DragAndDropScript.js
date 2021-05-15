@@ -18,7 +18,40 @@ $(function() {
             //defines element which ist allowed to be dropped: the cloned version from the original element returned by the function
             $element = ui.helper.clone();
             //make dropped element draggable again
-            $element.draggable({cancel: false, containment: $('.editor'), cursor: 'move'});
+            $element.draggable({
+                cancel: false,
+                containment: $('.editor'),
+                cursor: 'move',
+                stop: function (event, ui){
+                    // position of the draggable-element minus position of the droppable-element
+                    // relative to the document
+                    var newPosX = ui.offset.left - $('.editor').offset().left;
+                    var newPosY = ui.offset.top - $('.editor').offset().top;
+                    console.info($element.attr("id"));
+                    console.info("new Position X: ", newPosX, "new Position Y: ", newPosY);
+
+                    if ($element.attr("id").includes("entity")) {
+                        $function = 'changePositionEntity'
+                    }else if ($element.attr("id").includes("relationship")){
+                        $function = 'changePositionRelationship'
+                    }else if ($element.attr("id").includes("isA")){
+                        $function = 'changePositionIsA'
+                    }
+
+                    $.post(
+                    "../Interface/Connector.php",
+                        {
+                            function: $function,
+                            id: $element.attr("id"),
+                            xaxis: newPosX,
+                            yaxis: newPosY,
+                        },
+                        function(result){
+                            console.log(result);
+                    });
+
+                }
+            });
 
             // if the original draggable element has the id "entity", increase entityInputNo and change the ID of the Clone
             if (ui.draggable.attr('id') == 'entity') {
@@ -46,9 +79,6 @@ $(function() {
                         console.log(result);
                     });
 
-
-            } else if (ui.draggable.attr('id') != 'entity'){
-                $element.attr("value", 'dropped');
             }
 
             if (ui.draggable.attr('id') == 'relationship') {
@@ -74,8 +104,6 @@ $(function() {
                     function(result){
                         console.log(result);
                     });
-            } else if (ui.draggable.attr('id') != 'relationship'){
-                $element.attr("value", 'dropped');
             }
 
             if (ui.draggable.attr('id') == 'isA') {
@@ -101,36 +129,6 @@ $(function() {
                         console.log(result);
                     });
 
-            } else if (ui.draggable.attr('id') != 'isA'){
-                $element.attr("value", 'dropped');
-            }
-
-            if ($element.attr("value") == 'dropped') {
-                // position of the draggable-element minus position of the droppable-element
-                // relative to the document
-                var newPosX = ui.offset.left - $(this).offset().left;
-                var newPosY = ui.offset.top - $(this).offset().top;
-                console.info($element.attr("id"));
-                console.info("new Position X: ", newPosX, "new Position Y: ", newPosY);
-                if ($element.attr("id").includes("entity")) {
-                    $function = 'changePositionEntity'
-                }else if ($element.attr("id").includes("relationship")){
-                    $function = 'changePositionRelationship'
-                }else if ($element.attr("id").includes("isA")){
-                    $function = 'changePositionIsA'
-                }
-
-/*                $.post(
-                    "../Interface/Connector.php",
-                    {
-                        function: $function,
-                        id: $element.attr("id"),
-                        xaxis: newPosX,
-                        yaxis: newPosY,
-                    },
-                    function(result){
-                        console.log(result);
-                    });*/
             }
 
         }
