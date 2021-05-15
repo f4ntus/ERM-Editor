@@ -45,7 +45,7 @@ if (isset($_POST['function'])) {
             $attributeArray = null;
             foreach ($attributes as $attribute) {
                 $attributeArray[$i] = [
-                    'name' => $attribute["name"],
+                    'name' => $attribute["Name"],
                     'typ' => $attribute["Type"]
                 ];
                 $i++;
