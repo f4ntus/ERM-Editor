@@ -7,14 +7,19 @@
 abstract class ERMObjectModel
 {
     /**
-     * @var ID
+     * ID eines Objektes
+     * @var
      */
     protected $id;
+
     /**
+     * Y Wert des Standort
      * @var
      */
     protected $y;
+
     /**
+     * X Wert des Standort
      * @var
      */
     protected $x;
