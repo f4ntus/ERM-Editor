@@ -1,5 +1,5 @@
 <?php
-include_once 'ERMObjectModel.php';
+include_once 'ERMObjectwithAttributes.php';
 /**
  * Class EntityModel
  * Das Modell eines Erstellung
