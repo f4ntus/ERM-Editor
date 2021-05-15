@@ -290,13 +290,13 @@ class RDMController
         foreach ($entity->getAttributes() as $ERMa) {
 
             switch ($ERMa->getType()) {
-                case 1:
+                case 0:
                     $RDMa = new AttributeRDMModel();
                     $RDMa->setName($ERMa->getName());
                     $RDMa->setPrimary($ERMa->getPrimary());
                     $relation->addAttribute($RDMa);
                     break;
-                case 3:
+                case 2:
                     $basicName = $ERMa->getName();
                     foreach ($ERMa->getSubnames() as $subname) {
                         $RDMa = new AttributeRDMModel();
@@ -312,10 +312,10 @@ class RDMController
         if(!in_array($relation, $rdm->getRelations())) {
             $rdm->addRelation($relation);
         }
-        //Hinzufügen einer wweiteren Relation durch Typ 2 also einem mehrwertigen Attribut
+        //Hinzufügen einer wweiteren Relation durch Typ 1 also einem mehrwertigen Attribut
         foreach ($entity->getAttributes() as $ERMa) {
 
-            if ($ERMa->getType() == 2) {
+            if ($ERMa->getType() == 1) {
                 $relationfromultivaluesattribute = new RelationRDMModel($entity->getName() . $ERMa->getName(), $entity);
                 foreach ($relation->getAttributes() as $attribute) {
                     if ($attribute->getPrimary()) {
