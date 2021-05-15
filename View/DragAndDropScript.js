@@ -9,7 +9,6 @@ $(function() {
     entityInputNo = 0;
     relationshipInputNo = 0;
     isAInputNo = 0;
-    onClick = '';
 
 
 //set editor as a droppable container
@@ -18,58 +17,120 @@ $(function() {
 
             //defines element which ist allowed to be dropped: the cloned version from the original element returned by the function
             $element = ui.helper.clone();
-
             //make dropped element draggable again
             $element.draggable({cancel: false, containment: $('.editor'), cursor: 'move'});
-
-            // position of the draggable-element minus position of the droppable-element
-            // relative to the document
-            var $newPosX = ui.offset.left - $(this).offset().left;
-            var $newPosY = ui.offset.top - $(this).offset().top;
-            console.info($newPosX,$newPosY);
 
             // if the original draggable element has the id "entity", increase entityInputNo and change the ID of the Clone
             if (ui.draggable.attr('id') == 'entity') {
                 entityInputNo++;
                 $element.attr("id", 'entity' + entityInputNo);
-                $newIDEntity = 'entity' + entityInputNo;
-                console.info($element);
-                console.info($newIDEntity)
+                newIDEntity = 'entity' + entityInputNo;
+                console.info(newIDEntity)
                 //insert Clone into the droppable container
                 $element.appendTo(this);
 
-                var $newPosX = ui.offset.left - $(this).offset().left;
-                var $newPosY = ui.offset.top - $(this).offset().top;
-                console.info($newPosX,$newPosY);
+                var firstPosX = ui.offset.left - $(this).offset().left;
+                var firstPosY = ui.offset.top - $(this).offset().top;
+                console.info("first Position X: ", firstPosX, "first Position Y: ", firstPosY);
 
+                $.post(
+                    "../Interface/Connector.php",
+                    {
+                        function: "addEntity",
+                        id: newIDEntity,
+                        name: newIDEntity,
+                        xaxis: firstPosX,
+                        yaxis: firstPosY,
+                    },
+                    function(result){
+                        console.log(result);
+                    });
+
+
+            } else if (ui.draggable.attr('id') != 'entity'){
+                $element.attr("value", 'dropped');
             }
 
             if (ui.draggable.attr('id') == 'relationship') {
                 relationshipInputNo++;
                 $element.attr("id", 'relationship' + relationshipInputNo);
-                $newIDRelationship = 'relationship' + relationshipInputNo;
-                console.info($element);
-                console.info($newIDRelationship)
+                newIDRelationship = 'relationship' + relationshipInputNo;
+                console.info(newIDRelationship)
                 $element.appendTo(this);
 
-                var $newPosX = ui.offset.left - $(this).offset().left;
-                var $newPosY = ui.offset.top - $(this).offset().top;
-                console.info($newPosX,$newPosY);
+                var firstPosX = ui.offset.left - $(this).offset().left;
+                var firstPosY = ui.offset.top - $(this).offset().top;
+                console.info("first Position X: ", firstPosX, "first Position Y: ", firstPosY);
 
+                $.post(
+                    "../Interface/Connector.php",
+                    {
+                        function: "addRelationship",
+                        id: newIDRelationship,
+                        name: newIDRelationship,
+                        xaxis: firstPosX,
+                        yaxis: firstPosY,
+                    },
+                    function(result){
+                        console.log(result);
+                    });
+            } else if (ui.draggable.attr('id') != 'relationship'){
+                $element.attr("value", 'dropped');
             }
 
             if (ui.draggable.attr('id') == 'isA') {
                 isAInputNo++;
                 $element.attr("id", 'isA' + isAInputNo);
-                $newIDIsA = 'isA' + isAInputNo;
-                console.info($element);
-                console.info($newIDIsA)
+                newIDIsA = 'isA' + isAInputNo;
+                console.info(newIDIsA)
                 $element.appendTo(this);
 
-                var $newPosX = ui.offset.left - $(this).offset().left;
-                var $newPosY = ui.offset.top - $(this).offset().top;
-                console.info($newPosX,$newPosY);
+                var firstPosX = ui.offset.left - $(this).offset().left;
+                var firstPosY = ui.offset.top - $(this).offset().top;
+                console.info("first Position X: ", firstPosX, "first Position Y: ", firstPosY);
 
+                $.post(
+                    "../Interface/Connector.php",
+                    {
+                        function: "addGeneralisation",
+                        id: newIDIsA,
+                        xaxis: firstPosX,
+                        yaxis: firstPosY,
+                    },
+                    function(result){
+                        console.log(result);
+                    });
+
+            } else if (ui.draggable.attr('id') != 'isA'){
+                $element.attr("value", 'dropped');
+            }
+
+            if ($element.attr("value") == 'dropped') {
+                // position of the draggable-element minus position of the droppable-element
+                // relative to the document
+                var newPosX = ui.offset.left - $(this).offset().left;
+                var newPosY = ui.offset.top - $(this).offset().top;
+                console.info($element.attr("id"));
+                console.info("new Position X: ", newPosX, "new Position Y: ", newPosY);
+                if ($element.attr("id").includes("entity")) {
+                    $function = 'changePositionEntity'
+                }else if ($element.attr("id").includes("relationship")){
+                    $function = 'changePositionRelationship'
+                }else if ($element.attr("id").includes("isA")){
+                    $function = 'changePositionIsA'
+                }
+
+/*                $.post(
+                    "../Interface/Connector.php",
+                    {
+                        function: $function,
+                        id: $element.attr("id"),
+                        xaxis: newPosX,
+                        yaxis: newPosY,
+                    },
+                    function(result){
+                        console.log(result);
+                    });*/
             }
 
         }
