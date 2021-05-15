@@ -43,7 +43,7 @@ $(function() {
                         yaxis: firstPosY,
                     },
                     function(result){
-                        alert(result);
+                        console.log(result);
                     });
 
 
@@ -129,7 +129,7 @@ $(function() {
                         yaxis: newPosY,
                     },
                     function(result){
-                        alert(result);
+                        console.log(result);
                     });
             }
 
