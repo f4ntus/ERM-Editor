@@ -199,7 +199,8 @@ class ERMModel
     {
         foreach ($this->generalistions as $generalisation){
             if ($generalisation->getID() == $id){
-               $g = $this->generalistion;
+               //$g = $this->generalistion;
+                $g = $generalisation;
             }
         }
         return $g;
