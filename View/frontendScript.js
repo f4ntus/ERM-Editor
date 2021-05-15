@@ -3,8 +3,17 @@ function generalizationMode(mode) {
     outputText.innerText = mode;
 }
 
-
-
+function onClickERMReset(){
+    $.post(
+        "../Interface/Connector.php",
+        {
+            function: "resetERM",
+        },
+        function(result){
+            alert(result);
+        }
+    );
+}
 
 
 function onClickButtonAddSingleValueAttribute() {

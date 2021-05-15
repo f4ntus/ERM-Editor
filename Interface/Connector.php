@@ -12,6 +12,11 @@ if (!isset($_SESSION['ERM-Model'])) {
 }
 
 if (isset($_POST['function'])) {
+    if ($_POST['function'] == 'resetERM'){
+        $ERMModel = ERMController::createModel();
+        $_SESSION['ERM-Model'] = $ERMModel;
+        echo 'Das ERM Model wurde reseted';
+    }
     if ($_POST['function'] == 'createEntity') {
         // diese Funktion muss natürlich noch angepasst werden
         $ERMModel = $_SESSION['ERM-Model'];
@@ -32,23 +37,28 @@ if (isset($_POST['function'])) {
         var_dump($relationship);
     }
     if ($_POST['function'] == 'getRelationship'){
-        $relationship = ERMController::getRelationship($_SESSION['ERM-Model'],$_POST['id']);
-        $attributes = RelationshipController::getAttributes($relationship);
-        //var_dump($attributes);
-        $i = 0;
-        $attributeArray = null;
-        foreach ($attributes as $attribute){
-            $attributeArray[$i] = [
-                'name' => $attribute["Name"],
-                'typ' => $attribute["Type"]
+        $relationship = ERMController::getRelationship($_SESSION['ERM-Model'], $_POST['id']);
+        if ($relationship != NULL) {
+            $attributes = RelationshipController::getAttributes($relationship);
+            //var_dump($attributes);
+            $i = 0;
+            $attributeArray = null;
+            foreach ($attributes as $attribute) {
+                $attributeArray[$i] = [
+                    'name' => $attribute["Name"],
+                    'typ' => $attribute["Type"]
+                ];
+                $i++;
+            }
+            $relarray = [
+                'name' => RelationshipController::getName($relationship),
+                'id' => $relationship->getId(),
+                'attributes' => $attributeArray
             ];
-            $i++;
+            echo json_encode($relarray, JSON_FORCE_OBJECT);
+        } else {
+            echo 'false';
         }
-        $relarray = [
-            'name' => RelationshipController::getName($relationship),
-            'attributes' => $attributeArray
-        ];
-        echo json_encode($relarray, JSON_FORCE_OBJECT);
     }
 }
 
