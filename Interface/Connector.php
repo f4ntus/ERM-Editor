@@ -71,14 +71,11 @@ if (isset($_POST['function'])) {
         var_dump($isA);
     }
     
-    if ($_POST['function']== 'createRelationship') {
+    if ($_POST['function']== 'updateRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $relationship = ERMController::addRelationship($ERMModel,$_POST['id'],$_POST['name'],$_POST['xaxis'],$_POST['yaxis']);
-        $attributes = $_POST['attributes'];
-        foreach ($attributes as $attribute){
-            RelationshipController::addAttribute($relationship, $attribute['name'], $attribute['typ'], false);
-        }
-        $_SESSION['ERM-Model'] = $ERMModel;
+        $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
+        RelationshipController::setName($relationship,$_POST['name']);
+        RelationshipController::addOrUpdateAttributes($relationship, $_POST['attributes']);
         var_dump($relationship);
     }
     if ($_POST['function'] == 'getRelationship'){

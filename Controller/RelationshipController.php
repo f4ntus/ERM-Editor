@@ -62,12 +62,17 @@ class RelationshipController
      * @param $primary
      * @return AttributeERMModel
      */
-    public static function addAttribute(RelationshipModel $relationship, String $name, int $type, $primary){
-        $attribute = AttributeERMController::createAttribute($name, $type, $primary)   ;
-        $relationship->addAttribute($attribute);
-        return $attribute;
-
-
+    public static function addOrUpdateAttributes(RelationshipModel $relationship, array $attributes){
+        // delete existing Attributes
+        foreach ($relationship->getAttributes() as $attribute){
+            RelationshipController::deleteAttribute($relationship, $attribute);
+        }
+        foreach ($attributes as $attributeArray){
+            if (($attributeArray['typ'] == '0')|($attributeArray['typ'] == '1')){
+                $attribute = AttributeERMController::createAttribute($attributeArray['name'],$attributeArray['typ'],$attributeArray['primary']);
+                $relationship->addAttribute($attribute);
+            }
+        }
     }
 
     /**

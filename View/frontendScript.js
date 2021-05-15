@@ -377,14 +377,15 @@ function onClickButtonSubmitRelationship(){
         let sType =  oTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
         aAttributes[iRow] = {
             name: sName,
-            typ: sType
+            typ: sType,
+            primary: 'false'
         }
     }
 
     $.post(
         "../Interface/Connector.php",
         {
-            function: "createRelationship",
+            function: "updateRelationship",
             id: sRelationshipID,
             name: sRelationshipName,
             xaxis: sXaxis,
