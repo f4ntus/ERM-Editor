@@ -54,6 +54,22 @@ class FrontendController{
         let sYaxis = oRelationship.style.top;
         let sRelationshipName = oRelationship.innerHTML;
 
+        // Informations about Relations
+        let oRelTable = document.getElementById("tblRelationship");
+        let aRelations = new Array();
+        for (let iRow = 2; iRow < oRelTable.rows.length; iRow ++){ // beginning by the third row, because of Headlines
+            let sNumber = oRelTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
+            let sEntity = oRelTable.rows[iRow].getElementsByTagName("td")[1].innerHTML;
+            let sNotation = oRelTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
+            let bWeakness = oRelTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
+            aRelations[iRow] = {
+                number: sNumber,
+                entity: sEntity,
+                notation: sNotation,
+                weakness: bWeakness
+            }
+        }
+
         // Informations about the Attributes
         let oTable = document.getElementById("idTableRelationshipAttributes");
         let aAttributes = new Array();
@@ -88,7 +104,8 @@ class FrontendController{
                 name: sRelationshipName,
                 xaxis: sXaxis,
                 yaxis: sYaxis,
-                attributes: aAttributes
+                attributes: aAttributes,
+                relations: aRelations
             },
             function(result){
                 console.log(result);
