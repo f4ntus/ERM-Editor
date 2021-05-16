@@ -1,4 +1,5 @@
 <?php
+include_once 'ERMObjectModel.php';
 /**
  * Class GeneralisationModel
  */

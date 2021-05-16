@@ -59,9 +59,9 @@ class FrontendController{
         let aRelations = new Array();
         for (let iRow = 2; iRow < oRelTable.rows.length; iRow ++){ // beginning by the third row, because of Headlines
             let sNumber = oRelTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
-            let sEntity = oRelTable.rows[iRow].getElementsByTagName("td")[1].innerHTML;
-            let sNotation = oRelTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
-            let bWeakness = oRelTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
+            let sEntity = oRelTable.rows[iRow].getElementsByTagName("p")[0].innerHTML;
+            let sNotation = oRelTable.rows[iRow].getElementsByTagName("p")[1].innerHTML;
+            let bWeakness = oRelTable.rows[iRow].getElementsByTagName("input")[0].checked;
             aRelations[iRow] = {
                 number: sNumber,
                 entity: sEntity,
@@ -94,6 +94,7 @@ class FrontendController{
             }
         }
         console.log(aAttributes);
+        console.log(aRelations);
 
         // pushing the data to backend
         $.post(

@@ -1,5 +1,5 @@
 <?php
-
+include_once 'ERMObjectModel.php';
 
 abstract class ERMObjectwithAttributes extends ERMObjectModel
 {
