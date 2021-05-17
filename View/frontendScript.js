@@ -220,12 +220,12 @@ function sortTable() {
 }
 
 function onClickFinishEntityMenue() {
-    newEntityName = document.getElementById("idEntityName").value;
-    oldEntityName = document.getElementById("displayEntityName").innerText;
-    entity = document.getElementById(oldEntityName);
-    entity.innerText = newEntityName;
-    entity.id = newEntityName;
+    let newEntityName = document.getElementById("idEntityName").value;
+    let oldEntityName = document.getElementById("displayEntityName").innerText;
+    let entityID = document.getElementById("pEntityID").innerHTML;
+    document.getElementById(entityID).innerText = newEntityName;
     document.getElementById("rightMenue").style.visibility = "hidden";
+    FrontendController.pushEntity(entityID,newEntityName);
 }
 // ----------------------------------------------- for Releationship Menu ------------------------------------
 // -----------------------------------------------------------------------------------------------------------
