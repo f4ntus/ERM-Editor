@@ -4,6 +4,7 @@
  * enable also to move the dropped elements inside the editor area.
  * @author Antonia Gabriel
  */
+
 $(function() {
 
     entityInputNo = 0;
@@ -50,6 +51,7 @@ $(function() {
                             console.log(result);
                     });
 
+
                 }
             });
 
@@ -79,6 +81,24 @@ $(function() {
                         console.log(result);
                     });
 
+                const deleteElement = document.getElementById(newIDEntity);
+                const menu = document.getElementById('menu')
+                const outClick = document.getElementById('editorID')
+                deleteElement.addEventListener('contextmenu', e => {
+                    console.info(deleteElement);
+                    e.preventDefault();
+                    menu.style.left = e.pageX + 'px';
+                    menu.style.top = e.pageY + 'px';
+                    menu.classList.add('show');
+                    outClick.style.display = "block";
+                    deleteElem(deleteElement);
+
+                })
+                outClick.addEventListener('click', () => {
+                    menu.classList.remove('show')
+
+                })
+
             }
 
             if (ui.draggable.attr('id') == 'relationship') {
@@ -104,6 +124,24 @@ $(function() {
                     function(result){
                         console.log(result);
                     });
+
+                const deleteElement = document.getElementById(newIDRelationship);
+                const menu = document.getElementById('menu')
+                const outClick = document.getElementById('editorID')
+                deleteElement.addEventListener('contextmenu', e => {
+                    console.info(deleteElement);
+                    e.preventDefault();
+                    menu.style.left = e.pageX + 'px';
+                    menu.style.top = e.pageY + 'px';
+                    menu.classList.add('show');
+                    outClick.style.display = "block";
+                    deleteElem(deleteElement);
+
+                })
+                outClick.addEventListener('click', () => {
+                    menu.classList.remove('show')
+
+                })
             }
 
             if (ui.draggable.attr('id') == 'isA') {
@@ -129,7 +167,27 @@ $(function() {
                         console.log(result);
                     });
 
+                const deleteElement = document.getElementById(newIDIsA);
+                const menu = document.getElementById('menu')
+                const outClick = document.getElementById('editorID')
+                deleteElement.addEventListener('contextmenu', e => {
+                    console.info(deleteElement);
+                    e.preventDefault();
+                    menu.style.left = e.pageX + 'px';
+                    menu.style.top = e.pageY + 'px';
+                    menu.classList.add('show');
+                    outClick.style.display = "block";
+                    deleteElem(deleteElement);
+
+                })
+                outClick.addEventListener('click', () => {
+                    menu.classList.remove('show')
+
+                })
             }
+
+
+
 
         }
     });
@@ -168,15 +226,15 @@ $(function() {
 
 //create clone from entity-button with new ID
 function entityClone() {
-    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu(this)"></button>';
 }
 //create clone from relationship-button with new ID
 function relationshipClone() {
-    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu(this)"></button>';
 }
 //create clone from isA-button with new ID
 function isAClone() {
-    return '<button id="isA' + isAInputNo + '" class="isA" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="isA' + isAInputNo + '" class="isA"></button>';
 }
 
 function openEntityMenu(entity){
@@ -193,39 +251,21 @@ function openRelationshipMenu(relationship){
     console.info("öffnet Relationship-Menü");
 }
 
-function openContextMenu(id){
 
-    const deleteElement = document.getElementById(id)
+function deleteElem(element){
+
+    console.info("vor deleteButton: ", element.id);
+
     const menu = document.getElementById('menu')
-    const outClick = document.getElementById('editorID')
-
-    // document.addEventListener('contextmenu', function (e) {
-    //     e.preventDefault();
-    // }, false);
-    deleteElement.oncontextmenu = (e) => {
-    //deleteElement.addEventListener('contextmenu', e => {
-        e.preventDefault()
-
-        menu.style.left = e.pageX + 'px';
-        menu.style.top = e.pageY + 'px';
-        menu.classList.add('show');
-
-        outClick.style.display = "block";
-    //})
-    }
-
-    outClick.addEventListener('click', () => {
-        menu.classList.remove('show')
-    })
-
     const deleteButton = document.getElementById('deleteButton')
-
     deleteButton.addEventListener('click', () => {
+        console.info("in deleteButton: ", element.id);
         //Remove the selected element from the document
-        deleteElement.remove();
+        //element.remove();
+        element.parentNode.removeChild(element);
         menu.classList.remove('show')
 
-        console.info(deleteElement.id);
+        console.info("nach deleteButton: ", element.id);
 
 /*        if (deleteElement.id.includes("entity")) {
             $function = 'deleteEntity'
@@ -233,20 +273,19 @@ function openContextMenu(id){
             $function = 'deleteRelationship'
         }else if (deleteElement.id.includes("isA")){
             $function = 'deleteIsA'
-        }
+        }*/
 
-        $.post(
-            "../Interface/Connector.php",
-            {
-                function: $function,
-                id: deleteElement,
-            },
-            function(result){
-                console.log(result);
-            });*/
+        /*                $.post(
+                            "../Interface/Connector.php",
+                            {
+                                function: $function,
+                                id: deleteElement,
+                            },
+                            function(result){
+                                console.log(result);
+                            });*/
 
     })
 
 
 }
-
