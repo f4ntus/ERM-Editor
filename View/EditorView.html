@@ -167,10 +167,61 @@
         </button>
     </div>
     <div class="outputBelow" >
+
+
+        <div id="generalisationMenu" style="visibility: hidden">
+            <p style="visibility: hidden" id="pGeneralisationID"></p>
+            <div Style="float: left">
+                <h3> Generalisierung hinzufügen:</h3>
+                <table style="">
+                    <tr>
+                        <th>Supertyp</th>
+                        <th><div class="dropdown">
+                            <p class="dorpdowntext" id="dropdownNotationText01">n</p>
+                            <button class="dropbtnArrow"></button>
+                            <div class="dropdown-content hoverContent" id="entityContent">
+                                <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">1</a>
+                                <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">n</a>
+                                <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','01')">m</a>
+                            </div>
+                        </div></th>
+
+                    </tr>
+                    <tr>
+                        <td>Subtyp</td>
+                        <td><div class="dropdown">
+                            <p class="dorpdowntext" id="dropdownNotationText01">n</p>
+                            <button class="dropbtnArrow"></button>
+                            <div class="dropdown-content hoverContent" id="entityContent">
+                                <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">1</a>
+                                <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">n</a>
+                                <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','01')">m</a>
+                            </div>
+                        </div></td>
+
+                    </tr>
+                    <tr>
+                        <td>Subtyp</td>
+                        <td><div class="dropdown">
+                            <p class="dorpdowntext" id="dropdownNotationText01">n</p>
+                            <button class="dropbtnArrow"></button>
+                            <div class="dropdown-content hoverContent" id="entityContent">
+                                <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">1</a>
+                                <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">n</a>
+                                <a href="#" class="selNotDorp03" onclick="selectNotationDropdown('m','01')">m</a>
+                            </div>
+                        </div></td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+
+
         <div id="relationshipMenu" style="visibility: hidden">
             <p style="visibility: hidden" id="pRelationshipID"></p>
             <div Style="float: left">
-                <label for="RelationshipName">RelationshipName</label>
+                <label id="RelationshipName">RelationshipName</label>
                 <input id="inputRelationshipName" oninput="onInputRelationshipName(this)" type="text" name="RelationshipName"/>
                 <h1> Relationship bearbeiten</h1>
                 <table id="tblRelationship">
