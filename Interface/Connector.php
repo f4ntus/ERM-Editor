@@ -70,7 +70,17 @@ if (isset($_POST['function'])) {
         var_dump($ERMModel);
         var_dump($isA);
     }
-    
+    if ($_POST['function'] == 'updateEntity'){
+        $ERMModel = $_SESSION['ERM-Model'];
+        $entity = ERMController::getEntitybyID($ERMModel,$_POST['id']);
+        EntityController::setName($entity,$_POST['name']);
+        if (isset($_POST['attributes'])){ // Entity with attributes
+            EntityController::addOrUpdateAttributes($entity, $_POST['attributes']);
+        }else{ // Entity without attributes
+            EntityController::deleteAllAttributes($entity);
+        }
+        var_dump($entity);
+    }
     if ($_POST['function']== 'updateRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
         $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);

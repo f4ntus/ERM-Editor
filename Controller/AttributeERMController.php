@@ -27,6 +27,38 @@ class AttributeERMController
         return New RelatetedAttributeERMModel($name,2, $primary, $subnames);
     }
 
+
+    /**
+     * Hinzufügen und Updaten mehrerer Attribute
+     * @param ERMObjectwithAttributes $ERMObject
+     * @param Array $attributes
+     */
+    public static function addOrUpdateAllAttributes(ERMObjectwithAttributes $ERMObject, array $attributes){
+        // delete existing attributes
+        AttributeERMController::deleteAllAttributes($ERMObject);
+
+        // create new attributes
+        foreach ($attributes as $attributeArray){
+            if (($attributeArray['typ'] == '0')|($attributeArray['typ'] == '1')){
+                $attribute = AttributeERMController::createAttribute($attributeArray['name'],$attributeArray['typ'],$attributeArray['primary']);
+                $ERMObject->addAttribute($attribute);
+            }
+            if ($attributeArray['typ']=='2'){ //for relatedAttributes
+                $relatedAttribute = AttributeERMController::createRelatedAttribute($attributeArray['name'], $attributeArray['primary'], $attributeArray['subattributes']);
+                $ERMObject->addAttribute($relatedAttribute);
+            }
+        }
+    }
+
+    /** alle Attribute werden gelöscht
+     * @param ERMObjectwithAttributes $ERMObject
+     */
+    public static function deleteAllAttributes(ERMObjectwithAttributes $ERMObject){
+        foreach ($ERMObject->getAttributes() as $attribute){
+            $ERMObject->deleteAttribute($attribute);
+        }
+    }
+
     /**Änderung des Primärschlüssels auf aktiv
      * @param AttributeERMModel $attribute
      */

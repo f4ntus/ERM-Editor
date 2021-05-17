@@ -62,7 +62,7 @@ class FrontendController{
             let sEntity = oRelTable.rows[iRow].getElementsByTagName("p")[0].innerHTML;
             let sNotation = oRelTable.rows[iRow].getElementsByTagName("p")[1].innerHTML;
             let bWeakness = oRelTable.rows[iRow].getElementsByTagName("input")[0].checked;
-            aRelations[iRow] = {
+            aRelations[iRow-2] = {
                 number: sNumber,
                 entity: sEntity,
                 notation: sNotation,
