@@ -72,29 +72,7 @@ class FrontendController{
 
         // Informations about the Attributes
         let oTable = document.getElementById("idTableRelationshipAttributes");
-        let aAttributes = new Array();
-        for (let iRow = 0; iRow < oTable.rows.length; iRow ++){
-            let sName =  oTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
-            let sType =  oTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
-            if (sType == 1){
-                sName = sName.slice(1,-1);
-            }
-            let aSubattributes = '';
-            if (sType == 2){
-                let mainName = sName.split('(')[0]; // get the main Name before the open bracket (
-                aSubattributes = sName.split('(')[1].split(','); // splice the subattributes into an Array
-                aSubattributes[aSubattributes.length-1] = aSubattributes[aSubattributes.length-1].slice(0,-1); // remove the last bracket )
-                sName = mainName;
-            }
-            aAttributes[iRow] = {
-                name: sName,
-                typ: sType,
-                primary: 'false',
-                subattributes: aSubattributes
-            }
-        }
-        console.log(aAttributes);
-        console.log(aRelations);
+        let aAttributes = FrontendController.getAttributesAsArray(oTable)
 
         // pushing the data to backend
         $.post(
