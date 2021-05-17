@@ -34,7 +34,7 @@ class EntityModel extends ERMObjectwithAttributes
     }
 
     /**
-     * Attribu wird hinzugefügt
+     * Attribut wird hinzugefügt
      * @param AttributeERMModel $attribute
      */
 
