@@ -94,7 +94,6 @@ if (isset($_POST['function'])) {
         ERMController::deleteEntity($ERMModel, $entity);
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
-        var_dump($entity);
     }
     if ($_POST['function'] == 'deleteRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
@@ -102,7 +101,13 @@ if (isset($_POST['function'])) {
         ERMController::deleteRelationship($ERMModel, $relationship);
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
-        var_dump($relationship);
+    }
+    if ($_POST['function'] == 'deleteIsA') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $isA = ERMController::getGeneralisation($ERMModel, $_POST['id']);
+        ERMController::deleteRelationship($ERMModel, $isA);
+        $_SESSION['ERM-Model'] = $ERMModel;
+        var_dump($ERMModel);
     }
 }
 
