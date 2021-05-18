@@ -47,11 +47,12 @@ class RDMController
 
              $i = 0;
             foreach ($relationship->getRelations() as $ERMRelation){
-                if($ERMRelation->getKard() == '[0,*]' OR $ERMRelation->getKard()=='[1:*]')
+                if($ERMRelation->getKard() == '[0,*]' OR $ERMRelation->getKard()=='[1,*]')
                 {
                 $i = $i +1;
                 }
             }
+
         //Es wird keine eigene Relation benötigt. Bei <2 Entities, keine eigenen Attribute und nur einer (i) Notation größer als 0:1
         if(count($relationship->getRelations())==2 and count($relationship->getAttributes()) == 0 and $i <=1){
 
@@ -144,10 +145,12 @@ class RDMController
         foreach ($relations as $key => $ERMRelation) {
             $kard = $ERMRelation->getKard();
             switch ($kard) {
-                case '[1,*]' or '[0,*]':
+                case '[1,*]':
+                case '[0,*]':
                     $entity1 = $relations[$key]->getEntity();
                     break;
-                case '[0,1]' or '[1,1]':
+                case '[0,1]':
+                case '[1,1]':
                     $entityn = $relations[$key]->getEntity();
                     $weak = $ERMRelation->getWeak();
                     break;
