@@ -4,6 +4,7 @@
  * enable also to move the dropped elements inside the editor area.
  * @author Antonia Gabriel
  */
+
 $(function() {
 
     entityInputNo = 0;
@@ -49,6 +50,7 @@ $(function() {
                         function(result){
                             console.log(result);
                     });
+
 
                 }
             });
@@ -104,6 +106,7 @@ $(function() {
                     function(result){
                         console.log(result);
                     });
+
             }
 
             if (ui.draggable.attr('id') == 'isA') {
@@ -130,6 +133,9 @@ $(function() {
                     });
 
             }
+
+
+
 
         }
     });
@@ -168,15 +174,15 @@ $(function() {
 
 //create clone from entity-button with new ID
 function entityClone() {
-    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu(this)"></button>';
 }
 //create clone from relationship-button with new ID
 function relationshipClone() {
-    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu(this)"></button>';
 }
 //create clone from isA-button with new ID
 function isAClone() {
-    return '<button id="isA' + isAInputNo + '" class="isA" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="isA' + isAInputNo + '" class="isA"></button>';
 }
 
 function openEntityMenu(entity){
@@ -192,39 +198,3 @@ function openRelationshipMenu(relationship){
     FrontendController.updateRelationship(relationship.id);
     console.info("öffnet Relationship-Menü");
 }
-
-function openContextMenu(id){
-
-    document.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-    }, false);
-
-    const deleteElement = document.getElementById(id)
-    const menu = document.getElementById('menu')
-    const outClick = document.getElementById('editorID')
-
-    deleteElement.addEventListener('contextmenu', e => {
-        e.preventDefault()
-
-        menu.style.left = e.pageX + 'px';
-        menu.style.top = e.pageY + 'px';
-        menu.classList.add('show');
-
-        outClick.style.display = "block";
-    })
-
-    outClick.addEventListener('click', () => {
-        menu.classList.remove('show')
-    })
-
-    const deleteButton = document.getElementById('deleteButton')
-
-    deleteButton.addEventListener('click', () => {
-        //Remove the selected element from the document
-        deleteElement.remove();
-        menu.classList.remove('show')
-    })
-
-
-}
-
