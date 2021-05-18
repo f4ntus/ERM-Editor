@@ -91,6 +91,22 @@ class FrontendController{
             }
         );
     }
+    static getEntityFromBackend(sEntityId){
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "getRelationship",
+                id: sRelationshipID,
+            },
+            function(result){
+                console.log(result);
+                FrontendController.getEntityCallback(result);
+            }
+        );
+    }
+    static getEntityCallback(result){
+
+    }
     static pushEntity(entityID, entityName ){
         let aAttributes = FrontendController.getAttributesAsArray(document.getElementById("idTableEntityAttributes"));
         console.log(aAttributes);
@@ -106,6 +122,36 @@ class FrontendController{
                 console.log(result);
             }
         );
+    }
+    static clearAndFillAttributeTable(oTable,result) {
+
+        // clear table before refill
+        let tablelenght = oTable.rows.length;
+        for (let i = 0; i < tablelenght; i++) {
+            oTable.deleteRow(-1);
+        }
+
+        if (result != "false") {
+            let oresult = JSON.parse(result)
+            let aAttributes = oresult.attributes;
+            //console.log(oresult.attributes);
+            for (let i in aAttributes) {
+                let row = oTable.insertRow(-1);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                cell1.innerHTML = aAttributes[i].typ;
+                cell1.style.display = "none";
+                cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
+                if (aAttributes[i].typ == 1) {
+                    cell3.innerHTML = '{' + aAttributes[i].name + '}';
+                } else {
+                    cell3.innerHTML = aAttributes[i].name;
+                }
+                console.log(aAttributes[i].name);
+            }
+
+        }
     }
     static getAttributesAsArray(oTable){
         // Informations about the Attributes
@@ -141,4 +187,5 @@ class FrontendController{
         }
         return aAttributes;
     }
+
 }
