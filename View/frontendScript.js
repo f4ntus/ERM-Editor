@@ -235,8 +235,7 @@ function onClickButtonDeleteEntity(){
 
     //Remove the selected element from the document
     deleteEntity.remove();
-    //deleteEntity.parentNode.removeChild(oRelationship);
-
+    document.getElementById("rightMenue").style.visibility = "hidden";
     $.post(
         "../Interface/Connector.php",
         {
@@ -427,8 +426,7 @@ function onClickButtonDeleteRelationship(){
     let deleteRelationship = document.getElementById(relationshipID);
     //Remove the selected element from the document
     deleteRelationship.remove();
-    //deleteRelationship.parentNode.removeChild(oRelationship);
-
+    document.getElementById("relationshipMenu").style.visibility = "hidden";
     $.post(
         "../Interface/Connector.php",
         {
