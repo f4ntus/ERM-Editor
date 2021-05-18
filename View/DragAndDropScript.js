@@ -81,24 +81,6 @@ $(function() {
                         console.log(result);
                     });
 
-                const deleteElement = document.getElementById(newIDEntity);
-                const menu = document.getElementById('menu')
-                const outClick = document.getElementById('editorID')
-                deleteElement.addEventListener('contextmenu', e => {
-                    console.info(deleteElement);
-                    e.preventDefault();
-                    menu.style.left = e.pageX + 'px';
-                    menu.style.top = e.pageY + 'px';
-                    menu.classList.add('show');
-                    outClick.style.display = "block";
-                    deleteElem(deleteElement);
-
-                })
-                outClick.addEventListener('click', () => {
-                    menu.classList.remove('show')
-
-                })
-
             }
 
             if (ui.draggable.attr('id') == 'relationship') {
@@ -125,23 +107,6 @@ $(function() {
                         console.log(result);
                     });
 
-                const deleteElement = document.getElementById(newIDRelationship);
-                const menu = document.getElementById('menu')
-                const outClick = document.getElementById('editorID')
-                deleteElement.addEventListener('contextmenu', e => {
-                    console.info(deleteElement);
-                    e.preventDefault();
-                    menu.style.left = e.pageX + 'px';
-                    menu.style.top = e.pageY + 'px';
-                    menu.classList.add('show');
-                    outClick.style.display = "block";
-                    deleteElem(deleteElement);
-
-                })
-                outClick.addEventListener('click', () => {
-                    menu.classList.remove('show')
-
-                })
             }
 
             if (ui.draggable.attr('id') == 'isA') {
@@ -167,23 +132,6 @@ $(function() {
                         console.log(result);
                     });
 
-                const deleteElement = document.getElementById(newIDIsA);
-                const menu = document.getElementById('menu')
-                const outClick = document.getElementById('editorID')
-                deleteElement.addEventListener('contextmenu', e => {
-                    console.info(deleteElement);
-                    e.preventDefault();
-                    menu.style.left = e.pageX + 'px';
-                    menu.style.top = e.pageY + 'px';
-                    menu.classList.add('show');
-                    outClick.style.display = "block";
-                    deleteElem(deleteElement);
-
-                })
-                outClick.addEventListener('click', () => {
-                    menu.classList.remove('show')
-
-                })
             }
 
 
@@ -249,43 +197,4 @@ function openRelationshipMenu(relationship){
     document.getElementById("inputRelationshipName").value = relationship.innerText;
     FrontendController.updateRelationship(relationship.id);
     console.info("öffnet Relationship-Menü");
-}
-
-
-function deleteElem(element){
-
-    console.info("vor deleteButton: ", element.id);
-
-    const menu = document.getElementById('menu')
-    const deleteButton = document.getElementById('deleteButton')
-    deleteButton.addEventListener('click', () => {
-        console.info("in deleteButton: ", element.id);
-        //Remove the selected element from the document
-        //element.remove();
-        element.parentNode.removeChild(element);
-        menu.classList.remove('show')
-
-        console.info("nach deleteButton: ", element.id);
-
-/*        if (deleteElement.id.includes("entity")) {
-            $function = 'deleteEntity'
-        }else if (deleteElement.id.includes("relationship")){
-            $function = 'deleteRelationship'
-        }else if (deleteElement.id.includes("isA")){
-            $function = 'deleteIsA'
-        }*/
-
-        /*                $.post(
-                            "../Interface/Connector.php",
-                            {
-                                function: $function,
-                                id: deleteElement,
-                            },
-                            function(result){
-                                console.log(result);
-                            });*/
-
-    })
-
-
 }
