@@ -388,7 +388,7 @@ function onClickButtonSubmitRelationship(){
     FrontendController.pushRelationship();
 }
 
-function onClickButtonDeleteRelationship(){
+function onClickButtonDeleteRelationship() {
 
     let relationshipID = document.getElementById("pRelationshipID").innerHTML;
     let deleteRelationship = document.getElementById(relationshipID);
@@ -401,8 +401,8 @@ function onClickButtonDeleteRelationship(){
             function: "deleteRelationship",
             id: relationshipID,
         },
-        function(result){
+        function (result) {
             console.log(result);
         }
     );
-
+}
