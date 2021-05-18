@@ -28,7 +28,8 @@ class RDMController
      */
     private static function createRelationsfromEntity(ERMModel $erm, RDMModel $rdm){
         foreach ($erm->getEntities() as $entity) {
-            $relation = new RelationRDMModel($entity->getName(), $entity);
+            $relation = new RelationRDMModel(cleanNamefromERMObject($rdm->getRelations(), $entity->getName()));
+            $relation->setEntity($entity);
             self::addRelationfromEntity($entity, $relation, $rdm);
         }
     }
@@ -46,32 +47,35 @@ class RDMController
 
              $i = 0;
             foreach ($relationship->getRelations() as $ERMRelation){
-                if($ERMRelation->getKard() == '[0,1]' OR $ERMRelation->getKard()=='[1:1]')
+                if($ERMRelation->getKard() == '[0,*]' OR $ERMRelation->getKard()=='[1:*]')
                 {
                 $i = $i +1;
                 }
             }
-        //Es wird keine eigene Relation benötigt.
+        //Es wird keine eigene Relation benötigt. Bei <2 Entities, keine eigenen Attribute und nur einer (i) Notation größer als 0:1
         if(count($relationship->getRelations())==2 and count($relationship->getAttributes()) == 0 and $i <=1){
 
             switch ($i){
                 case 0:
+                    //Es muss eine 1:1 Beziehung sein
                     self::relationshipwithonetoone($relationship,  $rdm);
                     break;
                 case 1:
+                    //Es ist eine 1:n Beziehung
                     self::relationshipwithoneton($relationship, $rdm);
                     break;
             }
 
 
-        } else { //Es wird eine eigene Relation benötigt
-            $RDMRelation = new RelationRDMModel($relationship->getName(), $relationship);
+        } else {
+            //Es wird eine eigene Relation benötigt
+
+
+            $RDMRelation = new RelationRDMModel(cleanNamefromERMObject($rdm->getRelations(), $relationship->getName()));
 
             //Attribute der Relationship in RDM aufnehmen
             foreach ($relationship->getAttributes() as $ERMAttribute){
-                $RDMAttribute = new AttributeRDMModel();
-                $RDMAttribute->setPrimary(false);
-                $RDMAttribute->setName($ERMAttribute->getName());
+                $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), false);
                 $RDMRelation->addAttribute($RDMAttribute);
             }
 
@@ -80,9 +84,7 @@ class RDMController
                 $Entity = $ERMRelation->getEntity();
                 foreach ($Entity->getAttributes() as $ERMAttribute) {
                     if($ERMAttribute->getPrimary()){
-                        $RDMAttribute = new AttributeRDMModel();
-                        $RDMAttribute->setPrimary(true);
-                        $RDMAttribute->setName($ERMAttribute->getName());
+                        $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), true);
                         $RDMAttribute->setReferences($Entity->getName());
                         $RDMRelation->addAttribute($RDMAttribute);
                     }
@@ -114,19 +116,19 @@ class RDMController
         //Im vorhanden rdm Modell werden die Relation durchlaufen
         foreach ($rdm->getRelations() as $RDMRelation){
             //Die betroffene Relation wird rausgesucht
-            if($RDMRelation->getName() == $firstentity->getName()){
+            if($RDMRelation->getName() == $firstentity->getName()) {
                 //Die Schlüsselttribute werden rausgesucht
-                foreach ($secondentity->getAttributes() as $ERMAttribute)
-                    if($ERMAttribute->getPrimary()){
+                foreach ($secondentity->getAttributes() as $ERMAttribute) {
+                    if ($ERMAttribute->getPrimary()) {
                         //Das Schlüsselattribut des ersten Attribut wird dem zweiten Attribute hinzugefügt
-                        $RDMAttribute = new AttributeRDMModel();
-                        $RDMAttribute->setPrimary(false);
-                        $RDMAttribute->setName($ERMAttribute->getName());
+                        $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), false);
                         $RDMAttribute->setReferences($secondentity->getName());
                         $RDMRelation->addAttribute($RDMAttribute);
                     }
-
+                }
             }
+
+
         }
 
     }
@@ -142,37 +144,42 @@ class RDMController
         foreach ($relations as $key => $ERMRelation) {
             $kard = $ERMRelation->getKard();
             switch ($kard) {
-                case '[1,*]':
+                case '[1,*]' or '[0,*]':
                     $entity1 = $relations[$key]->getEntity();
                     break;
-                case '[0,1]':
+                case '[0,1]' or '[1,1]':
                     $entityn = $relations[$key]->getEntity();
                     $weak = $ERMRelation->getWeak();
                     break;
+
             }
         }
+        //Die passenden Relations werden rausgesucht
         foreach ($rdm->getRelations() as $RDMRelation) {
-            if ($RDMRelation->getName() == $entityn->getName()) {
-                //Die Schlüsselttribute werden rausgesucht
-                foreach ($entity1->getAttributes() as $ERMAttribute)
-                    if ($ERMAttribute->getPrimary()) {
-                        //Das Schlüsselattribut des ersten Attribut wird dem zweiten Attribute hinzugefügt
-                        $RDMAttribute = new AttributeRDMModel();
-                        $RDMAttribute->setPrimary($weak);
-                        $RDMAttribute->setName($ERMAttribute->getName());
-                        $RDMAttribute->setReferences($entity1->getName());
-                        $RDMRelation->addAttribute($RDMAttribute);
-                    }
+            if ($entity1 == $RDMRelation->getEntity()) {
+                $relation1 = $RDMRelation;
+            }
+            if (($entityn == $RDMRelation->getEntity())) {
+                $relationn = $RDMRelation;
+            }
+        }
 
+        foreach ($relation1->getAttributes() as $RDMAttribute1){
+            if ($RDMAttribute1->getPrimary()) {
+                //Das Schlüsselattribut des ersten Attribut wird dem zweiten Attribute hinzugefügt
+                $RDMAttribute2 = new AttributeRDMModel(cleanNamefromERMObject($relationn->getAttributes(), $RDMAttribute1->getName()), $weak);
+                $RDMAttribute2->setReferences($relation1->getName());
+                $relationn->addAttribute($RDMAttribute2);
             }
         }
     }
-
+//LÖSCHEN!!!!
+/*
     /** Auswahl des Generaliserungsmodell
      * @param RDMModel $rdm
      * @param ERMModel $erm
      * @param int $generaliserungstyp
-     */
+
     private static function createGeneralisierungsmodells(RDMModel $rdm, ERMModel $erm, int $generaliserungstyp){
         switch ($generaliserungstyp){
             case 1:
@@ -194,12 +201,12 @@ class RDMController
     /**Generaliserung nach Hausklassenmodell
      * @param RDMModel $rdm
      * @param ERMModel $erm
-     */
+
     private static function generalisoerungbyHausklassenmodell (RDMModel $rdm, ERMModel $erm){
         foreach ($erm->getGeneralistions() as $generalisation){
             $supertyp = $generalisation->getSupertyp();
             foreach ($generalisation->getSubtypes() as $subtype){
-                $relation = new RelationRDMModel($subtype->getName(), $subtype);
+                $relation = new RelationRDMModel(cleanNamefromERMObject($subtype->getName(),$rdm->getRelations()), $subtype);
                 self::addRelationfromEntity($subtype, $relation, $rdm);
                 //Die Attribute der SuperTyp dem Subtyp hinzufügen
 
@@ -219,7 +226,7 @@ class RDMController
     /**Generaliserung nach Partionierungsmodell
      * @param RDMModel $rdm
      * @param ERMModel $erm
-     */
+
     private static function generalisoerungbyPartionierungsmodell (RDMModel $rdm, ERMModel $erm){
         foreach ($erm->getGeneralistions() as $generalisation){
             $supertyp = $generalisation->getSupertyp();
@@ -249,7 +256,7 @@ class RDMController
     /**Generaliserung nach Überrelation
      * @param RDMModel $rdm
      * @param ERMModel $erm
-     */
+
     private static function generalisoerungbyUeberrelation (RDMModel $rdm, ERMModel $erm){
         //Typ Attribute
         $typAttribute = new AttributeRDMModel();
@@ -276,7 +283,7 @@ class RDMController
             }
         }
     }
-
+*/
     /**Anhand einer Relation werden die Attribute einer Entity in einer Relation übertragen bzw. bei mehrwertigen Attributen wird neuer Relation erstellt
      * @param EntityModel $entity
      * @param RelationRDMModel $relation
@@ -287,22 +294,20 @@ class RDMController
 
 
         //Hinzufügen des Attributes von normalen und zusammengesetzten Attributen
-        foreach ($entity->getAttributes() as $ERMa) {
+        foreach ($entity->getAttributes() as $ERMAttribute) {
 
-            switch ($ERMa->getType()) {
+            switch ($ERMAttribute->getType()) {
                 case 0:
-                    $RDMa = new AttributeRDMModel();
-                    $RDMa->setName($ERMa->getName());
-                    $RDMa->setPrimary($ERMa->getPrimary());
-                    $relation->addAttribute($RDMa);
+                    $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($relation->getAttributes(), $ERMAttribute->getName()), $ERMAttribute->getPrimary());
+                    $RDMAttribute->setName($ERMAttribute->getName());
+                    $RDMAttribute->setPrimary($ERMAttribute->getPrimary());
+                    $relation->addAttribute($RDMAttribute);
                     break;
                 case 2:
-                    $basicName = $ERMa->getName();
-                    foreach ($ERMa->getSubnames() as $subname) {
-                        $RDMa = new AttributeRDMModel();
-                        $RDMa->setName($basicName . $subname);
-                        $RDMa->setPrimary($ERMa->getPrimary());
-                        $relation->addAttribute($RDMa);
+                    $basicName = $ERMAttribute->getName();
+                    foreach ($ERMAttribute->getSubnames() as $subname) {
+                        $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($relation->getAttributes(), $basicName . $subname), $ERMAttribute->getPrimary());
+                        $relation->addAttribute($RDMAttribute);
                     }
                     break;
 
@@ -313,24 +318,22 @@ class RDMController
             $rdm->addRelation($relation);
         }
         //Hinzufügen einer wweiteren Relation durch Typ 1 also einem mehrwertigen Attribut
-        foreach ($entity->getAttributes() as $ERMa) {
+        foreach ($entity->getAttributes() as $ERMAttribute) {
 
-            if ($ERMa->getType() == 1) {
-                $relationfromultivaluesattribute = new RelationRDMModel($entity->getName() . $ERMa->getName(), $entity);
+            if ($ERMAttribute->getType() == 1) {
+                $relationfromultivaluesattribute = new RelationRDMModel(cleanNamefromERMObject($rdm->getRelations(), $entity->getName() . $ERMAttribute->getName()));
                 foreach ($relation->getAttributes() as $attribute) {
                     if ($attribute->getPrimary()) {
-                        $newattribute = new AttributeRDMModel();
-                        $newattribute->setName($attribute->getName());
-                        $newattribute->setPrimary(true);
+                        $newattribute = new AttributeRDMModel(cleanNamefromERMObject($relationfromultivaluesattribute->getAttributes(), $attribute->getName()), true);
                         $newattribute->setReferences($relation->getName());
                         $relationfromultivaluesattribute->addAttribute($newattribute);
 
                     }
                 }
-                $RDMa = new AttributeRDMModel();
-                $RDMa->setName($ERMa->getName());
-                $RDMa->setPrimary(true);
-                $relationfromultivaluesattribute->addAttribute($RDMa);
+                $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($relationfromultivaluesattribute->getAttributes(),$ERMAttribute->getName()), true);
+                $RDMAttribute->setName($ERMAttribute->getName());
+                $RDMAttribute->setPrimary(true);
+                $relationfromultivaluesattribute->addAttribute($RDMAttribute);
                 $rdm->addRelation($relationfromultivaluesattribute);
             }
         }

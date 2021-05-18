@@ -36,10 +36,12 @@ class RelationshipController
         // deleting existing relations
         foreach ($relationship->getRelations() as $relation){
             RelationshipController::deleteRelation($relation);
+            //Aufräumen '1', 'm', 'n' -> notation
         }
         // creating new relations
         foreach ($relations as $relationArray){
             $entity = $ERMModel->getEntitybyName($relationArray['entity']);
+            //Aufräumen
             RelationshipController::addRelation($relationship,$entity,$relationArray['notation'],$relation['waekness']);
         }
     }
