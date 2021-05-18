@@ -36,8 +36,40 @@ class RelationshipController
         // deleting existing relations
         foreach ($relationship->getRelations() as $relation){
             RelationshipController::deleteRelation($relation);
-            //Aufräumen '1', 'm', 'n' -> notation
+
         }
+        //Aufräumen
+        if(true)
+        {
+            if(count($relations)==2) { //Zweier Beziehung
+                //N:M Beziehung
+                if($relations[0]['notation'] == 'm' or $relations[0]['notation'] == 'n' and $relations[1]['notation'] == 'm' or $relations[1]['notation'] == 'n') {
+                    $relations[0]['notation'] = '[0,*]';
+                    $relations[1]['notation'] = '[0,*]';
+
+                } elseif ($relations[0]['notation'] == '1' and $relations[1]['notation'] == 'n' or $relations[1]['notation'] == 'm')
+                { //1:n
+                    $relations[0]['notation'] = '[0,*]';
+                    $relations[1]['notation'] = '[0,1]';
+                } elseif ($relations[1]['notation'] == '1' and $relations[0]['notation'] == 'n' or $relations[0]['notation'] == 'm')
+                {//n:1
+                    $relations[1]['notation'] = '[0,*]';
+                    $relations[0]['notation'] = '[0,1]';
+                } elseif ($relations[0]['notation'] == '1' and $relations[1]['notation'] == '1' )
+                { //1:1
+                    $relations[0]['notation'] = '[0,1]';
+                    $relations[1]['notation'] = '[0,1]';
+                }
+            }
+            else{ //Höhere Beziehung
+                foreach ($relations as $relationArray)
+                {
+                    $relationArray['notation'] = '[0,*]';
+                }
+            }
+
+        }
+
         // creating new relations
         foreach ($relations as $relationArray){
             $entity = $ERMModel->getEntitybyName($relationArray['entity']);
