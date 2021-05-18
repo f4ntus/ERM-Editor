@@ -1,6 +1,6 @@
 <?php
 include_once '../Model/EntityModel.php';
-
+include_once 'functions.php';
 class EntityController
 {
     /** Hinzufügen eines Entity
@@ -45,6 +45,7 @@ class EntityController
      * @return AttributeERMModel
      */
     public static function addAttribute(EntityModel $entity, String $name, int $type, $primary){
+        $name=cleanNamefromERMObject($entity->getAttributes(), $name);
         $attribute = AttributeERMController::createAttribute($name, $type, $primary)   ;
         $entity->addAttribute($attribute);
         return $attribute;

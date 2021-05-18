@@ -8,18 +8,16 @@ class RelationRDMModel
 
     private $attributes;
 
-    private $ermobjects;
+    private $entity;
 
     /**
      * RelationRDMModel constructor.
      * @param $name
      */
-    public function __construct($name, $ermobject)
+    public function __construct($name)
     {
         $this->name = $name;
         $this->attributes = array();
-        $this->ermobjects = array();
-        self::addERMobject($ermobject);
     }
 
 
@@ -64,40 +62,25 @@ class RelationRDMModel
         $this->attributes[] = $attribute;
     }
 
+
+
+
     /**
-     * @param EntityModel $Entity
+     * @return mixed
      */
-    public function addERMobject($ermobject)
+    public function getEntity()
     {
-        $this->ermobjects[] = $ermobject;
+        return $this->entity;
     }
 
     /**
-     * Diese Funktion entfernt eine Entität
+     * @param mixed $entity
      */
-    public function deleteERMobject($ermobject)
+    public function setEntity($entity): void
     {
-        foreach ($this->ermobjects as $key => $a) {
-            if ($ermobject == $a) {
-                unset($this->ermobjects[$key]);
-            }
-        }
+        $this->entity = $entity;
     }
 
-    /**
-     * @return array
-     */
-    public function getERMobjects(): array
-    {
-        return $this->ermobjects;
-    }
 
-    /**
-     * @param array $ermobjects
-     */
-    public function setERMobjects(array $ermobjects): void
-    {
-        $this->ermobjects = $ermobjects;
-    }
 
 }
