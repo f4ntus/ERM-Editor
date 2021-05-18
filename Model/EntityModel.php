@@ -1,5 +1,7 @@
 <?php
+
 include_once 'ERMObjectwithAttributes.php';
+
 /**
  * Class EntityModel
  * Das Modell eines Erstellung
@@ -32,7 +34,7 @@ class EntityModel extends ERMObjectwithAttributes
     }
 
     /**
-     * Attribu wird hinzugefügt
+     * Attribut wird hinzugefügt
      * @param AttributeERMModel $attribute
      */
 
