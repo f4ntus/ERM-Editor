@@ -1,5 +1,5 @@
-class FrontendController{
-    static updateRelationship(sRelationshipID){
+class FrontendController {
+    static updateRelationship(sRelationshipID) {
 
         $.post(
             "../Interface/Connector.php",
@@ -7,27 +7,28 @@ class FrontendController{
                 function: "getRelationship",
                 id: sRelationshipID,
             },
-            function(result){
+            function (result) {
                 console.log(result);
                 FrontendController.getRelationshipCallback(result);
             }
         );
     }
-    static getRelationshipCallback(result){
+
+    static getRelationshipCallback(result) {
         let oAttributeTable = document.getElementById("idTableRelationshipAttributes");
 
         // clear table before refill
         let tablelenght = oAttributeTable.rows.length;
-        for (let i =0; i < tablelenght; i++){
+        for (let i = 0; i < tablelenght; i++) {
             oAttributeTable.deleteRow(-1);
         }
-        if (result != "false"){
+        if (result != "false") {
             let oresult = JSON.parse(result)
             document.getElementById("inputRelationshipName").value = oresult.name;
             document.getElementById(oresult.id).innerHTML = oresult.name;
             let aAttributes = oresult.attributes;
             console.log(oresult.attributes);
-            for (let i in aAttributes){
+            for (let i in aAttributes) {
                 let row = oAttributeTable.insertRow(-1);
                 let cell1 = row.insertCell(0);
                 let cell2 = row.insertCell(1);
@@ -35,7 +36,7 @@ class FrontendController{
                 cell1.innerHTML = aAttributes[i].typ;
                 cell1.style.display = "none";
                 cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
-                if (aAttributes[i].typ == 1){
+                if (aAttributes[i].typ == 1) {
                     cell3.innerHTML = '{' + aAttributes[i].name + '}';
                 } else {
                     cell3.innerHTML = aAttributes[i].name;
@@ -46,7 +47,8 @@ class FrontendController{
             //console.log(result);
         }
     }
-    static pushRelationship (){
+
+    static pushRelationship() {
         // Informations about the Relationship
         let sRelationshipID = document.getElementById("pRelationshipID").innerHTML;
         let oRelationship = document.getElementById(sRelationshipID);
@@ -57,12 +59,12 @@ class FrontendController{
         // Informations about Relations
         let oRelTable = document.getElementById("tblRelationship");
         let aRelations = new Array();
-        for (let iRow = 2; iRow < oRelTable.rows.length; iRow ++){ // beginning by the third row, because of Headlines
+        for (let iRow = 2; iRow < oRelTable.rows.length; iRow++) { // beginning by the third row, because of Headlines
             let sNumber = oRelTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
             let sEntity = oRelTable.rows[iRow].getElementsByTagName("p")[0].innerHTML;
             let sNotation = oRelTable.rows[iRow].getElementsByTagName("p")[1].innerHTML;
             let bWeakness = oRelTable.rows[iRow].getElementsByTagName("input")[0].checked;
-            aRelations[iRow-2] = {
+            aRelations[iRow - 2] = {
                 number: sNumber,
                 entity: sEntity,
                 notation: sNotation,
@@ -86,35 +88,46 @@ class FrontendController{
                 attributes: aAttributes,
                 relations: aRelations
             },
-            function(result){
+            function (result) {
                 console.log(result);
             }
         );
     }
 
-    
-  static changeERMModel(){
+
+    static changeERMModel() {
         // pushing the data to backend
         $.post(
             "../Interface/Connector.php",
             {
                 function: "changeERMModel",
             },
-            function(result){
+            function (result) {
                 console.log(result);
-                document.getElementById("rdmOutput").innerHTML = result;
+                document.getElementById("rdmOutput").style.visibility = 'visible';
+                let newString = FrontendController.changeERMModelCallback(result);
+                document.getElementById("rdmOutputText").innerHTML = newString;
             }
         );
     }
+    static changeERMModelCallback(result){
+        let aResult = JSON.parse(result);
+        let newString ='';
+        for (let i in aResult){
+            let attributes = aResult[i].name;
+            newString += '('+ i +')' + attributes;
+        }
+        return newString;
+    }
 
-    static getEntityFromBackend(sEntityId){
+    static getEntityFromBackend(sEntityId) {
         $.post(
             "../Interface/Connector.php",
             {
                 function: "getEntity",
                 id: sEntityId,
             },
-            function(result){
+            function (result) {
                 console.log(result);
                 if (result != "false") {
                     let oResult = JSON.parse(result)
@@ -127,7 +140,7 @@ class FrontendController{
         );
     }
 
-    static pushEntity(entityID, entityName ){
+    static pushEntity(entityID, entityName) {
         let aAttributes = FrontendController.getAttributesAsArray(document.getElementById("idTableEntityAttributes"));
         console.log(aAttributes);
         $.post(
@@ -138,19 +151,19 @@ class FrontendController{
                 name: entityName,
                 attributes: aAttributes,
             },
-            function(result){
+            function (result) {
                 console.log(result);
             }
         );
     }
 
-    static clearAndFillAttributeTable(oTable,oResult) {
+    static clearAndFillAttributeTable(oTable, oResult) {
         // clear table before refill
         let tablelenght = oTable.rows.length;
         console.log(tablelenght);
         for (let i = 0; i < tablelenght; i++) {
             console.log(i);
-            if (oTable.rows[0].getElementsByTagName("td").length>0){
+            if (oTable.rows[0].getElementsByTagName("td").length > 0) {
                 oTable.deleteRow(0);
             }
         }
@@ -178,8 +191,8 @@ class FrontendController{
 
     // Table Type: 'entityAttributes' -> Attributes for Entities, 'relationshipAttribute', Attributes for Relationship
     // Call from: 0 -> Client (user add an Attribute), 1 -> Server (update Attributes from Backend)
-    static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeValue, tableType, callFrom, bPrimary = false){
-        if (tableType === 'entityAttribute'){
+    static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeValue, tableType, callFrom, bPrimary = false) {
+        if (tableType === 'entityAttribute') {
             var table = document.getElementById("idTableEntityAttributes");
         } else { // tableType = relationshipAttribute
             var table = document.getElementById("idTableRelationshipAttributes");
@@ -197,7 +210,7 @@ class FrontendController{
             var cell4 = row.insertCell(3);
         }
 
-        if (tableType === 'entityAttribute'){
+        if (tableType === 'entityAttribute') {
             cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableEntityAttributes\')\">X</button>";
         } else { // tableType = relationshipAttribute
             cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
@@ -205,8 +218,8 @@ class FrontendController{
 
         cell3.innerHTML = sAttributeValue;
 
-        if(primaryKeyNeeded===true){
-            if (callFrom===0){
+        if (primaryKeyNeeded === true) {
+            if (callFrom === 0) {
                 bPrimary = document.getElementById(idCheckboxPK).checked;
             }
             cell4.innerHTML = "<label class=\"switch\">\n" +
@@ -217,7 +230,7 @@ class FrontendController{
                 var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + table.rows.length;
                 document.getElementById(sCheckboxId).checked = true;
             }
-        }else{
+        } else {
             if (tableType === 'entityAttribute') {
                 cell4.innerHTML = "";
             }
@@ -228,12 +241,12 @@ class FrontendController{
         //sortTable();
     }
 
-    static getAttributesAsArray(oTable){
+    static getAttributesAsArray(oTable) {
         // Informations about the Attributes
 
         let aAttributes = new Array();
-        for (let iRow = 0; iRow < oTable.rows.length; iRow ++){
-            if (oTable.rows[iRow].getElementsByTagName("td").length>0) { // skip Headline row
+        for (let iRow = 0; iRow < oTable.rows.length; iRow++) {
+            if (oTable.rows[iRow].getElementsByTagName("td").length > 0) { // skip Headline row
                 let sName = oTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
                 let sType = oTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
                 let bPrimary
