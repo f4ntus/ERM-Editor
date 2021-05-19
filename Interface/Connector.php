@@ -5,6 +5,7 @@ include_once '../Controller/ERMController.php';
 include_once '../Controller/RelationshipController.php';
 include_once '../Controller/GeneralisationController.php';
 include_once '..\Controller\AttributeERMController.php';
+include_once '..\Controller\RDMController.php';
 
 session_start();
 
@@ -116,7 +117,10 @@ if (isset($_POST['function'])) {
         var_dump($ERMModel);
     }
     if ($_POST['function'] == 'changeERMModel') {
-
+        $ERMModel = $_SESSION['ERM-Model'];
+        var_dump($ERMModel);
+        $rdmArray = RDMController::getRDM($ERMModel,1);
+        echo json_encode($rdmArray, JSON_FORCE_OBJECT);
     }
 
 }

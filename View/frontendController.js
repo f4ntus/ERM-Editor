@@ -122,6 +122,7 @@ class FrontendController{
             },
             function(result){
                 console.log(result);
+                document.getElementById("rdmOutput").innerHTML = result;
             }
         );
     }
