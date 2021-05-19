@@ -105,6 +105,21 @@ function onClickAddSubAttributeRow() {
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
 
+function onClickAddSubtypeRow() {
+
+    var table = document.getElementById("tableGeneralisation");
+    var numberRows = table.rows.length;
+    if (numberRows === 7) {
+        //Maximale Anzahl an Unterattributen erreicht Fehlermeldung
+        return;
+    }
+    var row = table.insertRow(numberRows);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    cell1.innerHTML = "Subtyp";
+    cell2.innerHTML = "";
+}
 
 
 function onClickAddSimpleAttributeToTable() {

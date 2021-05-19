@@ -199,6 +199,7 @@ function openGeneralisationMenu(generalisation){
     document.getElementById("inputGeneralisationName").value = generalisation.innerText;
     //FrontendController.updateRelationship(relationship.id);
     //console.info("öffnet Relationship-Menü");
+
 }
 
 function openContextMenu(id){
