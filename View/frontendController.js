@@ -95,18 +95,22 @@ class FrontendController{
         $.post(
             "../Interface/Connector.php",
             {
-                function: "getRelationship",
-                id: sRelationshipID,
+                function: "getEntity",
+                id: sEntityId,
             },
             function(result){
                 console.log(result);
-                FrontendController.getEntityCallback(result);
+                if (result != "false") {
+                    let oResult = JSON.parse(result)
+                    document.getElementById("displayEntityName").innerHTML = oResult['name'];
+                    document.getElementById(sEntityId).innerHTML = oResult['name'];
+                    let oTable = document.getElementById("idTableEntityAttributes");
+                    FrontendController.clearAndFillAttributeTable(oTable, oResult);
+                }
             }
         );
     }
-    static getEntityCallback(result){
 
-    }
     static pushEntity(entityID, entityName ){
         let aAttributes = FrontendController.getAttributesAsArray(document.getElementById("idTableEntityAttributes"));
         console.log(aAttributes);
@@ -123,36 +127,91 @@ class FrontendController{
             }
         );
     }
-    static clearAndFillAttributeTable(oTable,result) {
 
+    static clearAndFillAttributeTable(oTable,oResult) {
         // clear table before refill
         let tablelenght = oTable.rows.length;
+        console.log(tablelenght);
         for (let i = 0; i < tablelenght; i++) {
-            oTable.deleteRow(-1);
-        }
-
-        if (result != "false") {
-            let oresult = JSON.parse(result)
-            let aAttributes = oresult.attributes;
-            //console.log(oresult.attributes);
-            for (let i in aAttributes) {
-                let row = oTable.insertRow(-1);
-                let cell1 = row.insertCell(0);
-                let cell2 = row.insertCell(1);
-                let cell3 = row.insertCell(2);
-                cell1.innerHTML = aAttributes[i].typ;
-                cell1.style.display = "none";
-                cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
-                if (aAttributes[i].typ == 1) {
-                    cell3.innerHTML = '{' + aAttributes[i].name + '}';
-                } else {
-                    cell3.innerHTML = aAttributes[i].name;
-                }
-                console.log(aAttributes[i].name);
+            console.log(i);
+            if (oTable.rows[0].getElementsByTagName("td").length>0){
+                oTable.deleteRow(0);
             }
-
         }
+
+        let aAttributes = oResult.attributes;
+        for (let i in aAttributes) {
+            let sAttributeValue;
+            if (aAttributes[i].typ == 1) {
+                sAttributeValue = '{' + aAttributes[i].name + '}';
+            } else {
+                sAttributeValue = aAttributes[i].name;
+            }
+            FrontendController.addRowAttributeToTable(
+                "",
+                true,
+                aAttributes[i].typ,
+                sAttributeValue,
+                'entityAttribute',
+                1,
+                aAttributes[i].primary
+            )
+        }
+
     }
+
+    // Table Type: 'entityAttributes' -> Attributes for Entities, 'relationshipAttribute', Attributes for Relationship
+    // Call from: 0 -> Client (user add an Attribute), 1 -> Server (update Attributes from Backend)
+    static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeValue, tableType, callFrom, bPrimary = false){
+        if (tableType === 'entityAttribute'){
+            var table = document.getElementById("idTableEntityAttributes");
+        } else { // tableType = relationshipAttribute
+            var table = document.getElementById("idTableRelationshipAttributes");
+        }
+        var numberRows = table.rows.length;
+        if (numberRows === 20) {
+            //Maximale Anzahl an Attributen erreicht Fehlermeldung
+            return;
+        }
+        var row = table.insertRow(numberRows - 1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        if (tableType === 'entityAttribute') {
+            var cell4 = row.insertCell(3);
+        }
+
+        if (tableType === 'entityAttribute'){
+            cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableEntityAttributes\')\">X</button>";
+        } else { // tableType = relationshipAttribute
+            cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
+        }
+
+        cell3.innerHTML = sAttributeValue;
+
+        if(primaryKeyNeeded===true){
+            if (callFrom===0){
+                bPrimary = document.getElementById(idCheckboxPK).checked;
+            }
+            cell4.innerHTML = "<label class=\"switch\">\n" +
+                "                        <input id='idCheckboxPrimaryKeyMainTable" + table.rows.length + "' type=\"checkbox\">\n" +
+                "                        <span class=\"slider round\"></span>\n" +
+                "                    </label>";
+            if (bPrimary) {
+                var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + table.rows.length;
+                document.getElementById(sCheckboxId).checked = true;
+            }
+        }else{
+            if (tableType === 'entityAttribute') {
+                cell4.innerHTML = "";
+            }
+        }
+        //Metadata for simple/multivalue/compound attribute
+        cell1.innerHTML = attributeType;
+        cell1.style.display = "none";
+        //sortTable();
+    }
+
     static getAttributesAsArray(oTable){
         // Informations about the Attributes
 

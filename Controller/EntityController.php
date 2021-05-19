@@ -42,6 +42,20 @@ class EntityController
         AttributeERMController::addOrUpdateAllAttributes($entity,$attributes);
     }
 
+    /**
+     * Ausgabe des Entities in Array Format
+     * @param EntityModel $entity
+     * @return array
+     */
+    public static function getEntityAsArray(EntityModel $entity){
+        $attributes = AttributeERMController::getAttributes($entity);
+        $entityArray = [
+            'name' => $entity->getName(),
+            'id' => $entity->getId(),
+            'attributes' => $attributes
+        ];
+        return $entityArray;
+    }
 
     /**
      * Hinzufügen eines Attributes
@@ -55,8 +69,6 @@ class EntityController
         $attribute = AttributeERMController::createAttribute($name, $type, $primary)   ;
         $entity->addAttribute($attribute);
         return $attribute;
-
-
     }
 
     /**

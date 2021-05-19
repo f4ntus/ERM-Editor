@@ -59,6 +59,18 @@ class AttributeERMController
         }
     }
 
+    /** Ausgabe aller Attribute eines ERMObjectWithAttributes in Array-Format
+     * @param ERMObjectwithAttributes $ERMObject
+     * @return array
+     */
+    public static function getAttributes(ERMObjectwithAttributes $ERMObject){
+        $attributes = array();
+        foreach ($ERMObject->getAttributes() as  $a){
+            $attributes[] = AttributeERMController::getAttributeInformation($a);
+        }
+        return $attributes;
+    }
+
     /**Änderung des Primärschlüssels auf aktiv
      * @param AttributeERMModel $attribute
      */

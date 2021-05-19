@@ -109,13 +109,13 @@ function onClickAddSubAttributeRow() {
 
 function onClickAddSimpleAttributeToTable() {
     var sAttributeName = document.getElementById("idSimpleAttributeName").value;
-    addRowAttributeToTable("idCheckboxPK",true,0,sAttributeName,'entityAttribute');
+    FrontendController.addRowAttributeToTable("idCheckboxPK",true,0,sAttributeName,'entityAttribute', 0);
 }
 
 function onClickAddMultiValueAttributeToTable() {
    var sAttributeName = document.getElementById("idMultiValueAttributeName").value;
    var sAttributeValue = "{" + sAttributeName + "}";
-    addRowAttributeToTable("",false,1,sAttributeValue, 'entityAttribute');
+    FrontendController.addRowAttributeToTable("",false,1,sAttributeValue, 'entityAttribute', 0);
 }
 
 function onClickAddCompoundAttributeToTable() {
@@ -137,56 +137,10 @@ function onClickAddCompoundAttributeToTable() {
             sCompoundAttribute = sCompoundAttribute + aSubValues[i] + ",";
         }
     }
-    addRowAttributeToTable("idCheckboxPK2", true, 2, sCompoundAttribute, 'entityAttribute');
+    FrontendController.addRowAttributeToTable("idCheckboxPK2", true, 2, sCompoundAttribute, 'entityAttribute',0);
 }
 
-function addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeValue,tableType){
-    if (tableType === 'entityAttribute'){
-        var table = document.getElementById("idTableEntityAttributes");
-    } else { // tableType = relationshipAttribute
-        var table = document.getElementById("idTableRelationshipAttributes");
-    }
-    var numberRows = table.rows.length;
-    if (numberRows === 20) {
-        //Maximale Anzahl an Attributen erreicht Fehlermeldung
-        return;
-    }
-    var row = table.insertRow(numberRows - 1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    if (tableType === 'entityAttribute') {
-        var cell4 = row.insertCell(3);
-    }
 
-    if (tableType === 'entityAttribute'){
-        cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableEntityAttributes\')\">X</button>";
-    } else { // tableType = relationshipAttribute
-        cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
-    }
-
-    cell3.innerHTML = sAttributeValue;
-
-    if(primaryKeyNeeded===true){
-        bPrimary = document.getElementById(idCheckboxPK).checked;
-        cell4.innerHTML = "<label class=\"switch\">\n" +
-        "                        <input id='idCheckboxPrimaryKeyMainTable" + table.rows.length + "' type=\"checkbox\">\n" +
-        "                        <span class=\"slider round\"></span>\n" +
-        "                    </label>";
-        if (bPrimary) {
-            var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + table.rows.length;
-            document.getElementById(sCheckboxId).checked = true;
-        }
-    }else{
-        if (tableType === 'entityAttribute') {
-            cell4.innerHTML = "";
-        }
-    }
-    //Metadata for simple/multivalue/compound attribute
-    cell1.innerHTML = attributeType;
-    cell1.style.display = "none";
-    //sortTable();
-}
 
 function onClickDeleteAttribute(oSelectedButton, tableId) {
     let table = document.getElementById(tableId);
@@ -318,12 +272,12 @@ function onClickAddCompoundAttributeToRelationship () {
 }
 function onClickAddSimpleAttributeToTableRel(){
     var sAttributeName = document.getElementById("idSimpleAttributeNameRel").value;
-    addRowAttributeToTable("idCheckboxPK",false,0,sAttributeName, 'relationshipAttribute');
+    FrontendController.addRowAttributeToTable("idCheckboxPK",false,0,sAttributeName, 'relationshipAttribute',0);
 }
 function onClickAddMultiValueAttributeToTableRel(){
     var sAttributeName = document.getElementById("idMultiValueAttributeNameRel").value;
     var sAttributeValue = "{" + sAttributeName + "}";
-    addRowAttributeToTable("",false,1,sAttributeValue,'relationshipAttribute');
+    FrontendController.addRowAttributeToTable("",false,1,sAttributeValue,'relationshipAttribute',0);
 }
 function onClickAddCompoundAttributeToTableRel(){
     var sUpperAttributeName = document.getElementById("idUpperAttributeNameRel").value;
@@ -344,7 +298,7 @@ function onClickAddCompoundAttributeToTableRel(){
             sCompoundAttribute = sCompoundAttribute + aSubValues[i] + ",";
         }
     }
-    addRowAttributeToTable("idCheckboxPK2", false, 2, sCompoundAttribute, 'relationshipAttribute');
+    FrontendController.addRowAttributeToTable("idCheckboxPK2", false, 2, sCompoundAttribute, 'relationshipAttribute',0);
 }
 function onClickAddSubAttributeRowRel(){
     // diese Funktion auslagern da fast gleich wie onClickAddSubAttributeRow()

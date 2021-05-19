@@ -134,17 +134,14 @@ class RelationshipController
         $position['Y'] = $relationship->getY();
         return $position;
     }
+
+    /**
+     * Ausgabe der Relationship in Array Format
+     * @param RelationshipModel $relationship
+     * @return array
+     */
     public static function getRelationshipAsArray(RelationshipModel $relationship){
-        $attributes = RelationshipController::getAttributes($relationship);
-       /* $i = 0;
-        $attributeArray = null;
-        foreach ($attributes as $attribute) {
-            $attributeArray[$i] = [
-                'name' => $attribute["Name"],
-                'typ' => $attribute["Type"]
-            ];
-            $i++;
-        }*/
+        $attributes = AttributeERMController::getAttributes($relationship);
         $relationshipArray = [
             'name' => $relationship->getName(),
             'id' => $relationship->getId(),
@@ -152,13 +149,7 @@ class RelationshipController
         ];
         return $relationshipArray;
     }
-     public static function getAttributes(RelationshipModel $relationship){
-        $attributes = array();
-        foreach ($relationship->getAttributes() as  $a){
-            $attributes[] = AttributeERMController::getAttributeInformation($a);
-        }
-        return $attributes;
-    }
+
 
 
 }
