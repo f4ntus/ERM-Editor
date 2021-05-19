@@ -334,6 +334,60 @@
             <button onclick="onClickButtonSubmitRelationship()" class="button2">Fertigstellen
             </button>
         </div>
+
+        <div id="generalisationMenu" style="visibility: hidden";>
+            <p style="display: none" id="pGeneralisationID"></p>
+            <h3> Generalisierung hinzufügen:</h3>
+            <div class="column3">
+                <table id="tableGeneralisation" class="tableGeneralisation" style="width: 100%;">
+                    <tr>
+                        <th>Supertyp</th>
+                        <th>
+                            <div class="dropdown">
+                                <p class="dorpdowntext" id="dropdownNotationText01">placeholder</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content hoverContent" id="entityContent">
+                                    <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">entity1</a>
+                                    <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">entity2</a>
+                                </div>
+                            </div
+                            >
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Subtyp</td>
+                        <td>
+                            <div class="dropdown">
+                                <p class="dorpdowntext" id="dropdownNotationText01">placeholder</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content hoverContent" id="entityContent">
+                                    <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">entity1</a>
+                                    <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">entity2</a>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Subtyp</td>
+                        <td>
+                            <div class="dropdown">
+                                <p class="dorpdowntext" id="dropdownNotationText01">placeholder</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content hoverContent" id="entityContent">
+                                    <a href="#" class="selNotDorp01" onclick="selectNotationDropdown('1','01')">entity1</a>
+                                    <a href="#" class="selNotDorp02" onclick="selectNotationDropdown('n','01')">entity2</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <button style="margin:0 auto; display:block; margin-bottom: 1%; background: blue; color: white;" class="button" onclick="onClickFinishGeneralisationMenue()">Fertigstellen</button>
+            </div>
+            <div class="column2">
+                <button class="button" onclick="onClickAddSubtypeRow()">Subtyp hinzufügen</button>
+            </div>
+        </div>
     </div>
 </div>
 
