@@ -50,7 +50,7 @@ class RelationERMModel
     }
 
     /**
-     * @return int
+     * @return String
      */
     public function getKard(): string
     {
@@ -58,12 +58,13 @@ class RelationERMModel
     }
 
     /**
-     * @param int $kard
+     * @param String $kard
      */
-    public function setKard(int $kard): void
+    public function setKard(string $kard): void
     {
         $this->kard = $kard;
     }
+
 
     /**
      * @return mixed

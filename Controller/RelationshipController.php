@@ -167,13 +167,16 @@ class RelationshipController
      */
     public static function getRelationshipAsArray(RelationshipModel $relationship){
         $relations = $relationship->getRelations();
+
+        print_r($relations);
         //Umwandeln der Kardinalitäten auf das gewünschte Formular
         if(true){
             //Zweier Relation
             if (count($relations) == 2) {
-
+                $relation1=current($relations);
+                $relation2=next($relations);
                 //Vereinfach von [0,1], [1,1] -> A und [0,*], [1,*] -> B
-                switch($relations[0]->getKard()){
+                switch($relation1->getKard()){
                     case '[0,1]':
                     case '[1,1]':
                         $r1 = 'A';
@@ -184,7 +187,7 @@ class RelationshipController
                         break;
 
                 }
-                switch($relations[1]->getKard()){
+                switch($relation2->getKard()){
                     case '[0,1]':
                     case '[1,1]':
                         $r1 = 'A';
@@ -197,14 +200,15 @@ class RelationshipController
                 }
 
                 if($r1=='A' and $r2 =='B'){//n:1
-                    $relations[0]->setKard('n');
-                    $relations[1]->setKard('1');
+
+                    $relation1->setKard('n');
+                    $relation2->setKard('1');
                 } elseif($r1=='B' and $r2 =='A'){ //1:n
-                    $relations[0]->setKard('1');
-                    $relations[1]->setKard('n');
+                    $relation1->setKard('1');
+                    $relation2->setKard('n');
                 } elseif($r1=='B' and $r2 =='B'){ //m:n
-                    $relations[0]->setKard('m');
-                    $relations[1]->setKard('n');
+                    $relation1->setKard('m');
+                    $relation2->setKard('n');
             }
         } else{
                 foreach ($relations as $relation){
