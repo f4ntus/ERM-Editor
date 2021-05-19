@@ -114,8 +114,22 @@ class FrontendController {
         let aResult = JSON.parse(result);
         let newString ='';
         for (let i in aResult){
-            let attributes = aResult[i].name;
-            newString += '('+ i +')' + attributes;
+            newString +=  aResult[i].name + ' ('
+            let aAttributes = aResult[i].attributes;
+            for (let i in aAttributes){
+                console.log(aAttributes[i].primary);
+                if (aAttributes[i].primary === 'true'){
+                    console.log('test');
+                    newString += '<u>' + aAttributes[i].name +' ' + aAttributes[i].reference +  '</u>';
+                } else {
+                    newString += aAttributes[i].name +' ' + aAttributes[i].reference;
+                }
+                console.log(aAttributes.length);
+                if(i !== aAttributes.length - 1){
+                    newString += ' ,';
+                }
+            }
+            newString += ')<br>';
         }
         return newString;
     }

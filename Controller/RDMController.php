@@ -12,13 +12,24 @@ class RDMController
     {
         $rdm = self::generateRDM($erm, $generalisationstyp);
         $relations = array();
+        $j = 0;
         foreach ($rdm->getRelations() as $relation) {
-
+            $attributes = array();
+            $i = 0;
             foreach ($relation->getAttributes() as $attribute) {
-                $relations[$relation->getName()]['name'] = $attribute->getName();
-                $relations[$relation->getName()]['primary'] = $attribute->getPrimary();
-                $relations[$relation->getName()]['reference'] = $attribute->getReferences();
+                $attributeArray = [
+                    'name' =>  $attribute->getName(),
+                    'primary' =>  $attribute->getPrimary(),
+                    'reference' => $attribute->getReferences(),
+                ];
+                $attributes[$i] = $attributeArray;
+                $i++;
             }
+            $relations[$j] = [
+                'name' => $relation->getName(),
+                'attributes' => $attributes
+            ];
+            $j++;
         }
         return $relations;
     }
