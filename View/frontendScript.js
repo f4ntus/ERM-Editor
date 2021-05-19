@@ -363,3 +363,7 @@ function onClickButtonDeleteRelationship() {
 function onClickChangeERMModel(){
     FrontendController.changeERMModel();
 }
+
+function onClickButtonDrawLines(){
+    FrontendController.drawLines();
+}

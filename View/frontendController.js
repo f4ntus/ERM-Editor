@@ -289,4 +289,52 @@ class FrontendController {
         }
         return aAttributes;
     }
+
+    static drawLines(){
+
+       let entity1 = document.getElementById("entity1");
+       let relationship = document.getElementById("relationship1");
+
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "getPositionEntity",
+                id: entity1.id,
+            },
+            function (result) {
+                console.log(result.X);
+                console.log(result.Y);
+
+                let line = document.getElementById("line");
+                line.setAttribute('x1', result.X);
+                line.setAttribute('y1', result.Y);
+
+                console.log(line);
+
+            }, "json"
+        );
+
+
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "getPositionRelationship",
+                id: relationship.id,
+            },
+            function (result) {
+                console.log(result.X);
+                console.log(result.Y);
+                let line = document.getElementById("line");
+                line.setAttribute('x2', result.X);
+                line.setAttribute('y2', result.Y);
+                console.log(line);
+                // line.style.visibility = "visible";
+                // console.log(line);
+            }, "json"
+        );
+
+
+    }
+
+
 }

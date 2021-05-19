@@ -142,6 +142,21 @@ if (isset($_POST['function'])) {
         echo json_encode($rdmArray, JSON_FORCE_OBJECT);
     }
 
+    if ($_POST['function'] == 'getPositionEntity') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $entity = ERMController::getEntitybyID($ERMModel, $_POST['id']);
+        $position = EntityController::getPosition($entity);
+        //var_dump($position);
+        echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
+    }
+    if ($_POST['function'] == 'getPositionRelationship') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
+        $position = RelationshipController::getPosition($relationship);
+        //var_dump($position);
+        echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
+    }
+
 }
 
 
