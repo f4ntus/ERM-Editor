@@ -91,6 +91,22 @@ class FrontendController{
             }
         );
     }
+
+    
+  static changeERMModel(){
+        // pushing the data to backend
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "changeERMModel",
+            },
+            function(result){
+                console.log(result);
+                document.getElementById("rdmOutput").innerHTML = result;
+            }
+        );
+    }
+
     static getEntityFromBackend(sEntityId){
         $.post(
             "../Interface/Connector.php",
@@ -246,5 +262,4 @@ class FrontendController{
         }
         return aAttributes;
     }
-
 }

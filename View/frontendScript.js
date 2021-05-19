@@ -360,3 +360,6 @@ function onClickButtonDeleteRelationship() {
         }
     );
 }
+function onClickChangeERMModel(){
+    FrontendController.changeERMModel();
+}
