@@ -39,8 +39,6 @@ class RelationshipController
         }
         //Aufräumen
         if(true) {
-            echo $relations[0]['notation'];
-            echo $relations[1]['notation'];
             if (count($relations) == 2) { //Zweier Beziehung
                 //N:M Beziehung
                 if (($relations[0]['notation'] == 'm' or $relations[0]['notation'] == 'n') and ($relations[1]['notation'] == 'm' or $relations[1]['notation'] == 'n')) {
@@ -168,9 +166,55 @@ class RelationshipController
      * @return array
      */
     public static function getRelationshipAsArray(RelationshipModel $relationship){
+        $relations = $relationship->getRelations();
+        //Umwandeln der Kardinalitäten auf das gewünschte Formular
+        if(true){
+            //Zweier Relation
+            if (count($relations) == 2) {
+
+                //Vereinfach von [0,1], [1,1] -> A und [0,*], [1,*] -> B
+                switch($relations[0]->getKard()){
+                    case '[0,1]':
+                    case '[1,1]':
+                        $r1 = 'A';
+                        break;
+                    case '[0,*]':
+                    case '[1,*]':
+                        $r2 = 'B';
+                        break;
+
+                }
+                switch($relations[1]->getKard()){
+                    case '[0,1]':
+                    case '[1,1]':
+                        $r1 = 'A';
+                        break;
+                    case '[0,*]':
+                    case '[1,*]':
+                        $r2 = 'B';
+                        break;
+
+                }
+
+                if($r1=='A' and $r2 =='B'){//n:1
+                    $relations[0]->setKard('n');
+                    $relations[1]->setKard('1');
+                } elseif($r1=='B' and $r2 =='A'){ //1:n
+                    $relations[0]->setKard('1');
+                    $relations[1]->setKard('n');
+                } elseif($r1=='B' and $r2 =='B'){ //m:n
+                    $relations[0]->setKard('m');
+                    $relations[1]->setKard('n');
+            }
+        } else{
+                foreach ($relations as $relation){
+                    $relation->setKard('n');
+                }
+            }
+        }
         $attributes = AttributeERMController::getAttributes($relationship);
         $relationArray = [];
-        foreach ($relationship->getRelations() as $relation){
+        foreach ($relations as $relation){
             $relationArray[] = [
                 'entity' => $relation->getEntity()->getName(),
                 'notation' => $relation->getKard(),
