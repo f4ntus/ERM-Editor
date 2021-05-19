@@ -181,6 +181,28 @@ function onClickFinishEntityMenue() {
     document.getElementById("rightMenue").style.visibility = "hidden";
     FrontendController.pushEntity(entityID,newEntityName);
 }
+
+function onClickButtonDeleteEntity(){
+
+    let entityID = document.getElementById("displayEntityName").innerHTML;
+    let deleteEntity = document.getElementById(entityID);
+
+    //Remove the selected element from the document
+    deleteEntity.remove();
+    document.getElementById("rightMenue").style.visibility = "hidden";
+    $.post(
+        "../Interface/Connector.php",
+        {
+            function: "deleteEntity",
+            id: entityID,
+        },
+        function(result){
+            console.log(result);
+        }
+    );
+
+}
+
 // ----------------------------------------------- for Releationship Menu ------------------------------------
 // -----------------------------------------------------------------------------------------------------------
 
@@ -315,6 +337,26 @@ function onClickAddSubAttributeRowRel(){
     cell1.innerHTML = "Unterattribut";
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
+
 function onClickButtonSubmitRelationship(){
     FrontendController.pushRelationship();
+}
+
+function onClickButtonDeleteRelationship() {
+
+    let relationshipID = document.getElementById("pRelationshipID").innerHTML;
+    let deleteRelationship = document.getElementById(relationshipID);
+    //Remove the selected element from the document
+    deleteRelationship.remove();
+    document.getElementById("relationshipMenu").style.visibility = "hidden";
+    $.post(
+        "../Interface/Connector.php",
+        {
+            function: "deleteRelationship",
+            id: relationshipID,
+        },
+        function (result) {
+            console.log(result);
+        }
+    );
 }

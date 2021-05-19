@@ -12,8 +12,10 @@ class AttributeRDMModel
     /**
      * AttributeRDMModel constructor
      */
-    public function __construct()
+    public function __construct($name, $primary)
     {
+        $this->name = $name;
+        $this->primary = $primary;
         $this->references = ' ';
     }
 

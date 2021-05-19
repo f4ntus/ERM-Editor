@@ -41,6 +41,7 @@ class RelationshipController
         foreach ($relations as $relationArray){
             $entity = $ERMModel->getEntitybyName($relationArray['entity']);
             RelationshipController::addRelation($relationship,$entity,$relationArray['notation'],$relationArray['weakness']);
+
         }
     }
     /**

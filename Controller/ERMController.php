@@ -95,6 +95,7 @@ class ERMController
      */
     public static function addRelationship(ERMModel $erm, $id, String $name, int $x, int $y)
     {
+
         $relationship = RelationshipController::createRelationship($id, $name, $x, $y);
         $erm->addRelationship($relationship);
         return $relationship;
@@ -249,7 +250,7 @@ class ERMController
      * @param ERMModel $erm
      */
     private static function generalisierungbyUeberrelation (ERMModel $erm){
-        $typ = new AttributeERMModel("__Hierarchietyp", 1, false);
+        $typ = new AttributeERMModel("__Hierarchietyp", 0, false);
         foreach ($erm->getGeneralistions() as $generalisation) {
             $supertyp = $generalisation->getSupertyp();
             do {
