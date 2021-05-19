@@ -166,9 +166,18 @@ class RelationshipController
      */
     public static function getRelationshipAsArray(RelationshipModel $relationship){
         $attributes = AttributeERMController::getAttributes($relationship);
+        $relationArray = [];
+        foreach ($relationship->getRelations() as $relation){
+            $relationArray[] = [
+                'entity' => $relation->getEntity()->getName(),
+                'notation' => $relation->getKard(),
+                'weakness' => $relation->getWeak()
+            ];
+        }
         $relationshipArray = [
             'name' => $relationship->getName(),
             'id' => $relationship->getId(),
+            'relations' => $relationArray,
             'attributes' => $attributes
         ];
         return $relationshipArray;

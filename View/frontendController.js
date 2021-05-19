@@ -1,6 +1,6 @@
 class FrontendController {
     static updateRelationship(sRelationshipID) {
-
+        FrontendController.resetRelationsTable();
         $.post(
             "../Interface/Connector.php",
             {
@@ -22,7 +22,7 @@ class FrontendController {
         for (let i = 0; i < tablelenght; i++) {
             oAttributeTable.deleteRow(-1);
         }
-        if (result != "false") {
+        if (result != "false") { // toDo: das hier muss gekützt werden
             let oresult = JSON.parse(result)
             document.getElementById("inputRelationshipName").value = oresult.name;
             document.getElementById(oresult.id).innerHTML = oresult.name;
@@ -43,9 +43,25 @@ class FrontendController {
                 }
                 console.log(aAttributes[i].name);
             }
-
             //console.log(result);
+            let aRelations = oresult.relations;
+            let oRelationsTable = document.getElementById("tblRelationship")
+            for (let i in aRelations){
+                let iRow = parseInt(i) +2;
+                if (parseInt(i)< 2){
+                    oRelationsTable.rows[iRow].getElementsByTagName("td")[0].innerHTML = parseInt(i) +1;
+                    oRelationsTable.rows[iRow].getElementsByTagName("p")[0].innerHTML = aRelations[i].entity;
+                    oRelationsTable.rows[iRow].getElementsByTagName("p")[1].innerHTML = aRelations[i].notation;
+                    if (aRelations[i].weakness === 'true'){
+                        oRelationsTable.rows[iRow].getElementsByTagName("input")[0].checked = true ;
+                    } else {
+                        oRelationsTable.rows[iRow].getElementsByTagName("input")[0].checked = false;
+                    }
+                }
+            }
         }
+
+
     }
 
     static pushRelationship() {
@@ -169,6 +185,22 @@ class FrontendController {
                 console.log(result);
             }
         );
+    }
+    static resetRelationsTable (){
+        let oRelationsTable = document.getElementById("tblRelationship");
+        let tableLength = oRelationsTable.rows.length;
+        for (let iRow = 0; iRow < tableLength ; iRow++) {
+            if (iRow <= 3 && iRow > 1){ // resetting necessary rows
+                oRelationsTable.rows[iRow].getElementsByTagName('td')[0].innerHTML = iRow-1;
+                oRelationsTable.rows[iRow].getElementsByTagName('p')[0].innerHTML = 'Entity';
+                // ToDo: implement if for the right notation
+                oRelationsTable.rows[iRow].getElementsByTagName('p')[1].innerHTML = 'n';
+                oRelationsTable.rows[iRow].getElementsByTagName('input')[0].checked = false;
+            }
+            if (iRow > 3){
+                oRelationsTable.deleteRow(-1);
+            }
+        }
     }
 
     static clearAndFillAttributeTable(oTable, oResult) {
