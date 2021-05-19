@@ -340,6 +340,7 @@ function onClickAddSubAttributeRowRel(){
 
 function onClickButtonSubmitRelationship(){
     FrontendController.pushRelationship();
+    document.getElementById("relationshipMenu").style.visibility = 'hidden';
 }
 
 function onClickButtonDeleteRelationship() {
