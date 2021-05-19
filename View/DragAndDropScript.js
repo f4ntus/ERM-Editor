@@ -193,6 +193,15 @@ function openRelationshipMenu(relationship){
     console.info("öffnet Relationship-Menü");
 }
 
+function openGeneralisationMenu(generalisation){
+    document.getElementById("generalisationMenu").style.visibility = "visible";
+    document.getElementById("pGeneralisationID").innerText = generalisation.id;
+    document.getElementById("inputGeneralisationName").value = generalisation.innerText;
+    //FrontendController.updateRelationship(relationship.id);
+    //console.info("öffnet Relationship-Menü");
+
+}
+
 function openContextMenu(id){
 
     document.addEventListener('contextmenu', function (e) {
