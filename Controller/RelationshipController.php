@@ -39,16 +39,19 @@ class RelationshipController
         }
         //Aufräumen
         if(true) {
+            echo $relations[0]['notation'];
+            echo $relations[1]['notation'];
             if (count($relations) == 2) { //Zweier Beziehung
                 //N:M Beziehung
-                if ($relations[0]['notation'] == 'm' or $relations[0]['notation'] == 'n' and $relations[1]['notation'] == 'm' or $relations[1]['notation'] == 'n') {
+                if (($relations[0]['notation'] == 'm' or $relations[0]['notation'] == 'n') and ($relations[1]['notation'] == 'm' or $relations[1]['notation'] == 'n')) {
                     $relations[0]['notation'] = '[0,*]';
                     $relations[1]['notation'] = '[0,*]';
+                    echo "Test";
 
-                } elseif ($relations[0]['notation'] == '1' and $relations[1]['notation'] == 'n' or $relations[1]['notation'] == 'm') { //1:n
+                } elseif ($relations[0]['notation'] == '1' and ($relations[1]['notation'] == 'n' or $relations[1]['notation'] == 'm')) { //1:n
                     $relations[0]['notation'] = '[0,*]';
                     $relations[1]['notation'] = '[0,1]';
-                } elseif ($relations[1]['notation'] == '1' and $relations[0]['notation'] == 'n' or $relations[0]['notation'] == 'm') {//n:1
+                } elseif ($relations[1]['notation'] == '1' and ($relations[0]['notation'] == 'n' or $relations[0]['notation'] == 'm')) {//n:1
                     $relations[1]['notation'] = '[0,*]';
                     $relations[0]['notation'] = '[0,1]';
                 } elseif ($relations[0]['notation'] == '1' and $relations[1]['notation'] == '1') { //1:1
