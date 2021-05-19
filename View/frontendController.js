@@ -111,22 +111,22 @@ class FrontendController {
         );
     }
     static changeERMModelCallback(result){
-        let aResult = JSON.parse(result);
+        let oResult = JSON.parse(result);
         let newString ='';
-        for (let i in aResult){
-            newString +=  aResult[i].name + ' ('
-            let aAttributes = aResult[i].attributes;
-            for (let i in aAttributes){
-                console.log(aAttributes[i].primary);
-                if (aAttributes[i].primary === 'true'){
+        for (let i in oResult){
+            newString +=  oResult[i].name + ' ('
+            let oAttributes = oResult[i].attributes;
+            for (let i in oAttributes){
+                console.log(oAttributes[i].primary);
+                if (oAttributes[i].primary === 'true'){
                     console.log('test');
-                    newString += '<u>' + aAttributes[i].name +' ' + aAttributes[i].reference +  '</u>';
+                    newString += '<u>' + oAttributes[i].name +' ' + oAttributes[i].reference +  '</u>';
                 } else {
-                    newString += aAttributes[i].name +' ' + aAttributes[i].reference;
+                    newString += oAttributes[i].name +' ' + oAttributes[i].reference;
                 }
-                console.log(aAttributes.length);
-                if(i !== aAttributes.length - 1){
-                    newString += ' ,';
+                let iLength = Object.keys(oAttributes).length;
+                if(parseInt(i) !==  iLength - 1){
+                    newString += ', ';
                 }
             }
             newString += ')<br>';
