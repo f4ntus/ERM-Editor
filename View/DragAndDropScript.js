@@ -187,7 +187,9 @@ function isAClone() {
 
 function openEntityMenu(entity){
     document.getElementById("rightMenue").style.visibility = "visible";
-    document.getElementById("displayEntityName").innerText = entity.id;
+    document.getElementById("displayEntityName").innerText = entity.innerHTML;
+    document.getElementById("pEntityID").innerText = entity.id;
+    FrontendController.getEntityFromBackend(entity.id);
 
 }
 

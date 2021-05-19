@@ -12,7 +12,6 @@ class EntityController
     public static function createEntity(String $id, String $name, int $x, int $y)
     {
         return new EntityModel($id, $name, $x, $y);
-
     }
 
     /**
@@ -34,7 +33,29 @@ class EntityController
 
     }
 
+    /**
+     * Hinzufügen und Updaten mehrerer Attribute
+     * @param EntityModel $Entity
+     * @param Array $attributes
+     */
+    public static function addOrUpdateAttributes(EntityModel $entity, array $attributes){
+        AttributeERMController::addOrUpdateAllAttributes($entity,$attributes);
+    }
 
+    /**
+     * Ausgabe des Entities in Array Format
+     * @param EntityModel $entity
+     * @return array
+     */
+    public static function getEntityAsArray(EntityModel $entity){
+        $attributes = AttributeERMController::getAttributes($entity);
+        $entityArray = [
+            'name' => $entity->getName(),
+            'id' => $entity->getId(),
+            'attributes' => $attributes
+        ];
+        return $entityArray;
+    }
 
     /**
      * Hinzufügen eines Attributes
@@ -49,8 +70,6 @@ class EntityController
         $attribute = AttributeERMController::createAttribute($name, $type, $primary)   ;
         $entity->addAttribute($attribute);
         return $attribute;
-
-
     }
 
     /**
@@ -76,6 +95,12 @@ class EntityController
         $entity->deleteAttribute($attribute);
     }
 
+    /** alle Attribute werden gelöscht
+     * @param EntityModel $entity
+     */
+    public static function deleteAllAttributes(EntityModel $entity){
+        AttributeERMController::deleteAllAttributes($entity);
+    }
     /**
      * Anpassung der Position
      * @param EntityModel $entity Entity
