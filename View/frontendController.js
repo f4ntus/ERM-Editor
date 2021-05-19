@@ -62,7 +62,7 @@ class FrontendController{
             let sEntity = oRelTable.rows[iRow].getElementsByTagName("p")[0].innerHTML;
             let sNotation = oRelTable.rows[iRow].getElementsByTagName("p")[1].innerHTML;
             let bWeakness = oRelTable.rows[iRow].getElementsByTagName("input")[0].checked;
-            aRelations[iRow] = {
+            aRelations[iRow-2] = {
                 number: sNumber,
                 entity: sEntity,
                 notation: sNotation,
@@ -72,29 +72,7 @@ class FrontendController{
 
         // Informations about the Attributes
         let oTable = document.getElementById("idTableRelationshipAttributes");
-        let aAttributes = new Array();
-        for (let iRow = 0; iRow < oTable.rows.length; iRow ++){
-            let sName =  oTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
-            let sType =  oTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
-            if (sType == 1){
-                sName = sName.slice(1,-1);
-            }
-            let aSubattributes = '';
-            if (sType == 2){
-                let mainName = sName.split('(')[0]; // get the main Name before the open bracket (
-                aSubattributes = sName.split('(')[1].split(','); // splice the subattributes into an Array
-                aSubattributes[aSubattributes.length-1] = aSubattributes[aSubattributes.length-1].slice(0,-1); // remove the last bracket )
-                sName = mainName;
-            }
-            aAttributes[iRow] = {
-                name: sName,
-                typ: sType,
-                primary: 'false',
-                subattributes: aSubattributes
-            }
-        }
-        console.log(aAttributes);
-        console.log(aRelations);
+        let aAttributes = FrontendController.getAttributesAsArray(oTable)
 
         // pushing the data to backend
         $.post(
@@ -113,4 +91,160 @@ class FrontendController{
             }
         );
     }
+    static getEntityFromBackend(sEntityId){
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "getEntity",
+                id: sEntityId,
+            },
+            function(result){
+                console.log(result);
+                if (result != "false") {
+                    let oResult = JSON.parse(result)
+                    document.getElementById("displayEntityName").innerHTML = oResult['name'];
+                    document.getElementById(sEntityId).innerHTML = oResult['name'];
+                    let oTable = document.getElementById("idTableEntityAttributes");
+                    FrontendController.clearAndFillAttributeTable(oTable, oResult);
+                }
+            }
+        );
+    }
+
+    static pushEntity(entityID, entityName ){
+        let aAttributes = FrontendController.getAttributesAsArray(document.getElementById("idTableEntityAttributes"));
+        console.log(aAttributes);
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "updateEntity",
+                id: entityID,
+                name: entityName,
+                attributes: aAttributes,
+            },
+            function(result){
+                console.log(result);
+            }
+        );
+    }
+
+    static clearAndFillAttributeTable(oTable,oResult) {
+        // clear table before refill
+        let tablelenght = oTable.rows.length;
+        console.log(tablelenght);
+        for (let i = 0; i < tablelenght; i++) {
+            console.log(i);
+            if (oTable.rows[0].getElementsByTagName("td").length>0){
+                oTable.deleteRow(0);
+            }
+        }
+
+        let aAttributes = oResult.attributes;
+        for (let i in aAttributes) {
+            let sAttributeValue;
+            if (aAttributes[i].typ == 1) {
+                sAttributeValue = '{' + aAttributes[i].name + '}';
+            } else {
+                sAttributeValue = aAttributes[i].name;
+            }
+            FrontendController.addRowAttributeToTable(
+                "",
+                true,
+                aAttributes[i].typ,
+                sAttributeValue,
+                'entityAttribute',
+                1,
+                aAttributes[i].primary
+            )
+        }
+
+    }
+
+    // Table Type: 'entityAttributes' -> Attributes for Entities, 'relationshipAttribute', Attributes for Relationship
+    // Call from: 0 -> Client (user add an Attribute), 1 -> Server (update Attributes from Backend)
+    static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeValue, tableType, callFrom, bPrimary = false){
+        if (tableType === 'entityAttribute'){
+            var table = document.getElementById("idTableEntityAttributes");
+        } else { // tableType = relationshipAttribute
+            var table = document.getElementById("idTableRelationshipAttributes");
+        }
+        var numberRows = table.rows.length;
+        if (numberRows === 20) {
+            //Maximale Anzahl an Attributen erreicht Fehlermeldung
+            return;
+        }
+        var row = table.insertRow(numberRows - 1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        if (tableType === 'entityAttribute') {
+            var cell4 = row.insertCell(3);
+        }
+
+        if (tableType === 'entityAttribute'){
+            cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableEntityAttributes\')\">X</button>";
+        } else { // tableType = relationshipAttribute
+            cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
+        }
+
+        cell3.innerHTML = sAttributeValue;
+
+        if(primaryKeyNeeded===true){
+            if (callFrom===0){
+                bPrimary = document.getElementById(idCheckboxPK).checked;
+            }
+            cell4.innerHTML = "<label class=\"switch\">\n" +
+                "                        <input id='idCheckboxPrimaryKeyMainTable" + table.rows.length + "' type=\"checkbox\">\n" +
+                "                        <span class=\"slider round\"></span>\n" +
+                "                    </label>";
+            if (bPrimary) {
+                var sCheckboxId = "idCheckboxPrimaryKeyMainTable" + table.rows.length;
+                document.getElementById(sCheckboxId).checked = true;
+            }
+        }else{
+            if (tableType === 'entityAttribute') {
+                cell4.innerHTML = "";
+            }
+        }
+        //Metadata for simple/multivalue/compound attribute
+        cell1.innerHTML = attributeType;
+        cell1.style.display = "none";
+        //sortTable();
+    }
+
+    static getAttributesAsArray(oTable){
+        // Informations about the Attributes
+
+        let aAttributes = new Array();
+        for (let iRow = 0; iRow < oTable.rows.length; iRow ++){
+            if (oTable.rows[iRow].getElementsByTagName("td").length>0) { // skip Headline row
+                let sName = oTable.rows[iRow].getElementsByTagName("td")[2].innerHTML;
+                let sType = oTable.rows[iRow].getElementsByTagName("td")[0].innerHTML;
+                let bPrimary
+                if (oTable.rows[iRow].getElementsByTagName("input").length > 0) {
+                    bPrimary = oTable.rows[iRow].getElementsByTagName("input")[0].checked;
+                } else {
+                    bPrimary = false;
+                }
+                if (sType == 1) {
+                    sName = sName.slice(1, -1);
+                }
+                let aSubattributes = '';
+                if (sType == 2) {
+                    let mainName = sName.split('(')[0]; // get the main Name before the open bracket (
+                    aSubattributes = sName.split('(')[1].split(','); // splice the subattributes into an Array
+                    aSubattributes[aSubattributes.length - 1] = aSubattributes[aSubattributes.length - 1].slice(0, -1); // remove the last bracket )
+                    sName = mainName;
+                }
+                aAttributes[iRow] = {
+                    name: sName,
+                    typ: sType,
+                    primary: bPrimary,
+                    subattributes: aSubattributes,
+                }
+            }
+        }
+        return aAttributes;
+    }
+
 }

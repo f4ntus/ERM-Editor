@@ -35,14 +35,13 @@ class RelationshipController
     public static function addOrUpdateRealtions(ERMModel $ERMModel, RelationshipModel $relationship, array $relations){
         // deleting existing relations
         foreach ($relationship->getRelations() as $relation){
-            RelationshipController::deleteRelation($relation);
-            //Aufräumen '1', 'm', 'n' -> notation
+            RelationshipController::deleteRelation($relationship,$relation);
         }
         // creating new relations
         foreach ($relations as $relationArray){
             $entity = $ERMModel->getEntitybyName($relationArray['entity']);
-            //Aufräumen
-            RelationshipController::addRelation($relationship,$entity,$relationArray['notation'],$relation['waekness']);
+            RelationshipController::addRelation($relationship,$entity,$relationArray['notation'],$relationArray['weakness']);
+
         }
     }
     /**
@@ -73,20 +72,7 @@ class RelationshipController
      * @param Array $attributes
      */
     public static function addOrUpdateAttributes(RelationshipModel $relationship, array $attributes){
-        // delete existing attributes
-        RelationshipController::deleteAllAttributes($relationship);
-
-        // create new attributes
-        foreach ($attributes as $attributeArray){
-            if (($attributeArray['typ'] == '0')|($attributeArray['typ'] == '1')){
-                $attribute = AttributeERMController::createAttribute($attributeArray['name'],$attributeArray['typ'],$attributeArray['primary']);
-                $relationship->addAttribute($attribute);
-            }
-            if ($attributeArray['typ']=='2'){ //for relatedAttributes
-                $relatedAttribute = AttributeERMController::createRelatedAttribute($attributeArray['name'], $attributeArray['primary'], $attributeArray['subattributes']);
-                $relationship->addAttribute($relatedAttribute);
-            }
-        }
+        AttributeERMController::addOrUpdateAllAttributes($relationship,$attributes);
     }
 
     /**
@@ -117,9 +103,7 @@ class RelationshipController
      * @param RelationshipModel $relationship
      */
     public static function deleteAllAttributes(RelationshipModel $relationship){
-        foreach ($relationship->getAttributes() as $attribute){
-            RelationshipController::deleteAttribute($relationship, $attribute);
-        }
+        AttributeERMController::deleteAllAttributes($relationship);
     }
 
     /**Relation wird gelöscht
@@ -151,17 +135,14 @@ class RelationshipController
         $position['Y'] = $relationship->getY();
         return $position;
     }
+
+    /**
+     * Ausgabe der Relationship in Array Format
+     * @param RelationshipModel $relationship
+     * @return array
+     */
     public static function getRelationshipAsArray(RelationshipModel $relationship){
-        $attributes = RelationshipController::getAttributes($relationship);
-       /* $i = 0;
-        $attributeArray = null;
-        foreach ($attributes as $attribute) {
-            $attributeArray[$i] = [
-                'name' => $attribute["Name"],
-                'typ' => $attribute["Type"]
-            ];
-            $i++;
-        }*/
+        $attributes = AttributeERMController::getAttributes($relationship);
         $relationshipArray = [
             'name' => $relationship->getName(),
             'id' => $relationship->getId(),
@@ -169,13 +150,7 @@ class RelationshipController
         ];
         return $relationshipArray;
     }
-     public static function getAttributes(RelationshipModel $relationship){
-        $attributes = array();
-        foreach ($relationship->getAttributes() as  $a){
-            $attributes[] = AttributeERMController::getAttributeInformation($a);
-        }
-        return $attributes;
-    }
+
 
 
 }
