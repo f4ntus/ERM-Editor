@@ -50,7 +50,7 @@
                 </div>
             </div>
             <p id="showGeneralizationMode"></p>
-            <button>ERM umwandeln</button>
+            <button onclick="onClickChangeERMModel()">ERM umwandeln</button>
         </div>
         <div class="menuGroup">
             <button class="button2" onClick="onClickERMReset()">ERM Reset</button>
@@ -168,6 +168,7 @@
         <button onclick="onClickButtonDeleteEntity()" class="button2">Entity Löschen</button>
     </div>
     <div class="outputBelow" >
+        <div id="rdmOutput" style="visibility: hidden" ></div>
         <div id="relationshipMenu" style="visibility: hidden">
             <p style="visibility: hidden" id="pRelationshipID"></p>
             <div Style="float: left">

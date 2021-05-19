@@ -115,6 +115,10 @@ if (isset($_POST['function'])) {
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
     }
+    if ($_POST['function'] == 'changeERMModel') {
+
+    }
+
 }
 
 
