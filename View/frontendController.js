@@ -113,4 +113,16 @@ class FrontendController{
             }
         );
     }
+    static changeERMModel(){
+        // pushing the data to backend
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "changeERMModel",
+            },
+            function(result){
+                console.log(result);
+            }
+        );
+    }
 }
