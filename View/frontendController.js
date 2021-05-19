@@ -235,6 +235,9 @@ class FrontendController {
         if (primaryKeyNeeded === true) {
             if (callFrom === 0) {
                 bPrimary = document.getElementById(idCheckboxPK).checked;
+            } else {
+                // parse into boolean, because it comes as a String from the Backend
+                bPrimary = bPrimary === 'true' ? true : false;
             }
             cell4.innerHTML = "<label class=\"switch\">\n" +
                 "                        <input id='idCheckboxPrimaryKeyMainTable" + table.rows.length + "' type=\"checkbox\">\n" +
