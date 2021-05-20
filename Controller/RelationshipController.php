@@ -192,7 +192,7 @@ class RelationshipController
                 'weakness' => $relation->getWeak()
             ];
         }
-        //print($relationArray);
+
         $relationshipArray = [
             'name' => $relationship->getName(),
             'id' => $relationship->getId(),
