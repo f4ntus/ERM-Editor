@@ -322,4 +322,17 @@ class FrontendController{
         }
         return aAttributes;
     }
+    static pushGeneralisation (idGeneralisation, arrayGeneralisation){
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "updateGeneralisation",
+                id: idGeneralisation,
+                array: arrayGeneralisation
+            },
+            function(result){
+                alert(result);
+            }
+        );
+    }
 }
