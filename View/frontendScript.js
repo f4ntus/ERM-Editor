@@ -12,6 +12,12 @@ function selectNotationDropdown(notation, number){
     let outputText = document.getElementById(element);
     outputText.innerText = notation;
 }
+
+function selectGeneralisationDropdown(aElement){
+    aElement.parentElement.parentElement.children[0].innerText = aElement.innerText;
+}
+
+
 function onClickButtonAddRelationship(rowNuber){
     // insert new row in Table
     var table = document.getElementById("tblRelationship");
@@ -117,8 +123,11 @@ function onClickAddSubtypeRow() {
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
 
+    var clone = document.getElementById("dropdown1").cloneNode(true);
+    clone.id = "dropdown" + numberRows;
+    clone.child[0].innerText = "default"
     cell1.innerHTML = "Subtyp";
-    cell2.innerHTML = "";
+    cell2.appendChild(clone);
 }
 
 

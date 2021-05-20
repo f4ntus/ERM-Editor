@@ -194,11 +194,36 @@ function openRelationshipMenu(relationship){
 }
 
 function openGeneralisationMenu(generalisation){
-    document.getElementById("generalisationMenu").style.visibility = "visible";
+    document.getElementById("generalisationMenu").style.display = "block";
     document.getElementById("pGeneralisationID").innerText = generalisation.id;
-    document.getElementById("inputGeneralisationName").value = generalisation.innerText;
+    //document.getElementById("inputGeneralisationName").value = generalisation.innerText;
     //FrontendController.updateRelationship(relationship.id);
     //console.info("öffnet Relationship-Menü");
+
+    //set Dropboxes
+    var dropboxContent = [];
+    dropboxContent[0] = document.getElementById("generalisationContent1")
+    dropboxContent[1] = document.getElementById("generalisationContent2")
+    dropboxContent[2] = document.getElementById("generalisationContent3")
+
+    var entities = document.getElementsByClassName("entity"); //for some reason element 0 of array unusable (so 4 elements for 3 entities)
+
+    dropboxContent.forEach(function(dropboxContent){
+        for(i=1; i<entities.length; i++){
+            var aElement = document.createElement('a')
+            //aElement.setAttribute("onclick","function");
+            aElement.onclick = function() {selectGeneralisationDropdown(this);};
+            //aElement.addEventListener("click", selectGeneralisationDropdown(this));
+            aElement.href = "#";
+            aElement.innerHTML = entities[i].innerHTML;
+            //var innerText = entities[i].innerText;
+            //var aElement = '<a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\'01\')">entity1</a>';
+            //aElement.innerText = entities[i];
+            dropboxContent.appendChild(aElement);
+            //dropboxContent.innerHTML= '<a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\'01\')">entity1</a>';
+        }
+    });
+
 
 }
 
