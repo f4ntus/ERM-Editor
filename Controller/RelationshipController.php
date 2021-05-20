@@ -26,19 +26,21 @@ class RelationshipController
      * @param $weak
      * @return RelationERMModel
      */
-    public static function addRelation(RelationshipModel $relationship, EntityModel $entity, $kard, $weak){
+    public static function addRelation(RelationshipModel $relationship, EntityModel $entity, $kard, $weak)
+    {
         $relation = new RelationERMModel($entity, $kard, $weak);
         $relationship->addRelation($relation);
         return $relation;
     }
 
-    public static function addOrUpdateRealtions(ERMModel $ERMModel, RelationshipModel $relationship, array $relations){
+    public static function addOrUpdateRealtions(ERMModel $ERMModel, RelationshipModel $relationship, array $relations)
+    {
         // deleting existing relations
-        foreach ($relationship->getRelations() as $relation){
-            RelationshipController::deleteRelation($relationship,$relation);
+        foreach ($relationship->getRelations() as $relation) {
+            RelationshipController::deleteRelation($relationship, $relation);
         }
         //Aufräumen
-        if(true) {
+        if (true) {
             if (count($relations) == 2) { //Zweier Beziehung
                 //N:M Beziehung
                 if ($relations[0]['notation'] == 'm' or $relations[0]['notation'] == 'n' and $relations[1]['notation'] == 'm' or $relations[1]['notation'] == 'n') {
@@ -61,18 +63,20 @@ class RelationshipController
                 }
             }
         }
-         // creating new relations
-        foreach ($relations as $relationArray){
+        // creating new relations
+        foreach ($relations as $relationArray) {
             $entity = $ERMModel->getEntitybyName($relationArray['entity']);
-            RelationshipController::addRelation($relationship,$entity,$relationArray['notation'],$relationArray['weakness']);
+            RelationshipController::addRelation($relationship, $entity, $relationArray['notation'], $relationArray['weakness']);
         }
     }
+
     /**
      * Name vergeben
      * @param RelationshipModel $relationship
      * @param String $name
      */
-    public static function setName(RelationshipModel $relationship, String $name){
+    public static function setName(RelationshipModel $relationship, string $name)
+    {
         $relationship->setName($name);
 
     }
@@ -83,7 +87,8 @@ class RelationshipController
      * @return mixed
      *
      */
-    public static function getName(RelationshipModel $relationship){
+    public static function getName(RelationshipModel $relationship)
+    {
         return $relationship->getName();
 
     }
@@ -94,8 +99,9 @@ class RelationshipController
      * @param RelationshipModel $relationship
      * @param Array $attributes
      */
-    public static function addOrUpdateAttributes(RelationshipModel $relationship, array $attributes){
-        AttributeERMController::addOrUpdateAllAttributes($relationship,$attributes);
+    public static function addOrUpdateAttributes(RelationshipModel $relationship, array $attributes)
+    {
+        AttributeERMController::addOrUpdateAllAttributes($relationship, $attributes);
     }
 
     /**
@@ -107,7 +113,8 @@ class RelationshipController
      * @return RelatetedAttributeERMModel
      */
 
-    public static function addRelatedAttribute(RelationshipModel $relationship, String $name, $primary, array $subnames){
+    public static function addRelatedAttribute(RelationshipModel $relationship, string $name, $primary, array $subnames)
+    {
         $attribute = AttributeERMController::createRelatedAttribute($name, $primary, $subnames);
         $relationship->addAttribute($attribute);
         return $attribute;
@@ -118,14 +125,16 @@ class RelationshipController
      * @param RelationshipModel $relationship
      * @param AttributeERMModel $attribute
      */
-    public static function deleteAttribute(RelationshipModel $relationship, AttributeERMModel $attribute){
+    public static function deleteAttribute(RelationshipModel $relationship, AttributeERMModel $attribute)
+    {
         $relationship->deleteAttribute($attribute);
     }
 
     /** alle Attribute werden gelöscht
      * @param RelationshipModel $relationship
      */
-    public static function deleteAllAttributes(RelationshipModel $relationship){
+    public static function deleteAllAttributes(RelationshipModel $relationship)
+    {
         AttributeERMController::deleteAllAttributes($relationship);
     }
 
@@ -133,7 +142,8 @@ class RelationshipController
      * @param RelationshipModel $relationship
      * @param RelationERMModel $relation
      */
-    public static function deleteRelation(RelationshipModel $relationship, RelationERMModel $relation){
+    public static function deleteRelation(RelationshipModel $relationship, RelationERMModel $relation)
+    {
         $relationship->deleteRelation($relation);
     }
 
@@ -142,7 +152,8 @@ class RelationshipController
      * @param int $x
      * @param int $y
      */
-    public static function changePosition(RelationshipModel $relationship, int $x, int $y){
+    public static function changePosition(RelationshipModel $relationship, int $x, int $y)
+    {
         $relationship->setX($x);
         $relationship->setY($y);
     }
@@ -152,7 +163,8 @@ class RelationshipController
      * @param RelationshipModel $relationship
      * @return array
      */
-    public static function getPosition(RelationshipModel $relationship){
+    public static function getPosition(RelationshipModel $relationship)
+    {
         $position = array();
         $position['X'] = $relationship->getX();
         $position['Y'] = $relationship->getY();
@@ -164,7 +176,8 @@ class RelationshipController
      * @param RelationshipModel $relationship
      * @return array
      */
-    public static function getRelationshipAsArray(RelationshipModel $relationship){
+    public static function getRelationshipAsArray(RelationshipModel $relationship)
+    {
         $attributes = AttributeERMController::getAttributes($relationship);
         $relationshipArray = [
             'name' => $relationship->getName(),
@@ -174,6 +187,15 @@ class RelationshipController
         return $relationshipArray;
     }
 
+    public static function getEntities(RelationshipModel $relationship)
+    {
+        $output = array();
+        foreach ($relationship->getRelations() as $relation) {
+            $output[] = $relation->getEntity()->getId();
+        }
+        return $output;
+
+    }
 
 
 }
