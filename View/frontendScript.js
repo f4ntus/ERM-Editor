@@ -275,6 +275,9 @@ function selectNotationDropdown(notation, number){
     let outputText = document.getElementById(element);
     outputText.innerText = notation;
 }
+function selectGeneralisationDropdown(aElement) {
+    aElement.parentElement.parentElement.children[0].innerText = aElement.innerText;
+}
 function onClickButtonAddRelationship(rowNuber){
     // insert new row in Table
     var table = document.getElementById("tblRelationship");
