@@ -126,6 +126,11 @@ function onClickAddSubtypeRow() {
     var clone = document.getElementById("dropdown1").cloneNode(true);
     clone.id = "dropdown" + numberRows;
     clone.children[0].innerText = "default"
+    //set onclick eventhandler for aElements of clone
+    for(i=0; i<clone.children[2].children.length; i++){
+        var aElement = clone.children[2].children[i];
+        aElement.onclick = function() {selectGeneralisationDropdown(this);};
+    }
     cell1.innerHTML = "Subtyp";
     cell2.appendChild(clone);
 }
