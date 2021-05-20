@@ -195,7 +195,7 @@ class RDMController
         }
 
         foreach ($relation1->getAttributes() as $RDMAttribute1) {
-            if ($RDMAttribute1->getPrimary()) {
+            if ($RDMAttribute1->getPrimary()=='true') {
                 //Das Schlüsselattribut des ersten Attribut wird dem zweiten Attribute hinzugefügt
                 $RDMAttribute2 = new AttributeRDMModel(cleanNamefromERMObject($relationn->getAttributes(), $RDMAttribute1->getName()), $weak);
                 $RDMAttribute2->setReferences($relation1->getName());
