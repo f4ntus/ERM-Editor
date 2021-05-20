@@ -153,7 +153,6 @@ if (isset($_POST['function'])) {
         $ERMModel = $_SESSION['ERM-Model'];
         $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
         $position = RelationshipController::getPosition($relationship);
-        //var_dump($position);
         echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
     }
 
