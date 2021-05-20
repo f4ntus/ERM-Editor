@@ -169,6 +169,57 @@
         <button onclick="onClickButtonDeleteEntity()" class="button2">Entity Löschen</button>
     </div>
     <div class="outputBelow" >
+        <div id="generalisationMenu" style="display: none;" ;>
+            <p style="display: none" id="pGeneralisationID"></p>
+            <h3> Generalisierung hinzufügen:</h3>
+            <div class="column3">
+                <table id="tableGeneralisation" class="tableGeneralisation" style="width: 100%;">
+                    <tr>
+                        <th>Supertyp</th>
+                        <th>
+                            <div id="dropdown1" class="dropdown">
+                                <p class="dorpdowntext" id="dropdownGeneralisationText01">default</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content hoverContent" id="generalisationContent1">
+
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Subtyp</td>
+                        <td>
+                            <div id="dropdown2" class="dropdown">
+                                <p class="dorpdowntext" id="dropdownGeneralisationText02">default</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content hoverContent" id="generalisationContent2">
+
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Subtyp</td>
+                        <td>
+                            <div class="dropdown">
+                                <p class="dorpdowntext" id="dropdownNotationText01">default</p>
+                                <button class="dropbtnArrow"></button>
+                                <div class="dropdown-content hoverContent" id="generalisationContent3">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <button style="margin:0 auto; display:block; margin-bottom: 1%; background: blue; color: white;"
+                        class="button" onclick="onClickFinishGeneralisationMenue()">Fertigstellen
+                </button>
+            </div>
+            <div class="column2">
+                <button class="button" onclick="onClickAddSubtypeRow()">Subtyp hinzufügen</button>
+            </div>
+        </div>
         <div id="rdmOutput" style="visibility: hidden" > <p id="rdmOutputText"> </p></div>
         <div id="relationshipMenu" style="visibility: hidden">
             <p style="visibility: hidden" id="pRelationshipID"></p>
@@ -340,6 +391,10 @@
         </div>
     </div>
 </div>
+
+<ul id="menu">
+    <li id="deleteButton" class="menu-item">Element löschen</li>
+</ul>
 
 
 </body>

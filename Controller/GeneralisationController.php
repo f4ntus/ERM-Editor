@@ -10,8 +10,9 @@ class GeneralisationController
      * @param $y
      * @return GeneralisationModel
      */
-    public static function createGeneralisation(String $id, int $x, int $y){
-        return new GeneralisationModel($id, $x,$y);
+    public static function createGeneralisation(string $id, int $x, int $y)
+    {
+        return new GeneralisationModel($id, $x, $y);
 
     }
 
@@ -19,7 +20,8 @@ class GeneralisationController
      * @param GeneralisationModel $generalisation
      * @param EntityModel $supertyp
      */
-    public static function setSupertyp(GeneralisationModel $generalisation, EntityModel $supertyp){
+    public static function setSupertyp(GeneralisationModel $generalisation, EntityModel $supertyp)
+    {
         $generalisation->setSupertyp($supertyp);
     }
 
@@ -27,15 +29,18 @@ class GeneralisationController
      * @param GeneralisationModel $generalisation
      * @param EntityModel $subtyp
      */
-    public static function addSubtyp(GeneralisationModel $generalisation, EntityModel $subtyp){
+    public static function addSubtyp(GeneralisationModel $generalisation, EntityModel $subtyp)
+    {
         $subtyp->setSuperEntity($generalisation->getSupertyp());
         $generalisation->addSubtyp($subtyp);
     }
+
     /**
      * @param GeneralisationModel $generalisation
      * @param EntityModel $subtyp
      */
-    public static function deleteSubtyp(GeneralisationModel $generalisation, EntityModel $subtyp){
+    public static function deleteSubtyp(GeneralisationModel $generalisation, EntityModel $subtyp)
+    {
         $subtyp->setSuperEntity(NULL);
         $generalisation->deleteSubtyp($subtyp);
     }
@@ -45,7 +50,8 @@ class GeneralisationController
      * @param int $x
      * @param int $y
      */
-    public static function changePosition(GeneralisationModel $generalisation, int $x, int $y){
+    public static function changePosition(GeneralisationModel $generalisation, int $x, int $y)
+    {
         $generalisation->setX($x);
         $generalisation->setY($y);
     }
@@ -55,7 +61,8 @@ class GeneralisationController
      * @param GeneralisationModel $generalisation
      * @return array
      */
-    public static function getPosition(GeneralisationModel $generalisation){
+    public static function getPosition(GeneralisationModel $generalisation)
+    {
         $position = array();
         $position['X'] = $generalisation->getX();
         $position['Y'] = $generalisation->getY();

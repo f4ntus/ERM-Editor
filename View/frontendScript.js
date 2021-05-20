@@ -105,6 +105,31 @@ function onClickAddSubAttributeRow() {
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
 
+function onClickAddSubtypeRow() {
+
+    var table = document.getElementById("tableGeneralisation");
+    var numberRows = table.rows.length;
+    if (numberRows === 7) {
+        //Maximale Anzahl an Unterattributen erreicht Fehlermeldung
+        return;
+    }
+    var row = table.insertRow(numberRows);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    var clone = document.getElementById("dropdown1").cloneNode(true);
+    clone.id = "dropdown" + numberRows;
+    clone.children[0].innerText = "default"
+    //set onclick eventhandler for aElements of clone
+    for (i = 0; i < clone.children[2].children.length; i++) {
+        var aElement = clone.children[2].children[i];
+        aElement.onclick = function () {
+            selectGeneralisationDropdown(this);
+        };
+    }
+    cell1.innerHTML = "Subtyp";
+    cell2.appendChild(clone);
+}
 
 
 function onClickAddSimpleAttributeToTable() {
@@ -201,6 +226,19 @@ function onClickButtonDeleteEntity(){
         }
     );
 
+}
+
+
+function onClickFinishGeneralisationMenue() {
+    var tableGeneralisation = document.getElementById("tableGeneralisation");
+    var generalisierungId = document.getElementById("pGeneralisationID").innerText;
+
+    var arrayGeneralisation = [];
+
+    for (i = 0; i < tableGeneralisation.rows.length; i++) {
+        arrayGeneralisation[i] = tableGeneralisation.rows[i].cells[1].children[0].innerText;
+    }
+    FrontendController.pushGeneralisation(generalisierungId, arrayGeneralisation);
 }
 
 // ----------------------------------------------- for Releationship Menu ------------------------------------
