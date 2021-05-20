@@ -45,14 +45,14 @@ class FrontendController{
             //console.log(result);
             let aRelations = oresult.relations;
             let oRelationsTable = document.getElementById("tblRelationship")
-            for (let i in aRelations){
-                let iRow = parseInt(i) +2;
-                if (parseInt(i)< 2){
-                    oRelationsTable.rows[iRow].getElementsByTagName("td")[0].innerHTML = parseInt(i) +1;
+            for (let i in aRelations) {
+                let iRow = parseInt(i) + 2;
+                if (parseInt(i) < 2) {
+                    oRelationsTable.rows[iRow].getElementsByTagName("td")[0].innerHTML = parseInt(i) + 1;
                     oRelationsTable.rows[iRow].getElementsByTagName("p")[0].innerHTML = aRelations[i].entity;
                     oRelationsTable.rows[iRow].getElementsByTagName("p")[1].innerHTML = aRelations[i].notation;
-                    if (aRelations[i].weakness === 'true'){
-                        oRelationsTable.rows[iRow].getElementsByTagName("input")[0].checked = true ;
+                    if (aRelations[i].weakness === 'true') {
+                        oRelationsTable.rows[iRow].getElementsByTagName("input")[0].checked = true;
                     } else {
                         oRelationsTable.rows[iRow].getElementsByTagName("input")[0].checked = false;
                     }
@@ -124,22 +124,23 @@ class FrontendController{
             }
         );
     }
-    static changeERMModelCallback(result){
+
+    static changeERMModelCallback(result) {
         let oResult = JSON.parse(result);
-        let newString ='';
-        for (let i in oResult){
-            newString +=  oResult[i].name + ' ('
+        let newString = '';
+        for (let i in oResult) {
+            newString += oResult[i].name + ' ('
             let oAttributes = oResult[i].attributes;
-            for (let i in oAttributes){
+            for (let i in oAttributes) {
                 console.log(oAttributes[i].primary);
-                if (oAttributes[i].primary === 'true'){
+                if (oAttributes[i].primary === 'true') {
                     console.log('test');
-                    newString += '<u>' + oAttributes[i].name +' ' + oAttributes[i].reference +  '</u>';
+                    newString += '<u>' + oAttributes[i].name + ' ' + oAttributes[i].reference + '</u>';
                 } else {
-                    newString += oAttributes[i].name +' ' + oAttributes[i].reference;
+                    newString += oAttributes[i].name + ' ' + oAttributes[i].reference;
                 }
                 let iLength = Object.keys(oAttributes).length;
-                if(parseInt(i) !==  iLength - 1){
+                if (parseInt(i) !== iLength - 1) {
                     newString += ', ';
                 }
             }
@@ -184,18 +185,19 @@ class FrontendController{
             }
         );
     }
-    static resetRelationsTable (){
+
+    static resetRelationsTable() {
         let oRelationsTable = document.getElementById("tblRelationship");
         let tableLength = oRelationsTable.rows.length;
-        for (let iRow = 0; iRow < tableLength ; iRow++) {
-            if (iRow <= 3 && iRow > 1){ // resetting necessary rows
-                oRelationsTable.rows[iRow].getElementsByTagName('td')[0].innerHTML = iRow-1;
+        for (let iRow = 0; iRow < tableLength; iRow++) {
+            if (iRow <= 3 && iRow > 1) { // resetting necessary rows
+                oRelationsTable.rows[iRow].getElementsByTagName('td')[0].innerHTML = iRow - 1;
                 oRelationsTable.rows[iRow].getElementsByTagName('p')[0].innerHTML = 'Entity';
                 // ToDo: implement if for the right notation
                 oRelationsTable.rows[iRow].getElementsByTagName('p')[1].innerHTML = 'n';
                 oRelationsTable.rows[iRow].getElementsByTagName('input')[0].checked = false;
             }
-            if (iRow > 3){
+            if (iRow > 3) {
                 oRelationsTable.deleteRow(-1);
             }
         }

@@ -145,11 +145,11 @@ if (isset($_POST['function'])) {
     //Generalisation Menue
     if ($_POST['function'] == 'updateGeneralisation') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $generalisation = ERMController::getGeneralisation($_POST['id']);
+        $generalisation = ERMController::getGeneralisation($ERMModel, $_POST['id']);
         $array = $_POST['array'];
 
         for ($i = 0; $i <= count($array); $i++) {
-            $entity = ERMController::getEntitybyName($array[$i]);
+            $entity = ERMController::getEntitybyName($ERMModel,$array[$i]);
             if ($i == 0) {
                 GeneralisationController::setSupertyp($generalisation, $entity);
             } else {

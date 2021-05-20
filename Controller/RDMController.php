@@ -18,8 +18,8 @@ class RDMController
             $i = 0;
             foreach ($relation->getAttributes() as $attribute) {
                 $attributeArray = [
-                    'name' =>  $attribute->getName(),
-                    'primary' =>  $attribute->getPrimary(),
+                    'name' => $attribute->getName(),
+                    'primary' => $attribute->getPrimary(),
                     'reference' => $attribute->getReferences(),
                 ];
                 $attributes[$i] = $attributeArray;
@@ -121,8 +121,6 @@ class RDMController
                     }
                 }
                 $rdm->addRelation($RDMRelation);
-
-
             }
         }
 
@@ -155,8 +153,6 @@ class RDMController
                     }
                 }
             }
-
-
         }
 
     }
