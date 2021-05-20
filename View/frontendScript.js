@@ -125,7 +125,7 @@ function onClickAddSubtypeRow() {
 
     var clone = document.getElementById("dropdown1").cloneNode(true);
     clone.id = "dropdown" + numberRows;
-    clone.child[0].innerText = "default"
+    clone.children[0].innerText = "default"
     cell1.innerHTML = "Subtyp";
     cell2.appendChild(clone);
 }
@@ -250,6 +250,18 @@ function onClickFinishEntityMenue() {
     entity.innerText = newEntityName;
     entity.id = newEntityName;
     document.getElementById("rightMenue").style.visibility = "hidden";
+}
+
+function onClickFinishGeneralisationMenue(){
+     var tableGeneralisation = document.getElementById("tableGeneralisation");
+     var generalisierungId = document.getElementById("pGeneralisationID").innerText;
+
+     var arrayGeneralisation = [];
+
+     for(i=0; i<tableGeneralisation.rows.length; i++){
+         arrayGeneralisation[i] = tableGeneralisation.rows[i].cells[1].children[0].innerText;
+     }
+     FrontendController.pushGeneralisation(generalisierungId, arrayGeneralisation);
 }
 // ----------------------------------------------- for Releationship Menu ------------------------------------
 // -----------------------------------------------------------------------------------------------------------
