@@ -292,8 +292,15 @@ class FrontendController {
 
     static drawLines(){
 
-       let entity1 = document.getElementById("entity1");
-       let relationship = document.getElementById("relationship1");
+        let entityID1 = document.getElementById("dropdownEntityText01").innerHTML;
+        let entity1 = document.getElementById(entityID1);
+        let entityID2 = document.getElementById("dropdownEntityText02").innerHTML;
+        let entity2 = document.getElementById(entityID2);
+        let relationshipID = document.getElementById("pRelationshipID").innerHTML;
+        let relationship = document.getElementById(relationshipID);
+        let lineCloneID1 = 'line' + entity1.id + relationship.id;
+        let lineCloneID2 = 'line' + entity2.id + relationship.id;
+
 
         $.post(
             "../Interface/Connector.php",
@@ -305,14 +312,22 @@ class FrontendController {
                 console.log(result.X);
                 console.log(result.Y);
 
-                let line = document.getElementById("line");
-                line.setAttribute('x1', result.X);
-                line.setAttribute('y1', result.Y);
+                let posX = result.X + 20 + 40;
+                let posY = result.Y + 20 + 20;
 
-                console.log(line);
+                let line = document.getElementById("line");
+                let lineClone1 = line.cloneNode();
+
+                lineClone1.setAttribute('id', lineCloneID1)
+                lineClone1.setAttribute('x1', posX);
+                lineClone1.setAttribute('y1', posY);
+                lineClone1.removeAttribute('style');
+
+                document.getElementById("svg1").appendChild(lineClone1);
 
             }, "json"
         );
+
 
 
         $.post(
@@ -324,17 +339,54 @@ class FrontendController {
             function (result) {
                 console.log(result.X);
                 console.log(result.Y);
+                let posX = result.X + 20 + 50;
+                let posY = result.Y + 20 + 20;
+
+                let lineClone1 = document.getElementById(lineCloneID1);
+
+                lineClone1.setAttribute('x2', posX);
+                lineClone1.setAttribute('y2', posY);
+                console.log(lineClone1);
+
                 let line = document.getElementById("line");
-                line.setAttribute('x2', result.X);
-                line.setAttribute('y2', result.Y);
-                console.log(line);
-                // line.style.visibility = "visible";
-                // console.log(line);
+                let lineClone2 = line.cloneNode();
+
+                lineClone2.setAttribute('id', lineCloneID2)
+                lineClone2.setAttribute('x1', posX);
+                lineClone2.setAttribute('y1', posY);
+                lineClone2.removeAttribute('style');
+
+                document.getElementById("svg1").appendChild(lineClone2);
+
             }, "json"
         );
 
 
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "getPositionEntity",
+                id: entity2.id,
+            },
+            function (result) {
+                console.log(result.X);
+                console.log(result.Y);
+
+                let posX = result.X + 20 + 40;
+                let posY = result.Y + 20 + 20;
+
+                let lineClone2 = document.getElementById(lineCloneID2);
+
+                lineClone2.setAttribute('x2', posX);
+                lineClone2.setAttribute('y2', posY);
+
+                console.log(lineClone2);
+
+            }, "json"
+        );
+
     }
+
 
 
 }
