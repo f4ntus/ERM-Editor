@@ -2,11 +2,11 @@
 include_once '../Model/ERMModel.php';
 include_once '../Model/EntityModel.php';
 include_once '../Model/ERMObjectModel.php';
+
 /**
  * Class ERMController
  * Diese Klasse ist der Controller bei der Erstellung eines ERMs.
  */
-
 class ERMController
 {
 
@@ -26,7 +26,7 @@ class ERMController
      * @param int $y
      * @return EntityModel
      */
-    public static function addEntity(ERMModel $erm, String $id, String $name, int $x, int $y)
+    public static function addEntity(ERMModel $erm, string $id, string $name, int $x, int $y)
     {
         $entity = EntityController::createEntity($id, $name, $x, $y);
         $erm->addEntity($entity);
@@ -38,11 +38,13 @@ class ERMController
      * @param ERMModel $erm
      * @param EntityModel $entity
      */
-    public static function deleteEntity(ERMModel $erm, EntityModel $entity){
+    public static function deleteEntity(ERMModel $erm, EntityModel $entity)
+    {
         $erm->deleteEntity($entity);
     }
 
-    public static function printEntities(ERMModel $erm){
+    public static function printEntities(ERMModel $erm)
+    {
         $erm->printEntities();
     }
 
@@ -52,14 +54,14 @@ class ERMController
      * @param String $name
      * @return EntityModel
      */
-    public static function getEntitybyName(ERMModel $erm, String $name){
-        foreach ($erm->getEntities() as $entity)
-        {
-            if($entity->getName()==$name){
-                $e=$entity;
+    public static function getEntitybyName(ERMModel $erm, string $name)
+    {
+        foreach ($erm->getEntities() as $entity) {
+            if ($entity->getName() == $name) {
+                $e = $entity;
             }
         }
-        if(isset($e)){
+        if (isset($e)) {
             return $e;
         } else {
             return NULL;
@@ -72,14 +74,14 @@ class ERMController
      * @param String $name
      * @return EntityModel
      */
-    public static function getEntitybyID(ERMModel $erm, String $id){
-        foreach ($erm->getEntities() as $entity)
-        {
-            if($entity->getID()==$id){
-                $e=$entity;
+    public static function getEntitybyID(ERMModel $erm, string $id)
+    {
+        foreach ($erm->getEntities() as $entity) {
+            if ($entity->getID() == $id) {
+                $e = $entity;
             }
         }
-        if(isset($e)){
+        if (isset($e)) {
             return $e;
         } else {
             return NULL;
@@ -94,7 +96,7 @@ class ERMController
      * @param int $y
      * @return RelationshipModel
      */
-    public static function addRelationship(ERMModel $erm, $id, String $name, int $x, int $y)
+    public static function addRelationship(ERMModel $erm, $id, string $name, int $x, int $y)
     {
         $relationship = RelationshipController::createRelationship($id, $name, $x, $y);
         $erm->addRelationship($relationship);
@@ -107,20 +109,21 @@ class ERMController
      * @param String $id
      * @return RelationshipModel
      */
-    public static function getRelationship(ERMModel $erm, String $id){
+    public static function getRelationship(ERMModel $erm, string $id)
+    {
         // find relationship
-        foreach ($erm->getRelationships() as $relationship)
-        {
-            if($relationship->getID()==$id){
-                $selectedRelationship=$relationship;
+        foreach ($erm->getRelationships() as $relationship) {
+            if ($relationship->getID() == $id) {
+                $selectedRelationship = $relationship;
             }
         }
-        if(isset($selectedRelationship)){
+        if (isset($selectedRelationship)) {
             return $selectedRelationship;
         } else {
             return NULL;
         }
     }
+
     /**
      * Hinzufügen einer Generaliserung
      * @param ERMModel $erm
@@ -141,14 +144,14 @@ class ERMController
      * @param String $id
      * @return mixed
      */
-    public static function getGeneralisation(ERMModel $erm, String $id){
-        foreach ($erm->getGeneralistions() as $generalistion)
-        {
-            if($generalistion->getID()==$id){
-                $g=$generalistion;
+    public static function getGeneralisation(ERMModel $erm, string $id)
+    {
+        foreach ($erm->getGeneralistions() as $generalistion) {
+            if ($generalistion->getID() == $id) {
+                $g = $generalistion;
             }
         }
-        if(isset($g)){
+        if (isset($g)) {
             return $g;
         } else {
             return NULL;
@@ -173,10 +176,9 @@ class ERMController
     public static function deleteGeneralisation(ERMModel $erm, GeneralisationModel $generalisation)
     {
         //Alle Subtypes verlieren ihr SuperEntity
-        foreach ($generalisation->getSubtypes() as $subtype)
-            {
+        foreach ($generalisation->getSubtypes() as $subtype) {
             $subtype->setSuperEntity(NULL);
-            }
+        }
         $erm->deleteGeneralisation($generalisation);
     }
 
@@ -186,8 +188,9 @@ class ERMController
      * @param ERMModel $erm
      * @param int $generalisierungstyp
      */
-    public static function GeneralisationERM(ERMModel $erm, int $generalisierungstyp){
-        switch ($generalisierungstyp){
+    public static function GeneralisationERM(ERMModel $erm, int $generalisierungstyp)
+    {
+        switch ($generalisierungstyp) {
             case 1:
                 self::generalisierungbyHausklassenmodell($erm);
                 break;
@@ -208,12 +211,12 @@ class ERMController
      */
 
 
-
-    private static function generalisierungbyHausklassenmodell (ERMModel $erm){
-        foreach ($erm->getGeneralistions() as $generalisation){
+    private static function generalisierungbyHausklassenmodell(ERMModel $erm)
+    {
+        foreach ($erm->getGeneralistions() as $generalisation) {
             $supertyp = $generalisation->getSupertyp();
-            foreach ($generalisation->getSubtypes() as $subtype){
-                foreach ($supertyp->getAttributes() as $attribute){
+            foreach ($generalisation->getSubtypes() as $subtype) {
+                foreach ($supertyp->getAttributes() as $attribute) {
                     $subtype->addAttribute($attribute);
                 }
 
@@ -226,12 +229,13 @@ class ERMController
      * Generaliserung nach Partionierung
      * @param ERMModel $erm
      */
-    private static function generalisierungbyPartionierungsmodell (ERMModel $erm){
-        foreach ($erm->getGeneralistions() as $generalisation){
+    private static function generalisierungbyPartionierungsmodell(ERMModel $erm)
+    {
+        foreach ($erm->getGeneralistions() as $generalisation) {
             $supertyp = $generalisation->getSupertyp();
-            foreach ($generalisation->getSubtypes() as $subtype){
-                foreach ($supertyp->getAttributes() as $attribute){
-                    if($attribute->getPrimary()){
+            foreach ($generalisation->getSubtypes() as $subtype) {
+                foreach ($supertyp->getAttributes() as $attribute) {
+                    if ($attribute->getPrimary()) {
                         $subtype->addAttribute($attribute);
                     }
                 }
@@ -240,16 +244,14 @@ class ERMController
         }
 
 
-
-
-
     }
 
     /**
      * Generaliserung nach Überrealtion
      * @param ERMModel $erm
      */
-    private static function generalisierungbyUeberrelation (ERMModel $erm){
+    private static function generalisierungbyUeberrelation(ERMModel $erm)
+    {
         $typ = new AttributeERMModel("__Hierarchietyp", 1, false);
         foreach ($erm->getGeneralistions() as $generalisation) {
             $supertyp = $generalisation->getSupertyp();
@@ -276,10 +278,8 @@ class ERMController
             }
 
 
-
-            }
         }
-
+    }
 
 
 }
