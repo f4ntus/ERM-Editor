@@ -87,6 +87,23 @@ if (isset($_POST['function'])) {
             echo 'false';
         }
     }
+    //Generalisation Menue
+    if ($_POST['function']== 'updateGeneralisation') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $generalisation = ERMController::getGeneralisation($_POST['id']);
+        $array = $_POST['array'];
+
+        for ($i = 0; $i <= count($array); $i++) {
+            $entity = ERMController::getEntitybyName($array[$i]);
+            if($i == 0){
+                GeneralisationController::setSupertyp($generalisation, $entity);
+            }
+            else{
+                GeneralisationController::addSubtyp($generalisation, $entity);
+            }
+        }
+        var_dump($generalisation);
+    }
 }
 
 

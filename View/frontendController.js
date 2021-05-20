@@ -105,7 +105,7 @@ class FrontendController{
                 array: arrayGeneralisation
             },
             function(result){
-                console.log(result);
+                alert(result);
             }
         );
     }
