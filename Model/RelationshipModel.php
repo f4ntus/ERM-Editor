@@ -86,6 +86,53 @@ class RelationshipModel extends ERMObjectwithAttributes
         $this->relations = $relations;
     }
 
+    public function changeNotationto1mn()
+    {
+        if (count($this->relations) == 2) {
+            $relation1 = current($this->relations);
+            $relation2 = next($this->relations);
+            //Vereinfach von [0,1], [1,1] -> A und [0,*], [1,*] -> B
+            switch ($relation1->getKard()) {
+                case '[0,1]':
+                case '[1,1]':
+                    $r1 = 'A';
+                    break;
+                case '[0,*]':
+                case '[1,*]':
+                    $r2 = 'B';
+                    break;
+
+            }
+
+            switch ($relation2->getKard()) {
+                case '[0,1]':
+                case '[1,1]':
+                    $r1 = 'A';
+                    break;
+                case '[0,*]':
+                case '[1,*]':
+                    $r2 = 'B';
+                    break;
+
+            }
+
+            if ($r1 == 'A' and $r2 == 'B') {//n:1
+
+                $relation1->setKard('n');
+                $relation2->setKard('1');
+            } elseif ($r1 == 'B' and $r2 == 'A') { //1:n
+                $relation1->setKard('1');
+                $relation2->setKard('n');
+            } elseif ($r1 == 'B' and $r2 == 'B') { //m:n
+                $relation1->setKard('m');
+                $relation2->setKard('n');
+            }
+        } else {
+            foreach ($this->relations as $relation) {
+                $relation->setKard('n');
+            }
+        }
+    }
 
 
 
