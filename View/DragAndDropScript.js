@@ -4,7 +4,7 @@
  * enable also to move the dropped elements inside the editor area.
  * @author Antonia Gabriel
  */
-$(function() {
+$(function () {
 
     entityInputNo = 0;
     relationshipInputNo = 0;
@@ -13,7 +13,7 @@ $(function() {
 
 //set editor as a droppable container
     $(".editor").droppable({
-        drop: function(event, ui) {
+        drop: function (event, ui) {
 
             //defines element which ist allowed to be dropped: the cloned version from the original element returned by the function
             $element = ui.helper.clone();
@@ -22,7 +22,7 @@ $(function() {
                 cancel: false,
                 containment: $('.editor'),
                 cursor: 'move',
-                stop: function (event, ui){
+                stop: function (event, ui) {
                     // position of the draggable-element minus position of the droppable-element
                     // relative to the document
                     var newPosX = ui.offset.left - $('.editor').offset().left;
@@ -32,23 +32,23 @@ $(function() {
 
                     if ($element.attr("id").includes("entity")) {
                         $function = 'changePositionEntity'
-                    }else if ($element.attr("id").includes("relationship")){
+                    } else if ($element.attr("id").includes("relationship")) {
                         $function = 'changePositionRelationship'
-                    }else if ($element.attr("id").includes("isA")){
+                    } else if ($element.attr("id").includes("isA")) {
                         $function = 'changePositionIsA'
                     }
 
                     $.post(
-                    "../Interface/Connector.php",
+                        "../Interface/Connector.php",
                         {
                             function: $function,
                             id: $element.attr("id"),
                             xaxis: newPosX,
                             yaxis: newPosY,
                         },
-                        function(result){
+                        function (result) {
                             console.log(result);
-                    });
+                        });
 
                 }
             });
@@ -75,7 +75,7 @@ $(function() {
                         xaxis: firstPosX,
                         yaxis: firstPosY,
                     },
-                    function(result){
+                    function (result) {
                         console.log(result);
                     });
 
@@ -101,7 +101,7 @@ $(function() {
                         xaxis: firstPosX,
                         yaxis: firstPosY,
                     },
-                    function(result){
+                    function (result) {
                         console.log(result);
                     });
             }
@@ -125,7 +125,7 @@ $(function() {
                         xaxis: firstPosX,
                         yaxis: firstPosY,
                     },
-                    function(result){
+                    function (result) {
                         console.log(result);
                     });
 
@@ -181,7 +181,7 @@ function isAClone() {
     return '<button id="isA' + isAInputNo + '" class="isA" onclick="openGeneralisationMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
 }
 
-function openEntityMenu(entity){
+function openEntityMenu(entity) {
     document.getElementById("rightMenue").style.visibility = "visible";
     document.getElementById("displayEntityName").innerText = entity.innerHTML;
     document.getElementById("pEntityID").innerText = entity.id;
@@ -189,7 +189,7 @@ function openEntityMenu(entity){
 
 }
 
-function openRelationshipMenu(relationship){
+function openRelationshipMenu(relationship) {
     document.getElementById("relationshipMenu").style.visibility = "visible";
     document.getElementById("pRelationshipID").innerText = relationship.id;
     document.getElementById("inputRelationshipName").value = relationship.innerText;
@@ -211,25 +211,29 @@ function openGeneralisationMenu(generalisation) {
     dropboxContent[2] = document.getElementById("generalisationContent3")
 
     var entities = document.getElementsByClassName("entity"); //for some reason element 0 of array unusable (so 4 elements for 3 entities)
+    this.entities = null;
+    if (!(arrayEquals(entities, this.entities))) {
 
-    dropboxContent.forEach(function (dropboxContent) {
-        for (i = 1; i < entities.length; i++) {
-            var aElement = document.createElement('a');
-            //aElement.setAttribute("onclick","function");
-            aElement.onclick = function () {
-                selectGeneralisationDropdown(this);
-            };
-            //aElement.addEventListener("click", selectGeneralisationDropdown(this));
-            aElement.href = "#";
-            aElement.innerHTML = entities[i].innerHTML;
-            //var innerText = entities[i].innerText;
-            //var aElement = '<a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\'01\')">entity1</a>';
-            //aElement.innerText = entities[i];
-            dropboxContent.appendChild(aElement);
-            //dropboxContent.innerHTML= '<a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\'01\')">entity1</a>';
-        }
-    });
-
+        dropboxContent.forEach(function (dropboxContent) {
+            dropboxContent.innerHTML = "";
+            for (i = 1; i < entities.length; i++) {
+                var aElement = document.createElement('a');
+                //aElement.setAttribute("onclick","function");
+                aElement.onclick = function () {
+                    selectGeneralisationDropdown(this);
+                };
+                //aElement.addEventListener("click", selectGeneralisationDropdown(this));
+                aElement.href = "#";
+                aElement.innerHTML = entities[i].innerHTML;
+                //var innerText = entities[i].innerText;
+                //var aElement = '<a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\'01\')">entity1</a>';
+                //aElement.innerText = entities[i];
+                dropboxContent.appendChild(aElement);
+                //dropboxContent.innerHTML= '<a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\'01\')">entity1</a>';
+            }
+        });
+        this.entities = entities;
+    }
 
 }
 
