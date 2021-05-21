@@ -69,5 +69,21 @@ class GeneralisationController
         return $position;
     }
 
+    /**
+     * Ausgabe der Generalisierung in Array Format
+     * @param EntityModel $generalisation
+     * @return array
+     */
+    public static function getGeneralisationAsArray(GeneralisationModel $generalisation){
+
+        $generalisationArray = [
+            'id' => $generalisation->getId(),
+            'supertype' => $generalisation->getSupertyp(),
+            'subtypes' => $generalisation->getSubtypes()
+        ];
+        return $generalisationArray;
+
+    }
+
 
 }

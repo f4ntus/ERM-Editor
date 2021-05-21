@@ -200,6 +200,7 @@ function openRelationshipMenu(relationship) {
 function openGeneralisationMenu(generalisation) {
     document.getElementById("generalisationMenu").style.display = "block";
     document.getElementById("pGeneralisationID").innerText = generalisation.id;
+    FrontendController.getGeneralisationFromBackend(generalisation.id);
     //document.getElementById("inputGeneralisationName").value = generalisation.innerText;
     //FrontendController.updateRelationship(relationship.id);
     //console.info("öffnet Relationship-Menü");

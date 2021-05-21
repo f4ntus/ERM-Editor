@@ -112,7 +112,7 @@ function onClickAddSubtypeRow() {
 
     var table = document.getElementById("tableGeneralisation");
     var numberRows = table.rows.length;
-    if (numberRows === 7) {
+    if (numberRows === 9) {
         //Maximale Anzahl an Unterattributen erreicht Fehlermeldung
         return;
     }
@@ -122,7 +122,8 @@ function onClickAddSubtypeRow() {
 
     var clone = document.getElementById("dropdown1").cloneNode(true);
     clone.id = "dropdown" + numberRows;
-    clone.children[0].innerText = "default"
+    clone.children[0].innerText = "default";
+    clone.children[0].id = "dropdownGeneralisationText0" + (numberRows+1);
     //set onclick eventhandler for aElements of clone
     for (i = 0; i < clone.children[2].children.length; i++) {
         var aElement = clone.children[2].children[i];

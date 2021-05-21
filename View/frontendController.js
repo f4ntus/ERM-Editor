@@ -169,6 +169,43 @@ class FrontendController{
         );
     }
 
+    static getGeneralisationFromBackend(sGeneralisationId) {
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "getGeneralisation",
+                id: sGeneralisationId,
+            },
+            //
+            function (result) {
+                console.log(result);
+                var table = document.getElementById("tableGeneralisation");
+                while(table.rows.length > 3){
+                    table.deleteRow(3);
+                }
+                if(result == "false"){
+
+                    document.getElementById("dropdownGeneralisationText01").innerText = "default";
+                    document.getElementById("dropdownGeneralisationText02").innerText = "default";
+                    document.getElementById("dropdownGeneralisationText03").innerText = "default";
+                }
+                else{
+                    //build array
+
+                    //loop array
+                        //set dropdownGeneralisationText01 depending on array
+                    //if 3rd element of array create clone
+                    let oResult = JSON.parse(result)
+                    document.getElementById("displayEntityName").innerHTML = oResult['name'];
+                    document.getElementById(sEntityId).innerHTML = oResult['name'];
+                    let oTable = document.getElementById("idTableEntityAttributes");
+                    FrontendController.clearAndFillAttributeTable(oTable, oResult);
+                }
+            }
+        );
+    }
+
+
     static pushEntity(entityID, entityName) {
         let aAttributes = FrontendController.getAttributesAsArray(document.getElementById("idTableEntityAttributes"));
         console.log(aAttributes);
