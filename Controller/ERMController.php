@@ -120,6 +120,28 @@ class ERMController
             return NULL;
         }
     }
+
+    /**
+     * Rückgabe einer Relation nach deren Name
+     * @param ERMModel $erm
+     * @param String $id
+     * @return RelationshipModel
+     */
+    public static function getRelationshipByName(ERMModel $erm, String $name){
+        // find relationship
+        foreach ($erm->getRelationships() as $relationship)
+        {
+            if($relationship->getName()==$name){
+                $selectedRelationship=$relationship;
+            }
+        }
+        if(isset($selectedRelationship)){
+            return $selectedRelationship;
+        } else {
+            return NULL;
+        }
+    }
+
     /**
      * Hinzufügen einer Generaliserung
      * @param ERMModel $erm

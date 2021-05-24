@@ -163,14 +163,14 @@ if (isset($_POST['function'])) {
 
     if ($_POST['function'] == 'getPositionEntity') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $entity = ERMController::getEntitybyID($ERMModel, $_POST['id']);
+        $entity = ERMController::getEntitybyName($ERMModel, $_POST['name']);
         $position = EntityController::getPosition($entity);
         //var_dump($position);
         echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
     }
     if ($_POST['function'] == 'getPositionRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
+        $relationship = ERMController::getRelationshipByName($ERMModel, $_POST['name']);
         $position = RelationshipController::getPosition($relationship);
         echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
     }
