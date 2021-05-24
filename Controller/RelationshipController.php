@@ -179,9 +179,11 @@ class RelationshipController
      */
     public static function getRelationshipAsArray(RelationshipModel $relationship)
     {
+
         if(true){
             $relationship->changeNotationto1mn();
         }
+
 
         $attributes = AttributeERMController::getAttributes($relationship);
         $relationArray = [];
@@ -202,6 +204,15 @@ class RelationshipController
         return $relationshipArray;
     }
 
+    public static function getEntities(RelationshipModel $relationship)
+    {
+        $output = array();
+        foreach ($relationship->getRelations() as $relation) {
+            $output[] = $relation->getEntity()->getId();
+        }
+        return $output;
+
+    }
 
 
 }
