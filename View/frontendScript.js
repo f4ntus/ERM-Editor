@@ -2,17 +2,20 @@ function generalizationMode(mode) {
     let outputText = document.getElementById("showGeneralizationMode");
     outputText.innerText = mode;
 }
-function selectEntityDropdown(entity, number){
+
+function selectEntityDropdown(entity, number) {
     let element = "dropdownEntityText" + number;
     let outputText = document.getElementById(element);
     outputText.innerText = entity;
 }
-function selectNotationDropdown(notation, number){
+
+function selectNotationDropdown(notation, number) {
     let element = "dropdownNotationText" + number;
     let outputText = document.getElementById(element);
     outputText.innerText = notation;
 }
-function onClickButtonAddRelationship(rowNuber){
+
+function onClickButtonAddRelationship(rowNuber) {
     // insert new row in Table
     var table = document.getElementById("tblRelationship");
     var row = table.insertRow(-1);
@@ -23,24 +26,24 @@ function onClickButtonAddRelationship(rowNuber){
     // get HTML code from the first row of the Table
     var colEntity = '<td id="colRelEntity">\n' +
         '                    <div class="dropdown">\n' +
-        '                        <p class="dorpdowntext" id="dropdownEntityText'+rowNuber+'">Entity</p>\n' +
+        '                        <p class="dorpdowntext" id="dropdownEntityText' + rowNuber + '">Entity</p>\n' +
         '                        <button class="dropbtnArrow"></button>\n' +
         '                        <div class="dropdown-content" >\n' +
-        '                            <a href="#" onclick="selectEntityDropdown(\'Gebäude\',\''+rowNuber+'\')">Gebäude</a>\n' +
-        '                            <a href="#" onclick="selectEntityDropdown(\'Raum\',\''+rowNuber+'\')">Raum</a>\n' +
+        '                            <a href="#" onclick="selectEntityDropdown(\'Gebäude\',\'' + rowNuber + '\')">Gebäude</a>\n' +
+        '                            <a href="#" onclick="selectEntityDropdown(\'Raum\',\'' + rowNuber + '\')">Raum</a>\n' +
         '                        </div>\n' +
         '                    </div>\n' +
         '                </td>'
     var colNotation = '<div class="dropdown">\n' +
-        '                        <p class="dorpdowntext" id="dropdownNotationText'+rowNuber+'">n</p>\n' +
+        '                        <p class="dorpdowntext" id="dropdownNotationText' + rowNuber + '">n</p>\n' +
         '                        <button class="dropbtnArrow"></button>\n' +
         '                        <div class="dropdown-content" id="entityContent">\n' +
-        '                            <a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\''+rowNuber+'\')">1</a>\n' +
-        '                            <a href="#" class="selNotDorp02" onclick="selectNotationDropdown(\'n\',\''+rowNuber+'\')">n</a>\n' +
-        '                            <a href="#" class="selNotDorp03" onclick="selectNotationDropdown(\'m\',\''+rowNuber+'\')">m</a>\n' +
+        '                            <a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\'' + rowNuber + '\')">1</a>\n' +
+        '                            <a href="#" class="selNotDorp02" onclick="selectNotationDropdown(\'n\',\'' + rowNuber + '\')">n</a>\n' +
+        '                            <a href="#" class="selNotDorp03" onclick="selectNotationDropdown(\'m\',\'' + rowNuber + '\')">m</a>\n' +
         '                        </div>\n' +
         '                    </div>'
-    var colWeakEntity = '<td id="colRelWeakEntity"> <input type="checkbox" name="weakEntity'+rowNuber+'"></td>'
+    var colWeakEntity = '<td id="colRelWeakEntity"> <input type="checkbox" name="weakEntity' + rowNuber + '"></td>'
     // insert the HTML Code in the new Row
     cell1.innerHTML = rowNuber;
     cell2.innerHTML = colEntity;
@@ -48,18 +51,18 @@ function onClickButtonAddRelationship(rowNuber){
     cell4.innerHTML = colWeakEntity;
     // change button Attribute for the next higher rowNumber
     var btnAddRelationship = document.getElementById("btnAddRelationship");
-    var newRowNumber = rowNuber+1;
-    var onClickFunktionString = "onClickButtonAddRelationship("+rowNuber+1+")"
-    btnAddRelationship.setAttribute("onClick", "onClickButtonAddRelationship("+newRowNumber+")" )
+    var newRowNumber = rowNuber + 1;
+    var onClickFunktionString = "onClickButtonAddRelationship(" + rowNuber + 1 + ")"
+    btnAddRelationship.setAttribute("onClick", "onClickButtonAddRelationship(" + newRowNumber + ")")
 }
 
-function onClickERMReset(){
+function onClickERMReset() {
     $.post(
         "../Interface/Connector.php",
         {
             function: "resetERM",
         },
-        function(result){
+        function (result) {
             alert(result);
         }
     );
@@ -105,17 +108,43 @@ function onClickAddSubAttributeRow() {
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
 
+function onClickAddSubtypeRow() {
+
+    var table = document.getElementById("tableGeneralisation");
+    var numberRows = table.rows.length;
+    if (numberRows === 9) {
+        //Maximale Anzahl an Unterattributen erreicht Fehlermeldung
+        return;
+    }
+    var row = table.insertRow(numberRows);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    var clone = document.getElementById("dropdown1").cloneNode(true);
+    clone.id = "dropdown" + numberRows;
+    clone.children[0].innerText = "default";
+    clone.children[0].id = "dropdownGeneralisationText0" + (numberRows+1);
+    //set onclick eventhandler for aElements of clone
+    for (i = 0; i < clone.children[2].children.length; i++) {
+        var aElement = clone.children[2].children[i];
+        aElement.onclick = function () {
+            selectGeneralisationDropdown(this);
+        };
+    }
+    cell1.innerHTML = "Subtyp";
+    cell2.appendChild(clone);
+}
 
 
 function onClickAddSimpleAttributeToTable() {
     var sAttributeName = document.getElementById("idSimpleAttributeName").value;
-    FrontendController.addRowAttributeToTable("idCheckboxPK",true,0,sAttributeName,'entityAttribute', 0);
+    FrontendController.addRowAttributeToTable("idCheckboxPK", true, 0, sAttributeName, 'entityAttribute', 0);
 }
 
 function onClickAddMultiValueAttributeToTable() {
-   var sAttributeName = document.getElementById("idMultiValueAttributeName").value;
-   var sAttributeValue = "{" + sAttributeName + "}";
-    FrontendController.addRowAttributeToTable("",false,1,sAttributeValue, 'entityAttribute', 0);
+    var sAttributeName = document.getElementById("idMultiValueAttributeName").value;
+    var sAttributeValue = "{" + sAttributeName + "}";
+    FrontendController.addRowAttributeToTable("", false, 1, sAttributeValue, 'entityAttribute', 0);
 }
 
 function onClickAddCompoundAttributeToTable() {
@@ -137,9 +166,8 @@ function onClickAddCompoundAttributeToTable() {
             sCompoundAttribute = sCompoundAttribute + aSubValues[i] + ",";
         }
     }
-    FrontendController.addRowAttributeToTable("idCheckboxPK2", true, 2, sCompoundAttribute, 'entityAttribute',0);
+    FrontendController.addRowAttributeToTable("idCheckboxPK2", true, 2, sCompoundAttribute, 'entityAttribute', 0);
 }
-
 
 
 function onClickDeleteAttribute(oSelectedButton, tableId) {
@@ -179,10 +207,10 @@ function onClickFinishEntityMenue() {
     let entityID = document.getElementById("pEntityID").innerHTML;
     document.getElementById(entityID).innerText = newEntityName;
     document.getElementById("rightMenue").style.visibility = "hidden";
-    FrontendController.pushEntity(entityID,newEntityName);
+    FrontendController.pushEntity(entityID, newEntityName);
 }
 
-function onClickButtonDeleteEntity(){
+function onClickButtonDeleteEntity() {
 
     let entityID = document.getElementById("displayEntityName").innerHTML;
     let deleteEntity = document.getElementById(entityID);
@@ -196,35 +224,50 @@ function onClickButtonDeleteEntity(){
             function: "deleteEntity",
             id: entityID,
         },
-        function(result){
+        function (result) {
             console.log(result);
         }
     );
 
 }
 
+
+function onClickFinishGeneralisationMenue() {
+    var tableGeneralisation = document.getElementById("tableGeneralisation");
+    var generalisierungId = document.getElementById("pGeneralisationID").innerText;
+
+    var arrayGeneralisation = [];
+
+    for (i = 0; i < tableGeneralisation.rows.length; i++) {
+        arrayGeneralisation[i] = tableGeneralisation.rows[i].cells[1].children[0].innerText;
+    }
+    FrontendController.pushGeneralisation(generalisierungId, arrayGeneralisation);
+}
+
 // ----------------------------------------------- for Releationship Menu ------------------------------------
 // -----------------------------------------------------------------------------------------------------------
 
-function onInputRelationshipName(oTextbox){
+function onInputRelationshipName(oTextbox) {
     let id = document.getElementById("pRelationshipID").innerHTML;
     document.getElementById(id).innerText = oTextbox.value;
 }
-function onClickEntitySelection(sRelationshipNo){
+
+function onClickEntitySelection(sRelationshipNo) {
     aEntitys = document.getElementsByClassName("entity");
     let entityLists = '';
     console.log(aEntitys.length)
-    for (let i = 0; i < aEntitys.length; i++){
-        if (aEntitys[i].id != "entity"){ // exclude object from the right menu
+    for (let i = 0; i < aEntitys.length; i++) {
+        if (aEntitys[i].id != "entity") { // exclude object from the right menu
             console.log(aEntitys);
-            entityLists += '<a href="#" onClick="selectEntityDropdown(\''+ aEntitys[i].innerHTML +'\',\''+ sRelationshipNo +'\')">'+ aEntitys[i].innerHTML +'</a>';
+            entityLists += '<a href="#" onClick="selectEntityDropdown(\'' + aEntitys[i].innerHTML + '\',\'' + sRelationshipNo + '\')">' + aEntitys[i].innerHTML + '</a>';
         }
     }
     let oDropDownContent = document.getElementById("EntitySelectionDropDownContent" + sRelationshipNo)
     oDropDownContent.innerHTML = entityLists;
     oDropDownContent.style.display = "block";
 }
-function selectEntityDropdown(entity, number){
+
+function selectEntityDropdown(entity, number) {
     let element = "dropdownEntityText" + number;
     let outputText = document.getElementById(element);
     console.log()
@@ -232,12 +275,18 @@ function selectEntityDropdown(entity, number){
     let oDropDownContent = document.getElementById("EntitySelectionDropDownContent" + number);
     oDropDownContent.style.display = "none";
 }
-function selectNotationDropdown(notation, number){
+
+function selectNotationDropdown(notation, number) {
     let element = "dropdownNotationText" + number;
     let outputText = document.getElementById(element);
     outputText.innerText = notation;
 }
-function onClickButtonAddRelationship(rowNuber){
+
+function selectGeneralisationDropdown(aElement) {
+    aElement.parentElement.parentElement.children[0].innerText = aElement.innerText;
+}
+
+function onClickButtonAddRelationship(rowNuber) {
     // insert new row in Table
     var table = document.getElementById("tblRelationship");
     var row = table.insertRow(-1);
@@ -248,22 +297,22 @@ function onClickButtonAddRelationship(rowNuber){
     // get HTML code from the first row of the Table
     var colEntity = '<td id="colRelEntity">\n' +
         '                    <div class="dropdown">\n' +
-        '                        <p class="dorpdowntext" id="dropdownEntityText'+rowNuber+'">Entity</p>\n' +
-        '                        <button class="dropbtnArrow" onClick="onClickEntitySelection('+rowNuber+')"></button>\n' +
-        '                        <div class="dropdown-content" id="EntitySelectionDropDownContent'+rowNuber+'" >\n' +
+        '                        <p class="dorpdowntext" id="dropdownEntityText' + rowNuber + '">Entity</p>\n' +
+        '                        <button class="dropbtnArrow" onClick="onClickEntitySelection(' + rowNuber + ')"></button>\n' +
+        '                        <div class="dropdown-content" id="EntitySelectionDropDownContent' + rowNuber + '" >\n' +
         '                        </div>\n' +
         '                    </div>\n' +
         '                </td>'
     var colNotation = '<div class="dropdown">\n' +
-        '                        <p class="dorpdowntext" id="dropdownNotationText'+rowNuber+'">n</p>\n' +
+        '                        <p class="dorpdowntext" id="dropdownNotationText' + rowNuber + '">n</p>\n' +
         '                        <button class="dropbtnArrow"></button>\n' +
         '                        <div class="dropdown-content hoverContent" id="entityContent">\n' +
-        '                            <a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\''+rowNuber+'\')">1</a>\n' +
-        '                            <a href="#" class="selNotDorp02" onclick="selectNotationDropdown(\'n\',\''+rowNuber+'\')">n</a>\n' +
-        '                            <a href="#" class="selNotDorp03" onclick="selectNotationDropdown(\'m\',\''+rowNuber+'\')">m</a>\n' +
+        '                            <a href="#" class="selNotDorp01" onclick="selectNotationDropdown(\'1\',\'' + rowNuber + '\')">1</a>\n' +
+        '                            <a href="#" class="selNotDorp02" onclick="selectNotationDropdown(\'n\',\'' + rowNuber + '\')">n</a>\n' +
+        '                            <a href="#" class="selNotDorp03" onclick="selectNotationDropdown(\'m\',\'' + rowNuber + '\')">m</a>\n' +
         '                        </div>\n' +
         '                    </div>'
-    var colWeakEntity = '<td id="colRelWeakEntity"> <input type="checkbox" name="weakEntity'+rowNuber+'"></td>'
+    var colWeakEntity = '<td id="colRelWeakEntity"> <input type="checkbox" name="weakEntity' + rowNuber + '"></td>'
     // insert the HTML Code in the new Row
     cell1.innerHTML = rowNuber;
     cell2.innerHTML = colEntity;
@@ -271,10 +320,11 @@ function onClickButtonAddRelationship(rowNuber){
     cell4.innerHTML = colWeakEntity;
     // change button Attribute for the next higher rowNumber
     var btnAddRelationship = document.getElementById("btnAddRelationship");
-    var newRowNumber = rowNuber+1;
-    var onClickFunktionString = "onClickButtonAddRelationship("+rowNuber+1+")"
-    btnAddRelationship.setAttribute("onClick", "onClickButtonAddRelationship("+newRowNumber+")" )
+    var newRowNumber = rowNuber + 1;
+    var onClickFunktionString = "onClickButtonAddRelationship(" + rowNuber + 1 + ")"
+    btnAddRelationship.setAttribute("onClick", "onClickButtonAddRelationship(" + newRowNumber + ")")
 }
+
 function onClickAddSimpleAttributeToRelationship() {
     document.getElementById("idDivAddSimpleAttributeRel").style.display = "block";
     document.getElementById("idDivAddMultiValueAttributeRel").style.display = "none";
@@ -287,21 +337,24 @@ function onClickAddMultiValueAttributeToRelationship() {
     document.getElementById("idDivAddCompoundAttributeRel").style.display = "none";
 }
 
-function onClickAddCompoundAttributeToRelationship () {
+function onClickAddCompoundAttributeToRelationship() {
     document.getElementById("idDivAddSimpleAttributeRel").style.display = "none";
     document.getElementById("idDivAddMultiValueAttributeRel").style.display = "none";
     document.getElementById("idDivAddCompoundAttributeRel").style.display = "block";
 }
-function onClickAddSimpleAttributeToTableRel(){
+
+function onClickAddSimpleAttributeToTableRel() {
     var sAttributeName = document.getElementById("idSimpleAttributeNameRel").value;
-    FrontendController.addRowAttributeToTable("idCheckboxPK",false,0,sAttributeName, 'relationshipAttribute',0);
+    FrontendController.addRowAttributeToTable("idCheckboxPK", false, 0, sAttributeName, 'relationshipAttribute', 0);
 }
-function onClickAddMultiValueAttributeToTableRel(){
+
+function onClickAddMultiValueAttributeToTableRel() {
     var sAttributeName = document.getElementById("idMultiValueAttributeNameRel").value;
     var sAttributeValue = "{" + sAttributeName + "}";
-    FrontendController.addRowAttributeToTable("",false,1,sAttributeValue,'relationshipAttribute',0);
+    FrontendController.addRowAttributeToTable("", false, 1, sAttributeValue, 'relationshipAttribute', 0);
 }
-function onClickAddCompoundAttributeToTableRel(){
+
+function onClickAddCompoundAttributeToTableRel() {
     var sUpperAttributeName = document.getElementById("idUpperAttributeNameRel").value;
     var aSubValues = [];
     var oTable = document.getElementById("idTableCompoundAttributeRel");
@@ -320,9 +373,10 @@ function onClickAddCompoundAttributeToTableRel(){
             sCompoundAttribute = sCompoundAttribute + aSubValues[i] + ",";
         }
     }
-    FrontendController.addRowAttributeToTable("idCheckboxPK2", false, 2, sCompoundAttribute, 'relationshipAttribute',0);
+    FrontendController.addRowAttributeToTable("idCheckboxPK2", false, 2, sCompoundAttribute, 'relationshipAttribute', 0);
 }
-function onClickAddSubAttributeRowRel(){
+
+function onClickAddSubAttributeRowRel() {
     // diese Funktion auslagern da fast gleich wie onClickAddSubAttributeRow()
     var table = document.getElementById("idTableCompoundAttributeRel");
     var numberRows = table.rows.length;
@@ -338,8 +392,9 @@ function onClickAddSubAttributeRowRel(){
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
 
-function onClickButtonSubmitRelationship(){
+function onClickButtonSubmitRelationship() {
     FrontendController.pushRelationship();
+    document.getElementById("relationshipMenu").style.visibility = 'hidden';
 }
 
 function onClickButtonDeleteRelationship() {
@@ -360,10 +415,20 @@ function onClickButtonDeleteRelationship() {
         }
     );
 }
-function onClickChangeERMModel(){
+
+function onClickChangeERMModel() {
     FrontendController.changeERMModel();
 }
+
 
 function onClickButtonDrawLines(){
     FrontendController.drawLines();
 }
+
+function arrayEquals(a, b) {
+    return Array.isArray(a) &&
+        Array.isArray(b) &&
+        a.length === b.length &&
+        a.every((val, index) => val === b[index]);
+}
+

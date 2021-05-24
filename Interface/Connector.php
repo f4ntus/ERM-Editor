@@ -15,12 +15,12 @@ if (!isset($_SESSION['ERM-Model'])) {
 }
 
 if (isset($_POST['function'])) {
-    if ($_POST['function'] == 'resetERM'){
+    if ($_POST['function'] == 'resetERM') {
         $ERMModel = ERMController::createModel();
         $_SESSION['ERM-Model'] = $ERMModel;
         echo 'Das ERM Model wurde reseted';
     }
-  
+
     if ($_POST['function'] == 'addEntity') {
         $ERMModel = $_SESSION['ERM-Model'];
         $entity = ERMController::addEntity($ERMModel, $_POST['id'], $_POST['name'], $_POST['xaxis'], $_POST['yaxis']);
@@ -71,40 +71,58 @@ if (isset($_POST['function'])) {
         var_dump($ERMModel);
         var_dump($isA);
     }
-    if ($_POST['function'] == 'getEntity'){
+    if ($_POST['function'] == 'getEntity') {
         $entity = ERMController::getEntitybyID($_SESSION['ERM-Model'], $_POST['id']);
         if ($entity != NULL) {
             $entityArray = EntityController::getEntityAsArray($entity);
-            echo json_encode($entityArray,JSON_FORCE_OBJECT);
+            echo json_encode($entityArray, JSON_FORCE_OBJECT);
         } else {
             echo 'false';
         }
     }
-    if ($_POST['function'] == 'updateEntity'){
+    if ($_POST['function'] == 'getGeneralisation') {
+        $generalisation = ERMController::getGeneralisation($_SESSION['ERM-Model'], $_POST['id']);
+        if (!empty($generalisation->getSubtypes()) && !empty($generalisation->getSupertyp())) {
+
+            //$generalisationArray = [];
+            //$subtype = $generalisation->getSupertyp();
+            //$generalisationArray[0] = $subtype['name'];
+            /*
+            for($i=0; $i <= 10; $i++) {
+                echo $i;
+            }
+            */
+            $generalisationArray = GeneralisationController::getGeneralisationAsArray($generalisation);
+            echo json_encode($generalisationArray, JSON_FORCE_OBJECT);
+        } else {
+            echo 'false';
+        }
+    }
+    if ($_POST['function'] == 'updateEntity') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $entity = ERMController::getEntitybyID($ERMModel,$_POST['id']);
-        EntityController::setName($entity,$_POST['name']);
-        if (isset($_POST['attributes'])){ // Entity with attributes
+        $entity = ERMController::getEntitybyID($ERMModel, $_POST['id']);
+        EntityController::setName($entity, $_POST['name']);
+        if (isset($_POST['attributes'])) { // Entity with attributes
             EntityController::addOrUpdateAttributes($entity, $_POST['attributes']);
-        }else{ // Entity without attributes
+        } else { // Entity without attributes
             EntityController::deleteAllAttributes($entity);
         }
         var_dump($entity);
     }
-    if ($_POST['function']== 'updateRelationship') {
+    if ($_POST['function'] == 'updateRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
         $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
-        RelationshipController::setName($relationship,$_POST['name']);
+        RelationshipController::setName($relationship, $_POST['name']);
         //var_dump($_POST);
-        if (isset($_POST['attributes'])){ // relationship with attributes
+        if (isset($_POST['attributes'])) { // relationship with attributes
             RelationshipController::addOrUpdateAttributes($relationship, $_POST['attributes']);
-        }else{ // Relationship without attributes
+        } else { // Relationship without attributes
             RelationshipController::deleteAllAttributes($relationship);
         }
         RelationshipController::addOrUpdateRealtions($ERMModel, $relationship, $_POST['relations']);
         var_dump($relationship);
     }
-    if ($_POST['function'] == 'getRelationship'){
+    if ($_POST['function'] == 'getRelationship') {
         $relationship = ERMController::getRelationship($_SESSION['ERM-Model'], $_POST['id']);
         if ($relationship != NULL) {
             $relationshipArray = RelationshipController::getRelationshipAsArray($relationship);
@@ -138,9 +156,10 @@ if (isset($_POST['function'])) {
     if ($_POST['function'] == 'changeERMModel') {
         $ERMModel = $_SESSION['ERM-Model'];
         //var_dump($ERMModel);
-        $rdmArray = RDMController::getRDM($ERMModel,1);
+        $rdmArray = RDMController::getRDM($ERMModel, 1);
         echo json_encode($rdmArray, JSON_FORCE_OBJECT);
     }
+
 
     if ($_POST['function'] == 'getPositionEntity') {
         $ERMModel = $_SESSION['ERM-Model'];
@@ -154,6 +173,23 @@ if (isset($_POST['function'])) {
         $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
         $position = RelationshipController::getPosition($relationship);
         echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
+    }
+
+
+    if ($_POST['function'] == 'updateGeneralisation') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $generalisation = ERMController::getGeneralisation($ERMModel, $_POST['id']);
+        $array = $_POST['array'];
+
+        for ($i = 0; $i < count($array); $i++) {
+            $entity = ERMController::getEntitybyName($ERMModel, $array[$i]);
+            if ($i == 0) {
+                GeneralisationController::setSupertyp($generalisation, $entity);
+            } else {
+                GeneralisationController::addSubtyp($generalisation, $entity);
+            }
+        }
+        var_dump($generalisation);
     }
 
 }

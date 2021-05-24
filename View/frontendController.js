@@ -1,5 +1,5 @@
-class FrontendController {
-    static updateRelationship(sRelationshipID) {
+class FrontendController{
+    static updateRelationship(sRelationshipID){
 
         $.post(
             "../Interface/Connector.php",
@@ -7,28 +7,27 @@ class FrontendController {
                 function: "getRelationship",
                 id: sRelationshipID,
             },
-            function (result) {
+            function(result){
                 console.log(result);
                 FrontendController.getRelationshipCallback(result);
             }
         );
     }
-
-    static getRelationshipCallback(result) {
+    static getRelationshipCallback(result){
         let oAttributeTable = document.getElementById("idTableRelationshipAttributes");
 
         // clear table before refill
         let tablelenght = oAttributeTable.rows.length;
-        for (let i = 0; i < tablelenght; i++) {
+        for (let i =0; i < tablelenght; i++){
             oAttributeTable.deleteRow(-1);
         }
-        if (result != "false") {
+        if (result != "false"){
             let oresult = JSON.parse(result)
             document.getElementById("inputRelationshipName").value = oresult.name;
             document.getElementById(oresult.id).innerHTML = oresult.name;
             let aAttributes = oresult.attributes;
             console.log(oresult.attributes);
-            for (let i in aAttributes) {
+            for (let i in aAttributes){
                 let row = oAttributeTable.insertRow(-1);
                 let cell1 = row.insertCell(0);
                 let cell2 = row.insertCell(1);
@@ -36,19 +35,34 @@ class FrontendController {
                 cell1.innerHTML = aAttributes[i].typ;
                 cell1.style.display = "none";
                 cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
-                if (aAttributes[i].typ == 1) {
+                if (aAttributes[i].typ == 1){
                     cell3.innerHTML = '{' + aAttributes[i].name + '}';
                 } else {
                     cell3.innerHTML = aAttributes[i].name;
                 }
                 console.log(aAttributes[i].name);
             }
-
             //console.log(result);
+            let aRelations = oresult.relations;
+            let oRelationsTable = document.getElementById("tblRelationship")
+            for (let i in aRelations) {
+                let iRow = parseInt(i) + 2;
+                if (parseInt(i) < 2) {
+                    oRelationsTable.rows[iRow].getElementsByTagName("td")[0].innerHTML = parseInt(i) + 1;
+                    oRelationsTable.rows[iRow].getElementsByTagName("p")[0].innerHTML = aRelations[i].entity;
+                    oRelationsTable.rows[iRow].getElementsByTagName("p")[1].innerHTML = aRelations[i].notation;
+                    if (aRelations[i].weakness === 'true') {
+                        oRelationsTable.rows[iRow].getElementsByTagName("input")[0].checked = true;
+                    } else {
+                        oRelationsTable.rows[iRow].getElementsByTagName("input")[0].checked = false;
+                    }
+                }
+            }
         }
-    }
 
-    static pushRelationship() {
+
+    }
+    static pushRelationship (){
         // Informations about the Relationship
         let sRelationshipID = document.getElementById("pRelationshipID").innerHTML;
         let oRelationship = document.getElementById(sRelationshipID);
@@ -110,23 +124,24 @@ class FrontendController {
             }
         );
     }
-    static changeERMModelCallback(result){
-        let aResult = JSON.parse(result);
-        let newString ='';
-        for (let i in aResult){
-            newString +=  aResult[i].name + ' ('
-            let aAttributes = aResult[i].attributes;
-            for (let i in aAttributes){
-                console.log(aAttributes[i].primary);
-                if (aAttributes[i].primary === 'true'){
+
+    static changeERMModelCallback(result) {
+        let oResult = JSON.parse(result);
+        let newString = '';
+        for (let i in oResult) {
+            newString += oResult[i].name + ' ('
+            let oAttributes = oResult[i].attributes;
+            for (let i in oAttributes) {
+                console.log(oAttributes[i].primary);
+                if (oAttributes[i].primary === 'true') {
                     console.log('test');
-                    newString += '<u>' + aAttributes[i].name +' ' + aAttributes[i].reference +  '</u>';
+                    newString += '<u>' + oAttributes[i].name + ' ' + oAttributes[i].reference + '</u>';
                 } else {
-                    newString += aAttributes[i].name +' ' + aAttributes[i].reference;
+                    newString += oAttributes[i].name + ' ' + oAttributes[i].reference;
                 }
-                console.log(aAttributes.length);
-                if(i !== aAttributes.length - 1){
-                    newString += ' ,';
+                let iLength = Object.keys(oAttributes).length;
+                if (parseInt(i) !== iLength - 1) {
+                    newString += ', ';
                 }
             }
             newString += ')<br>';
@@ -154,6 +169,43 @@ class FrontendController {
         );
     }
 
+    static getGeneralisationFromBackend(sGeneralisationId) {
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "getGeneralisation",
+                id: sGeneralisationId,
+            },
+            //
+            function (result) {
+                console.log(result);
+                var table = document.getElementById("tableGeneralisation");
+                while(table.rows.length > 3){
+                    table.deleteRow(3);
+                }
+                if(result == "false"){
+
+                    document.getElementById("dropdownGeneralisationText01").innerText = "default";
+                    document.getElementById("dropdownGeneralisationText02").innerText = "default";
+                    document.getElementById("dropdownGeneralisationText03").innerText = "default";
+                }
+                else{
+                    //build array
+
+                    //loop array
+                        //set dropdownGeneralisationText01 depending on array
+                    //if 3rd element of array create clone
+                    let oResult = JSON.parse(result)
+                    document.getElementById("displayEntityName").innerHTML = oResult['name'];
+                    document.getElementById(sEntityId).innerHTML = oResult['name'];
+                    let oTable = document.getElementById("idTableEntityAttributes");
+                    FrontendController.clearAndFillAttributeTable(oTable, oResult);
+                }
+            }
+        );
+    }
+
+
     static pushEntity(entityID, entityName) {
         let aAttributes = FrontendController.getAttributesAsArray(document.getElementById("idTableEntityAttributes"));
         console.log(aAttributes);
@@ -169,6 +221,23 @@ class FrontendController {
                 console.log(result);
             }
         );
+    }
+
+    static resetRelationsTable() {
+        let oRelationsTable = document.getElementById("tblRelationship");
+        let tableLength = oRelationsTable.rows.length;
+        for (let iRow = 0; iRow < tableLength; iRow++) {
+            if (iRow <= 3 && iRow > 1) { // resetting necessary rows
+                oRelationsTable.rows[iRow].getElementsByTagName('td')[0].innerHTML = iRow - 1;
+                oRelationsTable.rows[iRow].getElementsByTagName('p')[0].innerHTML = 'Entity';
+                // ToDo: implement if for the right notation
+                oRelationsTable.rows[iRow].getElementsByTagName('p')[1].innerHTML = 'n';
+                oRelationsTable.rows[iRow].getElementsByTagName('input')[0].checked = false;
+            }
+            if (iRow > 3) {
+                oRelationsTable.deleteRow(-1);
+            }
+        }
     }
 
     static clearAndFillAttributeTable(oTable, oResult) {
@@ -235,6 +304,9 @@ class FrontendController {
         if (primaryKeyNeeded === true) {
             if (callFrom === 0) {
                 bPrimary = document.getElementById(idCheckboxPK).checked;
+            } else {
+                // parse into boolean, because it comes as a String from the Backend
+                bPrimary = bPrimary === 'true' ? true : false;
             }
             cell4.innerHTML = "<label class=\"switch\">\n" +
                 "                        <input id='idCheckboxPrimaryKeyMainTable" + table.rows.length + "' type=\"checkbox\">\n" +
@@ -289,6 +361,7 @@ class FrontendController {
         }
         return aAttributes;
     }
+
 
     static drawLines(){
 
@@ -388,5 +461,20 @@ class FrontendController {
     }
 
 
+
+
+    static pushGeneralisation (idGeneralisation, arrayGeneralisation){
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "updateGeneralisation",
+                id: idGeneralisation,
+                array: arrayGeneralisation
+            },
+            function(result){
+                alert(result);
+            }
+        );
+    }
 
 }
