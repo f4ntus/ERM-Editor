@@ -160,7 +160,7 @@ class FrontendController{
                 console.log(result);
                 if (result != "false") {
                     let oResult = JSON.parse(result)
-                    document.getElementById("displayEntityName").innerHTML = oResult['name'];
+                   // document.getElementById("displayEntityName").innerHTML = oResult['name'];
                     document.getElementById(sEntityId).innerHTML = oResult['name'];
                     let oTable = document.getElementById("idTableEntityAttributes");
                     FrontendController.clearAndFillAttributeTable(oTable, oResult);
@@ -195,8 +195,8 @@ class FrontendController{
                     //loop array
                         //set dropdownGeneralisationText01 depending on array
                     //if 3rd element of array create clone
-                    let oResult = JSON.parse(result)
-                    document.getElementById("displayEntityName").innerHTML = oResult['name'];
+                    let oResult = JSON.parse(result);
+                    //document.getElementById("displayEntityName").innerHTML = oResult['name'];
                     document.getElementById(sEntityId).innerHTML = oResult['name'];
                     let oTable = document.getElementById("idTableEntityAttributes");
                     FrontendController.clearAndFillAttributeTable(oTable, oResult);
@@ -457,9 +457,21 @@ class FrontendController{
         );
 
     }
-
-
-
+    static checkEntityName(EntityName){
+        let oEntities = document.getElementsByClassName("entity");
+        let j =0;
+        for (let i in oEntities){
+            if (oEntities[i].innerHTML === EntityName){
+                j++;
+            }
+        }
+        if (j>1){
+            alert("der Name ist bereits vergeben!");
+            return false;
+        }else {
+            return true; 
+        }
+    }
 
     static pushGeneralisation (idGeneralisation, arrayGeneralisation){
         $.post(

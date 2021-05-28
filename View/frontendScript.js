@@ -203,16 +203,21 @@ function sortTable() {
 
 function onClickFinishEntityMenue() {
     let newEntityName = document.getElementById("idEntityName").value;
-    let oldEntityName = document.getElementById("displayEntityName").innerText;
     let entityID = document.getElementById("pEntityID").innerHTML;
+    let oldEntityName = document.getElementById(entityID).innerText;
     document.getElementById(entityID).innerText = newEntityName;
-    document.getElementById("rightMenue").style.visibility = "hidden";
-    FrontendController.pushEntity(entityID, newEntityName);
+    if (FrontendController.checkEntityName(newEntityName)){
+        FrontendController.pushEntity(entityID, newEntityName);
+        document.getElementById("rightMenue").style.visibility = "hidden";
+    } else {
+        document.getElementById(entityID).innerText = oldEntityName;
+        document.getElementById("idEntityName").value = oldEntityName;
+    }
 }
 
 function onClickButtonDeleteEntity() {
 
-    let entityID = document.getElementById("displayEntityName").innerHTML;
+    let entityID = document.getElementById("pEntityID").innerHTML;
     let deleteEntity = document.getElementById(entityID);
 
     //Remove the selected element from the document
