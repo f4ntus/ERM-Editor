@@ -4,8 +4,8 @@ include_once '../Controller/EntityController.php';
 include_once '../Controller/ERMController.php';
 include_once '../Controller/RelationshipController.php';
 include_once '../Controller/GeneralisationController.php';
-include_once '..\Controller\AttributeERMController.php';
-include_once '..\Controller\RDMController.php';
+include_once '../Controller/AttributeERMController.php';
+include_once '../Controller/RDMController.php';
 
 session_start();
 

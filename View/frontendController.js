@@ -160,7 +160,7 @@ class FrontendController{
                 console.log(result);
                 if (result != "false") {
                     let oResult = JSON.parse(result)
-                    document.getElementById("displayEntityName").innerHTML = oResult['name'];
+                   // document.getElementById("displayEntityName").innerHTML = oResult['name'];
                     document.getElementById(sEntityId).innerHTML = oResult['name'];
                     let oTable = document.getElementById("idTableEntityAttributes");
                     FrontendController.clearAndFillAttributeTable(oTable, oResult);
@@ -195,8 +195,8 @@ class FrontendController{
                     //loop array
                         //set dropdownGeneralisationText01 depending on array
                     //if 3rd element of array create clone
-                    let oResult = JSON.parse(result)
-                    document.getElementById("displayEntityName").innerHTML = oResult['name'];
+                    let oResult = JSON.parse(result);
+                    //document.getElementById("displayEntityName").innerHTML = oResult['name'];
                     document.getElementById(sEntityId).innerHTML = oResult['name'];
                     let oTable = document.getElementById("idTableEntityAttributes");
                     FrontendController.clearAndFillAttributeTable(oTable, oResult);
@@ -263,6 +263,7 @@ class FrontendController{
                 "",
                 true,
                 aAttributes[i].typ,
+                aAttributes[i].name,
                 sAttributeValue,
                 'entityAttribute',
                 1,
@@ -274,7 +275,7 @@ class FrontendController{
 
     // Table Type: 'entityAttributes' -> Attributes for Entities, 'relationshipAttribute', Attributes for Relationship
     // Call from: 0 -> Client (user add an Attribute), 1 -> Server (update Attributes from Backend)
-    static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeValue, tableType, callFrom, bPrimary = false) {
+    static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeName, sAttributeValue, tableType, callFrom, bPrimary = false) {
         if (tableType === 'entityAttribute') {
             var table = document.getElementById("idTableEntityAttributes");
         } else { // tableType = relationshipAttribute
@@ -282,8 +283,21 @@ class FrontendController{
         }
         var numberRows = table.rows.length;
         if (numberRows === 20) {
-            //Maximale Anzahl an Attributen erreicht Fehlermeldung
+            // ToDo: Maximale Anzahl an Attributen erreicht Fehlermeldung
             return;
+        }
+        if (callFrom === 0 && table.rows.length > 1){
+            // Check if Attributename is already given
+            for( let iRow = 0; iRow < table.rows.length; iRow++){
+                if (table.rows[iRow].getElementsByTagName("td").length > 0){
+                    if (table.rows[iRow].getElementsByTagName("td")[2].innerHTML === sAttributeName){
+                        alert("Der Attribute Name ist bereits vorhanden");
+                        return;
+                    }
+                    // ToDo: Attribute Name bei mehrwertigen und zusammengesetzten Attributen herausfiltern.
+                    // ToDo: Bei der Relationship kommt der Fehler erst beim zweiten Entity.
+                }
+            }
         }
         var row = table.insertRow(numberRows - 1);
         var cell1 = row.insertCell(0);
@@ -457,9 +471,21 @@ class FrontendController{
         );
 
     }
-
-
-
+    static checkEntityName(EntityName){
+        let oEntities = document.getElementsByClassName("entity");
+        let j =0;
+        for (let i in oEntities){
+            if (oEntities[i].innerHTML === EntityName){
+                j++;
+            }
+        }
+        if (j>1){
+            alert("der Name ist bereits vergeben!");
+            return false;
+        }else {
+            return true; 
+        }
+    }
 
     static pushGeneralisation (idGeneralisation, arrayGeneralisation){
         $.post(
