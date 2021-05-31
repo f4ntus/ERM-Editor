@@ -149,7 +149,7 @@ if (isset($_POST['function'])) {
     if ($_POST['function'] == 'deleteIsA') {
         $ERMModel = $_SESSION['ERM-Model'];
         $isA = ERMController::getGeneralisation($ERMModel, $_POST['id']);
-        ERMController::deleteRelationship($ERMModel, $isA);
+        ERMController::deleteGeneralisation($ERMModel, $isA);
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
     }
