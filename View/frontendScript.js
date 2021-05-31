@@ -270,6 +270,24 @@ function onClickFinishGeneralisationMenue() {
     FrontendController.pushGeneralisation(generalisierungId, arrayGeneralisation);
 }
 
+function onClickButtonDeleteGeneralisation() {
+    let generalisationID = document.getElementById("pGeneralisationID").innerHTML;
+    let deleteGeneralisation = document.getElementById(generalisationID);
+    //Remove the selected element from the document
+    deleteGeneralisation.remove();
+    document.getElementById("generalisationMenu").style.visibility = "hidden";
+    $.post(
+        "../Interface/Connector.php",
+        {
+            function: "deleteIsA",
+            id: generalisationID,
+        },
+        function (result) {
+            console.log(result);
+        }
+    );
+}
+
 // ----------------------------------------------- for Releationship Menu ------------------------------------
 // -----------------------------------------------------------------------------------------------------------
 
