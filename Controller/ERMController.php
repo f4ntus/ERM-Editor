@@ -252,7 +252,7 @@ class ERMController
             $supertyp = $generalisation->getSupertyp();
             foreach ($generalisation->getSubtypes() as $subtype){
                 foreach ($supertyp->getAttributes() as $attribute){
-                    if($attribute->getPrimary()){
+                    if($attribute->getPrimary()=="true"){
                         $subtype->addAttribute($attribute);
                     }
                 }

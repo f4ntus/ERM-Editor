@@ -112,7 +112,7 @@ class RDMController
                 foreach ($relationship->getRelations() as $ERMRelation) {
                     $Entity = $ERMRelation->getEntity();
                     foreach ($Entity->getAttributes() as $ERMAttribute) {
-                        if ($ERMAttribute->getPrimary()) {
+                        if ($ERMAttribute->getPrimary()=="true") {
                             $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), true);
                             $RDMAttribute->setReferences($Entity->getName());
                             $RDMRelation->addAttribute($RDMAttribute);
@@ -145,7 +145,7 @@ class RDMController
             if ($RDMRelation->getName() == $firstentity->getName()) {
                 //Die Schlüsselttribute werden rausgesucht
                 foreach ($secondentity->getAttributes() as $ERMAttribute) {
-                    if ($ERMAttribute->getPrimary()) {
+                    if ($ERMAttribute->getPrimary()=="true") {
                         //Das Schlüsselattribut des ersten Attribut wird dem zweiten Attribute hinzugefügt
                         $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), false);
                         $RDMAttribute->setReferences($secondentity->getName());
@@ -191,7 +191,7 @@ class RDMController
         }
 
         foreach ($relation1->getAttributes() as $RDMAttribute1) {
-            if ($RDMAttribute1->getPrimary()=='true') {
+            if ($RDMAttribute1->getPrimary()=="true") {
                 //Das Schlüsselattribut des ersten Attribut wird dem zweiten Attribute hinzugefügt
                 $RDMAttribute2 = new AttributeRDMModel(cleanNamefromERMObject($relationn->getAttributes(), $RDMAttribute1->getName()), $weak);
                 $RDMAttribute2->setReferences($relation1->getName());
@@ -349,7 +349,7 @@ class RDMController
             if ($ERMAttribute->getType() == 1) {
                 $relationfromultivaluesattribute = new RelationRDMModel(cleanNamefromERMObject($rdm->getRelations(), $entity->getName() . $ERMAttribute->getName()));
                 foreach ($relation->getAttributes() as $attribute) {
-                    if ($attribute->getPrimary()) {
+                    if ($attribute->getPrimary()=="true") {
                         $newattribute = new AttributeRDMModel(cleanNamefromERMObject($relationfromultivaluesattribute->getAttributes(), $attribute->getName()), true);
                         $newattribute->setReferences($relation->getName());
                         $relationfromultivaluesattribute->addAttribute($newattribute);
@@ -358,7 +358,7 @@ class RDMController
                 }
                 $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($relationfromultivaluesattribute->getAttributes(), $ERMAttribute->getName()), true);
                 $RDMAttribute->setName($ERMAttribute->getName());
-                $RDMAttribute->setPrimary(true);
+                $RDMAttribute->setPrimary("true");
                 $relationfromultivaluesattribute->addAttribute($RDMAttribute);
                 $rdm->addRelation($relationfromultivaluesattribute);
             }
