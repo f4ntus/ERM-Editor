@@ -13,6 +13,8 @@ class AttributeERMController
      */
 
     public static function createAttribute(String $name, int $type, $primary){
+
+
         return New AttributeERMModel($name, $type, $primary);
     }
 
@@ -24,6 +26,12 @@ class AttributeERMController
      * @return RelatetedAttributeERMModel
      */
     public static function createRelatedAttribute(String $name, $primary, array $subnames){
+        //UMwandeld der Typen
+        if($primary=="true"){
+            $primary = true;
+        } else{
+            $primary = false;
+        }
         return New RelatetedAttributeERMModel($name,2, $primary, $subnames);
     }
 
@@ -75,7 +83,7 @@ class AttributeERMController
      * @param AttributeERMModel $attribute
      */
     public static function setPKon(AttributeERMModel $attribute){
-        $attribute->setPrimary(true);
+        $attribute->setPrimary("true");
     }
 
     /**
@@ -83,7 +91,7 @@ class AttributeERMController
      * @param AttributeERMModel $attribute
      */
     public static function setPKoff(AttributeERMModel $attribute){
-        $attribute->setPrimary(false);
+        $attribute->setPrimary("false");
     }
 
     /**Änderung des Namen
