@@ -487,7 +487,7 @@ function onClickChangeERMModel() {
 
 
 function onClickButtonDrawLines(){
-    FrontendController.drawLines();
+    FrontendController.drawLines2();
 }
 
 function arrayEquals(a, b) {

@@ -194,7 +194,6 @@ function openRelationshipMenu(relationship) {
     document.getElementById("pRelationshipID").innerText = relationship.id;
     document.getElementById("inputRelationshipName").value = relationship.innerText;
     FrontendController.updateRelationship(relationship.id);
-    FrontendController.drawLines2(relationship.id);
     console.info("öffnet Relationship-Menü");
 }
 

@@ -106,6 +106,8 @@ class FrontendController{
                 console.log(result);
             }
         );
+
+        this.drawLines2(sRelationshipID);
     }
 
 
@@ -374,6 +376,83 @@ class FrontendController{
             }
         }
         return aAttributes;
+    }
+
+
+    static drawLines2(sRelationshipID){
+
+        let lineID = 'line' + sRelationshipID;
+
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "getRelations",
+                id: sRelationshipID,
+            },
+            function (result) {
+
+                console.log(result);
+                let oresult = JSON.parse(result);
+                console.log(oresult);
+
+                for (let i in oresult) {
+
+                    console.log(i);
+                    console.log(oresult[i].id);
+
+                    $.post(
+                        "../Interface/Connector.php",
+                        {
+                            function: "getPositionRelationship",
+                            id: sRelationshipID,
+                        },
+                        function (result) {
+
+                            let posX = result.X + 20 + 50;
+                            let posY = result.Y + 20 + 20;
+
+                            let line = document.getElementById("line");
+                            let lineClone = line.cloneNode();
+
+                            lineClone.setAttribute('id', 'line'+ sRelationshipID)
+                            lineClone.setAttribute('x1', posX);
+                            lineClone.setAttribute('y1', posY);
+                            lineClone.removeAttribute('style');
+
+                            document.getElementById("svg1").appendChild(lineClone);
+                            console.log(lineClone);
+
+                        }, "json"
+                    );
+
+                    $.post(
+                        "../Interface/Connector.php",
+                        {
+                            function: "getPositionEntity",
+                            id: oresult[i].id,
+                        },
+                        function (result) {
+                            console.log(result.X);
+                            console.log(result.Y);
+
+                            let posX = result.X + 20 + 40;
+                            let posY = result.Y + 20 + 20;
+
+                            let lineClone = document.getElementById(lineID);
+
+                            lineClone.setAttribute('id', lineID + oresult[i].id)
+                            lineClone.setAttribute('x2', posX);
+                            lineClone.setAttribute('y2', posY);
+
+                            console.log(lineClone);
+
+                        }, "json"
+                    );
+                }
+
+            });
+
+
     }
 
 
