@@ -274,7 +274,7 @@ class FrontendController{
             }
         }
 
-        for(let i=0; i<oTable.rows.length; i++){
+        for(let i=0; i<(Object.keys(oResult.subtypes).length)+1; i++){
             if(i===0){
                 oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.supertype.name;
             }
