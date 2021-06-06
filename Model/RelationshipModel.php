@@ -1,10 +1,10 @@
 <?php
-include_once 'ERMObjectwithAttributes.php';
+include_once 'ERMObjectwithAttributesModel.php';
 
 /**
  * Class RelationshipModel
  */
-class RelationshipModel extends ERMObjectwithAttributes
+class RelationshipModel extends ERMObjectwithAttributesModel
 {
 
 

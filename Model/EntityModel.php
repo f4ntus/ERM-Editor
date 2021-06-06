@@ -1,13 +1,13 @@
 <?php
 
-include_once 'ERMObjectwithAttributes.php';
+include_once 'ERMObjectwithAttributesModel.php';
 
 /**
  * Class EntityModel
  * Das Modell eines Erstellung
  */
 
-class EntityModel extends ERMObjectwithAttributes
+class EntityModel extends ERMObjectwithAttributesModel
 {
 
     /**

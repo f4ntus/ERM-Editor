@@ -38,10 +38,10 @@ class AttributeERMController
 
     /**
      * Hinzufügen und Updaten mehrerer Attribute
-     * @param ERMObjectwithAttributes $ERMObject
+     * @param ERMObjectwithAttributesModel $ERMObject
      * @param Array $attributes
      */
-    public static function addOrUpdateAllAttributes(ERMObjectwithAttributes $ERMObject, array $attributes){
+    public static function addOrUpdateAllAttributes(ERMObjectwithAttributesModel $ERMObject, array $attributes){
         // delete existing attributes
         AttributeERMController::deleteAllAttributes($ERMObject);
 
@@ -59,19 +59,19 @@ class AttributeERMController
     }
 
     /** alle Attribute werden gelöscht
-     * @param ERMObjectwithAttributes $ERMObject
+     * @param ERMObjectwithAttributesModel $ERMObject
      */
-    public static function deleteAllAttributes(ERMObjectwithAttributes $ERMObject){
+    public static function deleteAllAttributes(ERMObjectwithAttributesModel $ERMObject){
         foreach ($ERMObject->getAttributes() as $attribute){
             $ERMObject->deleteAttribute($attribute);
         }
     }
 
     /** Ausgabe aller Attribute eines ERMObjectWithAttributes in Array-Format
-     * @param ERMObjectwithAttributes $ERMObject
+     * @param ERMObjectwithAttributesModel $ERMObject
      * @return array
      */
-    public static function getAttributes(ERMObjectwithAttributes $ERMObject){
+    public static function getAttributes(ERMObjectwithAttributesModel $ERMObject){
         $attributes = array();
         foreach ($ERMObject->getAttributes() as  $a){
             $attributes[] = AttributeERMController::getAttributeInformation($a);

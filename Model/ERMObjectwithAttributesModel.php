@@ -1,7 +1,7 @@
 <?php
 include_once 'ERMObjectModel.php';
 
-abstract class ERMObjectwithAttributes extends ERMObjectModel
+abstract class ERMObjectwithAttributesModel extends ERMObjectModel
 {
     /**
      * @var $name
