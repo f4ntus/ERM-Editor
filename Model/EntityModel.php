@@ -14,7 +14,7 @@ class EntityModel extends ERMObjectwithAttributesModel
      * Referenz zu OberEnitity
      * @var
      */
-    public $superEntity;
+    private $superEntity;
 
     /**
      * EntityModel constructor.
