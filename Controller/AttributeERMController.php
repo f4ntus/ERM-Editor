@@ -26,12 +26,6 @@ class AttributeERMController
      * @return RelatetedAttributeERMModel
      */
     public static function createRelatedAttribute(String $name, $primary, array $subnames){
-        //UMwandeld der Typen
-        if($primary=="true"){
-            $primary = true;
-        } else{
-            $primary = false;
-        }
         return New RelatetedAttributeERMModel($name,2, $primary, $subnames);
     }
 
