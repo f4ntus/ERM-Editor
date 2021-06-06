@@ -83,15 +83,6 @@ if (isset($_POST['function'])) {
     if ($_POST['function'] == 'getGeneralisation') {
         $generalisation = ERMController::getGeneralisation($_SESSION['ERM-Model'], $_POST['id']);
         if (!empty($generalisation->getSubtypes()) && !empty($generalisation->getSupertyp())) {
-
-            //$generalisationArray = [];
-            //$subtype = $generalisation->getSupertyp();
-            //$generalisationArray[0] = $subtype['name'];
-            /*
-            for($i=0; $i <= 10; $i++) {
-                echo $i;
-            }
-            */
             $generalisationArray = GeneralisationController::getGeneralisationAsArray($generalisation);
             echo json_encode($generalisationArray, JSON_FORCE_OBJECT);
         } else {

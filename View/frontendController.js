@@ -496,7 +496,7 @@ class FrontendController{
                 array: arrayGeneralisation
             },
             function(result){
-                alert(result);
+
             }
         );
     }
