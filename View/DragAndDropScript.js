@@ -30,6 +30,7 @@ $(function () {
                     console.info($element.attr("id"));
                     console.info("new Position X: ", newPosX, "new Position Y: ", newPosY);
 
+
                     if ($element.attr("id").includes("entity")) {
                         $function = 'changePositionEntity'
                     } else if ($element.attr("id").includes("relationship")) {
@@ -49,6 +50,8 @@ $(function () {
                         function (result) {
                             console.log(result);
                         });
+
+                    FrontendController.updateLines($element.attr("id"));
 
                 }
             });
