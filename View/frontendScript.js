@@ -485,11 +485,6 @@ function onClickChangeERMModel() {
     FrontendController.changeERMModel();
 }
 
-
-function onClickButtonDrawLines(){
-    FrontendController.drawLines2();
-}
-
 function arrayEquals(a, b) {
     return Array.isArray(a) &&
         Array.isArray(b) &&
@@ -497,3 +492,4 @@ function arrayEquals(a, b) {
         a.every((val, index) => val === b[index]);
 }
 
+lineNumber = 0;
