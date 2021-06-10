@@ -65,7 +65,8 @@
 
     <div id="rightMenue" style="display: none; visibility: visible">
         <h2 id="displayEntityName"></h2>
-        <p id="pEntityID" style="display: block"></p>
+        <p id="pEntityID" style="display: none"></p>
+        <label id="inputEntityName">Name Entity</label>
         <input placeholder="Entity name" type="text" id="idEntityName" name="idEntityName">
         <h3>Entity bearbeiten:</h3>
         <table id="idTableEntityAttributes" style="width:100%">
@@ -225,11 +226,11 @@
         </div>
         <div id="rdmOutput" style="visibility: hidden" > <p id="rdmOutputText"> </p></div>
         <div id="relationshipMenu" style="display: none">
-            <p style="visibility: hidden" id="pRelationshipID"></p>
+            <p style="display: none" id="pRelationshipID"></p>
             <div Style="float: left">
-                <label for="inputRelationshipName">RelationshipName</label>
+                <label for="inputRelationshipName">Name Relationship</label>
                 <input id="inputRelationshipName" oninput="onInputRelationshipName(this)" type="text" name="RelationshipName"/>
-                <h1> Relationship bearbeiten</h1>
+                <h3> Relationship bearbeiten:</h3>
                 <table id="tblRelationship">
                     <tr>
                         <th colspan="4">gehört zu</th>
@@ -292,16 +293,16 @@
                         <td><input type="checkbox" name="weakEntity01"></td>
                     </tr>
                 </table>
-                <button id="btnAddRelationship" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen
+                <button id="btnAddRelationship" class="button2" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen
                 </button>
             </div>
-            <div id="editRelationshipAttribute" Style="float: left; margin-left: 10px">
-                <h3>Entity bearbeiten:</h3>
+            <div id="editRelationshipAttribute" style="float: left; margin-left: 10px">
+                <h3>Relationship-Attribute bearbeiten:</h3>
                 <table id="idTableRelationshipAttributes" style="width:100%">
                 </table>
-                <button onclick="onClickAddSimpleAttributeToRelationship()">Einfaches Attribut hinzufügen</button>
-                <button onclick="onClickAddMultiValueAttributeToRelationship()">Mehrwertiges Attribut hinzufügen</button>
-                <button onclick="onClickAddCompoundAttributeToRelationship()">Zusammengesetzes Attribut hinzufügen
+                <button class="button3" onclick="onClickAddSimpleAttributeToRelationship()">Einfaches Attribut hinzufügen</button>
+                <button class="button3" onclick="onClickAddMultiValueAttributeToRelationship()">Mehrwertiges Attribut hinzufügen</button>
+                <button class="button3" onclick="onClickAddCompoundAttributeToRelationship()">Zusammengesetzes Attribut hinzufügen
                 </button>
                 <div class="row" style="display:block" id="idDivAddSimpleAttributeRel">
 
