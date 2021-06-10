@@ -235,13 +235,8 @@ class FrontendController{
 
     static clearAndFillAttributeTable(oTable, oResult) {
         // clear table before refill
-        let tablelenght = oTable.rows.length;
-        console.log(tablelenght);
-        for (let i = 0; i < tablelenght; i++) {
-            console.log(i);
-            if (oTable.rows[0].getElementsByTagName("td").length > 0) {
-                oTable.deleteRow(0);
-            }
+        for(var i = 1;i<oTable.rows.length;){
+            oTable.deleteRow(i);
         }
 
         let aAttributes = oResult.attributes;
@@ -317,7 +312,7 @@ class FrontendController{
                 }
             }
         }
-        var row = table.insertRow(numberRows-1);
+        var row = table.insertRow(numberRows);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
