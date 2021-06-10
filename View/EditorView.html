@@ -63,9 +63,9 @@
         </svg>
     </div>
 
-    <div id="rightMenue">
+    <div id="rightMenue" style="display: none; visibility: visible">
         <h2 id="displayEntityName"></h2>
-        <p id="pEntityID" style="visibility: hidden"></p>
+        <p id="pEntityID" style="display: block"></p>
         <input placeholder="Entity name" type="text" id="idEntityName" name="idEntityName">
         <h3>Entity bearbeiten:</h3>
         <table id="idTableEntityAttributes" style="width:100%">
@@ -224,7 +224,7 @@
             </div>
         </div>
         <div id="rdmOutput" style="visibility: hidden" > <p id="rdmOutputText"> </p></div>
-        <div id="relationshipMenu" style="visibility: hidden">
+        <div id="relationshipMenu" style="display: none">
             <p style="visibility: hidden" id="pRelationshipID"></p>
             <div Style="float: left">
                 <label for="inputRelationshipName">RelationshipName</label>
