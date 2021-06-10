@@ -275,7 +275,7 @@ function onClickButtonDeleteGeneralisation() {
     let deleteGeneralisation = document.getElementById(generalisationID);
     //Remove the selected element from the document
     deleteGeneralisation.remove();
-    document.getElementById("generalisationMenu").style.visibility = "hidden";
+    document.getElementById("generalisationMenu").style.display = "none";
     $.post(
         "../Interface/Connector.php",
         {
