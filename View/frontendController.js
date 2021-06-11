@@ -381,6 +381,7 @@ class FrontendController{
 
     static drawLines(sRelationshipID){
 
+        //get all relations from current relationship
         $.post(
             "../Interface/Connector.php",
             {
@@ -392,7 +393,7 @@ class FrontendController{
                 console.log(result);
                 let oresult = JSON.parse(result);
                 console.log(oresult);
-
+                //create a new line for each relation
                 for (let i in oresult) {
 
                     lineNumber++;
@@ -406,7 +407,7 @@ class FrontendController{
                         },
                         function (result) {
                             console.log(sRelationshipID + " resultX: " + result.X + " resultY: " + result.Y);
-
+                            //adjust position from left upper corner of the element to the middle
                             let posX = result.X + 20 + 50;
                             let posY = result.Y + 20 + 20;
 
@@ -416,6 +417,7 @@ class FrontendController{
                             let lineClone = line.cloneNode();
 
                             lineClone.setAttribute('id', lineID)
+                            //set position of the beginning of the line
                             lineClone.setAttribute('x1', posX);
                             lineClone.setAttribute('y1', posY);
                             lineClone.removeAttribute('style');
@@ -434,12 +436,14 @@ class FrontendController{
                         },
                         function (result) {
                             console.log(oresult[i].id + " resultX: " + result.X + " resultY: " + result.Y);
+                            //adjust position from left upper corner of the element to the middle
                             let posX = result.X + 20 + 40;
                             let posY = result.Y + 20 + 20;
                             console.log(oresult[i].id + " posX: " + posX + " posY: " + posY);
 
                             let lineClone = document.getElementById(lineID);
 
+                            //set position of the end of the line
                             lineClone.setAttribute('x2', posX);
                             lineClone.setAttribute('y2', posY);
                             lineClone.setAttribute('class', oresult[i].id + " " + sRelationshipID);
@@ -454,6 +458,7 @@ class FrontendController{
 
     }
 
+    //update position of all lines attached to an element which is moved to a new position
     static updateLines(elementID){
 
         if (elementID.includes("entity")){
@@ -465,10 +470,8 @@ class FrontendController{
                     id: elementID,
                 },
                 function (result) {
-                    console.log(elementID + " resultX: " + result.X + " resultY: " + result.Y);
                     let posX = result.X + 20 + 40;
                     let posY = result.Y + 20 + 20;
-                    console.log(elementID + " posX: " + posX + " posY: " + posY);
 
                     let lines = document.getElementsByClassName(elementID);
                     console.log(lines);
@@ -491,7 +494,6 @@ class FrontendController{
                     id: elementID,
                 },
                 function (result) {
-
                     let posX = result.X + 20 + 50;
                     let posY = result.Y + 20 + 20;
 
@@ -507,7 +509,6 @@ class FrontendController{
                 }, "json"
             );
         }
-
 
     }
 
