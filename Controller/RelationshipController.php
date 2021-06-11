@@ -204,13 +204,13 @@ class RelationshipController
         return $relationshipArray;
     }
 
-    public static function getEntities(RelationshipModel $relationship)
+    public static function getRelations(RelationshipModel $relationship)
     {
-        $output = array();
+        $relations = array();
         foreach ($relationship->getRelations() as $relation) {
-            $output[] = $relation->getEntity()->getId();
+            $relations[] = ['id' => $relation->getEntity()->getId()];
         }
-        return $output;
+        return $relations;
 
     }
 

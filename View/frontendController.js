@@ -106,6 +106,8 @@ class FrontendController{
                 console.log(result);
             }
         );
+
+        this.drawLines(sRelationshipID);
     }
 
 
@@ -377,100 +379,140 @@ class FrontendController{
     }
 
 
-    static drawLines(){
+    static drawLines(sRelationshipID){
 
-        let entity1 = document.getElementById("dropdownEntityText01").innerHTML;
-        let entity2 = document.getElementById("dropdownEntityText02").innerHTML;
-        let relationship = document.getElementById("pRelationshipID").innerHTML;
-        let lineCloneID1 = 'line' + entity1 + relationship;
-        let lineCloneID2 = 'line' + entity2 + relationship;
-
-
+        //get all relations from current relationship
         $.post(
             "../Interface/Connector.php",
             {
-                function: "getPositionEntity",
-                name: entity1,
+                function: "getRelations",
+                id: sRelationshipID,
             },
             function (result) {
-                console.log(result.X);
-                console.log(result.Y);
 
-                let posX = result.X + 20 + 40;
-                let posY = result.Y + 20 + 20;
-
-                let line = document.getElementById("line");
-                let lineClone1 = line.cloneNode();
-
-                lineClone1.setAttribute('id', lineCloneID1)
-                lineClone1.setAttribute('x1', posX);
-                lineClone1.setAttribute('y1', posY);
-                lineClone1.removeAttribute('style');
-
-                document.getElementById("svg1").appendChild(lineClone1);
-
-            }, "json"
-        );
-
-
-
-        $.post(
-            "../Interface/Connector.php",
-            {
-                function: "getPositionRelationship",
-                name: relationship,
-            },
-            function (result) {
                 console.log(result);
-                console.log(result.X);
-                console.log(result.Y);
-                let posX = result.X + 20 + 50;
-                let posY = result.Y + 20 + 20;
+                let oresult = JSON.parse(result);
+                console.log(oresult);
+                //create a new line for each relation
+                for (let i in oresult) {
 
-                let lineClone1 = document.getElementById(lineCloneID1);
+                    lineNumber++;
+                    let lineID = 'line' + lineNumber;
 
-                lineClone1.setAttribute('x2', posX);
-                lineClone1.setAttribute('y2', posY);
-                console.log(lineClone1);
+                    $.post(
+                        "../Interface/Connector.php",
+                        {
+                            function: "getPositionRelationship",
+                            id: sRelationshipID,
+                        },
+                        function (result) {
+                            console.log(sRelationshipID + " resultX: " + result.X + " resultY: " + result.Y);
+                            //adjust position from left upper corner of the element to the middle
+                            let posX = result.X + 20 + 50;
+                            let posY = result.Y + 20 + 20;
 
-                let line = document.getElementById("line");
-                let lineClone2 = line.cloneNode();
+                            console.log(sRelationshipID + " posX: " + posX + " posY: " + posY);
 
-                lineClone2.setAttribute('id', lineCloneID2)
-                lineClone2.setAttribute('x1', posX);
-                lineClone2.setAttribute('y1', posY);
-                lineClone2.removeAttribute('style');
+                            let line = document.getElementById("line");
+                            let lineClone = line.cloneNode();
 
-                document.getElementById("svg1").appendChild(lineClone2);
+                            lineClone.setAttribute('id', lineID)
+                            //set position of the beginning of the line
+                            lineClone.setAttribute('x1', posX);
+                            lineClone.setAttribute('y1', posY);
+                            lineClone.removeAttribute('style');
 
-            }, "json"
-        );
+                            document.getElementById("svg1").appendChild(lineClone);
+                            console.log(lineClone);
 
+                        }, "json"
+                    );
 
-        $.post(
-            "../Interface/Connector.php",
-            {
-                function: "getPositionEntity",
-                name: entity2,
-            },
-            function (result) {
-                console.log(result.X);
-                console.log(result.Y);
+                    $.post(
+                        "../Interface/Connector.php",
+                        {
+                            function: "getPositionEntity",
+                            id: oresult[i].id,
+                        },
+                        function (result) {
+                            console.log(oresult[i].id + " resultX: " + result.X + " resultY: " + result.Y);
+                            //adjust position from left upper corner of the element to the middle
+                            let posX = result.X + 20 + 40;
+                            let posY = result.Y + 20 + 20;
+                            console.log(oresult[i].id + " posX: " + posX + " posY: " + posY);
 
-                let posX = result.X + 20 + 40;
-                let posY = result.Y + 20 + 20;
+                            let lineClone = document.getElementById(lineID);
 
-                let lineClone2 = document.getElementById(lineCloneID2);
+                            //set position of the end of the line
+                            lineClone.setAttribute('x2', posX);
+                            lineClone.setAttribute('y2', posY);
+                            lineClone.setAttribute('class', oresult[i].id + " " + sRelationshipID);
 
-                lineClone2.setAttribute('x2', posX);
-                lineClone2.setAttribute('y2', posY);
+                            console.log(lineClone);
 
-                console.log(lineClone2);
+                        }, "json"
+                    );
+                }
 
-            }, "json"
-        );
+            });
 
     }
+
+    //update position of all lines attached to an element which is moved to a new position
+    static updateLines(elementID){
+
+        if (elementID.includes("entity")){
+
+            $.post(
+                "../Interface/Connector.php",
+                {
+                    function: "getPositionEntity",
+                    id: elementID,
+                },
+                function (result) {
+                    let posX = result.X + 20 + 40;
+                    let posY = result.Y + 20 + 20;
+
+                    let lines = document.getElementsByClassName(elementID);
+                    console.log(lines);
+
+                    for(let line of lines){
+                        line.setAttribute('x2', posX);
+                        line.setAttribute('y2', posY);
+                        console.log(line);
+                    }
+
+                }, "json"
+            );
+
+        }else if(elementID.includes("relationship")){
+
+            $.post(
+                "../Interface/Connector.php",
+                {
+                    function: "getPositionRelationship",
+                    id: elementID,
+                },
+                function (result) {
+                    let posX = result.X + 20 + 50;
+                    let posY = result.Y + 20 + 20;
+
+                    let lines = document.getElementsByClassName(elementID);
+                    console.log(lines);
+
+                    for(let line of lines){
+                        line.setAttribute('x1', posX);
+                        line.setAttribute('y1', posY);
+                        console.log(line);
+                    }
+
+                }, "json"
+            );
+        }
+
+    }
+
+
     static checkEntityName(EntityName){
         let oEntities = document.getElementsByClassName("entity");
         let j =0;
