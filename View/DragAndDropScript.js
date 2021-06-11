@@ -51,7 +51,10 @@ $(function () {
                             console.log(result);
                         });
 
-                    FrontendController.updateLines($element.attr("id"));
+                    if (lineNumber > 0){
+                        FrontendController.updateLines($element.attr("id"));
+                    }
+
 
                 }
             });

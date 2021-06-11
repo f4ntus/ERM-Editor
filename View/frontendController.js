@@ -380,7 +380,7 @@ class FrontendController{
 
 
     static drawLines(sRelationshipID){
-        let relationshipID;
+
         $.post(
             "../Interface/Connector.php",
             {
@@ -405,7 +405,6 @@ class FrontendController{
                             id: sRelationshipID,
                         },
                         function (result) {
-                            relationshipID = sRelationshipID;
                             console.log(sRelationshipID + " resultX: " + result.X + " resultY: " + result.Y);
 
                             let posX = result.X + 20 + 50;
@@ -443,7 +442,7 @@ class FrontendController{
 
                             lineClone.setAttribute('x2', posX);
                             lineClone.setAttribute('y2', posY);
-                            lineClone.setAttribute('class', oresult[i].id + " " + relationshipID);
+                            lineClone.setAttribute('class', oresult[i].id + " " + sRelationshipID);
 
                             console.log(lineClone);
 
@@ -458,11 +457,55 @@ class FrontendController{
     static updateLines(elementID){
 
         if (elementID.includes("entity")){
-            console.log(elementID);
 
-            let lines = document.getElementsByClassName(elementID);
-            console.log(lines);
+            $.post(
+                "../Interface/Connector.php",
+                {
+                    function: "getPositionEntity",
+                    id: elementID,
+                },
+                function (result) {
+                    console.log(elementID + " resultX: " + result.X + " resultY: " + result.Y);
+                    let posX = result.X + 20 + 40;
+                    let posY = result.Y + 20 + 20;
+                    console.log(elementID + " posX: " + posX + " posY: " + posY);
 
+                    let lines = document.getElementsByClassName(elementID);
+                    console.log(lines);
+
+                    for(let line of lines){
+                        line.setAttribute('x2', posX);
+                        line.setAttribute('y2', posY);
+                        console.log(line);
+                    }
+
+                }, "json"
+            );
+
+        }else if(elementID.includes("relationship")){
+
+            $.post(
+                "../Interface/Connector.php",
+                {
+                    function: "getPositionRelationship",
+                    id: elementID,
+                },
+                function (result) {
+
+                    let posX = result.X + 20 + 50;
+                    let posY = result.Y + 20 + 20;
+
+                    let lines = document.getElementsByClassName(elementID);
+                    console.log(lines);
+
+                    for(let line of lines){
+                        line.setAttribute('x1', posX);
+                        line.setAttribute('y1', posY);
+                        console.log(line);
+                    }
+
+                }, "json"
+            );
         }
 
 
