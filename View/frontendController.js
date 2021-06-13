@@ -399,6 +399,10 @@ class FrontendController{
 
                     lineNumber++;
                     let lineID = 'line' + lineNumber;
+                    rectNumber++;
+                    let rectID = 'rect' + rectNumber;
+                    textNumber++;
+                    let textID = 'text' + textNumber;
 
                     $.post(
                         "../Interface/Connector.php",
@@ -409,50 +413,95 @@ class FrontendController{
                         function (result) {
                             console.log(sRelationshipID + " resultX: " + result.X + " resultY: " + result.Y);
                             //adjust position from left upper corner of the element to the middle
-                            let posX = result.X + 20 + 50;
-                            let posY = result.Y + 20 + 20;
+                            let posX1 = result.X + 20 + 28;
+                            let posY1 = result.Y + 20 + 20;
 
-                            console.log(sRelationshipID + " posX: " + posX + " posY: " + posY);
+                            console.log(sRelationshipID + " posX1: " + posX1 + " posY1: " + posY1);
 
                             let line = document.getElementById("line");
                             let lineClone = line.cloneNode();
 
                             lineClone.setAttribute('id', lineID)
                             //set position of the beginning of the line
-                            lineClone.setAttribute('x1', posX);
-                            lineClone.setAttribute('y1', posY);
+                            lineClone.setAttribute('x1', posX1);
+                            lineClone.setAttribute('y1', posY1);
                             lineClone.removeAttribute('style');
 
                             document.getElementById("svg1").appendChild(lineClone);
                             console.log(lineClone);
 
+
+                            $.post(
+                                "../Interface/Connector.php",
+                                {
+                                    function: "getPositionEntity",
+                                    id: oresult[i].id,
+                                },
+                                function (result) {
+                                    console.log(oresult[i].id + " resultX: " + result.X + " resultY: " + result.Y);
+                                    //adjust position from left upper corner of the element to the middle
+                                    let posX2 = result.X + 20 + 40;
+                                    let posY2 = result.Y + 20 + 20;
+                                    console.log(oresult[i].id + " posX2: " + posX2 + " posY2: " + posY2);
+
+                                    let lineClone = document.getElementById(lineID);
+
+                                    //set position of the end of the line
+                                    lineClone.setAttribute('x2', posX2);
+                                    lineClone.setAttribute('y2', posY2);
+                                    lineClone.setAttribute('class', oresult[i].id + " " + sRelationshipID);
+
+                                    console.log(lineClone);
+
+                                    let textPosX = 0;
+                                    let textPosY = 0;
+                                    let rectPosX = 0;
+                                    let rectPosY = 0;
+
+                                    if(posX1<posX2){
+                                        textPosX = (posX1 + posX2) / 2;
+                                        rectPosX = textPosX - 25;
+                                    }else if (posX1>posX2){
+                                        textPosX = (posX2 + posX1) / 2;
+                                        rectPosX = textPosX - 25;
+                                    }
+
+                                    if (posY1<posY2){
+                                        textPosY = (posY1 + posY2) / 2;
+                                        rectPosY = textPosY - 15;
+                                    }else if (posY1>posY2){
+                                        textPosY = (posY1 + posY2) / 2;
+                                        rectPosY = textPosY - 15;
+                                    }
+
+
+                                    let rect = document.getElementById("rect");
+                                    let rectClone = rect.cloneNode();
+                                    rectClone.setAttribute('id', rectID)
+                                    rectClone.setAttribute('x', rectPosX);
+                                    rectClone.setAttribute('y', rectPosY);
+                                    rectClone.removeAttribute('style');
+                                    document.getElementById("svg1").appendChild(rectClone);
+                                    console.log(rectClone);
+
+                                    let text = document.getElementById("text");
+                                    let textClone = text.cloneNode();
+                                    textClone.setAttribute('id', textID)
+                                    textClone.setAttribute('x', textPosX);
+                                    textClone.setAttribute('y', textPosY);
+                                    textClone.removeAttribute('style');
+                                    textClone.innerHTML = oresult[i].notation;
+                                    document.getElementById("svg1").appendChild(textClone);
+                                    console.log(textClone);
+
+                                }, "json"
+                            );
                         }, "json"
                     );
 
-                    $.post(
-                        "../Interface/Connector.php",
-                        {
-                            function: "getPositionEntity",
-                            id: oresult[i].id,
-                        },
-                        function (result) {
-                            console.log(oresult[i].id + " resultX: " + result.X + " resultY: " + result.Y);
-                            //adjust position from left upper corner of the element to the middle
-                            let posX = result.X + 20 + 40;
-                            let posY = result.Y + 20 + 20;
-                            console.log(oresult[i].id + " posX: " + posX + " posY: " + posY);
 
-                            let lineClone = document.getElementById(lineID);
 
-                            //set position of the end of the line
-                            lineClone.setAttribute('x2', posX);
-                            lineClone.setAttribute('y2', posY);
-                            lineClone.setAttribute('class', oresult[i].id + " " + sRelationshipID);
 
-                            console.log(lineClone);
-
-                        }, "json"
-                    );
                 }
 
             });

@@ -505,3 +505,5 @@ function arrayEquals(a, b) {
 }
 
 lineNumber = 0;
+rectNumber = 0;
+textNumber = 0;

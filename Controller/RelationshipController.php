@@ -208,7 +208,10 @@ class RelationshipController
     {
         $relations = array();
         foreach ($relationship->getRelations() as $relation) {
-            $relations[] = ['id' => $relation->getEntity()->getId()];
+            $relations[] = [
+                'id' => $relation->getEntity()->getId(),
+                'notation' => $relation->getKard(),
+            ];
         }
         return $relations;
 
