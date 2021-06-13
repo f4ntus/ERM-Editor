@@ -278,28 +278,29 @@ class FrontendController{
     // Table Type: 'entityAttributes' -> Attributes for Entities, 'relationshipAttribute', Attributes for Relationship
     // Call from: 0 -> Client (user add an Attribute), 1 -> Server (update Attributes from Backend)
     static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeName, sAttributeValue, tableType, callFrom, bPrimary = false) {
+        let iStartingNumber;
         if (tableType === 'entityAttribute') {
             var table = document.getElementById("idTableEntityAttributes");
+            iStartingNumber = 1;
         } else { // tableType = relationshipAttribute
             var table = document.getElementById("idTableRelationshipAttributes");
+            iStartingNumber = 0;
         }
         var numberRows = table.rows.length;
         if (numberRows === 20) {
             // ToDo: Maximale Anzahl an Attributen erreicht Fehlermeldung
             return;
         }
-        if (callFrom === 0 && table.rows.length > 1){
+        if (callFrom === 0 && table.rows.length > iStartingNumber){
             // Check if Attributename is already given
-            for( let iRow = 0; iRow < table.rows.length; iRow++){
-                if (table.rows[iRow].getElementsByTagName("td").length > 0){
-                    if (table.rows[iRow].getElementsByTagName("td")[2].innerHTML === sAttributeName){
-                        alert("Der Attribute Name ist bereits vorhanden");
-                        return;
-                    }
-                    // ToDo: Attribute Name bei mehrwertigen und zusammengesetzten Attributen herausfiltern.
-                    // ToDo: Bei der Relationship kommt der Fehler erst beim zweiten Entity.
-                }
-            }
+           let aAttributes = this.getAttributesAsArray(table);
+           for ( let i in aAttributes){
+               console.log(aAttributes[i].name);
+               if (aAttributes[i].name === sAttributeName){
+                   alert("Der Attribute Name ist bereits vorhanden");
+                   return;
+               }
+           }
         }
         var row = table.insertRow(numberRows-1);
         var cell1 = row.insertCell(0);

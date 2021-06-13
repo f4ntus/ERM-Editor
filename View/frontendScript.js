@@ -1,3 +1,15 @@
+function onReloadPage(){
+    $.post(
+        "../Interface/Connector.php",
+        {
+            function: "resetERM",
+        },
+        function (result) {
+            alert(result);
+        }
+    );
+}
+
 function generalizationMode(mode) {
     let outputText = document.getElementById("showGeneralizationMode");
     outputText.innerText = mode;
