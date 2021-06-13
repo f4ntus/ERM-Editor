@@ -390,9 +390,9 @@ class FrontendController{
             },
             function (result) {
 
-                //console.log(result);
+                console.log(result);
                 let oresult = JSON.parse(result);
-                //console.log(oresult);
+                console.log(oresult);
                 //create a new line for each relation
                 for (let i in oresult) {
 
@@ -412,7 +412,7 @@ class FrontendController{
                         function (result) {
                             console.log(sRelationshipID + " resultX: " + result.X + " resultY: " + result.Y);
                             //adjust position from left upper corner of the element to the middle
-                            let posX1 = result.X + 20 + 40;
+                            let posX1 = result.X + 20 + 28;
                             let posY1 = result.Y + 20 + 20;
 
                             console.log(sRelationshipID + " posX1: " + posX1 + " posY1: " + posY1);
@@ -453,17 +453,26 @@ class FrontendController{
                                     console.log(lineClone);
 
                                     let textPosX = 0;
+                                    let textPosY = 0;
                                     let rectPosX = 0;
                                     let rectPosY = 0;
+
                                     if(posX1<posX2){
                                         textPosX = (posX1 + posX2) / 2;
                                         rectPosX = textPosX - 25;
-                                        rectPosY = posY1 - 10;
                                     }else if (posX1>posX2){
                                         textPosX = (posX2 + posX1) / 2;
                                         rectPosX = textPosX - 25;
-                                        rectPosY = posY1 - 10;
                                     }
+
+                                    if (posY1<posY2){
+                                        textPosY = (posY1 + posY2) / 2;
+                                        rectPosY = textPosY - 15;
+                                    }else if (posY1>posY2){
+                                        textPosY = (posY1 + posY2) / 2;
+                                        rectPosY = textPosY - 15;
+                                    }
+
 
                                     let rect = document.getElementById("rect");
                                     let rectClone = rect.cloneNode();
@@ -478,9 +487,9 @@ class FrontendController{
                                     let textClone = text.cloneNode();
                                     textClone.setAttribute('id', textID)
                                     textClone.setAttribute('x', textPosX);
-                                    textClone.setAttribute('y', posY1);
+                                    textClone.setAttribute('y', textPosY);
                                     textClone.removeAttribute('style');
-                                    textClone.innerHTML = "0,0";
+                                    textClone.innerHTML = oresult[i].notation;
                                     document.getElementById("svg1").appendChild(textClone);
                                     console.log(textClone);
 
