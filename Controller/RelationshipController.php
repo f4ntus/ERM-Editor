@@ -28,7 +28,6 @@ class RelationshipController
      */
     public static function addRelation(RelationshipModel $relationship, EntityModel $entity, $kard, $weak)
     {
-        echo "test".$kard;
         $relation = new RelationERMModel($entity, $kard, $weak);
         $relationship->addRelation($relation);
         return $relation;
