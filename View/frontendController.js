@@ -107,7 +107,7 @@ class FrontendController{
             }
         );
 
-        this.drawLines(sRelationshipID);
+        this.drawLinesRelationship(sRelationshipID);
     }
 
 
@@ -392,8 +392,8 @@ class FrontendController{
         return aAttributes;
     }
 
-
-    static drawLines(sRelationshipID){
+    //draw for each relation a line between the relationship and the entity and show the selected notation
+    static drawLinesRelationship(sRelationshipID){
 
         //get all relations from current relationship
         $.post(
@@ -426,7 +426,7 @@ class FrontendController{
                         function (result) {
                             console.log(sRelationshipID + " resultX: " + result.X + " resultY: " + result.Y);
                             //adjust position from left upper corner of the element to the middle
-                            let posX1 = result.X + 20 + 28;
+                            let posX1 = result.X + 20 + 30;
                             let posY1 = result.Y + 20 + 20;
 
                             console.log(sRelationshipID + " posX1: " + posX1 + " posY1: " + posY1);
@@ -471,6 +471,7 @@ class FrontendController{
                                     let rectPosX = 0;
                                     let rectPosY = 0;
 
+                                    //set position for the notations at the center of the lines
                                     if(posX1<posX2){
                                         textPosX = (posX1 + posX2) / 2;
                                         rectPosX = textPosX - 25;
@@ -511,10 +512,83 @@ class FrontendController{
                             );
                         }, "json"
                     );
+                }
+            });
+    }
 
+    //draw for each relation a line between the generalisation and the entity
+    static drawLinesGeneralisation(idGeneralisation){
 
+        $.post(
+            "../Interface/Connector.php",
+            {
+                function: "getSubtypesAndSupertype",
+                id: idGeneralisation,
+            },
+            function (result) {
+                console.log("draw Lines Generalisation");
+                console.log(result);
+                let oresult = JSON.parse(result);
+                console.log(oresult);
 
+                for (let i in oresult) {
 
+                    console.log(oresult[i].id)
+                    lineNumber++;
+                    let lineID = 'line' + lineNumber;
+
+                    $.post(
+                        "../Interface/Connector.php",
+                        {
+                            function: "getPositionGeneralisation",
+                            id: idGeneralisation,
+                        },
+                        function (result) {
+
+                            let posX1 = result.X + 20 + 30;
+                            let posY1 = result.Y + 20 + 20;
+
+                            console.log(idGeneralisation + " posX1: " + posX1 + " posY1: " + posY1);
+
+                            let line = document.getElementById("line");
+                            let lineClone = line.cloneNode();
+
+                            lineClone.setAttribute('id', lineID)
+                            //set position of the beginning of the line
+                            lineClone.setAttribute('x1', posX1);
+                            lineClone.setAttribute('y1', posY1);
+                            lineClone.removeAttribute('style');
+
+                            document.getElementById("svg1").appendChild(lineClone);
+                            console.log(lineClone);
+
+                            $.post(
+                                "../Interface/Connector.php",
+                                {
+                                    function: "getPositionEntity",
+                                    id: oresult[i].id,
+                                },
+                                function (result) {
+                                    console.log(oresult[i].id + " resultX: " + result.X + " resultY: " + result.Y);
+                                    //adjust position from left upper corner of the element to the middle
+                                    let posX2 = result.X + 20 + 40;
+                                    let posY2 = result.Y + 20 + 20;
+                                    console.log(oresult[i].id + " posX2: " + posX2 + " posY2: " + posY2);
+
+                                    let lineClone = document.getElementById(lineID);
+
+                                    //set position of the end of the line
+                                    lineClone.setAttribute('x2', posX2);
+                                    lineClone.setAttribute('y2', posY2);
+                                    lineClone.setAttribute('class', oresult[i].id + " " + idGeneralisation);
+
+                                    console.log(lineClone);
+
+                                }, "json"
+                            );
+
+                        }, "json"
+                    );
                 }
 
             });
@@ -533,7 +607,7 @@ class FrontendController{
                     id: elementID,
                 },
                 function (result) {
-                    let posX = result.X + 20 + 40;
+                    let posX = result.X + 20 + 30;
                     let posY = result.Y + 20 + 20;
 
                     let lines = document.getElementsByClassName(elementID);
@@ -558,6 +632,29 @@ class FrontendController{
                 },
                 function (result) {
                     let posX = result.X + 20 + 50;
+                    let posY = result.Y + 20 + 20;
+
+                    let lines = document.getElementsByClassName(elementID);
+                    console.log(lines);
+
+                    for(let line of lines){
+                        line.setAttribute('x1', posX);
+                        line.setAttribute('y1', posY);
+                        console.log(line);
+                    }
+
+                }, "json"
+            );
+        }else if(elementID.includes("isA")){
+
+            $.post(
+                "../Interface/Connector.php",
+                {
+                    function: "getPositionGeneralisation",
+                    id: elementID,
+                },
+                function (result) {
+                    let posX = result.X + 20 + 30;
                     let posY = result.Y + 20 + 20;
 
                     let lines = document.getElementsByClassName(elementID);
@@ -604,6 +701,7 @@ class FrontendController{
 
             }
         );
+        this.drawLinesGeneralisation(idGeneralisation);
     }
 
 }
