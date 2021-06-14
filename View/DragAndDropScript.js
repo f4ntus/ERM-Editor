@@ -188,7 +188,7 @@ function isAClone() {
 }
 
 function openEntityMenu(entity) {
-    document.getElementById("rightMenue").style.visibility = "visible";
+    document.getElementById("rightMenue").style.display = "block";
     document.getElementById("idEntityName").value = entity.innerHTML;
     document.getElementById("pEntityID").innerText = entity.id;
     FrontendController.getEntityFromBackend(entity.id);
@@ -196,7 +196,8 @@ function openEntityMenu(entity) {
 }
 
 function openRelationshipMenu(relationship) {
-    document.getElementById("relationshipMenu").style.visibility = "visible";
+    document.getElementById("generalisationMenu").style.display = "none";
+    document.getElementById("relationshipMenu").style.display = "block";
     document.getElementById("pRelationshipID").innerText = relationship.id;
     document.getElementById("inputRelationshipName").value = relationship.innerText;
     FrontendController.updateRelationship(relationship.id);
@@ -205,6 +206,7 @@ function openRelationshipMenu(relationship) {
 
 function openGeneralisationMenu(generalisation) {
     document.getElementById("generalisationMenu").style.display = "block";
+    document.getElementById("relationshipMenu").style.display = "none";
     document.getElementById("pGeneralisationID").innerText = generalisation.id;
     FrontendController.getGeneralisationFromBackend(generalisation.id);
     //document.getElementById("inputGeneralisationName").value = generalisation.innerText;

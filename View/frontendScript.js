@@ -241,7 +241,7 @@ function onClickFinishEntityMenue() {
     document.getElementById(entityID).innerText = newEntityName;
     if (FrontendController.checkEntityName(newEntityName)){
         FrontendController.pushEntity(entityID, newEntityName);
-        document.getElementById("rightMenue").style.visibility = "hidden";
+        document.getElementById("rightMenue").style.display = "none";
     } else {
         document.getElementById(entityID).innerText = oldEntityName;
         document.getElementById("idEntityName").value = oldEntityName;
@@ -255,7 +255,7 @@ function onClickButtonDeleteEntity() {
 
     //Remove the selected element from the document
     deleteEntity.remove();
-    document.getElementById("rightMenue").style.visibility = "hidden";
+    document.getElementById("rightMenue").style.display = "none";
     $.post(
         "../Interface/Connector.php",
         {
@@ -287,7 +287,7 @@ function onClickButtonDeleteGeneralisation() {
     let deleteGeneralisation = document.getElementById(generalisationID);
     //Remove the selected element from the document
     deleteGeneralisation.remove();
-    document.getElementById("generalisationMenu").style.visibility = "hidden";
+    document.getElementById("generalisationMenu").style.display = "none";
     $.post(
         "../Interface/Connector.php",
         {

@@ -141,7 +141,7 @@ input {
 
 .outputBelow {
     grid-area: footer;
-    background-color: hotpink;
+    background-color: white;
     min-height: 250px;
 }
 
@@ -248,6 +248,27 @@ table {
 }
 
 .button2 {
+    background: #2196F3;
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    height: 60px;
+    width: 100px;
+}
+
+.button3 {
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    margin: 4px 2px;
+    border-radius: 12px;
+    text-align: center;
+    height: 80px;
+    width: 140px;
+    margin: 2px;
+}
+
+.button4 {
     background: blue;
     color: white;
     border-radius: 12px;

@@ -65,9 +65,10 @@
         </svg>
     </div>
 
-    <div id="rightMenue">
+    <div id="rightMenue" style="display: none; visibility: visible">
         <h2 id="displayEntityName"></h2>
-        <p id="pEntityID" style="visibility: hidden"></p>
+        <p id="pEntityID" style="display: none"></p>
+        <label id="inputEntityName">Name Entity</label>
         <input placeholder="Entity name" type="text" id="idEntityName" name="idEntityName">
         <h3>Entity bearbeiten:</h3>
         <table id="idTableEntityAttributes" style="width:100%">
@@ -79,11 +80,11 @@
 
         </table>
         <hr class="hr">
-        <button onclick="onClickButtonAddSingleValueAttribute()" class="button">Einfaches<br>Attribut<br>hinzufügen
+        <button style="margin-left:10px" onclick="onClickButtonAddSingleValueAttribute()" class="button2">Einfaches<br>Attribut<br>hinzufügen
         </button>
-        <button onclick="onClickButtonAddMultiValueAttribute()" class="button">Mehrwertiges<br>Attribut<br>hinzufügen
+        <button style="margin-left:10px; margin-right:10px" onclick="onClickButtonAddMultiValueAttribute()" class="button2">Mehrwertiges<br>Attribut<br>hinzufügen
         </button>
-        <button onclick="onClickButtonAddCompoundAttribute()" class="button">Zusammengesetztes<br>Attribut<br>hinzufügen
+        <button onclick="onClickButtonAddCompoundAttribute()" class="button2">Zusammengesetztes<br>Attribut<br>hinzufügen
         </button>
         <hr class="hr">
         <div class="row" style="display:block" id="idDivAddSimpleAttribute">
@@ -166,11 +167,11 @@
             </div>
         </div>
         <hr class="hr">
-        <button style="margin:0 auto; display:block; margin-bottom: 1%; background: blue; color: white;" class="button"
+        <button style="margin-left:10px" class="button3"
                 onclick="onClickFinishEntityMenue()">
             Fertigstellen
         </button>
-        <button onclick="onClickButtonDeleteEntity()" class="button2">Entity Löschen</button>
+        <button style="margin-left:10px" onclick="onClickButtonDeleteEntity()" class="button2">Entity Löschen</button>
     </div>
     <div class="outputBelow" >
         <div id="generalisationMenu" style="display: none;" ;>
@@ -216,22 +217,21 @@
                         </td>
                     </tr>
                 </table>
-                <button style="margin:0 auto; display:block; margin-bottom: 1%; background: blue; color: white;"
-                        class="button" onclick="onClickFinishGeneralisationMenue()">Fertigstellen
-                </button>
+
             </div>
             <div class="column2">
-                <button class="button" onclick="onClickAddSubtypeRow()">Subtyp hinzufügen</button>
+                <button class="button2" style="margin:10px" onclick="onClickAddSubtypeRow()">Subtyp hinzufügen</button>
+                <button class="button3" style="margin:10px" onclick="onClickFinishGeneralisationMenue()">Fertigstellen</button>
                 <button onclick="onClickButtonDeleteGeneralisation()" class="button2">Generalisierung Löschen</button>
             </div>
         </div>
         <div id="rdmOutput" style="visibility: hidden" > <p id="rdmOutputText"> </p></div>
-        <div id="relationshipMenu" style="visibility: hidden">
-            <p style="visibility: hidden" id="pRelationshipID"></p>
+        <div id="relationshipMenu" style="display: none">
+            <p style="display: none" id="pRelationshipID"></p>
             <div Style="float: left">
-                <label for="inputRelationshipName">RelationshipName</label>
+                <label for="inputRelationshipName">Name Relationship</label>
                 <input id="inputRelationshipName" oninput="onInputRelationshipName(this)" type="text" name="RelationshipName"/>
-                <h1> Relationship bearbeiten</h1>
+                <h3> Relationship bearbeiten:</h3>
                 <table id="tblRelationship">
                     <tr>
                         <th colspan="4">gehört zu</th>
@@ -294,16 +294,16 @@
                         <td><input type="checkbox" name="weakEntity01"></td>
                     </tr>
                 </table>
-                <button id="btnAddRelationship" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen
+                <button id="btnAddRelationship" class="button2" onclick="onClickButtonAddRelationship(3)">Relationship hinzufügen
                 </button>
             </div>
-            <div id="editRelationshipAttribute" Style="float: left; margin-left: 10px">
-                <h3>Entity bearbeiten:</h3>
+            <div id="editRelationshipAttribute" style="float: left; margin-left: 10px">
+                <h3>Relationship-Attribute bearbeiten:</h3>
                 <table id="idTableRelationshipAttributes" style="width:100%">
                 </table>
-                <button onclick="onClickAddSimpleAttributeToRelationship()">Einfaches Attribut hinzufügen</button>
-                <button onclick="onClickAddMultiValueAttributeToRelationship()">Mehrwertiges Attribut hinzufügen</button>
-                <button onclick="onClickAddCompoundAttributeToRelationship()">Zusammengesetzes Attribut hinzufügen
+                <button class="button2" onclick="onClickAddSimpleAttributeToRelationship()">Einfaches Attribut hinzufügen</button>
+                <button class="button2" onclick="onClickAddMultiValueAttributeToRelationship()">Mehrwertiges Attribut hinzufügen</button>
+                <button class="button2" onclick="onClickAddCompoundAttributeToRelationship()">Zusammengesetzes Attribut hinzufügen
                 </button>
                 <div class="row" style="display:block" id="idDivAddSimpleAttributeRel">
 
@@ -390,7 +390,7 @@
                     </div>
                 </div>
             </div>
-            <button onclick="onClickButtonSubmitRelationship()" class="button2">Fertigstellen
+            <button onclick="onClickButtonSubmitRelationship()" class="button3">Fertigstellen
             </button>
             <button onclick="onClickButtonDeleteRelationship()" class="button2">Relationship löschen</button>
         </div>

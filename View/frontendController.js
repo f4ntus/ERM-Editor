@@ -192,16 +192,9 @@ class FrontendController{
                     document.getElementById("dropdownGeneralisationText03").innerText = "default";
                 }
                 else{
-                    //build array
-
-                    //loop array
-                        //set dropdownGeneralisationText01 depending on array
-                    //if 3rd element of array create clone
                     let oResult = JSON.parse(result);
-                    //document.getElementById("displayEntityName").innerHTML = oResult['name'];
-                    document.getElementById(sEntityId).innerHTML = oResult['name'];
-                    let oTable = document.getElementById("idTableEntityAttributes");
-                    FrontendController.clearAndFillAttributeTable(oTable, oResult);
+                    let oTable = document.getElementById("tableGeneralisation");
+                    FrontendController.clearAndFillGeneralisationTable(oTable, oResult);
                 }
             }
         );
@@ -244,13 +237,8 @@ class FrontendController{
 
     static clearAndFillAttributeTable(oTable, oResult) {
         // clear table before refill
-        let tablelenght = oTable.rows.length;
-        console.log(tablelenght);
-        for (let i = 0; i < tablelenght; i++) {
-            console.log(i);
-            if (oTable.rows[0].getElementsByTagName("td").length > 0) {
-                oTable.deleteRow(0);
-            }
+        for(var i = 1;i<oTable.rows.length;){
+            oTable.deleteRow(i);
         }
 
         let aAttributes = oResult.attributes;
@@ -273,6 +261,31 @@ class FrontendController{
             )
         }
 
+    }
+
+    static clearAndFillGeneralisationTable(oTable, oResult) {
+
+        for(var i = 3 ; i<oTable.rows.length; i++){
+            if(oTable.rows[i]=!undefined){
+                oTable.deleteRow(i);
+            }
+        }
+
+        for(let i=0; i<(Object.keys(oResult.subtypes).length)+1; i++){
+            if(i===0){
+                oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.supertype.name;
+            }
+            else{
+                if(typeof(oTable.rows[i]) != 'undefined' && oTable.rows[i] != null){
+                    oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.subtypes[i-1].name;
+                }
+                else{
+                    //create clone
+                    onClickAddSubtypeRow();
+                    oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.subtypes[i-1].name;
+                }
+            }
+        }
     }
 
     // Table Type: 'entityAttributes' -> Attributes for Entities, 'relationshipAttribute', Attributes for Relationship
@@ -302,7 +315,7 @@ class FrontendController{
                }
            }
         }
-        var row = table.insertRow(numberRows-1);
+        var row = table.insertRow(numberRows);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
@@ -588,7 +601,7 @@ class FrontendController{
                 array: arrayGeneralisation
             },
             function(result){
-                alert(result);
+
             }
         );
     }
