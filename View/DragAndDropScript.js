@@ -30,6 +30,7 @@ $(function () {
                     console.info($element.attr("id"));
                     console.info("new Position X: ", newPosX, "new Position Y: ", newPosY);
 
+
                     if ($element.attr("id").includes("entity")) {
                         $function = 'changePositionEntity'
                     } else if ($element.attr("id").includes("relationship")) {
@@ -49,6 +50,11 @@ $(function () {
                         function (result) {
                             console.log(result);
                         });
+
+                    if (lineNumber > 0){
+                        FrontendController.updateLines($element.attr("id"));
+                    }
+
 
                 }
             });
@@ -168,21 +174,21 @@ $(function () {
 
 //create clone from entity-button with new ID
 function entityClone() {
-    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="entity' + entityInputNo + '" class="entity" onclick="openEntityMenu(this)"></button>';
 }
 
 //create clone from relationship-button with new ID
 function relationshipClone() {
-    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="relationship' + relationshipInputNo + '" class="relationship" onclick="openRelationshipMenu(this)"></button>';
 }
 
 //create clone from isA-button with new ID
 function isAClone() {
-    return '<button id="isA' + isAInputNo + '" class="isA" onclick="openGeneralisationMenu(this)" oncontextmenu="openContextMenu(this.id)"></button>';
+    return '<button id="isA' + isAInputNo + '" class="isA" onclick="openGeneralisationMenu(this)"></button>';
 }
 
 function openEntityMenu(entity) {
-    document.getElementById("rightMenue").style.visibility = "visible";
+    document.getElementById("rightMenue").style.display = "block";
     document.getElementById("idEntityName").value = entity.innerHTML;
     document.getElementById("pEntityID").innerText = entity.id;
     FrontendController.getEntityFromBackend(entity.id);
@@ -190,7 +196,8 @@ function openEntityMenu(entity) {
 }
 
 function openRelationshipMenu(relationship) {
-    document.getElementById("relationshipMenu").style.visibility = "visible";
+    document.getElementById("generalisationMenu").style.display = "none";
+    document.getElementById("relationshipMenu").style.display = "block";
     document.getElementById("pRelationshipID").innerText = relationship.id;
     document.getElementById("inputRelationshipName").value = relationship.innerText;
     FrontendController.updateRelationship(relationship.id);
@@ -199,6 +206,7 @@ function openRelationshipMenu(relationship) {
 
 function openGeneralisationMenu(generalisation) {
     document.getElementById("generalisationMenu").style.display = "block";
+    document.getElementById("relationshipMenu").style.display = "none";
     document.getElementById("pGeneralisationID").innerText = generalisation.id;
     FrontendController.getGeneralisationFromBackend(generalisation.id);
     //document.getElementById("inputGeneralisationName").value = generalisation.innerText;
@@ -238,38 +246,4 @@ function openGeneralisationMenu(generalisation) {
 
 }
 
-function openContextMenu(id) {
-
-    document.addEventListener('contextmenu', function (e) {
-        e.preventDefault();
-    }, false);
-
-    const deleteElement = document.getElementById(id)
-    const menu = document.getElementById('menu')
-    const outClick = document.getElementById('editorID')
-
-    deleteElement.addEventListener('contextmenu', e => {
-        e.preventDefault()
-
-        menu.style.left = e.pageX + 'px';
-        menu.style.top = e.pageY + 'px';
-        menu.classList.add('show');
-
-        outClick.style.display = "block";
-    })
-
-    outClick.addEventListener('click', () => {
-        menu.classList.remove('show')
-    })
-
-    const deleteButton = document.getElementById('deleteButton')
-
-    deleteButton.addEventListener('click', () => {
-        //Remove the selected element from the document
-        deleteElement.remove();
-        menu.classList.remove('show')
-    })
-
-
-}
 

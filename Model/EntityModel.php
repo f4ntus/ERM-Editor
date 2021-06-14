@@ -84,6 +84,4 @@ class EntityModel extends ERMObjectwithAttributesModel
 
 
 
-
-
 }

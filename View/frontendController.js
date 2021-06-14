@@ -106,6 +106,8 @@ class FrontendController{
                 console.log(result);
             }
         );
+
+        this.drawLines(sRelationshipID);
     }
 
 
@@ -190,16 +192,9 @@ class FrontendController{
                     document.getElementById("dropdownGeneralisationText03").innerText = "default";
                 }
                 else{
-                    //build array
-
-                    //loop array
-                        //set dropdownGeneralisationText01 depending on array
-                    //if 3rd element of array create clone
                     let oResult = JSON.parse(result);
-                    //document.getElementById("displayEntityName").innerHTML = oResult['name'];
-                    document.getElementById(sEntityId).innerHTML = oResult['name'];
-                    let oTable = document.getElementById("idTableEntityAttributes");
-                    FrontendController.clearAndFillAttributeTable(oTable, oResult);
+                    let oTable = document.getElementById("tableGeneralisation");
+                    FrontendController.clearAndFillGeneralisationTable(oTable, oResult);
                 }
             }
         );
@@ -242,13 +237,8 @@ class FrontendController{
 
     static clearAndFillAttributeTable(oTable, oResult) {
         // clear table before refill
-        let tablelenght = oTable.rows.length;
-        console.log(tablelenght);
-        for (let i = 0; i < tablelenght; i++) {
-            console.log(i);
-            if (oTable.rows[0].getElementsByTagName("td").length > 0) {
-                oTable.deleteRow(0);
-            }
+        for(var i = 1;i<oTable.rows.length;){
+            oTable.deleteRow(i);
         }
 
         let aAttributes = oResult.attributes;
@@ -273,33 +263,59 @@ class FrontendController{
 
     }
 
+    static clearAndFillGeneralisationTable(oTable, oResult) {
+
+        for(var i = 3 ; i<oTable.rows.length; i++){
+            if(oTable.rows[i]=!undefined){
+                oTable.deleteRow(i);
+            }
+        }
+
+        for(let i=0; i<(Object.keys(oResult.subtypes).length)+1; i++){
+            if(i===0){
+                oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.supertype.name;
+            }
+            else{
+                if(typeof(oTable.rows[i]) != 'undefined' && oTable.rows[i] != null){
+                    oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.subtypes[i-1].name;
+                }
+                else{
+                    //create clone
+                    onClickAddSubtypeRow();
+                    oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.subtypes[i-1].name;
+                }
+            }
+        }
+    }
+
     // Table Type: 'entityAttributes' -> Attributes for Entities, 'relationshipAttribute', Attributes for Relationship
     // Call from: 0 -> Client (user add an Attribute), 1 -> Server (update Attributes from Backend)
     static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeName, sAttributeValue, tableType, callFrom, bPrimary = false) {
+        let iStartingNumber;
         if (tableType === 'entityAttribute') {
             var table = document.getElementById("idTableEntityAttributes");
+            iStartingNumber = 1;
         } else { // tableType = relationshipAttribute
             var table = document.getElementById("idTableRelationshipAttributes");
+            iStartingNumber = 0;
         }
         var numberRows = table.rows.length;
         if (numberRows === 20) {
             // ToDo: Maximale Anzahl an Attributen erreicht Fehlermeldung
             return;
         }
-        if (callFrom === 0 && table.rows.length > 1){
+        if (callFrom === 0 && table.rows.length > iStartingNumber){
             // Check if Attributename is already given
-            for( let iRow = 0; iRow < table.rows.length; iRow++){
-                if (table.rows[iRow].getElementsByTagName("td").length > 0){
-                    if (table.rows[iRow].getElementsByTagName("td")[2].innerHTML === sAttributeName){
-                        alert("Der Attribute Name ist bereits vorhanden");
-                        return;
-                    }
-                    // ToDo: Attribute Name bei mehrwertigen und zusammengesetzten Attributen herausfiltern.
-                    // ToDo: Bei der Relationship kommt der Fehler erst beim zweiten Entity.
-                }
-            }
+           let aAttributes = this.getAttributesAsArray(table);
+           for ( let i in aAttributes){
+               console.log(aAttributes[i].name);
+               if (aAttributes[i].name === sAttributeName){
+                   alert("Der Attribute Name ist bereits vorhanden");
+                   return;
+               }
+           }
         }
-        var row = table.insertRow(numberRows-1);
+        var row = table.insertRow(numberRows);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
@@ -377,100 +393,189 @@ class FrontendController{
     }
 
 
-    static drawLines(){
+    static drawLines(sRelationshipID){
 
-        let entity1 = document.getElementById("dropdownEntityText01").innerHTML;
-        let entity2 = document.getElementById("dropdownEntityText02").innerHTML;
-        let relationship = document.getElementById("pRelationshipID").innerHTML;
-        let lineCloneID1 = 'line' + entity1 + relationship;
-        let lineCloneID2 = 'line' + entity2 + relationship;
-
-
+        //get all relations from current relationship
         $.post(
             "../Interface/Connector.php",
             {
-                function: "getPositionEntity",
-                name: entity1,
+                function: "getRelations",
+                id: sRelationshipID,
             },
             function (result) {
-                console.log(result.X);
-                console.log(result.Y);
 
-                let posX = result.X + 20 + 40;
-                let posY = result.Y + 20 + 20;
-
-                let line = document.getElementById("line");
-                let lineClone1 = line.cloneNode();
-
-                lineClone1.setAttribute('id', lineCloneID1)
-                lineClone1.setAttribute('x1', posX);
-                lineClone1.setAttribute('y1', posY);
-                lineClone1.removeAttribute('style');
-
-                document.getElementById("svg1").appendChild(lineClone1);
-
-            }, "json"
-        );
-
-
-
-        $.post(
-            "../Interface/Connector.php",
-            {
-                function: "getPositionRelationship",
-                name: relationship,
-            },
-            function (result) {
                 console.log(result);
-                console.log(result.X);
-                console.log(result.Y);
-                let posX = result.X + 20 + 50;
-                let posY = result.Y + 20 + 20;
+                let oresult = JSON.parse(result);
+                console.log(oresult);
+                //create a new line for each relation
+                for (let i in oresult) {
 
-                let lineClone1 = document.getElementById(lineCloneID1);
+                    lineNumber++;
+                    let lineID = 'line' + lineNumber;
+                    rectNumber++;
+                    let rectID = 'rect' + rectNumber;
+                    textNumber++;
+                    let textID = 'text' + textNumber;
 
-                lineClone1.setAttribute('x2', posX);
-                lineClone1.setAttribute('y2', posY);
-                console.log(lineClone1);
+                    $.post(
+                        "../Interface/Connector.php",
+                        {
+                            function: "getPositionRelationship",
+                            id: sRelationshipID,
+                        },
+                        function (result) {
+                            console.log(sRelationshipID + " resultX: " + result.X + " resultY: " + result.Y);
+                            //adjust position from left upper corner of the element to the middle
+                            let posX1 = result.X + 20 + 28;
+                            let posY1 = result.Y + 20 + 20;
 
-                let line = document.getElementById("line");
-                let lineClone2 = line.cloneNode();
+                            console.log(sRelationshipID + " posX1: " + posX1 + " posY1: " + posY1);
 
-                lineClone2.setAttribute('id', lineCloneID2)
-                lineClone2.setAttribute('x1', posX);
-                lineClone2.setAttribute('y1', posY);
-                lineClone2.removeAttribute('style');
+                            let line = document.getElementById("line");
+                            let lineClone = line.cloneNode();
 
-                document.getElementById("svg1").appendChild(lineClone2);
+                            lineClone.setAttribute('id', lineID)
+                            //set position of the beginning of the line
+                            lineClone.setAttribute('x1', posX1);
+                            lineClone.setAttribute('y1', posY1);
+                            lineClone.removeAttribute('style');
 
-            }, "json"
-        );
+                            document.getElementById("svg1").appendChild(lineClone);
+                            console.log(lineClone);
 
 
-        $.post(
-            "../Interface/Connector.php",
-            {
-                function: "getPositionEntity",
-                name: entity2,
-            },
-            function (result) {
-                console.log(result.X);
-                console.log(result.Y);
+                            $.post(
+                                "../Interface/Connector.php",
+                                {
+                                    function: "getPositionEntity",
+                                    id: oresult[i].id,
+                                },
+                                function (result) {
+                                    console.log(oresult[i].id + " resultX: " + result.X + " resultY: " + result.Y);
+                                    //adjust position from left upper corner of the element to the middle
+                                    let posX2 = result.X + 20 + 40;
+                                    let posY2 = result.Y + 20 + 20;
+                                    console.log(oresult[i].id + " posX2: " + posX2 + " posY2: " + posY2);
 
-                let posX = result.X + 20 + 40;
-                let posY = result.Y + 20 + 20;
+                                    let lineClone = document.getElementById(lineID);
 
-                let lineClone2 = document.getElementById(lineCloneID2);
+                                    //set position of the end of the line
+                                    lineClone.setAttribute('x2', posX2);
+                                    lineClone.setAttribute('y2', posY2);
+                                    lineClone.setAttribute('class', oresult[i].id + " " + sRelationshipID);
 
-                lineClone2.setAttribute('x2', posX);
-                lineClone2.setAttribute('y2', posY);
+                                    console.log(lineClone);
 
-                console.log(lineClone2);
+                                    let textPosX = 0;
+                                    let textPosY = 0;
+                                    let rectPosX = 0;
+                                    let rectPosY = 0;
 
-            }, "json"
-        );
+                                    if(posX1<posX2){
+                                        textPosX = (posX1 + posX2) / 2;
+                                        rectPosX = textPosX - 25;
+                                    }else if (posX1>posX2){
+                                        textPosX = (posX2 + posX1) / 2;
+                                        rectPosX = textPosX - 25;
+                                    }
+
+                                    if (posY1<posY2){
+                                        textPosY = (posY1 + posY2) / 2;
+                                        rectPosY = textPosY - 15;
+                                    }else if (posY1>posY2){
+                                        textPosY = (posY1 + posY2) / 2;
+                                        rectPosY = textPosY - 15;
+                                    }
+
+
+                                    let rect = document.getElementById("rect");
+                                    let rectClone = rect.cloneNode();
+                                    rectClone.setAttribute('id', rectID)
+                                    rectClone.setAttribute('x', rectPosX);
+                                    rectClone.setAttribute('y', rectPosY);
+                                    rectClone.removeAttribute('style');
+                                    document.getElementById("svg1").appendChild(rectClone);
+                                    console.log(rectClone);
+
+                                    let text = document.getElementById("text");
+                                    let textClone = text.cloneNode();
+                                    textClone.setAttribute('id', textID)
+                                    textClone.setAttribute('x', textPosX);
+                                    textClone.setAttribute('y', textPosY);
+                                    textClone.removeAttribute('style');
+                                    textClone.innerHTML = oresult[i].notation;
+                                    document.getElementById("svg1").appendChild(textClone);
+                                    console.log(textClone);
+
+                                }, "json"
+                            );
+                        }, "json"
+                    );
+
+
+
+
+                }
+
+            });
 
     }
+
+    //update position of all lines attached to an element which is moved to a new position
+    static updateLines(elementID){
+
+        if (elementID.includes("entity")){
+
+            $.post(
+                "../Interface/Connector.php",
+                {
+                    function: "getPositionEntity",
+                    id: elementID,
+                },
+                function (result) {
+                    let posX = result.X + 20 + 40;
+                    let posY = result.Y + 20 + 20;
+
+                    let lines = document.getElementsByClassName(elementID);
+                    console.log(lines);
+
+                    for(let line of lines){
+                        line.setAttribute('x2', posX);
+                        line.setAttribute('y2', posY);
+                        console.log(line);
+                    }
+
+                }, "json"
+            );
+
+        }else if(elementID.includes("relationship")){
+
+            $.post(
+                "../Interface/Connector.php",
+                {
+                    function: "getPositionRelationship",
+                    id: elementID,
+                },
+                function (result) {
+                    let posX = result.X + 20 + 50;
+                    let posY = result.Y + 20 + 20;
+
+                    let lines = document.getElementsByClassName(elementID);
+                    console.log(lines);
+
+                    for(let line of lines){
+                        line.setAttribute('x1', posX);
+                        line.setAttribute('y1', posY);
+                        console.log(line);
+                    }
+
+                }, "json"
+            );
+        }
+
+    }
+
+
     static checkEntityName(EntityName){
         let oEntities = document.getElementsByClassName("entity");
         let j =0;
@@ -496,7 +601,7 @@ class FrontendController{
                 array: arrayGeneralisation
             },
             function(result){
-                alert(result);
+
             }
         );
     }

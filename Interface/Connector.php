@@ -83,15 +83,6 @@ if (isset($_POST['function'])) {
     if ($_POST['function'] == 'getGeneralisation') {
         $generalisation = ERMController::getGeneralisation($_SESSION['ERM-Model'], $_POST['id']);
         if (!empty($generalisation->getSubtypes()) && !empty($generalisation->getSupertyp())) {
-
-            //$generalisationArray = [];
-            //$subtype = $generalisation->getSupertyp();
-            //$generalisationArray[0] = $subtype['name'];
-            /*
-            for($i=0; $i <= 10; $i++) {
-                echo $i;
-            }
-            */
             $generalisationArray = GeneralisationController::getGeneralisationAsArray($generalisation);
             echo json_encode($generalisationArray, JSON_FORCE_OBJECT);
         } else {
@@ -163,14 +154,14 @@ if (isset($_POST['function'])) {
 
     if ($_POST['function'] == 'getPositionEntity') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $entity = ERMController::getEntitybyName($ERMModel, $_POST['name']);
+        $entity = ERMController::getEntitybyID($ERMModel, $_POST['id']);
         $position = EntityController::getPosition($entity);
-        //var_dump($position);
         echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
     }
+
     if ($_POST['function'] == 'getPositionRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $relationship = ERMController::getRelationshipByName($ERMModel, $_POST['name']);
+        $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
         $position = RelationshipController::getPosition($relationship);
         echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
     }
@@ -191,6 +182,17 @@ if (isset($_POST['function'])) {
         }
         var_dump($generalisation);
     }
+
+    if ($_POST['function'] == 'getRelations') {
+        $relationship = ERMController::getRelationship($_SESSION['ERM-Model'], $_POST['id']);
+        if ($relationship != NULL) {
+            $relationshipArray = RelationshipController::getRelations($relationship);
+            echo json_encode($relationshipArray, JSON_FORCE_OBJECT);
+        } else {
+            echo 'false';
+        }
+    }
+
 
 }
 

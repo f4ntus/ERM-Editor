@@ -1,3 +1,15 @@
+function onReloadPage(){
+    $.post(
+        "../Interface/Connector.php",
+        {
+            function: "resetERM",
+        },
+        function (result) {
+            alert(result);
+        }
+    );
+}
+
 function generalizationMode(mode) {
     let outputText = document.getElementById("showGeneralizationMode");
     outputText.innerText = mode;
@@ -229,7 +241,7 @@ function onClickFinishEntityMenue() {
     document.getElementById(entityID).innerText = newEntityName;
     if (FrontendController.checkEntityName(newEntityName)){
         FrontendController.pushEntity(entityID, newEntityName);
-        document.getElementById("rightMenue").style.visibility = "hidden";
+        document.getElementById("rightMenue").style.display = "none";
     } else {
         document.getElementById(entityID).innerText = oldEntityName;
         document.getElementById("idEntityName").value = oldEntityName;
@@ -243,7 +255,7 @@ function onClickButtonDeleteEntity() {
 
     //Remove the selected element from the document
     deleteEntity.remove();
-    document.getElementById("rightMenue").style.visibility = "hidden";
+    document.getElementById("rightMenue").style.display = "none";
     $.post(
         "../Interface/Connector.php",
         {
@@ -275,7 +287,7 @@ function onClickButtonDeleteGeneralisation() {
     let deleteGeneralisation = document.getElementById(generalisationID);
     //Remove the selected element from the document
     deleteGeneralisation.remove();
-    document.getElementById("generalisationMenu").style.visibility = "hidden";
+    document.getElementById("generalisationMenu").style.display = "none";
     $.post(
         "../Interface/Connector.php",
         {
@@ -459,7 +471,7 @@ function onClickAddSubAttributeRowRel() {
 
 function onClickButtonSubmitRelationship() {
     FrontendController.pushRelationship();
-    document.getElementById("relationshipMenu").style.visibility = 'hidden';
+    document.getElementById("relationshipMenu").style.display = 'none';
 }
 
 function onClickButtonDeleteRelationship() {
@@ -468,7 +480,7 @@ function onClickButtonDeleteRelationship() {
     let deleteRelationship = document.getElementById(relationshipID);
     //Remove the selected element from the document
     deleteRelationship.remove();
-    document.getElementById("relationshipMenu").style.visibility = "hidden";
+    document.getElementById("relationshipMenu").style.display = "none";
     $.post(
         "../Interface/Connector.php",
         {
@@ -485,11 +497,6 @@ function onClickChangeERMModel() {
     FrontendController.changeERMModel();
 }
 
-
-function onClickButtonDrawLines(){
-    FrontendController.drawLines();
-}
-
 function arrayEquals(a, b) {
     return Array.isArray(a) &&
         Array.isArray(b) &&
@@ -497,3 +504,6 @@ function arrayEquals(a, b) {
         a.every((val, index) => val === b[index]);
 }
 
+lineNumber = 0;
+rectNumber = 0;
+textNumber = 0;
