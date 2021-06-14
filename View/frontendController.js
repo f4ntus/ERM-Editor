@@ -180,7 +180,6 @@ class FrontendController{
             },
             //
             function (result) {
-                console.log(result);
                 var table = document.getElementById("tableGeneralisation");
                 while(table.rows.length > 3){
                     table.deleteRow(3);
@@ -601,6 +600,7 @@ class FrontendController{
                 array: arrayGeneralisation
             },
             function(result){
+                document.getElementById("generalisationMenu").style.display = "none";
 
             }
         );
