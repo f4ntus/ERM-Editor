@@ -471,7 +471,7 @@ function onClickAddSubAttributeRowRel() {
 
 function onClickButtonSubmitRelationship() {
     FrontendController.pushRelationship();
-    document.getElementById("relationshipMenu").style.visibility = 'hidden';
+    document.getElementById("relationshipMenu").style.display = 'none';
 }
 
 function onClickButtonDeleteRelationship() {
@@ -480,7 +480,7 @@ function onClickButtonDeleteRelationship() {
     let deleteRelationship = document.getElementById(relationshipID);
     //Remove the selected element from the document
     deleteRelationship.remove();
-    document.getElementById("relationshipMenu").style.visibility = "hidden";
+    document.getElementById("relationshipMenu").style.display = "none";
     $.post(
         "../Interface/Connector.php",
         {
