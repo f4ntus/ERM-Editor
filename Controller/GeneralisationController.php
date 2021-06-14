@@ -107,4 +107,18 @@ class GeneralisationController
         }
         return $subtypeArray;
     }
+
+    /**
+     * Ausgabe der Subtypen und des Supertypes einer Generalisierung in Array Format
+     * @param EntityModel $generalisation
+     * @return array
+     */
+    public static function getSubtypesAndSupertype(GeneralisationModel $generalisation){
+        $typeArray = [];
+        $typeArray[] = EntityController::getEntityAsArray($generalisation->getSupertyp());
+        foreach ($generalisation->getSubtypes() as $subtype) {
+            $typeArray[] = EntityController::getEntityAsArray($subtype);
+        }
+        return $typeArray;
+    }
 }
