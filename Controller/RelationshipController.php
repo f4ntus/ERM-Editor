@@ -204,6 +204,11 @@ class RelationshipController
         return $relationshipArray;
     }
 
+    /**
+     * Ausgabe aller Relations einer Relationship in Array Format
+     * @param RelationshipModel $relationship
+     * @return array
+     */
     public static function getRelations(RelationshipModel $relationship)
     {
         $relations = array();
