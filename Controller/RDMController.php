@@ -11,6 +11,7 @@ class RDMController
     public static function getRDM(ERMModel $erm, $generalisationstyp)
     {
         $rdm = self::generateRDM($erm, $generalisationstyp);
+        //Umwandeln in ein Array mit Strings.
         $relations = array();
         $j = 0;
         foreach ($rdm->getRelations() as $relation) {

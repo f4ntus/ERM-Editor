@@ -42,9 +42,6 @@ class ERMController
         $erm->deleteEntity($entity);
     }
 
-    public static function printEntities(ERMModel $erm){
-        $erm->printEntities();
-    }
 
     /**
      * Rückgabe eines Entity nach deren Name
@@ -101,7 +98,7 @@ class ERMController
     }
 
     /**
-     * Rückgabe einer Relation nach deren ID
+     * Rückgabe einer Relationship nach deren ID
      * @param ERMModel $erm
      * @param String $id
      * @return RelationshipModel
@@ -122,7 +119,7 @@ class ERMController
     }
 
     /**
-     * Rückgabe einer Relation nach deren Name
+     * Rückgabe einer Relationship nach deren Name
      * @param ERMModel $erm
      * @param String $id
      * @return RelationshipModel
