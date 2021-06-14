@@ -56,7 +56,7 @@ if (isset($_POST['function'])) {
 
     if ($_POST['function'] == 'changePositionRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
+        $relationship = ERMController::getRelationshipbyID($ERMModel, $_POST['id']);
         RelationshipController::changePosition($relationship, $_POST['xaxis'], $_POST['yaxis']);
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
@@ -102,7 +102,7 @@ if (isset($_POST['function'])) {
     }
     if ($_POST['function'] == 'updateRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
+        $relationship = ERMController::getRelationshipbyID($ERMModel, $_POST['id']);
         RelationshipController::setName($relationship, $_POST['name']);
         //var_dump($_POST);
         if (isset($_POST['attributes'])) { // relationship with attributes
@@ -114,7 +114,7 @@ if (isset($_POST['function'])) {
         var_dump($relationship);
     }
     if ($_POST['function'] == 'getRelationship') {
-        $relationship = ERMController::getRelationship($_SESSION['ERM-Model'], $_POST['id']);
+        $relationship = ERMController::getRelationshipbyID($_SESSION['ERM-Model'], $_POST['id']);
         if ($relationship != NULL) {
             $relationshipArray = RelationshipController::getRelationshipAsArray($relationship);
             echo json_encode($relationshipArray, JSON_FORCE_OBJECT);
@@ -132,7 +132,7 @@ if (isset($_POST['function'])) {
     }
     if ($_POST['function'] == 'deleteRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
+        $relationship = ERMController::getRelationshipbyID($ERMModel, $_POST['id']);
         ERMController::deleteRelationship($ERMModel, $relationship);
         $_SESSION['ERM-Model'] = $ERMModel;
         var_dump($ERMModel);
@@ -161,7 +161,7 @@ if (isset($_POST['function'])) {
 
     if ($_POST['function'] == 'getPositionRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
-        $relationship = ERMController::getRelationship($ERMModel, $_POST['id']);
+        $relationship = ERMController::getRelationshipbyID($ERMModel, $_POST['id']);
         $position = RelationshipController::getPosition($relationship);
         echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
     }
@@ -184,7 +184,7 @@ if (isset($_POST['function'])) {
     }
 
     if ($_POST['function'] == 'getRelations') {
-        $relationship = ERMController::getRelationship($_SESSION['ERM-Model'], $_POST['id']);
+        $relationship = ERMController::getRelationshipbyID($_SESSION['ERM-Model'], $_POST['id']);
         if ($relationship != NULL) {
             $relationshipArray = RelationshipController::getRelations($relationship);
             echo json_encode($relationshipArray, JSON_FORCE_OBJECT);

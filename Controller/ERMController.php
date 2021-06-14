@@ -106,7 +106,7 @@ class ERMController
      * @param String $id
      * @return RelationshipModel
      */
-    public static function getRelationship(ERMModel $erm, String $id){
+    public static function getRelationshipbyID(ERMModel $erm, String $id){
         // find relationship
         foreach ($erm->getRelationships() as $relationship)
         {
@@ -121,26 +121,6 @@ class ERMController
         }
     }
 
-    /**
-     * Rückgabe einer Relation nach deren Name
-     * @param ERMModel $erm
-     * @param String $id
-     * @return RelationshipModel
-     */
-    public static function getRelationshipByName(ERMModel $erm, String $name){
-        // find relationship
-        foreach ($erm->getRelationships() as $relationship)
-        {
-            if($relationship->getName()==$name){
-                $selectedRelationship=$relationship;
-            }
-        }
-        if(isset($selectedRelationship)){
-            return $selectedRelationship;
-        } else {
-            return NULL;
-        }
-    }
 
     /**
      * Hinzufügen einer Generaliserung
