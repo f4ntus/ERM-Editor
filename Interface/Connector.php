@@ -166,6 +166,13 @@ if (isset($_POST['function'])) {
         echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
     }
 
+    if ($_POST['function'] == 'getPositionGeneralisation') {
+        $ERMModel = $_SESSION['ERM-Model'];
+        $generalisation = ERMController::getGeneralisation($ERMModel, $_POST['id']);
+        $position = GeneralisationController::getPosition($generalisation);
+        echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
+    }
+
 
     if ($_POST['function'] == 'updateGeneralisation') {
         $ERMModel = $_SESSION['ERM-Model'];
@@ -188,6 +195,16 @@ if (isset($_POST['function'])) {
         if ($relationship != NULL) {
             $relationshipArray = RelationshipController::getRelations($relationship);
             echo json_encode($relationshipArray, JSON_FORCE_OBJECT);
+        } else {
+            echo 'false';
+        }
+    }
+
+    if ($_POST['function'] == 'getSubtypesAndSupertype') {
+        $generalisation = ERMController::getGeneralisation($_SESSION['ERM-Model'], $_POST['id']);
+        if ($generalisation != NULL) {
+            $generalisationArray = GeneralisationController::getSubtypesAndSupertype($generalisation);
+            echo json_encode($generalisationArray, JSON_FORCE_OBJECT);
         } else {
             echo 'false';
         }
