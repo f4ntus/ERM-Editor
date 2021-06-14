@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Anleitung</title>
+</head>
+<body>
+<div class="grid-container">
+    <div class="headline">
+        <ul>
+            <li style="float: left"><a href="EditorView.html">Zurück</a></li>
+            <li><a href="about.asp">Impressum</a></li>
+        </ul>
+    </div>
+
+
+    <div class="instructions">
+        <div class="row">
+            <div class="column" style="width: 15%;"></div>
+            <div class="column" style="width: 70%;">
+
+                <h1>Anleitung:</h1>
+                <h3>Grundlagen der Oberfläche:</h3>
+                <p>Die Oberfläche ist in fünf Bereiche eingeteilt: Die Kopfleiste dient als Absprungpunkt zur Anleitung
+                    und zum Impressum. Die linke Spalte, die ein drittel des Bildschirms bedeckt beeinhaltet die zu
+                    verwendenden Formen, um ein ERM zu modellieren. Außerdem befindet sich darunter die zwei
+                    unterschiedlichen Notationsformen (1,n und min, max Notation). Die Notationsform kann ausgewählt und
+                    aktualisiert werden. Im Bereich darunter kann die Art der Generalisierung ausgewählt werden.
+                    Ebenfalls befindet sich hier der Knopf um das modellierte ERM final umzuwandeln.
+                    Der mittlere große Bereich ist der Editor-Bereich in welchem die Formen auf der linken Seite per
+                    drag-and-drop abgelegt werden.
+                    Im unteren Bereich wird das Relationship-Menü und Generalisierungs-Menü angezeigt.
+                    Der rechte Bereich ist zum initialen Start der Anwendung ausgeblendet. Hierin befindet sich das
+                    Entity-Menü
+                </p>
+                <h3>Entity Anlegen:</h3>
+                <p>Um eine Entity anzulegen muss zunächst vom linken Bereich in den mittleren Bereich die Entity-Form
+                    per drag-and-drop abgelegt werden. Nachdem die Entity platziert wurde muss erneut auf die Entity
+                    geklickt werden, damit sich das Entity-Menü im rechten Bereich öffnet. Hierrin kann nun ganz oben
+                    der Entity-Name eingetragen werden. Darunter befindet sich die Tabelle der dazugehörigen Attribute.
+                    Diese ist initial leer, da noch die Entity noch keine Attribute besitzt. Anschließend muss der
+                    Nutzer sich entscheiden, ob er ein einfaches-, mehrwertiges- oder zusammengesetztes Attribut anlegen
+                    möchte und drückt auf den entsprechenden Knopf. Jenachdem auf welchen Knopf der Nutzer drückt hat er
+                    die Möglichkeit ein einfachaches-, mehrwertiges- oder zusammengesetztes Attribut mit beliebig vielen
+                    Unterattributen zu erstellen. Nachdem der Nutzer auf den dazugehörigen hinzufügen Knopf gedrückt
+                    hat, wird das entsprechende Attribut der Tabelle hinzugefügt. Erst nachdem der Nutzer auf
+                    Fertigstellen gedückt hat werden die gepflegten Attribute gespeichert und dem Entity zugewiesen.
+                    Außerdem kann die Entity über einen Knopf gelöscht werden.</p>
+                <h3>Relation anlegen:</h3>
+                <p>Um eine Relationship anzulegen muss zunächst vom linken Bereich in den mittleren Bereich die
+                    Relationship-Form per drag-and-drop abgelegt werden. Nachdem die Relationship platziert wurde muss
+                    erneut auf die Relationship geklickt werden, damit sich das Relationship-Menü im rechten Bereich
+                    öffnet. Hierrin kann nun ganz oben der Relationship-Name eingetragen werden. Darunter ist das
+                    Relationship-Menü horizontal in drei Bereiche eingeteilt. Im ersten Bereich von links können der
+                    Relationship Entities mit entsprechender Notation und angabe ob es sich um eine schwache Entity
+                    handelt, getätigt werden. Im zweiten Bereich von links können der Relationship Attribute hinzugefügt
+                    werden nach dem gleichen Prinzip wie bei Entities. Im dritten Bereich kann die Relationship
+                    fertiggestellt werden und gelöscht werden. Erst nachdem der Nutzer auf Fertigstellen gedückt hat
+                    werden die gepflegten Entities und Attribute gespeichert und der Relationship zugewiesen. Nach dem
+                    Klick auf fertigstellen, werden die ensprechenden Verbindungslinien im Editor automatisch
+                    erstellt.</p>
+                <h3>Generalisierung anlegen:</h3>
+                <p>Um eine Generalisierung anzulegen muss zunächst vom linken Bereich in den mittleren Bereich die
+                    is-a-Form per drag-and-drop abgelegt werden. Nachdem die Generalisierung platziert wurde muss erneut
+                    auf die Generalisierung geklickt werden, damit sich das Generalisierungsmenü im unteren Bereich
+                    öffnet. Hier kann nun der Supertyp und beliebig viele Subtypen gepflegt werden. Sollten die
+                    gewünschten Entities nicht in der drag-and-drop Box zur Auswahl stehen, muss erneut auf die
+                    Generalisierung geklickt werden. Nachdem die gewünschten Super-und Sub-typen ausgewählt wurden muss
+                    der Nutzer final auf Fertigstellen klicken, damit die Generalisierung gespeichert wird. Nach dem
+                    Klick auf fertigstellen, werden die ensprechenden Verbindungslinien im Editor automatisch erstellt.
+                    Außerdem kann ebenfalls im Menü die Generalisierung per Knopf gelöscht werden.
+                    Um das modellierte ERM umzuwandeln und das relationelle Datenbankmodell zu erhalten, muss final auf
+                    ERM umwandeln auf der linken Seite gedrückt werden.
+                </p>
+            </div>
+            <div class="column" style="width: 15%;"></div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>
