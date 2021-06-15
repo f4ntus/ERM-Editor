@@ -458,7 +458,7 @@ function onClickAddSubAttributeRowRel() {
     var table = document.getElementById("idTableCompoundAttributeRel");
     var numberRows = table.rows.length;
     if (numberRows === 7) {
-        //Maximale Anzahl an Unterattributen erreicht Fehlermeldung
+        alert('Die maximale anzahl an unterattribte ist erreicht')
         return;
     }
     var row = table.insertRow(numberRows - 1);
