@@ -493,6 +493,7 @@ class FrontendController{
                                     rectClone.setAttribute('id', rectID)
                                     rectClone.setAttribute('x', rectPosX);
                                     rectClone.setAttribute('y', rectPosY);
+                                    rectClone.setAttribute('class', lineID);
                                     rectClone.removeAttribute('style');
                                     document.getElementById("svg1").appendChild(rectClone);
                                     console.log(rectClone);
@@ -502,6 +503,7 @@ class FrontendController{
                                     textClone.setAttribute('id', textID)
                                     textClone.setAttribute('x', textPosX);
                                     textClone.setAttribute('y', textPosY);
+                                    textClone.setAttribute('class', lineID);
                                     textClone.removeAttribute('style');
                                     textClone.innerHTML = oresult[i].notation;
                                     document.getElementById("svg1").appendChild(textClone);
@@ -606,16 +608,28 @@ class FrontendController{
                     id: elementID,
                 },
                 function (result) {
-                    let posX = result.X + 20 + 30;
-                    let posY = result.Y + 20 + 20;
-
+                    let posX2 = result.X + 20 + 40;
+                    let posY2 = result.Y + 20 + 20;
+                    console.log("posX2: " + posX2);
+                    console.log("posY2: " + posY2);
                     let lines = document.getElementsByClassName(elementID);
                     console.log(lines);
 
                     for(let line of lines){
-                        line.setAttribute('x2', posX);
-                        line.setAttribute('y2', posY);
+                        line.setAttribute('x2', posX2);
+                        line.setAttribute('y2', posY2);
                         console.log(line);
+
+                        let linePosX1 = line.getAttribute('x1');
+                        let linePosY1 = line.getAttribute('y1');
+                        let posX1 = parseInt(linePosX1);
+                        let posY1 = parseInt(linePosY1);
+
+                        console.log("posX1: " + posX1);
+                        console.log("posY1: " + posY1);
+
+                        FrontendController.updatePositionNotation(posX1, posX2, posY1, posY2, line.id);
+
                     }
 
                 }, "json"
@@ -630,20 +644,32 @@ class FrontendController{
                     id: elementID,
                 },
                 function (result) {
-                    let posX = result.X + 20 + 50;
-                    let posY = result.Y + 20 + 20;
+                    let posX1 = result.X + 20 + 30;
+                    let posY1 = result.Y + 20 + 20;
 
                     let lines = document.getElementsByClassName(elementID);
                     console.log(lines);
 
                     for(let line of lines){
-                        line.setAttribute('x1', posX);
-                        line.setAttribute('y1', posY);
+                        line.setAttribute('x1', posX1);
+                        line.setAttribute('y1', posY1);
                         console.log(line);
+
+                        let linePosX2 = line.getAttribute('x2');
+                        let linePosY2 = line.getAttribute('y2');
+                        let posX2 = parseInt(linePosX2);
+                        let posY2 = parseInt(linePosY2);
+
+                        console.log("posX1: " + posX2);
+                        console.log("posY1: " + posY2);
+
+                        FrontendController.updatePositionNotation(posX1, posX2, posY1, posY2, line.id);
+
                     }
 
                 }, "json"
             );
+
         }else if(elementID.includes("isA")){
 
             $.post(
@@ -669,6 +695,55 @@ class FrontendController{
             );
         }
 
+    }
+
+    //update position of all notations attached to an element/line which is moved to a new position
+    static updatePositionNotation(posX1, posX2, posY1, posY2, lineID){
+
+        let textPosX = 0;
+        let textPosY = 0;
+        let rectPosX = 0;
+        let rectPosY = 0;
+
+        //set position for the notations at the center of the lines
+        if(posX1<posX2){
+            textPosX = (posX1 + posX2) / 2;
+            rectPosX = textPosX - 25;
+            console.log("textPosX: " + textPosX);
+            console.log("rextPosX: " + rectPosX);
+        }else if (posX1>posX2){
+            textPosX = (posX2 + posX1) / 2;
+            rectPosX = textPosX - 25;
+            console.log("textPosX: " + textPosX);
+            console.log("rextPosX: " + rectPosX);
+        }
+
+        if (posY1<posY2){
+            textPosY = (posY1 + posY2) / 2;
+            rectPosY = textPosY - 15;
+            console.log("textPosY: " + textPosY);
+            console.log("rextPosY: " + rectPosY);
+        }else if (posY1>posY2){
+            textPosY = (posY1 + posY2) / 2;
+            rectPosY = textPosY - 15;
+            console.log("textPosY: " + textPosY);
+            console.log("rextPosY: " + rectPosY);
+        }
+
+        let notations = document.getElementsByClassName(lineID);
+        console.log(notations);
+        for(let notation of notations){
+            if (notation.id.includes("rect")){
+                notation.setAttribute('x', rectPosX);
+                notation.setAttribute('y', rectPosY);
+                console.log(notation);
+            }else if(notation.id.includes("text")){
+                notation.setAttribute('x', textPosX);
+                notation.setAttribute('y', textPosY);
+                console.log(notation);
+            }
+
+        }
     }
 
 
