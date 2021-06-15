@@ -147,7 +147,8 @@ if (isset($_POST['function'])) {
     if ($_POST['function'] == 'changeERMModel') {
         $ERMModel = $_SESSION['ERM-Model'];
         //var_dump($ERMModel);
-        $rdmArray = RDMController::getRDM($ERMModel, 1);
+        $generalisationType = intval($_POST['generalisationModel']);
+        $rdmArray = RDMController::getRDM($ERMModel, $generalisationType);
         echo json_encode($rdmArray, JSON_FORCE_OBJECT);
     }
 

@@ -1,4 +1,5 @@
 class FrontendController{
+    // this function pulls the Relationship from the Backend and prefill the Relationship Menu
     static updateRelationship(sRelationshipID){
 
         $.post(
@@ -13,6 +14,8 @@ class FrontendController{
             }
         );
     }
+    // This is the Callback function from the updateRelationship function. It will be called, when the Backend replays
+    // the Relationship
     static getRelationshipCallback(result){
         let oAttributeTable = document.getElementById("idTableRelationshipAttributes");
 
@@ -21,12 +24,14 @@ class FrontendController{
         for (let i =0; i < tablelenght; i++){
             oAttributeTable.deleteRow(-1);
         }
-        if (result != "false"){
+        if (result != "false"){ // the backend replays "false" if something went wrong
             let oresult = JSON.parse(result)
             document.getElementById("inputRelationshipName").value = oresult.name;
             document.getElementById(oresult.id).innerHTML = oresult.name;
             let aAttributes = oresult.attributes;
             console.log(oresult.attributes);
+
+            // filling attribute table in the relationship menu
             for (let i in aAttributes){
                 let row = oAttributeTable.insertRow(-1);
                 let cell1 = row.insertCell(0);
@@ -42,7 +47,8 @@ class FrontendController{
                 }
                 console.log(aAttributes[i].name);
             }
-            //console.log(result);
+
+            // filling the relations table on the relationship menu
             let aRelations = oresult.relations;
             let oRelationsTable = document.getElementById("tblRelationship")
             for (let i in aRelations) {
@@ -59,9 +65,8 @@ class FrontendController{
                 }
             }
         }
-
-
     }
+    // this function push the relationship to the backend
     static pushRelationship (){
         // Informations about the Relationship
         let sRelationshipID = document.getElementById("pRelationshipID").innerHTML;
@@ -106,17 +111,33 @@ class FrontendController{
                 console.log(result);
             }
         );
-
         this.drawLinesRelationship(sRelationshipID);
     }
 
-
+    // this function change the ERM Model into an RDM Model. The Generalization Mode will be pushed to the backend and
+    // the backend will call the RDM Model back
     static changeERMModel() {
         // pushing the data to backend
+        let iGeneralisationModel;
+        switch (document.getElementById("showGeneralizationMode").innerHTML){
+            case 'Hausklassenmodell':
+                iGeneralisationModel = 1;
+                break;
+            case 'Partionierungs-Modell':
+                iGeneralisationModel = 2;
+                break;
+            case 'Volle Redundanz':
+                iGeneralisationModel = 3;
+                break;
+            case 'Überrelation':
+                iGeneralisationModel = 4;
+                break;
+        }
         $.post(
             "../Interface/Connector.php",
             {
                 function: "changeERMModel",
+                generalisationModel: iGeneralisationModel
             },
             function (result) {
                 console.log(result);
@@ -126,7 +147,7 @@ class FrontendController{
             }
         );
     }
-
+    // this is the Callback function from the changeERMModel
     static changeERMModelCallback(result) {
         let oResult = JSON.parse(result);
         let newString = '';
@@ -151,6 +172,7 @@ class FrontendController{
         return newString;
     }
 
+    // this function pulls the entity from the backend and prefill the Entity Menu
     static getEntityFromBackend(sEntityId) {
         $.post(
             "../Interface/Connector.php",
@@ -199,7 +221,7 @@ class FrontendController{
         );
     }
 
-
+   // this function push the relationship to the backend
     static pushEntity(entityID, entityName) {
         let aAttributes = FrontendController.getAttributesAsArray(document.getElementById("idTableEntityAttributes"));
         console.log(aAttributes);
@@ -216,7 +238,7 @@ class FrontendController{
             }
         );
     }
-
+    // ToDo: where used?
     static resetRelationsTable() {
         let oRelationsTable = document.getElementById("tblRelationship");
         let tableLength = oRelationsTable.rows.length;
@@ -234,6 +256,7 @@ class FrontendController{
         }
     }
 
+    // this function clears and refills the attribute tables in the entity- and relationship menu
     static clearAndFillAttributeTable(oTable, oResult) {
         // clear table before refill
         for(var i = 1;i<oTable.rows.length;){
@@ -286,7 +309,9 @@ class FrontendController{
             }
         }
     }
-
+    // this function adds a row to the attribute table in the relationship and the entity menu, when the user creates
+    // a new attribute
+    //
     // Table Type: 'entityAttributes' -> Attributes for Entities, 'relationshipAttribute', Attributes for Relationship
     // Call from: 0 -> Client (user add an Attribute), 1 -> Server (update Attributes from Backend)
     static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeName, sAttributeValue, tableType, callFrom, bPrimary = false) {
@@ -355,7 +380,7 @@ class FrontendController{
         cell1.style.display = "none";
         //sortTable();
     }
-
+    // this function reads the attributes from the attribute table and writes them into an array
     static getAttributesAsArray(oTable) {
         // Informations about the Attributes
 
@@ -671,7 +696,7 @@ class FrontendController{
 
     }
 
-
+    // this function checks if the entity name isn't double
     static checkEntityName(EntityName){
         let oEntities = document.getElementsByClassName("entity");
         let j =0;
