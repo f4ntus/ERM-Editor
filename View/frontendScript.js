@@ -79,7 +79,7 @@ function onClickERMReset() {
         }
     );
 }
-
+//sets display mode for adding singlevalueattribute in entity menu
 function onClickButtonAddSingleValueAttribute() {
 
     document.getElementById("idDivAddSimpleAttribute").style.display = "block";
@@ -87,7 +87,7 @@ function onClickButtonAddSingleValueAttribute() {
     document.getElementById("idDivAddCompoundAttribute").style.display = "none";
 
 }
-
+//sets display mode for adding MultiValueAttribute in entity menu
 function onClickButtonAddMultiValueAttribute() {
 
     document.getElementById("idDivAddSimpleAttribute").style.display = "none";
@@ -95,7 +95,7 @@ function onClickButtonAddMultiValueAttribute() {
     document.getElementById("idDivAddCompoundAttribute").style.display = "none";
 
 }
-
+//sets display mode for adding CompoundAttribute in entity menu
 function onClickButtonAddCompoundAttribute() {
 
     document.getElementById("idDivAddSimpleAttribute").style.display = "none";
@@ -241,7 +241,7 @@ function onClickFinishEntityMenue() {
     document.getElementById(entityID).innerText = newEntityName;
     if (FrontendController.checkEntityName(newEntityName)){
         FrontendController.pushEntity(entityID, newEntityName);
-        document.getElementById("rightMenue").style.display = "none";
+        document.getElementById("rightMenueBox").style.visibility = "hidden";
     } else {
         document.getElementById(entityID).innerText = oldEntityName;
         document.getElementById("idEntityName").value = oldEntityName;
@@ -255,7 +255,7 @@ function onClickButtonDeleteEntity() {
 
     //Remove the selected element from the document
     deleteEntity.remove();
-    document.getElementById("rightMenue").style.display = "none";
+    document.getElementById("rightMenueBox").style.visibility = "hidden";
     $.post(
         "../Interface/Connector.php",
         {
