@@ -104,6 +104,7 @@ function onClickButtonAddCompoundAttribute() {
 
 }
 
+//adds sub attribute to table of compound attribute table in entity menue
 function onClickAddSubAttributeRow() {
 
     var table = document.getElementById("idTableCompoundAttribute");
@@ -119,7 +120,7 @@ function onClickAddSubAttributeRow() {
     cell1.innerHTML = "Unterattribut";
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
-
+//adds 3rd subtype to generalisation menue
 function onClickAddSubtypeRow() {
 
     var table = document.getElementById("tableGeneralisation");
@@ -147,7 +148,7 @@ function onClickAddSubtypeRow() {
     cell2.appendChild(clone);
 }
 
-
+//adds simple attribute to entity table
 function onClickAddSimpleAttributeToTable() {
     var sAttributeName = document.getElementById("idSimpleAttributeName").value;
     FrontendController.addRowAttributeToTable(
@@ -160,6 +161,7 @@ function onClickAddSimpleAttributeToTable() {
         0);
 }
 
+//adds multi value attribute to entity table
 function onClickAddMultiValueAttributeToTable() {
     var sAttributeName = document.getElementById("idMultiValueAttributeName").value;
     var sAttributeValue = "{" + sAttributeName + "}";
@@ -173,6 +175,7 @@ function onClickAddMultiValueAttributeToTable() {
         0);
 }
 
+//adds multi value CompoundAttribute to entity table
 function onClickAddCompoundAttributeToTable() {
     var sUpperAttributeName = document.getElementById("idUpperAttributeName").value;
     var aSubValues = [];
@@ -209,7 +212,7 @@ function onClickDeleteAttribute(oSelectedButton, tableId) {
     table.deleteRow(rowIndex);
 }
 
-
+//sorts entity table by attribute types
 function sortTable() {
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("idTableEntityAttributes");
