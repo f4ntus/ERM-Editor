@@ -33,7 +33,8 @@ class ERMModel
     }
 
     /**
-     * Diese Funktion entfernt eine Entität
+     * Diese Funktion entfern eine Entität
+     * @param EntityModel $entity
      */
     public function deleteEntity(EntityModel $entity)
     {
@@ -45,17 +46,10 @@ class ERMModel
     }
 
 
-    public function printEntities()
-    {
-
-        foreach ($this->entities as $entity) {
-            $entity->printEntity($entity);
-            echo '</br>';
-        }
-    }
 
     /**
-     * Diese Funktion fügt eine RelationshipModel hinzu
+     * Diese Methode fügt eine Relationship hinzu
+     * @param RelationshipModel $relationship
      */
     public function addRelationship(RelationshipModel $relationship)
     {
@@ -63,7 +57,8 @@ class ERMModel
     }
 
     /**
-     * Diese Funktion fügt eine Generalisierung hinzu
+     * Die Methode fügt eine Generaliserung hinzu
+     * @param GeneralisationModel $generalisation
      */
     public function addGeneralisation(GeneralisationModel $generalisation)
     {
@@ -72,7 +67,8 @@ class ERMModel
 
 
     /**
-     * Diese Funktion entfernt eine RelationshipModel
+     * Diese Funktion entfernt eine Relationship
+     * @param RelationshipModel $relationship
      */
     public function deleteRelationship(RelationshipModel $relationship)
     {
@@ -86,6 +82,7 @@ class ERMModel
 
     /**
      * Diese Funktion entfernt eine Generalisierung
+     * @param GeneralisationModel $generalisation
      */
     public function deleteGeneralisation(GeneralisationModel $generalisation)
     {
@@ -161,7 +158,7 @@ class ERMModel
     }
 
     /**
-     * Ausgeben eines Entities
+     * Zurückgeben eines Entity nach Namen
      * @param $name
      * @return EntityModel
      */
@@ -175,6 +172,11 @@ class ERMModel
         return $e;
     }
 
+    /**
+     * Zurückgeben eines Entity nach ID
+     * @param $id
+     * @return EntityModel
+     */
     public function getEntitybyID($id): EntityModel
     {
         foreach ($this->entities as $entity){
@@ -185,6 +187,11 @@ class ERMModel
         return $e;
     }
 
+    /**
+     * Zurückgeben einer Relationship
+     * @param $id
+     * @return RelationshipModel
+     */
     public function getRelationship($id): RelationshipModel
     {
         foreach ($this->relationships as $relationship){
@@ -195,6 +202,11 @@ class ERMModel
         return $r;
     }
 
+    /**
+     * zurückgeben einer Generaliserung
+     * @param $id
+     * @return GeneralisationModel
+     */
     public function getGeneralisation($id): GeneralisationModel
     {
         foreach ($this->generalistions as $generalisation){
