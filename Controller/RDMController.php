@@ -75,7 +75,7 @@ class RDMController
         //Alle Relationen durch gehen
         foreach ($erm->getRelationships() as $relationship) {
             //Die Anzahl von n-Beziehungen ermitteln ($i)
-
+            $relationship->changeNotationtominmax();
             $i = 0;
             foreach ($relationship->getRelations() as $ERMRelation) {
                 if ($ERMRelation->getKard() == '[0,*]' or $ERMRelation->getKard() == '[1,*]') {
@@ -106,7 +106,7 @@ class RDMController
 
                 //Attribute der Relationship in RDM aufnehmen
                 foreach ($relationship->getAttributes() as $ERMAttribute) {
-                    $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), false);
+                    $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), "false");
                     $RDMRelation->addAttribute($RDMAttribute);
                 }
 
@@ -115,7 +115,7 @@ class RDMController
                     $Entity = $ERMRelation->getEntity();
                     foreach ($Entity->getAttributes() as $ERMAttribute) {
                         if ($ERMAttribute->getPrimary()=="true") {
-                            $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), true);
+                            $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), "true");
                             $RDMAttribute->setReferences($Entity->getName());
                             $RDMRelation->addAttribute($RDMAttribute);
                         }

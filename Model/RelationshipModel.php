@@ -142,6 +142,39 @@ class RelationshipModel extends ERMObjectwithAttributesModel
         }
     }
 
+    public function changeNotationtominmax()
+    {
+
+        //Chekcen ob die 1mn Notation verwendet wird{
+            $a = count($this->relations);
+            if ($a == 2) { //Zweier Beziehung
+                //N:M Beziehung
+                $relation1 = current($this->relations);
+                $relation2 = next($this->relations);
+
+                if (($relation1->getKard() == 'm' or $relation1->getKard() == 'n') and ($relation2->getKard() == 'm' or $relation2->getKard() == 'n')) {
+                    $relation1->setKard('[0,*]');
+                    $relation2->setKard('[0,*]');
+                } elseif (($relation1->getKard() == '1') and ($relation2->getKard() == 'm' or $relation2->getKard()) == 'n') {//1:n
+                    $relation1->setKard('[0,*]');
+                    $relation2->setKard('[0,1]');
+                } elseif (($relation2->getKard() == '1') and ($relation1->getKard() == 'm' or $relation1->getKard()) == 'n') {//n:1
+                    $relation2->setKard('[0,*]');
+                    $relation1->setKard('[0,1]');
+                } elseif ($relation1->getKard() == '1' and $relation2->getKard() == '1') { //1:1
+                    $relation1->setKard('[0,1]');
+                    $relation2->setKard('[0,1]');
+                }
+            } else {
+                foreach ($this->relations as $relation){
+                    $relation->setKard('[0,*]');
+                }
+
+
+            }
+        }
+
+
 
 
 }
