@@ -88,7 +88,8 @@ class RelationshipModel extends ERMObjectwithAttributesModel
 
     public function changeNotationto1mn()
     {
-        if (count($this->relations) == 2) {
+        $a = count($this->relations);
+        if ($a == 2) {
             $relation1 = current($this->relations);
             $relation2 = next($this->relations);
             //Vereinfach von [0,1], [1,1] -> A und [0,*], [1,*] -> B
@@ -99,7 +100,7 @@ class RelationshipModel extends ERMObjectwithAttributesModel
                     break;
                 case '[0,*]':
                 case '[1,*]':
-                    $r2 = 'B';
+                    $r1 = 'B';
                     break;
 
             }
@@ -107,7 +108,7 @@ class RelationshipModel extends ERMObjectwithAttributesModel
             switch ($relation2->getKard()) {
                 case '[0,1]':
                 case '[1,1]':
-                    $r1 = 'A';
+                    $r2 = 'A';
                     break;
                 case '[0,*]':
                 case '[1,*]':
@@ -126,11 +127,15 @@ class RelationshipModel extends ERMObjectwithAttributesModel
             } elseif ($r1 == 'B' and $r2 == 'B') { //m:n
                 $relation1->setKard('m');
                 $relation2->setKard('n');
+            } else  { //1:1
+                $relation1->setKard('1');
+                $relation2->setKard('1');
             }
         } else {
-            foreach ($this->relations as $relation) {
+            foreach ($this->relations as $relation){
                 $relation->setKard('n');
             }
+
         }
     }
 

@@ -41,13 +41,12 @@ class RelationshipController
         }
         //Aufräumen
         if (true) {
-            if (count($relations) == 2) { //Zweier Beziehung
+            $a = count($relations);
+            if ($a == 2) { //Zweier Beziehung
                 //N:M Beziehung
                 if (($relations[0]['notation'] == 'm' or $relations[0]['notation'] == 'n') and ($relations[1]['notation'] == 'm' or $relations[1]['notation'] == 'n')) {
                     $relations[0]['notation'] = '[0,*]';
                     $relations[1]['notation'] = '[0,*]';
-                    echo "Test";
-
                 } elseif ($relations[0]['notation'] == '1' and ($relations[1]['notation'] == 'n' or $relations[1]['notation'] == 'm')) { //1:n
                     $relations[0]['notation'] = '[0,*]';
                     $relations[1]['notation'] = '[0,1]';
@@ -59,9 +58,11 @@ class RelationshipController
                     $relations[1]['notation'] = '[0,1]';
                 }
             } else { //Höhere Beziehung
-                foreach ($relations as $relationArray) {
-                    $relationArray['notation'] = '[0,*]';
+                for ($i = 0; $i<$a; $i++){
+                    $relations[$i]['notation'] = '[0,*]';
                 }
+
+
             }
         }
         // creating new relations
@@ -211,6 +212,10 @@ class RelationshipController
      */
     public static function getRelations(RelationshipModel $relationship)
     {
+        if(true){
+            $relationship->changeNotationto1mn();
+        }
+
         $relations = array();
         foreach ($relationship->getRelations() as $relation) {
             $relations[] = [

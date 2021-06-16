@@ -38,7 +38,7 @@ $(function () {
                     } else if ($element.attr("id").includes("isA")) {
                         $function = 'changePositionIsA'
                     }
-
+                    //change position of the dragged element
                     $.post(
                         "../Interface/Connector.php",
                         {
@@ -51,11 +51,11 @@ $(function () {
                             console.log(result);
                         });
 
+
+                    //update position of the lines attached to the dragged element
                     if (lineNumber > 0) {
                         FrontendController.updateLines($element.attr("id"));
                     }
-
-
                 }
             });
 
@@ -63,8 +63,7 @@ $(function () {
             if (ui.draggable.attr('id') == 'entity') {
                 entityInputNo++;
                 $element.attr("id", 'entity' + entityInputNo);
-                newIDEntity = 'entity' + entityInputNo;
-                console.info(newIDEntity)
+                console.info($element.attr("id"))
                 //insert Clone into the droppable container
                 $element.appendTo(this);
 
@@ -76,8 +75,8 @@ $(function () {
                     "../Interface/Connector.php",
                     {
                         function: "addEntity",
-                        id: newIDEntity,
-                        name: newIDEntity,
+                        id: $element.attr("id"),
+                        name: $element.attr("id"),
                         xaxis: firstPosX,
                         yaxis: firstPosY,
                     },
@@ -90,8 +89,7 @@ $(function () {
             if (ui.draggable.attr('id') == 'relationship') {
                 relationshipInputNo++;
                 $element.attr("id", 'relationship' + relationshipInputNo);
-                newIDRelationship = 'relationship' + relationshipInputNo;
-                console.info(newIDRelationship)
+                console.info($element.attr("id"))
                 $element.appendTo(this);
 
                 var firstPosX = ui.offset.left - $(this).offset().left;
@@ -102,8 +100,8 @@ $(function () {
                     "../Interface/Connector.php",
                     {
                         function: "addRelationship",
-                        id: newIDRelationship,
-                        name: newIDRelationship,
+                        id: $element.attr("id"),
+                        name: $element.attr("id"),
                         xaxis: firstPosX,
                         yaxis: firstPosY,
                     },
@@ -115,8 +113,7 @@ $(function () {
             if (ui.draggable.attr('id') == 'isA') {
                 isAInputNo++;
                 $element.attr("id", 'isA' + isAInputNo);
-                newIDIsA = 'isA' + isAInputNo;
-                console.info(newIDIsA)
+                console.info($element.attr("id"))
                 $element.appendTo(this);
 
                 var firstPosX = ui.offset.left - $(this).offset().left;
@@ -127,7 +124,7 @@ $(function () {
                     "../Interface/Connector.php",
                     {
                         function: "addGeneralisation",
-                        id: newIDIsA,
+                        id: $element.attr("id"),
                         xaxis: firstPosX,
                         yaxis: firstPosY,
                     },
