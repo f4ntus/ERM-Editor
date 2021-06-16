@@ -465,31 +465,17 @@ class FrontendController{
 
                                     console.log(lineClone);
 
-                                    let textPosX = 0;
-                                    let textPosY = 0;
-                                    let rectPosX = 0;
-                                    let rectPosY = 0;
+                                    //get position of the notation which consists of a rectangle and a text element
+                                    let positionsNotation = FrontendController.getPositionNotation(posX1, posY1, posX2, posY2);
+                                    let rectPosX = positionsNotation.rectPosX;
+                                    let rectPosY = positionsNotation.rectPosY;
+                                    let textPosX = positionsNotation.textPosX;
+                                    let textPosY = positionsNotation.textPosY;
 
-                                    //set position for the notations at the center of the lines
-                                    if(posX1<posX2){
-                                        textPosX = (posX1 + posX2) / 2;
-                                        rectPosX = textPosX - 25;
-                                    }else if (posX1>posX2){
-                                        textPosX = (posX2 + posX1) / 2;
-                                        rectPosX = textPosX - 25;
-                                    }
-
-                                    if (posY1<posY2){
-                                        textPosY = (posY1 + posY2) / 2;
-                                        rectPosY = textPosY - 15;
-                                    }else if (posY1>posY2){
-                                        textPosY = (posY1 + posY2) / 2;
-                                        rectPosY = textPosY - 15;
-                                    }
-
-
+                                    //create a clone of the origin rectangle element
                                     let rect = document.getElementById("rect");
                                     let rectClone = rect.cloneNode();
+                                    //set position of the rectangle element
                                     rectClone.setAttribute('id', rectID)
                                     rectClone.setAttribute('x', rectPosX);
                                     rectClone.setAttribute('y', rectPosY);
@@ -498,13 +484,16 @@ class FrontendController{
                                     document.getElementById("svg1").appendChild(rectClone);
                                     console.log(rectClone);
 
+                                    //create a clone of the origin text element
                                     let text = document.getElementById("text");
                                     let textClone = text.cloneNode();
+                                    //set position of the text element
                                     textClone.setAttribute('id', textID)
                                     textClone.setAttribute('x', textPosX);
                                     textClone.setAttribute('y', textPosY);
                                     textClone.setAttribute('class', lineID);
                                     textClone.removeAttribute('style');
+                                    //get the selected notation
                                     textClone.innerHTML = oresult[i].notation;
                                     document.getElementById("svg1").appendChild(textClone);
                                     console.log(textClone);
@@ -697,8 +686,9 @@ class FrontendController{
 
     }
 
-    //update position of all notations attached to an element/line which is moved to a new position
-    static updatePositionNotation(posX1, posX2, posY1, posY2, lineID){
+    //calculate the position of the notations in which they are in the middle of the line
+    //return the position of the notation
+    static getPositionNotation(posX1, posY1, posX2, posY2){
 
         let textPosX = 0;
         let textPosY = 0;
@@ -709,26 +699,36 @@ class FrontendController{
         if(posX1<posX2){
             textPosX = (posX1 + posX2) / 2;
             rectPosX = textPosX - 25;
-            console.log("textPosX: " + textPosX);
-            console.log("rextPosX: " + rectPosX);
         }else if (posX1>posX2){
             textPosX = (posX2 + posX1) / 2;
             rectPosX = textPosX - 25;
-            console.log("textPosX: " + textPosX);
-            console.log("rextPosX: " + rectPosX);
         }
 
         if (posY1<posY2){
             textPosY = (posY1 + posY2) / 2;
             rectPosY = textPosY - 15;
-            console.log("textPosY: " + textPosY);
-            console.log("rextPosY: " + rectPosY);
         }else if (posY1>posY2){
             textPosY = (posY1 + posY2) / 2;
             rectPosY = textPosY - 15;
-            console.log("textPosY: " + textPosY);
-            console.log("rextPosY: " + rectPosY);
         }
+
+        //return(rectPosX, rectPosY, textPosX, textPosY)
+        return {
+            rectPosX: rectPosX,
+            rectPosY: rectPosY,
+            textPosX: textPosX,
+            textPosY: textPosY,
+        };
+    }
+
+    //update position of all notations attached to an element/line which is moved to a new position
+    static updatePositionNotation(posX1, posX2, posY1, posY2, lineID){
+
+        let positionsNotation = FrontendController.getPositionNotation(posX1, posY1, posX2, posY2);
+        let rectPosX = positionsNotation.rectPosX;
+        let rectPosY = positionsNotation.rectPosY;
+        let textPosX = positionsNotation.textPosX;
+        let textPosY = positionsNotation.textPosY;
 
         let notations = document.getElementsByClassName(lineID);
         console.log(notations);
