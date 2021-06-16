@@ -86,6 +86,9 @@ class RelationshipModel extends ERMObjectwithAttributesModel
         $this->relations = $relations;
     }
 
+    /**
+     * Die Notation des Objektes in eine 1mn Notation anpassen
+     */
     public function changeNotationto1mn()
     {
         $a = count($this->relations);

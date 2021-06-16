@@ -32,6 +32,7 @@ class AttributeERMModel
     }
 
     /**
+     * Name zurückgeben
      * @return mixed
      */
     public function getName()
@@ -40,6 +41,7 @@ class AttributeERMModel
     }
 
     /**
+     * Namen setzen
      * @param mixed $name
      */
     public function setName($name)
@@ -48,6 +50,7 @@ class AttributeERMModel
     }
 
     /**
+     * Typ zurücknehmen
      * @return mixed
      */
     public function getType()
@@ -56,6 +59,7 @@ class AttributeERMModel
     }
 
     /**
+     * type setzen
      * @param mixed $type
      */
     public function setType($type)
@@ -64,6 +68,7 @@ class AttributeERMModel
     }
 
     /**
+     * Primärschlüssel asugeben (string)
      * @return mixed
      */
     public function getPrimary()
@@ -72,6 +77,7 @@ class AttributeERMModel
     }
 
     /**
+     * Primärschlüssel setzen (string)
      * @param mixed $primary
      */
     public function setPrimary($primary)
@@ -79,14 +85,6 @@ class AttributeERMModel
         $this->primary = $primary;
     }
 
-    public function getInformations(){
-        // diese Funktion muss gelöscht werden
-        $information = array();
-        $information['Name'] = $this->name;
-        $information['Type'] = $this->type;
-        $information['Primary'] = $this->primary;
-        return $information;
-    }
 
 
 }

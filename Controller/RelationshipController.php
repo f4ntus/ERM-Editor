@@ -33,6 +33,12 @@ class RelationshipController
         return $relation;
     }
 
+    /**
+     * Generieren und updaten von einer Relation
+     * @param ERMModel $ERMModel
+     * @param RelationshipModel $relationship
+     * @param array $relations
+     */
     public static function addOrUpdateRealtions(ERMModel $ERMModel, RelationshipModel $relationship, array $relations)
     {
         // deleting existing relations

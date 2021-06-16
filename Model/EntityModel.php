@@ -33,36 +33,6 @@ class EntityModel extends ERMObjectwithAttributesModel
 
     }
 
-
-    /**
-     * Ausgeben der Attrobute
-     */
-    public function printEntity(){
-        echo $this->name.'</br>';
-        echo $this->x.'</br>';
-        echo $this->y.'</br>';
-        foreach ($this->attributes as  $attribute){
-            switch($attribute->getType()){
-                case 1:
-                    echo $attribute->getName().'</br>';
-                    break;
-                case 2:
-                    echo '{'.$attribute->getName().'}'.'</br>';
-                    break;
-                case 3:
-                   // $relatedAttribute = new RelatetedAttributeERMModel();
-                    $relatedAttribute = $attribute;
-                    echo $relatedAttribute->getName().'(';
-                    foreach ($relatedAttribute->getSubnames() as $subname){
-                        echo $subname .' ,';
-                    }
-                    break;
-
-            }
-        }
-    }
-
-
     /**
      * @return mixed
      */

@@ -124,10 +124,7 @@ class EntityController
         $entity->setY($y);
     }
 
-    public static function printEntity(EntityModel $entity)
-    {
-        $entity->printEntity();
-    }
+
 
     /**
      * Ausgabe der Position
@@ -140,23 +137,6 @@ class EntityController
         $position['X'] = $entity->getX();
         $position['Y'] = $entity->getY();
         return $position;
-    }
-
-    /**
-     * Relevante Information aller Attribute erhalten
-     * @param EntityModel $entity
-     * @return array
-     */
-    public static function getAttributes(EntityModel $entity)
-    {
-        $attributes = array();
-
-        foreach ($entity->getAttributes() as $a) {
-            $attributes[] = $a->getInformations();
-        }
-
-        return $attributes;
-
     }
 
 
