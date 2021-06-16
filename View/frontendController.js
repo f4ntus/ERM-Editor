@@ -1,5 +1,6 @@
-class FrontendController{
-    static updateRelationship(sRelationshipID){
+class FrontendController {
+    // this function pulls the Relationship from the Backend and prefill the Relationship Menu
+    static updateRelationship(sRelationshipID) {
 
         $.post(
             "../Interface/Connector.php",
@@ -7,27 +8,32 @@ class FrontendController{
                 function: "getRelationship",
                 id: sRelationshipID,
             },
-            function(result){
+            function (result) {
                 console.log(result);
                 FrontendController.getRelationshipCallback(result);
             }
         );
     }
-    static getRelationshipCallback(result){
+
+    // This is the Callback function from the updateRelationship function. It will be called, when the Backend replays
+    // the Relationship
+    static getRelationshipCallback(result) {
         let oAttributeTable = document.getElementById("idTableRelationshipAttributes");
 
         // clear table before refill
         let tablelenght = oAttributeTable.rows.length;
-        for (let i =0; i < tablelenght; i++){
+        for (let i = 0; i < tablelenght; i++) {
             oAttributeTable.deleteRow(-1);
         }
-        if (result != "false"){
+        if (result != "false") { // the backend replays "false" if something went wrong
             let oresult = JSON.parse(result)
             document.getElementById("inputRelationshipName").value = oresult.name;
             document.getElementById(oresult.id).innerHTML = oresult.name;
             let aAttributes = oresult.attributes;
             console.log(oresult.attributes);
-            for (let i in aAttributes){
+
+            // filling attribute table in the relationship menu
+            for (let i in aAttributes) {
                 let row = oAttributeTable.insertRow(-1);
                 let cell1 = row.insertCell(0);
                 let cell2 = row.insertCell(1);
@@ -35,14 +41,15 @@ class FrontendController{
                 cell1.innerHTML = aAttributes[i].typ;
                 cell1.style.display = "none";
                 cell2.innerHTML = "<button onclick=\"onClickDeleteAttribute(this, \'idTableRelationshipAttributes\')\">X</button>";
-                if (aAttributes[i].typ == 1){
+                if (aAttributes[i].typ == 1) {
                     cell3.innerHTML = '{' + aAttributes[i].name + '}';
                 } else {
                     cell3.innerHTML = aAttributes[i].name;
                 }
                 console.log(aAttributes[i].name);
             }
-            //console.log(result);
+
+            // filling the relations table on the relationship menu
             let aRelations = oresult.relations;
             let oRelationsTable = document.getElementById("tblRelationship")
             for (let i in aRelations) {
@@ -59,10 +66,10 @@ class FrontendController{
                 }
             }
         }
-
-
     }
-    static pushRelationship (){
+
+    // this function push the relationship to the backend
+    static pushRelationship() {
         // Informations about the Relationship
         let sRelationshipID = document.getElementById("pRelationshipID").innerHTML;
         let oRelationship = document.getElementById(sRelationshipID);
@@ -106,17 +113,33 @@ class FrontendController{
                 console.log(result);
             }
         );
-
         this.drawLinesRelationship(sRelationshipID);
     }
 
-
+    // this function change the ERM Model into an RDM Model. The Generalization Mode will be pushed to the backend and
+    // the backend will call the RDM Model back
     static changeERMModel() {
         // pushing the data to backend
+        let iGeneralisationModel;
+        switch (document.getElementById("showGeneralizationMode").innerHTML) {
+            case 'Hausklassenmodell':
+                iGeneralisationModel = 1;
+                break;
+            case 'Partionierungs-Modell':
+                iGeneralisationModel = 2;
+                break;
+            case 'Volle Redundanz':
+                iGeneralisationModel = 3;
+                break;
+            case 'Überrelation':
+                iGeneralisationModel = 4;
+                break;
+        }
         $.post(
             "../Interface/Connector.php",
             {
                 function: "changeERMModel",
+                generalisationModel: iGeneralisationModel
             },
             function (result) {
                 console.log(result);
@@ -127,6 +150,7 @@ class FrontendController{
         );
     }
 
+    // this is the Callback function from the changeERMModel
     static changeERMModelCallback(result) {
         let oResult = JSON.parse(result);
         let newString = '';
@@ -151,6 +175,7 @@ class FrontendController{
         return newString;
     }
 
+    // this function pulls the entity from the backend and prefill the Entity Menu
     static getEntityFromBackend(sEntityId) {
         $.post(
             "../Interface/Connector.php",
@@ -162,7 +187,7 @@ class FrontendController{
                 console.log(result);
                 if (result != "false") {
                     let oResult = JSON.parse(result)
-                   // document.getElementById("displayEntityName").innerHTML = oResult['name'];
+                    // document.getElementById("displayEntityName").innerHTML = oResult['name'];
                     document.getElementById(sEntityId).innerHTML = oResult['name'];
                     let oTable = document.getElementById("idTableEntityAttributes");
                     FrontendController.clearAndFillAttributeTable(oTable, oResult);
@@ -171,6 +196,7 @@ class FrontendController{
         );
     }
 
+    //gets generalisation data from backend depending on frontend generalisation id and loads data into generalisation menu
     static getGeneralisationFromBackend(sGeneralisationId) {
         $.post(
             "../Interface/Connector.php",
@@ -181,16 +207,15 @@ class FrontendController{
             //
             function (result) {
                 var table = document.getElementById("tableGeneralisation");
-                while(table.rows.length > 3){
+                while (table.rows.length > 3) {
                     table.deleteRow(3);
                 }
-                if(result == "false"){
+                if (result == "false") {
 
                     document.getElementById("dropdownGeneralisationText01").innerText = "default";
                     document.getElementById("dropdownGeneralisationText02").innerText = "default";
                     document.getElementById("dropdownGeneralisationText03").innerText = "default";
-                }
-                else{
+                } else {
                     let oResult = JSON.parse(result);
                     let oTable = document.getElementById("tableGeneralisation");
                     FrontendController.clearAndFillGeneralisationTable(oTable, oResult);
@@ -199,7 +224,7 @@ class FrontendController{
         );
     }
 
-
+    // this function push the relationship to the backend
     static pushEntity(entityID, entityName) {
         let aAttributes = FrontendController.getAttributesAsArray(document.getElementById("idTableEntityAttributes"));
         console.log(aAttributes);
@@ -217,6 +242,7 @@ class FrontendController{
         );
     }
 
+    // ToDo: where used?
     static resetRelationsTable() {
         let oRelationsTable = document.getElementById("tblRelationship");
         let tableLength = oRelationsTable.rows.length;
@@ -234,9 +260,10 @@ class FrontendController{
         }
     }
 
+    // this function clears and refills the attribute tables in the entity- and relationship menu
     static clearAndFillAttributeTable(oTable, oResult) {
         // clear table before refill
-        for(var i = 1;i<oTable.rows.length;){
+        for (var i = 1; i < oTable.rows.length;) {
             oTable.deleteRow(i);
         }
 
@@ -262,31 +289,33 @@ class FrontendController{
 
     }
 
+    //clears generalisation table before loading backend data into the menu
     static clearAndFillGeneralisationTable(oTable, oResult) {
 
-        for(var i = 3 ; i<oTable.rows.length; i++){
-            if(oTable.rows[i]=!undefined){
+        for (var i = 3; i < oTable.rows.length; i++) {
+            if (oTable.rows[i] = !undefined) {
                 oTable.deleteRow(i);
             }
         }
 
-        for(let i=0; i<(Object.keys(oResult.subtypes).length)+1; i++){
-            if(i===0){
+        for (let i = 0; i < (Object.keys(oResult.subtypes).length) + 1; i++) {
+            if (i === 0) {
                 oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.supertype.name;
-            }
-            else{
-                if(typeof(oTable.rows[i]) != 'undefined' && oTable.rows[i] != null){
-                    oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.subtypes[i-1].name;
-                }
-                else{
+            } else {
+                if (typeof (oTable.rows[i]) != 'undefined' && oTable.rows[i] != null) {
+                    oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.subtypes[i - 1].name;
+                } else {
                     //create clone
                     onClickAddSubtypeRow();
-                    oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.subtypes[i-1].name;
+                    oTable.rows[i].cells[1].children[0].children[0].innerText = oResult.subtypes[i - 1].name;
                 }
             }
         }
     }
 
+    // this function adds a row to the attribute table in the relationship and the entity menu, when the user creates
+    // a new attribute
+    //
     // Table Type: 'entityAttributes' -> Attributes for Entities, 'relationshipAttribute', Attributes for Relationship
     // Call from: 0 -> Client (user add an Attribute), 1 -> Server (update Attributes from Backend)
     static addRowAttributeToTable(idCheckboxPK, primaryKeyNeeded, attributeType, sAttributeName, sAttributeValue, tableType, callFrom, bPrimary = false) {
@@ -303,16 +332,16 @@ class FrontendController{
             // ToDo: Maximale Anzahl an Attributen erreicht Fehlermeldung
             return;
         }
-        if (callFrom === 0 && table.rows.length > iStartingNumber){
+        if (callFrom === 0 && table.rows.length > iStartingNumber) {
             // Check if Attributename is already given
-           let aAttributes = this.getAttributesAsArray(table);
-           for ( let i in aAttributes){
-               console.log(aAttributes[i].name);
-               if (aAttributes[i].name === sAttributeName){
-                   alert("Der Attribute Name ist bereits vorhanden");
-                   return;
-               }
-           }
+            let aAttributes = this.getAttributesAsArray(table);
+            for (let i in aAttributes) {
+                console.log(aAttributes[i].name);
+                if (aAttributes[i].name === sAttributeName) {
+                    alert("Der Attribute Name ist bereits vorhanden");
+                    return;
+                }
+            }
         }
         var row = table.insertRow(numberRows);
         var cell1 = row.insertCell(0);
@@ -356,6 +385,7 @@ class FrontendController{
         //sortTable();
     }
 
+    // this function reads the attributes from the attribute table and writes them into an array
     static getAttributesAsArray(oTable) {
         // Informations about the Attributes
 
@@ -392,7 +422,7 @@ class FrontendController{
     }
 
     //draw for each relation a line between the relationship and the entity and show the selected notation
-    static drawLinesRelationship(sRelationshipID){
+    static drawLinesRelationship(sRelationshipID) {
 
         //get all relations from current relationship
         $.post(
@@ -507,7 +537,7 @@ class FrontendController{
     }
 
     //draw for each relation a line between the generalisation and the entity
-    static drawLinesGeneralisation(idGeneralisation){
+    static drawLinesGeneralisation(idGeneralisation) {
 
         $.post(
             "../Interface/Connector.php",
@@ -586,9 +616,9 @@ class FrontendController{
     }
 
     //update position of all lines attached to an element which is moved to a new position
-    static updateLines(elementID){
+    static updateLines(elementID) {
 
-        if (elementID.includes("entity")){
+        if (elementID.includes("entity")) {
 
             $.post(
                 "../Interface/Connector.php",
@@ -607,6 +637,7 @@ class FrontendController{
                     for(let line of lines){
                         line.setAttribute('x2', posX2);
                         line.setAttribute('y2', posY2);
+
                         console.log(line);
 
                         let linePosX1 = line.getAttribute('x1');
@@ -624,7 +655,7 @@ class FrontendController{
                 }, "json"
             );
 
-        }else if(elementID.includes("relationship")){
+        } else if (elementID.includes("relationship")) {
 
             $.post(
                 "../Interface/Connector.php",
@@ -642,6 +673,7 @@ class FrontendController{
                     for(let line of lines){
                         line.setAttribute('x1', posX1);
                         line.setAttribute('y1', posY1);
+
                         console.log(line);
 
                         let linePosX2 = line.getAttribute('x2');
@@ -674,7 +706,7 @@ class FrontendController{
                     let lines = document.getElementsByClassName(elementID);
                     console.log(lines);
 
-                    for(let line of lines){
+                    for (let line of lines) {
                         line.setAttribute('x1', posX);
                         line.setAttribute('y1', posY);
                         console.log(line);
@@ -746,24 +778,26 @@ class FrontendController{
         }
     }
 
+    // this function checks if the entity name isn't double
+    static checkEntityName(EntityName) {
 
-    static checkEntityName(EntityName){
         let oEntities = document.getElementsByClassName("entity");
-        let j =0;
-        for (let i in oEntities){
-            if (oEntities[i].innerHTML === EntityName){
+        let j = 0;
+        for (let i in oEntities) {
+            if (oEntities[i].innerHTML === EntityName) {
                 j++;
             }
         }
-        if (j>1){
+        if (j > 1) {
             alert("der Name ist bereits vergeben!");
             return false;
-        }else {
-            return true; 
+        } else {
+            return true;
         }
     }
 
-    static pushGeneralisation (idGeneralisation, arrayGeneralisation){
+    //creates generalisation in backend
+    static pushGeneralisation(idGeneralisation, arrayGeneralisation) {
         $.post(
             "../Interface/Connector.php",
             {
@@ -771,7 +805,7 @@ class FrontendController{
                 id: idGeneralisation,
                 array: arrayGeneralisation
             },
-            function(result){
+            function (result) {
                 document.getElementById("generalisationMenu").style.display = "none";
 
             }

@@ -79,7 +79,7 @@ function onClickERMReset() {
         }
     );
 }
-
+//sets display mode for adding singlevalueattribute in entity menu
 function onClickButtonAddSingleValueAttribute() {
 
     document.getElementById("idDivAddSimpleAttribute").style.display = "block";
@@ -87,7 +87,7 @@ function onClickButtonAddSingleValueAttribute() {
     document.getElementById("idDivAddCompoundAttribute").style.display = "none";
 
 }
-
+//sets display mode for adding MultiValueAttribute in entity menu
 function onClickButtonAddMultiValueAttribute() {
 
     document.getElementById("idDivAddSimpleAttribute").style.display = "none";
@@ -95,7 +95,7 @@ function onClickButtonAddMultiValueAttribute() {
     document.getElementById("idDivAddCompoundAttribute").style.display = "none";
 
 }
-
+//sets display mode for adding CompoundAttribute in entity menu
 function onClickButtonAddCompoundAttribute() {
 
     document.getElementById("idDivAddSimpleAttribute").style.display = "none";
@@ -104,6 +104,7 @@ function onClickButtonAddCompoundAttribute() {
 
 }
 
+//adds sub attribute to table of compound attribute table in entity menue
 function onClickAddSubAttributeRow() {
 
     var table = document.getElementById("idTableCompoundAttribute");
@@ -119,7 +120,7 @@ function onClickAddSubAttributeRow() {
     cell1.innerHTML = "Unterattribut";
     cell2.innerHTML = "<input placeholder=\"\" type=\"text\" id=\"idSubValueAttribute\" name=\"idSubValueAttribute\"/>";
 }
-
+//adds 3rd subtype to generalisation menue
 function onClickAddSubtypeRow() {
 
     var table = document.getElementById("tableGeneralisation");
@@ -147,7 +148,7 @@ function onClickAddSubtypeRow() {
     cell2.appendChild(clone);
 }
 
-
+//adds simple attribute to entity table
 function onClickAddSimpleAttributeToTable() {
     var sAttributeName = document.getElementById("idSimpleAttributeName").value;
     FrontendController.addRowAttributeToTable(
@@ -160,6 +161,7 @@ function onClickAddSimpleAttributeToTable() {
         0);
 }
 
+//adds multi value attribute to entity table
 function onClickAddMultiValueAttributeToTable() {
     var sAttributeName = document.getElementById("idMultiValueAttributeName").value;
     var sAttributeValue = "{" + sAttributeName + "}";
@@ -173,6 +175,7 @@ function onClickAddMultiValueAttributeToTable() {
         0);
 }
 
+//adds multi value CompoundAttribute to entity table
 function onClickAddCompoundAttributeToTable() {
     var sUpperAttributeName = document.getElementById("idUpperAttributeName").value;
     var aSubValues = [];
@@ -209,7 +212,7 @@ function onClickDeleteAttribute(oSelectedButton, tableId) {
     table.deleteRow(rowIndex);
 }
 
-
+//sorts entity table by attribute types
 function sortTable() {
     var table, rows, switching, i, x, y, shouldSwitch;
     table = document.getElementById("idTableEntityAttributes");
@@ -241,7 +244,7 @@ function onClickFinishEntityMenue() {
     document.getElementById(entityID).innerText = newEntityName;
     if (FrontendController.checkEntityName(newEntityName)){
         FrontendController.pushEntity(entityID, newEntityName);
-        document.getElementById("rightMenue").style.display = "none";
+        document.getElementById("rightMenueBox").style.visibility = "hidden";
     } else {
         document.getElementById(entityID).innerText = oldEntityName;
         document.getElementById("idEntityName").value = oldEntityName;
@@ -255,7 +258,7 @@ function onClickButtonDeleteEntity() {
 
     //Remove the selected element from the document
     deleteEntity.remove();
-    document.getElementById("rightMenue").style.display = "none";
+    document.getElementById("rightMenueBox").style.visibility = "hidden";
     $.post(
         "../Interface/Connector.php",
         {
@@ -458,7 +461,7 @@ function onClickAddSubAttributeRowRel() {
     var table = document.getElementById("idTableCompoundAttributeRel");
     var numberRows = table.rows.length;
     if (numberRows === 7) {
-        //Maximale Anzahl an Unterattributen erreicht Fehlermeldung
+        alert('Die maximale anzahl an unterattribte ist erreicht')
         return;
     }
     var row = table.insertRow(numberRows - 1);

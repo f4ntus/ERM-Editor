@@ -147,7 +147,8 @@ if (isset($_POST['function'])) {
     if ($_POST['function'] == 'changeERMModel') {
         $ERMModel = $_SESSION['ERM-Model'];
         //var_dump($ERMModel);
-        $rdmArray = RDMController::getRDM($ERMModel, 1);
+        $generalisationType = intval($_POST['generalisationModel']);
+        $rdmArray = RDMController::getRDM($ERMModel, $generalisationType);
         echo json_encode($rdmArray, JSON_FORCE_OBJECT);
     }
 
@@ -156,21 +157,21 @@ if (isset($_POST['function'])) {
         $ERMModel = $_SESSION['ERM-Model'];
         $entity = ERMController::getEntitybyID($ERMModel, $_POST['id']);
         $position = EntityController::getPosition($entity);
-        echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
+        echo json_encode(array("X" => $position['X'], "Y" => $position['Y']));
     }
 
     if ($_POST['function'] == 'getPositionRelationship') {
         $ERMModel = $_SESSION['ERM-Model'];
         $relationship = ERMController::getRelationshipbyID($ERMModel, $_POST['id']);
         $position = RelationshipController::getPosition($relationship);
-        echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
+        echo json_encode(array("X" => $position['X'], "Y" => $position['Y']));
     }
 
     if ($_POST['function'] == 'getPositionGeneralisation') {
         $ERMModel = $_SESSION['ERM-Model'];
         $generalisation = ERMController::getGeneralisation($ERMModel, $_POST['id']);
         $position = GeneralisationController::getPosition($generalisation);
-        echo json_encode(array("X"=>$position['X'],"Y"=>$position['Y']));
+        echo json_encode(array("X" => $position['X'], "Y" => $position['Y']));
     }
 
 

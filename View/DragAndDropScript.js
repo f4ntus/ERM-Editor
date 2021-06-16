@@ -51,8 +51,9 @@ $(function () {
                             console.log(result);
                         });
 
+
                     //update position of the lines attached to the dragged element
-                    if (lineNumber > 0){
+                    if (lineNumber > 0) {
                         FrontendController.updateLines($element.attr("id"));
                     }
                 }
@@ -183,14 +184,16 @@ function isAClone() {
     return '<button id="isA' + isAInputNo + '" class="isA" onclick="openGeneralisationMenu(this)"></button>';
 }
 
+//opens entityMenu and loads backend data in menu
 function openEntityMenu(entity) {
-    document.getElementById("rightMenue").style.display = "block";
+    document.getElementById("rightMenueBox").style.visibility = "visible";
     document.getElementById("idEntityName").value = entity.innerHTML;
     document.getElementById("pEntityID").innerText = entity.id;
     FrontendController.getEntityFromBackend(entity.id);
 
 }
 
+//opens relationshipMenu and loads backend data in menu
 function openRelationshipMenu(relationship) {
     document.getElementById("generalisationMenu").style.display = "none";
     document.getElementById("relationshipMenu").style.display = "block";
@@ -200,6 +203,7 @@ function openRelationshipMenu(relationship) {
     console.info("öffnet Relationship-Menü");
 }
 
+//opens generalisationMenu and loads backend data in menu
 function openGeneralisationMenu(generalisation) {
     document.getElementById("generalisationMenu").style.display = "block";
     document.getElementById("relationshipMenu").style.display = "none";
