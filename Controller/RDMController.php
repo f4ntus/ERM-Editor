@@ -3,7 +3,7 @@ include_once '../Model/RDMModel.php';
 include_once '../Model/AttributeRDMModel.php';
 include_once '../Model/RelationRDMModel.php';
 
-/**
+/**Hier findet die Umwandlung in das RDM Model statt
  * Class RDMController
  */
 class RDMController
@@ -36,6 +36,7 @@ class RDMController
     }
 
     /**
+     * Ein neues RDM anhand eines ERM erstellen
      * @param ERMModel $erm
      */
     public static function generateRDM(ERMModel $erm, $generalisationstyp)
@@ -74,7 +75,7 @@ class RDMController
         //Alle Relationen durch gehen
         foreach ($erm->getRelationships() as $relationship) {
             //Die Anzahl von n-Beziehungen ermitteln ($i)
-
+            $relationship->changeNotationtominmax();
             $i = 0;
             foreach ($relationship->getRelations() as $ERMRelation) {
                 if ($ERMRelation->getKard() == '[0,*]' or $ERMRelation->getKard() == '[1,*]') {
@@ -105,7 +106,7 @@ class RDMController
 
                 //Attribute der Relationship in RDM aufnehmen
                 foreach ($relationship->getAttributes() as $ERMAttribute) {
-                    $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), false);
+                    $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), "false");
                     $RDMRelation->addAttribute($RDMAttribute);
                 }
 
@@ -114,7 +115,7 @@ class RDMController
                     $Entity = $ERMRelation->getEntity();
                     foreach ($Entity->getAttributes() as $ERMAttribute) {
                         if ($ERMAttribute->getPrimary()=="true") {
-                            $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), true);
+                            $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($RDMRelation->getAttributes(), $ERMAttribute->getName()), "true");
                             $RDMAttribute->setReferences($Entity->getName());
                             $RDMRelation->addAttribute($RDMAttribute);
                         }
@@ -200,117 +201,7 @@ class RDMController
             }
         }
     }
-//LÖSCHEN!!!!
-    /*
-        /** Auswahl des Generaliserungsmodell
-         * @param RDMModel $rdm
-         * @param ERMModel $erm
-         * @param int $generaliserungstyp
 
-        private static function createGeneralisierungsmodells(RDMModel $rdm, ERMModel $erm, int $generaliserungstyp){
-            switch ($generaliserungstyp){
-                case 1:
-                    self::generalisoerungbyHausklassenmodell($rdm, $erm);
-                    break;
-                case 2;
-                    self::generalisoerungbyPartionierungsmodell($rdm, $erm);
-                    break;
-                case 3:
-                    self::generalisoerungbyHausklassenmodell($rdm, $erm);
-                    break;
-                case 4:
-                    self::generalisoerungbyUeberrelation($rdm, $erm);
-                    break;
-             }
-
-        }
-
-        /**Generaliserung nach Hausklassenmodell
-         * @param RDMModel $rdm
-         * @param ERMModel $erm
-
-        private static function generalisoerungbyHausklassenmodell (RDMModel $rdm, ERMModel $erm){
-            foreach ($erm->getGeneralistions() as $generalisation){
-                $supertyp = $generalisation->getSupertyp();
-                foreach ($generalisation->getSubtypes() as $subtype){
-                    $relation = new RelationRDMModel(cleanNamefromERMObject($subtype->getName(),$rdm->getRelations()), $subtype);
-                    self::addRelationfromEntity($subtype, $relation, $rdm);
-                    //Die Attribute der SuperTyp dem Subtyp hinzufügen
-
-                    foreach ($rdm->getRelations() as $oldRelation) {
-                        if(in_array($supertyp, $oldRelation->getERMobjects()))
-                        {
-                            foreach ($oldRelation->getAttributes() as $RDMAttribute) {
-                                $relation->addAttribute($RDMAttribute);
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-
-        /**Generaliserung nach Partionierungsmodell
-         * @param RDMModel $rdm
-         * @param ERMModel $erm
-
-        private static function generalisoerungbyPartionierungsmodell (RDMModel $rdm, ERMModel $erm){
-            foreach ($erm->getGeneralistions() as $generalisation){
-                $supertyp = $generalisation->getSupertyp();
-                foreach ($generalisation->getSubtypes() as $subtype) {
-                    $relation = new RelationRDMModel($subtype->getName(), $subtype);
-                    self::addRelationfromEntity($subtype, $relation, $rdm);
-                    //Die Primärschlüssel  der SuperTyp dem Subtyp hinzufügen
-
-                    foreach ($rdm->getRelations() as $oldRelation) {
-                        if (in_array($supertyp, $oldRelation->getERMobjects())) {
-                            foreach ($oldRelation->getAttributes() as $RDMAttribute) {
-                                if ($RDMAttribute->getPrimary()) {
-                                    $relation->addAttribute($RDMAttribute);
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-
-        private static function generalisoerungbyVolleRedundanz (RDMModel $rdm, ERMModel $erm){
-
-        }
-
-        /**Generaliserung nach Überrelation
-         * @param RDMModel $rdm
-         * @param ERMModel $erm
-
-        private static function generalisoerungbyUeberrelation (RDMModel $rdm, ERMModel $erm){
-            //Typ Attribute
-            $typAttribute = new AttributeRDMModel();
-            $typAttribute->setName('Typ');
-            $typAttribute->setPrimary(false);
-            foreach ($erm->getGeneralistions() as $generalisation){
-                $supertyp = $generalisation->getSupertyp();
-                foreach ($generalisation->getSubtypes() as $subtype) {
-                    //Die Attribute der Relation hinzufügen
-                    foreach ($rdm->getRelations() as $oldRelation)
-                    {
-                        //superrelation wurde gefunden
-                        if(in_array($supertyp, $oldRelation->getERMobjects()))
-                        {
-
-                            if(!in_array($typAttribute, $oldRelation->getAttributes())) {
-                                $oldRelation->addAttribute($typAttribute);
-                            }
-                            self::addRelationfromEntity($subtype, $oldRelation, $rdm);
-                            $oldRelation->addERMObject($subtype);
-                        }
-
-                    }
-                }
-            }
-        }
-    */
     /**Anhand einer Relation werden die Attribute einer Entity in einer Relation übertragen bzw. bei mehrwertigen Attributen wird neuer Relation erstellt
      * @param EntityModel $entity
      * @param RelationRDMModel $relation
@@ -371,11 +262,6 @@ class RDMController
     {
         return $rdm->getRelations();
 
-    }
-
-    public static function printRDM(RDMModel $rdm)
-    {
-        return $rdm->printRDM();
     }
 
 

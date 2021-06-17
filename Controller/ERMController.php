@@ -42,9 +42,6 @@ class ERMController
         $erm->deleteEntity($entity);
     }
 
-    public static function printEntities(ERMModel $erm){
-        $erm->printEntities();
-    }
 
     /**
      * Rückgabe eines Entity nach deren Name

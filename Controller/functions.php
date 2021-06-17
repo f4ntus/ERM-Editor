@@ -1,7 +1,12 @@
 <?php
 
 
-
+/**
+ * DIese Funktion kontrolliert den Namen. Falls der Name bereitsvorhanden ist, wird ein neuer Name genneriert.
+ * @param array $array
+ * @param string $name
+ * @return string
+ */
 function cleanNamefromERMObject(array $array, string $name){
     $basicname=$name;
     $i=1;

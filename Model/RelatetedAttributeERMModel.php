@@ -34,20 +34,6 @@ class RelatetedAttributeERMModel extends AttributeERMModel
         $this->subnames = $subnames;
     }
 
-    public function getInformations()
-    {
-        $information = array();
-        $name = $this->name . ' (';
-        foreach ($this->subnames as $s) {
-            $name = $name . ' ' . $s;
-        }
-        $name = $name . ')';
-
-        $information['Name'] = $name;
-        $information['Type'] = $this->type;
-        $information['Primary'] = $this->primary;
-        return $information;
-    }
 
 
 }

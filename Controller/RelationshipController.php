@@ -33,13 +33,19 @@ class RelationshipController
         return $relation;
     }
 
+    /**
+     * Generieren und updaten von einer Relation
+     * @param ERMModel $ERMModel
+     * @param RelationshipModel $relationship
+     * @param array $relations
+     */
     public static function addOrUpdateRealtions(ERMModel $ERMModel, RelationshipModel $relationship, array $relations)
     {
         // deleting existing relations
         foreach ($relationship->getRelations() as $relation) {
             RelationshipController::deleteRelation($relationship, $relation);
         }
-        //Aufräumen
+        //Umwandeln der View in eine minmax Notation, wenn sie als 1mn Notation kommt.
         if (true) {
             $a = count($relations);
             if ($a == 2) { //Zweier Beziehung
@@ -58,7 +64,7 @@ class RelationshipController
                     $relations[1]['notation'] = '[0,1]';
                 }
             } else { //Höhere Beziehung
-                for ($i = 0; $i<$a; $i++){
+                for ($i = 0; $i<$a-1; $i++){
                     $relations[$i]['notation'] = '[0,*]';
                 }
 
