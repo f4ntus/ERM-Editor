@@ -248,7 +248,7 @@ class ERMController
      * @param ERMModel $erm
      */
     private static function generalisierungbyUeberrelation (ERMModel $erm){
-        $typ = new AttributeERMModel("__Hierarchietyp", 1, false);
+        $typ = new AttributeERMModel("__Hierarchietyp", 0, false);
         foreach ($erm->getGeneralistions() as $generalisation) {
             $supertyp = $generalisation->getSupertyp();
             do {
