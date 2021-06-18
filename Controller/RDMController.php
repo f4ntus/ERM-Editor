@@ -242,13 +242,13 @@ class RDMController
                 $relationfromultivaluesattribute = new RelationRDMModel(cleanNamefromERMObject($rdm->getRelations(), $entity->getName() . $ERMAttribute->getName()));
                 foreach ($relation->getAttributes() as $attribute) {
                     if ($attribute->getPrimary()=="true") {
-                        $newattribute = new AttributeRDMModel(cleanNamefromERMObject($relationfromultivaluesattribute->getAttributes(), $attribute->getName()), true);
+                        $newattribute = new AttributeRDMModel(cleanNamefromERMObject($relationfromultivaluesattribute->getAttributes(), $attribute->getName()), "true");
                         $newattribute->setReferences($relation->getName());
                         $relationfromultivaluesattribute->addAttribute($newattribute);
 
                     }
                 }
-                $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($relationfromultivaluesattribute->getAttributes(), $ERMAttribute->getName()), true);
+                $RDMAttribute = new AttributeRDMModel(cleanNamefromERMObject($relationfromultivaluesattribute->getAttributes(), $ERMAttribute->getName()), "true");
                 $RDMAttribute->setName($ERMAttribute->getName());
                 $RDMAttribute->setPrimary("true");
                 $relationfromultivaluesattribute->addAttribute($RDMAttribute);
