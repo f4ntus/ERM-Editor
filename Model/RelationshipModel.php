@@ -96,6 +96,8 @@ class RelationshipModel extends ERMObjectwithAttributesModel
             $relation1 = current($this->relations);
             $relation2 = next($this->relations);
             //Vereinfach von [0,1], [1,1] -> A und [0,*], [1,*] -> B
+            $r1= null;
+            $r2 = null;
             switch ($relation1->getKard()) {
                 case '[0,1]':
                 case '[1,1]':
