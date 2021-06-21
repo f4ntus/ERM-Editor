@@ -263,8 +263,14 @@ class FrontendController {
     // this function clears and refills the attribute tables in the entity- and relationship menu
     static clearAndFillAttributeTable(oTable, oResult) {
         // clear table before refill
-        for (var i = 1; i < oTable.rows.length;) {
-            oTable.deleteRow(i);
+
+        let tablelength = oTable.rows.length;
+        console.log(tablelength)
+        for (let i = 0; i < tablelength; i++){
+            console.log(i);
+            if(oTable.rows[0].getElementsByTagName("td").length > 0) {
+                oTable.deleteRow(0);
+            }
         }
 
         let aAttributes = oResult.attributes;
@@ -343,7 +349,7 @@ class FrontendController {
                 }
             }
         }
-        var row = table.insertRow(numberRows);
+        var row = table.insertRow(numberRows-1);
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
