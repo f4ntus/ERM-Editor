@@ -1,5 +1,9 @@
-<?php
 
+<?php
+/**
+ * This file connects the frontend and the backend.
+ * The function, which should be called is inside the $_POST['function'] variable
+ */
 include_once '../Controller/EntityController.php';
 include_once '../Controller/ERMController.php';
 include_once '../Controller/RelationshipController.php';

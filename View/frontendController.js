@@ -1,3 +1,7 @@
+/**
+ * in the FrontendController Class are all logical functions among the frontend implemented.
+ *
+ */
 class FrontendController {
     // this function pulls the Relationship from the Backend and prefill the Relationship Menu
     static updateRelationship(sRelationshipID) {

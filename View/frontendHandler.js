@@ -1,3 +1,7 @@
+/**
+ * this is the Handler for all Events from the Frontend.
+ */
+
 function onReloadPage(){
     $.post(
         "../Interface/Connector.php",
